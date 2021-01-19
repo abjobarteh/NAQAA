@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Systemadmin\Index as sysadmindashboard;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+require __DIR__.'/auth.php';
+
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::group(['prefix' => 'systemadmin','as' => 'systemadmin.','middleware'=> 'role:systemadmin'], function(){
+        Route::get('/', sysadmindashboard::class)->name('index');
+    });
 });
