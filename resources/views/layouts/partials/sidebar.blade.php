@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.users')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -34,7 +34,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.institutions')}}" class="nav-link">
               <i class="nav-icon fas fa-university"></i>
               <p>
                 Institutions
@@ -42,39 +42,50 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.departments')}}" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
                 Departments
               </p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
-                Regions
+                Subdivisions
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('systemadmin.regions')}}" class="nav-link">
+                  <i class="nav-icon fas fa-map-signs"></i>
+                  <p>
+                    Regions
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('systemadmin.districts')}}" class="nav-link">
+                  <i class="nav-icon fas fa-map-marker-alt"></i>
+                  <p>
+                    Districts
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('systemadmin.towns-villages')}}" class="nav-link">
+                  <i class="nav-icon fas fa-road"></i>
+                  <p>
+                    Towns/Villages
+                  </p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-map-marker-alt"></i>
-              <p>
-                Districts
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-road"></i>
-              <p>
-                Towns/Villages
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{route('systemadmin.index')}}" class="nav-link">
+            <a href="{{route('systemadmin.settings')}}" class="nav-link">
               <i class="nav-icon fas fa-user-cog"></i>
               <p>
                 Settings
