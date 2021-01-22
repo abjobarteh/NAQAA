@@ -18,7 +18,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{route('systemadmin.index')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -49,40 +49,13 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
+          <li class="nav-item">
+            <a href="{{route('systemadmin.subdivisions')}}" class="nav-link">
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Subdivisions
-                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{route('systemadmin.regions')}}" class="nav-link">
-                  <i class="nav-icon fas fa-map-signs"></i>
-                  <p>
-                    Regions
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('systemadmin.districts')}}" class="nav-link">
-                  <i class="nav-icon fas fa-map-marker-alt"></i>
-                  <p>
-                    Districts
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{route('systemadmin.towns-villages')}}" class="nav-link">
-                  <i class="nav-icon fas fa-road"></i>
-                  <p>
-                    Towns/Villages
-                  </p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-item">
             <a href="{{route('systemadmin.settings')}}" class="nav-link">
