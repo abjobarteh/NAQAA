@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="username">Username</label>
-                                            <input type="text" class="form-control" placeholder="Enter Username" wire:model="username">
+                                            <input type="text" class="form-control" placeholder="Enter Username" wire:model.lazy="username">
                                           </div>
                                           <div class="mt-1">
                                               @error('username')
@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email">Email</label>
-                                            <input type="email" class="form-control" placeholder="Enter Email" wire:model="email">
+                                            <input type="email" class="form-control" placeholder="Enter Email" wire:model.lazy="email">
                                           </div>
                                           <div class="mt-1">
                                             @error('email')
@@ -55,7 +55,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password">Password</label>
-                                            <input type="password" class="form-control" placeholder="Password" wire:model="password">
+                                            <input type="password" class="form-control" placeholder="Password" wire:model.lazy="password">
                                           </div>
                                           <div class="mt-1">
                                             @error('password')
@@ -66,7 +66,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password_confirmation">Confirm Password</label>
-                                            <input type="password" class="form-control" placeholder="Confirm Password" wire:model="password_confirmation">
+                                            <input type="password" class="form-control" placeholder="Confirm Password" wire:model.lazy="password_confirmation">
                                           </div>
                                     </div>
                                 </div>
@@ -74,7 +74,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name" wire:model="first_name">
+                                            <input type="text" class="form-control" placeholder="First Name" wire:model.lazy="first_name">
                                           </div>
                                           <div class="mt-1">
                                             @error('first_name')
@@ -85,7 +85,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Middle Name</label>
-                                            <input type="text" class="form-control" placeholder="Middle Name" wire:model="middle_name">
+                                            <input type="text" class="form-control" placeholder="Middle Name" wire:model.lazy="middle_name">
                                           </div>
                                           <div class="mt-1">
                                             @error('midle_name')
@@ -96,7 +96,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" wire:model="last_name">
+                                            <input type="text" class="form-control" placeholder="Last Name" wire:model.lazy="last_name">
                                           </div>
                                           <div class="mt-1">
                                             @error('last_name')
@@ -109,7 +109,7 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number">Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number" wire:model="phone_number">
+                                            <input type="text" class="form-control" placeholder="Phone Number" wire:model.lazy="phone_number">
                                           </div>
                                           <div class="mt-1">
                                             @error('phone_number')
@@ -120,7 +120,7 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="address">Address</label>
-                                            <input type="text" class="form-control" placeholder="Address" wire:model="address">
+                                            <input type="text" class="form-control" placeholder="Address" wire:model.lazy="address">
                                           </div>
                                           <div class="mt-1">
                                             @error('address')
@@ -133,14 +133,13 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Department</label>
-                                            <select class="form-control select2bs4" style="width: 100%;" wire:model="department">
-                                              <option selected="selected">Select department</option>
-                                              <option>Alaska</option>
-                                              <option>California</option>
-                                              <option>Delaware</option>
-                                              <option>Tennessee</option>
-                                              <option>Texas</option>
-                                              <option>Washington</option>
+                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="department">
+                                              <option selected>Select department</option>
+                                              @forelse ($departments as $dept)  
+                                              <option value="{{$dept->id}}">{{$dept->department_name}}</option>
+                                            @empty
+                                              <option>No Departments registered in the system</option>
+                                            @endforelse
                                             </select>
                                           </div>
                                           <div class="mt-1">
@@ -152,14 +151,14 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Role</label>
-                                            <select class="form-control select2bs4" style="width: 100%;" wire:model="role">
-                                              <option selected="selected">Select Role</option>
-                                              <option>Alaska</option>
-                                              <option>California</option>
-                                              <option>Delaware</option>
-                                              <option>Tennessee</option>
-                                              <option>Texas</option>
-                                              <option>Washington</option>
+                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="role">
+                                              <option selected>Select Role</option>
+                                              @forelse ($roles as $r)  
+                                                <option value="{{$r->id}}">{{$r->role_name}}</option>
+                                              @empty
+                                                <option>No Roles registered in the system</option>
+                                              @endforelse
+                                              
                                             </select>
                                           </div>
                                           <div class="mt-1">
@@ -179,20 +178,5 @@
             </div>
         </div>
     </div>
-    @section('page-level-header-files')
-         <!-- Select2 -->
-        <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
-        <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css"> 
-    @endsection
-    @section('page-level-footer-files')
-        <!-- Select2 -->
-        <script src="/plugins/select2/js/select2.full.min.js"></script>
-        <script>
-            //Initialize Select2 Elements
-            $('.select2bs4').select2({
-            theme: 'bootstrap4'
-            })
-        </script> 
-    @endsection
 
 </div>

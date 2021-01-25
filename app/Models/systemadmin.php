@@ -14,7 +14,17 @@ class systemadmin extends Model
 
     public function getAllUsers()
     {
-        return DB::table('users')->orderBy('created_at','desc')->get();
+        return DB::table('users')
+                ->leftJoin('roles','users.role_id','roles.id')
+                ->leftJoin('departments','users.department_id','departments.id')
+                ->select('users.*','roles.role_name','departments.department_name')
+                ->orderBy('created_at','desc')->get();
+    }
+
+    public function getUserAccountDetails($id){
+        return DB::table('users')
+                ->where('id',$id)
+                ->get();
     }
 
     public function getSubdivisionsByType(string $subdivision)
@@ -36,6 +46,16 @@ class systemadmin extends Model
                     'towns_villages.created_at')
                     ->get();
         }
+    }
+
+    public function getRoles()
+    {
+        return DB::table('roles')->select('id','role_name')->orderBy('created_at','desc')->get();
+    }
+
+    public function getDepartments()
+    {
+        return DB::table('departments')->orderBy('created_at','desc')->get();
     }
 
     
@@ -109,11 +129,72 @@ class systemadmin extends Model
             'phone_number' => $data->phone_number,
             'address' => $data->address,
             'role_id' => 1,
-            'department_id' => null,
+            'department_id' => $data->department,
             'user_status' => 1,
             'default_password_status' => 0,
         ]);
     }
     
+    public function createDepartment($data)
+    {
+        $data = json_decode($data);
+
+        DB::table('departments')->insert([
+            'department_name' => $data->departmentName,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+    }
+
+    // change user account status
+
+    public function changeAccountStatus($id,$status){
+        DB::table('users')->where('id',$id)
+            ->update([
+                'user_status' => $status,
+                'updated_at' => Carbon::now(),
+            ]); 
+    }
+
+    public function updateUser($id, $data, $passwordUpdateStatus){
+        $data = json_decode($data);
+        if($passwordUpdateStatus == 1){
+            DB::table('users')->where('id',$id)
+            ->update([
+                'username' => $data->username,
+                'email' => $data->email,
+                'password' => Hash::make($data->password),
+                'first_name' => $data->first_name,
+                'middle_name' => $data->middle_name ?? null,
+                'last_name' => $data->last_name,
+                'full_name' => $data->first_name.' '.$data->middle_name.' '.$data->last_name ?? $data->first_name.' '.$data->last_name,
+                'phone_number' => $data->phone_number,
+                'address' => $data->address,
+                'role_id' => $data->role,
+                'department_id' => $data->department,
+                'user_status' => 1,
+                'default_password_status' => 0,
+                'updated_at' => Carbon::now(), 
+            ]);
+        }else{
+            DB::table('users')->where('id',$id)
+            ->update([
+                'username' => $data->username,
+                'email' => $data->email,
+                'first_name' => $data->first_name,
+                'middle_name' => $data->middle_name ?? null,
+                'last_name' => $data->last_name,
+                'full_name' => $data->first_name.' '.$data->middle_name.' '.$data->last_name ?? $data->first_name.' '.$data->last_name,
+                'phone_number' => $data->phone_number,
+                'address' => $data->address,
+                'role_id' => $data->role_id,
+                'department_id' => $data->department,
+                'user_status' => 1,
+                'default_password_status' => 0, 
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+       
+    }
   
 }

@@ -3,24 +3,36 @@
 namespace App\Http\Livewire\Systemadmin;
 
 use App\Models\systemadmin;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class AddUser extends Component
+class EditUser extends Component
 {
     public $username, $email, $password, $password_confirmation, $first_name, $middle_name, $last_name, $phone_number, $address, $role, $department;
     public $roles, $departments;
-    public $systemadminModel;
+    public $systemadminModel, $details, $userId;
 
-    public function mount(systemadmin $systemadmin){
+    public function mount(systemadmin $systemadmin, $id){
         $this->systemadminModel = $systemadmin;
+        $this->userId = $id;
+        $this->details = json_decode($this->systemadminModel->getUserAccountDetails($this->userId));
+        $this->username = $this->details[0]->username;
+        $this->email = $this->details[0]->email;
+        $this->first_name = $this->details[0]->first_name;
+        $this->middle_name = $this->details[0]->middle_name;
+        $this->last_name = $this->details[0]->last_name;
+        $this->phone_number = $this->details[0]->phone_number;
+        $this->address = $this->details[0]->address;
+        $this->role = $this->details[0]->role_id;
+        $this->department = $this->details[0]->department_id;
     }
 
-    public function createUser(){
+    public function EditUser(){
         $data = $this->validate([
-            'username' => 'required|string|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'username' => 'required|string|unique:users,username, '.Auth::user()->id,
+            'email' => 'required|email|unique:users,email, '.Auth::user()->id,
+            'password' => 'nullable|min:8|confirmed',
             'first_name' => 'required|string',
             'middle_name' => 'nullable|string',
             'last_name' => 'required|string',
@@ -32,7 +44,6 @@ class AddUser extends Component
         [
             'username.required' => 'Username cannot be empty. Please Enter a username!',
             'username.unique' => 'This username has already been taken. Please choose another one',
-            'password.required' => 'Password is empty. Please Enter a password',
             'password.min' => 'Password cannot be less than 8 characters',
             'password.confirmed' => 'Passwords do not match',
             'first_name.required' => 'Please Enter a First Name',
@@ -47,14 +58,17 @@ class AddUser extends Component
             'department.required' => 'Please Select department to assign to User',
         ]);
         
-        $this->systemadminModel->createUser(json_encode($data));
-        Alert::toast('User successfully created!', 'success');
+        // check if password is being updated
+        if($this->password == null){ $this->systemadminModel->updateUser($this->userId,json_encode($data),0); }
+        else $this->systemadminModel->updateUser($this->userId,json_encode($data),1);
+        Alert::toast('User successfully updated!', 'success');
         return redirect(route('systemadmin.users'));
     }
+
     public function render()
     {
         $this->roles =  $this->systemadminModel->getRoles();
         $this->departments = $this->systemadminModel->getDepartments();
-        return view('livewire.systemadmin.add-user')->extends('layouts.systemadmin');
+        return view('livewire.systemadmin.edit-user')->extends('layouts.systemadmin');
     }
 }

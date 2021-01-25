@@ -13,6 +13,15 @@ window.addEventListener('subdivision-added', event => {
       Livewire.emit('refreshSubdivisions');
 })
 
+window.addEventListener('department-added', event => {
+    $('#add-department').modal('hide');
+    Toast.fire({
+        icon: 'success',
+        title: event.detail.departmentName+' Subdivision sucessfully created'
+      });
+      Livewire.emit('refreshDepartments');
+})
+
 $('#add-or-update-subdivision').on('hidden.bs.modal', function(event){
     Livewire.emit('clearForm');
 })

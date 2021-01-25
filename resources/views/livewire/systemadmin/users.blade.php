@@ -46,21 +46,21 @@
                                             <td>{{ $user->last_name }}</td>
                                             <td>{{ $user->phone_number }}</td>
                                             <td>{{ $user->address }}</td>
-                                            <td>{{ $user->department_id ?? 'N/A' }}</td>
-                                            <td>{{ $user->role_id ?? 'N/A' }}</td>
+                                            <td>{{ $user->department_name ?? 'N/A'}}</td>
+                                            <td>{{ $user->role_name ?? 'N/A' }}</td>
                                             <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                             <td>
                                                 @if ($user->user_status == 1)
-                                                    <button class="btn btn-danger btn-sm" title="Deactivate Account"><i class="fas fa-user-lock"></i></button>
+                                                    <button class="btn btn-danger btn-sm" title="Deactivate Account" wire:click="changeUserAccountStatus('{{$user->id}}','0')"><i class="fas fa-user-lock"></i></button>
                                                 @else
-                                                    <button class="btn btn-success btn-sm" title="Activate Account"><i class="fas fa-user-check"></i></button>
+                                                    <button class="btn btn-success btn-sm" title="Activate Account" wire:click="changeUserAccountStatus('{{$user->id}}','1')"><i class="fas fa-user-check"></i></button>
                                                 @endif
-                                                <a href="#" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit "></i></a>
+                                                <a href="/systemadmin/edit-user/{{$user->id }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit "></i></a>
                                             </td>
                                         </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="10" class="text-align-center">No registered Users in the system</td>
+                                                <td colspan="10" class="text-center">No registered Users in the system</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

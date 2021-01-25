@@ -1,14 +1,13 @@
 <?php
 
+use App\Http\Livewire\Systemadmin\AddDepartment;
 use App\Http\Livewire\Systemadmin\AddUser;
 use App\Http\Livewire\Systemadmin\Departments;
-use App\Http\Livewire\Systemadmin\Districts;
+use App\Http\Livewire\Systemadmin\EditUser;
 use App\Http\Livewire\Systemadmin\Index as sysadmindashboard;
 use App\Http\Livewire\Systemadmin\Institutions;
-use App\Http\Livewire\Systemadmin\Regions;
 use App\Http\Livewire\Systemadmin\Settings;
 use App\Http\Livewire\Systemadmin\Subdivisions;
-use App\Http\Livewire\Systemadmin\TownsVillages;
 use App\Http\Livewire\Systemadmin\Users;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +31,10 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/', sysadmindashboard::class)->name('index');
         Route::get('users', Users::class)->name('users');
         Route::get('add-user', AddUser::class)->name('add-user');
+        Route::get('edit-user/{id}', EditUser::class)->name('edit-user');
         Route::get('institutions', Institutions::class)->name('institutions');
         Route::get('departments', Departments::class)->name('departments');
+        Route::get('add-department', AddDepartment::class)->name('add-department');
         Route::get('subdivisions', Subdivisions::class)->name('subdivisions');
         Route::get('settings', Settings::class)->name('settings');
     });
