@@ -45,6 +45,6 @@ window.addEventListener('Notify', event => {
     });
 })
 
-$('#add-or-update-subdivision').on('hidden.bs.modal', function(event){
+$('.modal').on('hidden.bs.modal', function(event){
     Livewire.emit('clearForm');
 })

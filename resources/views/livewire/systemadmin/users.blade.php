@@ -47,7 +47,7 @@
                                             <td>{{ $user->phone_number }}</td>
                                             <td>{{ $user->address }}</td>
                                             <td>{{ $user->department_name ?? 'N/A'}}</td>
-                                            <td>{{ $user->role_name ?? 'N/A' }}</td>
+                                            <td><span class="badge bg-danger">{{ $user->role_name ?? 'N/A' }}</span></td>
                                             <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                             <td>
                                                 @if ($user->user_status == 1)

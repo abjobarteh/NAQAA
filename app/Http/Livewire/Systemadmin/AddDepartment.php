@@ -11,7 +11,7 @@ class AddDepartment extends Component
     public $departmentName, $departmentId;
     public $isEdit;
 
-    protected $listeners = ['editDepartment'];
+    protected $listeners = ['editDepartment','clearForm'];
 
     public function mount(){ $this->systemadminModel = new systemadmin(); }
 
@@ -39,6 +39,10 @@ class AddDepartment extends Component
        $department = json_decode($department);
        $this->departmentId = $department->id;
        $this->departmentName = $department->department_name;
+    }
+
+    public function clearForm(){
+        $this->reset(['departmentName','departmentId','isEdit']);
     }
     public function render()
     {
