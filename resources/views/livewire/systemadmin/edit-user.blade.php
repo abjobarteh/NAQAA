@@ -31,7 +31,7 @@
                                    <div class="col-md-6">
                                        <div class="form-group">
                                            <label for="username">Username</label>
-                                           <input type="text" class="form-control" placeholder="Enter Username" wire:model.lazy="username">
+                                           <input type="text" class="form-control" placeholder="Enter Username" wire:model.lazy="username" required autofocus>
                                          </div>
                                          <div class="mt-1">
                                              @error('username')
@@ -42,7 +42,7 @@
                                    <div class="col-md-6">
                                        <div class="form-group">
                                            <label for="email">Email</label>
-                                           <input type="email" class="form-control" placeholder="Enter Email" wire:model.lazy="email">
+                                           <input type="email" class="form-control" placeholder="Enter Email" wire:model.lazy="email" required>
                                          </div>
                                          <div class="mt-1">
                                            @error('email')
@@ -74,7 +74,7 @@
                                      <div class="col-md-4">
                                        <div class="form-group">
                                            <label for="first_name">First Name</label>
-                                           <input type="text" class="form-control" placeholder="First Name" wire:model.lazy="first_name">
+                                           <input type="text" class="form-control" placeholder="First Name" wire:model.lazy="first_name" required>
                                          </div>
                                          <div class="mt-1">
                                            @error('first_name')
@@ -96,7 +96,7 @@
                                      <div class="col-md-4">
                                        <div class="form-group">
                                            <label for="last_name">Last Name</label>
-                                           <input type="text" class="form-control" placeholder="Last Name" wire:model.lazy="last_name">
+                                           <input type="text" class="form-control" placeholder="Last Name" wire:model.lazy="last_name" required>
                                          </div>
                                          <div class="mt-1">
                                            @error('last_name')
@@ -109,7 +109,7 @@
                                      <div class="col-md-6">
                                        <div class="form-group">
                                            <label for="phone_number">Phone Number</label>
-                                           <input type="text" class="form-control" placeholder="Phone Number" wire:model.lazy="phone_number">
+                                           <input type="text" class="form-control" placeholder="Phone Number" wire:model.lazy="phone_number" required>
                                          </div>
                                          <div class="mt-1">
                                            @error('phone_number')
@@ -120,7 +120,7 @@
                                      <div class="col-md-6">
                                        <div class="form-group">
                                            <label for="address">Address</label>
-                                           <input type="text" class="form-control" placeholder="Address" wire:model.lazy="address">
+                                           <input type="text" class="form-control" placeholder="Address" wire:model.lazy="address" required>
                                          </div>
                                          <div class="mt-1">
                                            @error('address')
@@ -133,7 +133,7 @@
                                      <div class="col-md-6">
                                        <div class="form-group">
                                            <label>Department</label>
-                                           <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="department">
+                                           <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="department" required>
                                              <option selected>Select department</option>
                                              @forelse ($departments as $dept)  
                                              <option value="{{$dept->id}}">{{$dept->department_name}}</option>
@@ -151,7 +151,7 @@
                                      <div class="col-md-6">
                                        <div class="form-group">
                                            <label>Role</label>
-                                           <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="role">
+                                           <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="role" required>
                                              <option selected>Select Role</option>
                                              @forelse ($roles as $r)  
                                                <option value="{{$r->id}}">{{$r->role_name}}</option>

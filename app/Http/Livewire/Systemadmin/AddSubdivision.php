@@ -8,17 +8,17 @@ use Livewire\Component;
 class AddSubdivision extends Component
 {
     public $subdivisionName, $subdivisionType, $regions, $districts, $region, $district;
-    public $systemadminModel;
+    public systemadmin $systemadminModel;
     public $isCreatingDistrict = false;
     public $iscreatingTownsVillages = false;
     public $isEdit = false;
     public $subdivisionId;
 
-    protected $listeners = ['editSubdivision','clearForm' => '$refresh'];
+    protected $listeners = ['editSubdivision','clearForm'];
 
-    public function mount(systemadmin $systemadmin)
+    public function mount()
     {
-        $this->systemadminModel = $systemadmin;
+        $this->systemadminModel = new systemadmin();
     }
 
 
@@ -76,12 +76,13 @@ class AddSubdivision extends Component
 
         if($this->isEdit == false){
             $this->systemadminModel->createSubdivisionByType($data);
+            $this->dispatchBrowserEvent('subdivision-added', ['subvisionName' => $this->subdivisionName,'action' => 'create']);
         }
         else{
             $this->systemadminModel->updateSubdivisionByType($this->subdivisionId,$data);
+            $this->dispatchBrowserEvent('subdivision-added', ['subvisionName' => $this->subdivisionName,'action' => 'update']);
         }
-        $this->dispatchBrowserEvent('subdivision-added', ['subvisionName' => $this->subdivisionName]);
-        $this->reset();
+        $this->reset(['subdivisionName','subdivisionType','regions','districts','region','district','isCreatingDistrict','iscreatingTownsVillages','isEdit','subdivisionId']);
     }
 
     public function updatedSubdivisionType(){
@@ -98,7 +99,7 @@ class AddSubdivision extends Component
 
     public function editSubdivision($type,$data)
     {
-        $this->isEdit = !$this->isEdit; 
+        $this->isEdit = true; 
         $details = json_decode($data);
         $this->subdivisionId = $details->id;
 
@@ -122,6 +123,11 @@ class AddSubdivision extends Component
         }
     }
 
+    public function clearForm(){
+
+        $this->reset(['subdivisionName','subdivisionType','regions','districts','region','district','isCreatingDistrict','iscreatingTownsVillages','isEdit','subdivisionId']);
+    }
+
 
     public function render()
     {
@@ -131,7 +137,6 @@ class AddSubdivision extends Component
         }
         if($this->iscreatingTownsVillages)
         {
-            print_r($this->systemadminModel);
             $this->districts = $this->systemadminModel->getSubdivisionsByType('districts');
         }
         return view('livewire.systemadmin.add-subdivision')->extends('layouts.systemadmin');

@@ -30,8 +30,8 @@ class EditUser extends Component
 
     public function EditUser(){
         $data = $this->validate([
-            'username' => 'required|string|unique:users,username, '.Auth::user()->id,
-            'email' => 'required|email|unique:users,email, '.Auth::user()->id,
+            'username' => 'required|string|unique:users',
+            'email' => 'required|email|unique:users',
             'password' => 'nullable|min:8|confirmed',
             'first_name' => 'required|string',
             'middle_name' => 'nullable|string',

@@ -12,14 +12,14 @@
               <form wire:submit.prevent="createSubdivision">
                   <div class="form-group">
                     <label for="subdivisionName">Subdivision Name</label>
-                    <input type="text" class="form-control form-control-border" placeholder="Enter subdivision name" wire:model.lazy="subdivisionName">
+                    <input type="text" class="form-control form-control-border" placeholder="Enter subdivision name" wire:model.lazy="subdivisionName" required>
                     @error('subdivisionName')
                         <span class="text-danger">{{$message}}</span>
                     @enderror
                   </div>
                   <div class="form-group">
                     <label for="subdivisionType">Subdvision Type</label>
-                    <select class="custom-select form-control-border" wire:model="subdivisionType">
+                    <select class="custom-select form-control-border" wire:model="subdivisionType" required>
                       <option selected>Select subdivision type</option>
                       <option value="regions">Region</option>
                       <option value="districts">District</option>
@@ -31,37 +31,37 @@
                   </div>
 
                   @if($isCreatingDistrict)
-                  <div class="form-group">
-                    <label for="region">Regions</label>
-                    <select class="custom-select form-control-border" wire:model="region">
-                      <option selected>Select Region</option>
-                      @forelse ($regions as $region)
-                        <option value="{{$region->id}}">{{$region->region_name}}</option>
-                      @empty
-                        <option>No regions in the system</option>
-                      @endforelse
-                    </select>
-                    @error('region')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror
-                  </div>
+                    <div class="form-group">
+                      <label for="region">Regions</label>
+                      <select class="custom-select form-control-border" wire:model="region" required>
+                        <option selected>Select Region</option>
+                        @forelse ($regions as $region)
+                          <option value="{{$region->id}}">{{$region->region_name}}</option>
+                        @empty
+                          <option>No regions in the system</option>
+                        @endforelse
+                      </select>
+                      @error('region')
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                    </div>
                   @endif
 
                   @if($iscreatingTownsVillages)
-                  <div class="form-group">
-                    <label for="region">Districts</label>
-                    <select class="custom-select form-control-border" wire:model="district">
-                      <option selected>Select Districts</option>
-                      @forelse ($districts as $district)
-                        <option value="{{$district->id}}">{{$district->district_name}}</option>
-                      @empty
-                        <option>No districts in the system</option>
-                      @endforelse
-                    </select>
-                    @error('district')
-                        <span class="text-danger">{{$message}}</span>
-                    @enderror
-                  </div>
+                    <div class="form-group">
+                      <label for="region">Districts</label>
+                      <select class="custom-select form-control-border" wire:model="district" required>
+                        <option selected>Select Districts</option>
+                        @forelse ($districts as $district)
+                          <option value="{{$district->id}}">{{$district->district_name}}</option>
+                        @empty
+                          <option>No districts in the system</option>
+                        @endforelse
+                      </select>
+                      @error('district')
+                          <span class="text-danger">{{$message}}</span>
+                      @enderror
+                    </div>
                   @endif
                   <div class="form-group">
                     <button type="submit" class="btn btn-primary">Submit</button>

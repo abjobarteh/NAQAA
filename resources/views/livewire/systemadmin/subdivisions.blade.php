@@ -114,7 +114,7 @@
                                               <td>{{ $townvillage->district_name }}</td>
                                               <td>{{ \Carbon\Carbon::parse($townvillage->created_at)->diffForHumans() }}</td>
                                               <td>
-                                                <a type="button" data-toggle="modal" data-target="#add-or-update-subdivision" class="btn btn-danger btn-sm" title="Edit" wire:click="$emit('editSubdivision','towns_villages','{{json_encode($townvillage)}}')"><i class="fas fa-edit "></i></a>
+                                                <a type="button" data-toggle="modal" data-target="#add-or-update-subdivision" class="btn btn-danger btn-sm" title="Edit" wire:click.prevent="$emit('editSubdivision','towns_villages','{{json_encode($townvillage)}}')"><i class="fas fa-edit "></i></a>
                                               </td>
                                           </tr>
                                           @empty

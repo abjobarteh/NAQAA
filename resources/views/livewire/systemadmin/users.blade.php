@@ -71,4 +71,13 @@
                 </div>
             </div>
         </section>
+        @section('page-level-header-files')
+                <!-- SweetAlert2 -->
+                <link rel="stylesheet" href="/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+          @endsection
+          @section('page-level-footer-files')
+                <!-- SweetAlert2 -->
+                <script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+                <script src="/js/custom.js"></script>
+          @endsection
 </div>

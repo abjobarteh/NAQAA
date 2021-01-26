@@ -19,6 +19,8 @@ class Users extends Component
 
     public function changeUserAccountStatus($userId,$status){
         $this->systemadminModel->changeAccountStatus($userId,$status);
+        if($status == 1) $this->dispatchBrowserEvent('Notify',['message' => 'Account successfully activated']);
+        else $this->dispatchBrowserEvent('Notify',['message' => 'Account successfully deactivated']);
         $this->emitSelf('statuschange');
     }
 

@@ -8,7 +8,10 @@ use Livewire\Component;
 class AddDepartment extends Component
 {
     public systemadmin $systemadminModel;
-    public $departmentName;
+    public $departmentName, $departmentId;
+    public $isEdit;
+
+    protected $listeners = ['editDepartment'];
 
     public function mount(){ $this->systemadminModel = new systemadmin(); }
 
@@ -21,10 +24,21 @@ class AddDepartment extends Component
                 'departmentName.required' => 'Please Enter Department Name.',
             ],
         );
+        if(!$this->isEdit){
+            $this->systemadminModel->createDepartment(json_encode($data));
+            $this->dispatchBrowserEvent('department-added', ['department' => $this->departmentName, 'action' => 'create']);
+        } else{
+            $this->systemadminModel->updateDepartment($this->departmentId,json_encode($data));
+            $this->dispatchBrowserEvent('department-added', ['department' => $this->departmentName, 'action' => 'update']);
+        }
+        $this->reset(['departmentName','departmentId']);
+    }
 
-        $this->systemadminModel->createDepartment(json_encode($data));
-        $this->dispatchBrowserEvent('department-added', ['department' => $this->departmentName]);
-        $this->reset('departmentName');
+    public function editDepartment($department){
+       $this->isEdit = true;
+       $department = json_decode($department);
+       $this->departmentId = $department->id;
+       $this->departmentName = $department->department_name;
     }
     public function render()
     {

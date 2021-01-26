@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Livewire\Systemadmin\Activities;
 use App\Http\Livewire\Systemadmin\AddDepartment;
 use App\Http\Livewire\Systemadmin\AddUser;
 use App\Http\Livewire\Systemadmin\Departments;
 use App\Http\Livewire\Systemadmin\EditUser;
 use App\Http\Livewire\Systemadmin\Index as sysadmindashboard;
 use App\Http\Livewire\Systemadmin\Institutions;
+use App\Http\Livewire\Systemadmin\RolesPermissions;
 use App\Http\Livewire\Systemadmin\Settings;
 use App\Http\Livewire\Systemadmin\Subdivisions;
 use App\Http\Livewire\Systemadmin\Users;
@@ -36,6 +38,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('departments', Departments::class)->name('departments');
         Route::get('add-department', AddDepartment::class)->name('add-department');
         Route::get('subdivisions', Subdivisions::class)->name('subdivisions');
+        Route::get('roles-permissions', RolesPermissions::class)->name('roles-permissions');
+        Route::get('activities', Activities::class)->name('activities');
         Route::get('settings', Settings::class)->name('settings');
     });
 });

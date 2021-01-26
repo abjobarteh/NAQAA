@@ -45,7 +45,7 @@
             <a href="{{route('systemadmin.departments')}}" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
-                Departments
+                Directorates
               </p>
             </a>
           </li>
@@ -54,6 +54,22 @@
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
                 Subdivisions
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('systemadmin.roles-permissions')}}" class="nav-link">
+              <i class="nav-icon fas fa-user-tag"></i>
+              <p>
+                Roles/Permissions
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('systemadmin.activities')}}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Activities
               </p>
             </a>
           </li>

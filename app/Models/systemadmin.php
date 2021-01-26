@@ -187,7 +187,7 @@ class systemadmin extends Model
                 'full_name' => $data->first_name.' '.$data->middle_name.' '.$data->last_name ?? $data->first_name.' '.$data->last_name,
                 'phone_number' => $data->phone_number,
                 'address' => $data->address,
-                'role_id' => $data->role_id,
+                'role_id' => $data->role,
                 'department_id' => $data->department,
                 'user_status' => 1,
                 'default_password_status' => 0, 
@@ -195,6 +195,14 @@ class systemadmin extends Model
             ]);
         }
        
+    }
+
+    public function updateDepartment($deptId,$data){
+        DB::table('departments')->where('id',$deptId)
+            ->update([
+                'department_name' =>json_decode($data)->departmentName,
+                'updated_at' => Carbon::now()
+            ]);
     }
   
 }

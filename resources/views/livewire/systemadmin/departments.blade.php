@@ -38,7 +38,7 @@
                                         <td>{{ $department->department_name }}</td>
                                         <td>{{ \Carbon\Carbon::parse($department->created_at)->diffForHumans() }}</td>
                                         <td>
-                                            <a href="#" class="btn btn-danger btn-sm" title="Edit {{$department->department_name}}"><i class="fas fa-edit "></i></a>
+                                            <button type="button" data-toggle="modal" data-target="#add-department" class="btn btn-danger btn-sm" title="Edit {{$department->department_name}}" wire:click="$emit('editDepartment','{{json_encode($department)}}')"><i class="fas fa-edit "></i></button>
                                         </td>
                                     </tr>
                                     @empty
