@@ -18,7 +18,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="#" class="nav-link active">
+            <a href="{{route('systemadmin.index')}}" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard
@@ -26,7 +26,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.users')}}" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Users
@@ -34,7 +34,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.institutions')}}" class="nav-link">
               <i class="nav-icon fas fa-university"></i>
               <p>
                 Institutions
@@ -42,39 +42,39 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.departments')}}" class="nav-link">
               <i class="nav-icon fas fa-building"></i>
               <p>
-                Departments
+                Directorates
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{route('systemadmin.subdivisions')}}" class="nav-link">
               <i class="nav-icon fas fa-sitemap"></i>
               <p>
-                Regions
+                Subdivisions
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-map-marker-alt"></i>
+            <a href="{{route('systemadmin.roles-permissions')}}" class="nav-link">
+              <i class="nav-icon fas fa-user-tag"></i>
               <p>
-                Districts
+                Roles/Permissions
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-road"></i>
+            <a href="{{route('systemadmin.activities')}}" class="nav-link">
+              <i class="nav-icon fas fa-book"></i>
               <p>
-                Towns/Villages
+                Activities
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('systemadmin.index')}}" class="nav-link">
+            <a href="{{route('systemadmin.settings')}}" class="nav-link">
               <i class="nav-icon fas fa-user-cog"></i>
               <p>
                 Settings

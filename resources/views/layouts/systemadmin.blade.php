@@ -6,8 +6,7 @@
   <title>System Admin | @yield('page-title')</title>
   @include('layouts.partials.head')
   @yield('page-level-header-files')
-  <!-- overlayScrollbars -->
-<link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+  @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -21,7 +20,7 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    @yield('page-content')
+    @yield('content')
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
@@ -39,7 +38,7 @@
 
 @include('layouts.partials.footer-scripts')
 @yield('page-level-footer-files')
-<!-- overlayScrollbars -->
-<script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+@livewireScripts
+@include('sweetalert::alert')
 </body>
 </html>
