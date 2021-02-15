@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Systemadmin;
 
 use App\Models\systemadmin;
+use App\Models\User;
 use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -26,7 +27,8 @@ class Users extends Component
 
     public function render()
     {
-        $this->users = $this->systemadminModel->getAllUsers();
+        $this->users = User::with('roles')->get();
+
         return view('livewire.systemadmin.users')->extends('layouts.systemadmin');
     }
     

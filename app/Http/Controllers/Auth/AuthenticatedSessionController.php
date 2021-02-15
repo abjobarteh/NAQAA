@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Traits\HasPermissionsTrait;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Traits\UserRoleTrait;
+use Illuminate\Auth\Events\Login;
+use Illuminate\Auth\Events\Logout;
 
 class AuthenticatedSessionController extends Controller
 {
-    use UserRoleTrait;
+    use HasPermissionsTrait;
     /**
      * Display the login view.
      *
@@ -33,8 +35,8 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        
-        if($this->getRole($request->user()->role_id)[0]->role_name == 'systemadmin')
+
+        if($request->user()->hasRole('systemadmin'))
         {
             return redirect(route('systemadmin.index'));
         }
@@ -48,11 +50,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+
 
         return redirect('/');
     }

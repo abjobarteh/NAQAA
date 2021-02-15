@@ -130,15 +130,51 @@
                                       </div>
                                   </div>
                                   <div class="row">
-                                      <div class="col-md-6">
+                                      <div class="col-md-3">
                                         <div class="form-group">
-                                            <label>Department</label>
-                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="department" required>
-                                              <option selected>Select department</option>
-                                              @forelse ($departments as $dept)  
-                                              <option value="{{$dept->id}}">{{$dept->department_name}}</option>
+                                            <label>Directorate</label>
+                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="directorate" required>
+                                              <option selected>Select directorate</option>
+                                              @forelse ($directorates as $dt)  
+                                              <option value="{{$dt->id}}">{{$dt->directorate_name}}</option>
                                             @empty
-                                              <option>No Departments registered in the system</option>
+                                              <option>No Directorates registered in the system</option>
+                                            @endforelse
+                                            </select>
+                                          </div>
+                                          <div class="mt-1">
+                                            @error('directorate')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Unit</label>
+                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="unit" required>
+                                              <option selected>Select Unit</option>
+                                              @forelse ($units as $un)  
+                                              <option value="{{$un->id}}">{{$un->name}}</option>
+                                            @empty
+                                              <option>No Units registered in the system</option>
+                                            @endforelse
+                                            </select>
+                                          </div>
+                                          <div class="mt-1">
+                                            @error('unit')
+                                                <span class="text-danger">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                      </div>
+                                      <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label>Designation</label>
+                                            <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="designation" required>
+                                              <option selected>Select designation</option>
+                                              @forelse ($designations as $desig)  
+                                              <option value="{{$desig->id}}">{{$desig->designation_name}}</option>
+                                            @empty
+                                              <option>No Designations registered in the system</option>
                                             @endforelse
                                             </select>
                                           </div>
@@ -148,7 +184,7 @@
                                             @enderror
                                         </div>
                                       </div>
-                                      <div class="col-md-6">
+                                      <div class="col-md-3">
                                         <div class="form-group">
                                             <label>Role</label>
                                             <select class="form-control custom-select" style="width: 100%;" wire:model.lazy="role" required>

@@ -28,12 +28,14 @@ class CreateUsersTable extends Migration
             $table->string('user_status');
             $table->string('activity')->nullable();
             $table->string('default_password_status');
-            $table->unsignedBigInteger('department_id')->nullable();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('directorate_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('designation_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('department_id')->references('id')->on('departments');
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('directorate_id')->references('id')->on('directorates')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
         });
     }
 
