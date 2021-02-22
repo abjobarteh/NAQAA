@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InstitutionCategory extends Model
+class ProgramLevel extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
+        'description',
         'created_at',
         'updated_at'
     ];

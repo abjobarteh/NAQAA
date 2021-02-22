@@ -19,15 +19,15 @@ class CreateApplcationsTable extends Migration
 
             $table->unsignedBigInteger('trainer_id')->nullable();
 
-            $table->timestamp('submission_date');
+            $table->dateTime('submission_date')->nullable();
 
-            $table->timestamp('approved_date');
+            $table->dateTime('approved_date')->nullable();
             
             $table->string('status',100);
 
             $table->timestamps();
 
-            $table->foreign('institution_id')->references('id')->on('instutions')->onDelete('cascade');
+            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
 
             $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
         });

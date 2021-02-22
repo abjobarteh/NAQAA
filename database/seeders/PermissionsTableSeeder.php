@@ -330,6 +330,186 @@ class PermissionsTableSeeder extends Seeder
                 'name' => 'Users access',
                 'slug' => 'user_access'
             ],
+            [
+                'id' => '64',
+                'name' => 'Apllication access',
+                'slug' => 'application_access'
+            ],
+            [
+                'id' => '65',
+                'name' => 'Apllication create',
+                'slug' => 'application_create'
+            ],
+            [
+                'id' => '66',
+                'name' => 'Apllication edit',
+                'slug' => 'application_edit'
+            ],
+            [
+                'id' => '67',
+                'name' => 'Apllication show',
+                'slug' => 'application_show'
+            ],
+            [
+                'id' => '68',
+                'name' => 'Apllication delete',
+                'slug' => 'application_delete'
+            ],
+            [
+                'id' => '69',
+                'name' => 'Institution type access',
+                'slug' => 'institution_type_access'
+            ],
+            [
+                'id' => '70',
+                'name' => 'Institution type create',
+                'slug' => 'institution_type_create'
+            ],
+            [
+                'id' => '71',
+                'name' => 'Institution type edit',
+                'slug' => 'institution_type_edit'
+            ],
+            [
+                'id' => '72',
+                'name' => 'Institution type show',
+                'slug' => 'institution_type_show'
+            ],
+            [
+                'id' => '73',
+                'name' => 'Institution type delete',
+                'slug' => 'institution_type_delete'
+            ],
+            [
+                'id' => '74',
+                'name' => 'licence access',
+                'slug' => 'licence_access'
+            ],
+            [
+                'id' => '75',
+                'name' => 'licence create',
+                'slug' => 'licence_create'
+            ],
+            [
+                'id' => '76',
+                'name' => 'licence edit',
+                'slug' => 'licence_edit'
+            ],
+            [
+                'id' => '77',
+                'name' => 'licence show',
+                'slug' => 'licence_show'
+            ],
+            [
+                'id' => '78',
+                'name' => 'licence delete',
+                'slug' => 'licence_delete'
+            ],
+            [
+                'id' => '79',
+                'name' => 'standards access',
+                'slug' => 'standards_access'
+            ],
+            [
+                'id' => '80',
+                'name' => 'standards create',
+                'slug' => 'standards_create'
+            ],
+            [
+                'id' => '81',
+                'name' => 'standards edit',
+                'slug' => 'standards_edit'
+            ],
+            [
+                'id' => '82',
+                'name' => 'standards show',
+                'slug' => 'standards_show'
+            ],
+            [
+                'id' => '83',
+                'name' => 'standards delete',
+                'slug' => 'standards_delete'
+            ],
+            [
+                'id' => '84',
+                'name' => 'standards category access',
+                'slug' => 'standards_category_access'
+            ],
+            [
+                'id' => '85',
+                'name' => 'standards category create',
+                'slug' => 'standards_category_create'
+            ],
+            [
+                'id' => '86',
+                'name' => 'standards category edit',
+                'slug' => 'standards_category_edit'
+            ],
+            [
+                'id' => '87',
+                'name' => 'standards category show',
+                'slug' => 'standards_category_show'
+            ],
+            [
+                'id' => '88',
+                'name' => 'standards category delete',
+                'slug' => 'standards_category_delete'
+            ],
+            [
+                'id' => '89',
+                'name' => 'program level access',
+                'slug' => 'program_level_access'
+            ],
+            [
+                'id' => '90',
+                'name' => 'program level create',
+                'slug' => 'program_level_create'
+            ],
+            [
+                'id' => '91',
+                'name' => 'program level edit',
+                'slug' => 'program_level_edit'
+            ],
+            [
+                'id' => '92',
+                'name' => 'program level show',
+                'slug' => 'program_level_show'
+            ],
+            [
+                'id' => '93',
+                'name' => 'program level delete',
+                'slug' => 'program_level_delete'
+            ],
+            [
+                'id' => '94',
+                'name' => 'program caregory access',
+                'slug' => 'program_category_access'
+            ],
+            [
+                'id' => '95',
+                'name' => 'program caregory create',
+                'slug' => 'program_category_create'
+            ],
+            [
+                'id' => '96',
+                'name' => 'program caregory edit',
+                'slug' => 'program_category_edit'
+            ],
+            [
+                'id' => '97',
+                'name' => 'program caregory show',
+                'slug' => 'program_category_show'
+            ],
+            [
+                'id' => '98',
+                'name' => 'program caregory delete',
+                'slug' => 'program_category_delete'
+            ],
+            [
+                'id' => '99',
+                'name' => 'naqaa settings access',
+                'slug' => 'naqaa_settings_access'
+            ],
         ];
 
         Permission::insert($permissions);

@@ -22,7 +22,7 @@ class CreateTrainersTable extends Migration
             $table->string('phone_number');
             $table->string('address');
             $table->string('image')->nullable();
-            $table->string('Qualification');
+            $table->string('qualification');
             $table->unsignedBigInteger('institution_id')->nullable();
             $table->timestamps();
             $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');

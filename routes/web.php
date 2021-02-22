@@ -46,9 +46,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => 'systemadmin','as' => 'systemadmin.','middleware'=> 'role:systemadmin'], function(){
         Route::redirect('/', '/systemadmin/');
         Route::get('/', sysadmindashboard::class)->name('index');
-        // Route::get('users', Users::class)->name('users');
-        // Route::get('add-user', AddUser::class)->name('add-user');
-        // Route::get('edit-user/{id}', EditUser::class)->name('edit-user');
         Route::get('institutions', Institutions::class)->name('institutions');
         Route::get('directorates', Directorates::class)->name('directorates');
         Route::get('add-directorate', AddDirectorate::class)->name('add-directorate');

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProgramCategoryRequest;
+use App\Http\Requests\UpdateProgramCategoryRequest;
+use App\Models\ProgramCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProgramCategoryController extends Controller
 {
@@ -14,7 +19,11 @@ class ProgramCategoryController extends Controller
      */
     public function index()
     {
-        //
+        abort_if(Gate::denies('program_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $programcategories = ProgramCategory::all();
+
+        return view('systemadmin.programCategories.index', compact('programcategories'));
     }
 
     /**
@@ -24,7 +33,9 @@ class ProgramCategoryController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(Gate::denies('program_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('systemadmin.programCategories.create');
     }
 
     /**
@@ -33,9 +44,11 @@ class ProgramCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProgramCategoryRequest $request)
     {
-        //
+        ProgramCategory::create($request->all());
+
+        return redirect(route('systemadmin.program-categories.index'))->withSuccess('Program Category successfully created');
     }
 
     /**
@@ -55,9 +68,11 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProgramCategory $program_category)
     {
-        //
+        abort_if(Gate::denies('program_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('systemadmin.programCategories.edit', compact('program_category'));
     }
 
     /**
@@ -67,9 +82,11 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProgramCategoryRequest $request, ProgramCategory $program_category)
     {
-        //
+        $program_category->update($request->all());
+
+        return redirect(route('systemadmin.program-categories.index'))->withSuccess('Institution Program category successfully updated');
     }
 
     /**

@@ -17,12 +17,12 @@ class CreateQualificationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('trainer')->nullable();
-            $table->unsignedBigInteger('institution')->nullable();
-            $table->string('file');
+            $table->unsignedBigInteger('trainer_id')->nullable();
+            $table->unsignedBigInteger('institution_id')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
-            $table->foreign('trainer')->references('id')->on('trainers')->onDelete('cascade');
-            $table->foreign('institution')->references('id')->on('institutions')->onDelete('cascade');
+            $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
+            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
         });
     }
 

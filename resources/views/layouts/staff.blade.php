@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>System Admin | @yield('page-title')</title>
+  <title>@yield('page-title')</title>
   <!-- Google Font: Source Sans Pro -->
 {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
 <!-- Font Awesome -->
@@ -64,8 +64,7 @@
             <a href="{{route('systemadmin.index')}}" class="d-block">{{ Auth::user()->full_name }}</a>
           </div>
         </div>
-        
-        @include('partials.adminmenu')
+            @include('partials.staffmenu')
       </div>
       <!-- /.sidebar -->
     </aside>
@@ -76,7 +75,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>Copyright &copy; {{date("Y")}} <a href="http://niftyict.com/">NiftyICT Solutions</a>.</strong>
+      <strong>Powered By <a href="http://niftyict.com/">NiftyICT Solutions</a>. {{date("Y")}}</strong>
       All rights reserved.
     </footer>
 

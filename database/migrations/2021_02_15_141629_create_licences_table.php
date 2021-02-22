@@ -15,17 +15,20 @@ class CreateLicencesTable extends Migration
     {
         Schema::create('licences', function (Blueprint $table) {
             $table->id();
+
             $table->unsignedBigInteger('institution_id')->nullable();
 
             $table->unsignedBigInteger('trainer_id')->nullable();
 
-            $table->timestamp('validity_start');
+            $table->dateTime('validity_start')->nullable();
 
-            $table->timestamp('validity_end');
+            $table->dateTime('validity_end')->nullable();
+
+            $table->string('status',100);
 
             $table->timestamps();
 
-            $table->foreign('institution_id')->references('id')->on('instutions')->onDelete('cascade');
+            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
             
             $table->foreign('trainer_id')->references('id')->on('trainers')->onDelete('cascade');
         });

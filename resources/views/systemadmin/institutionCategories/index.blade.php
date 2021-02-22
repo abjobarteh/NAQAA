@@ -10,8 +10,9 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <div class="float-right">
+                    @can('institution_categories_create')
                     <a href="{{ route('systemadmin.institution-categories.create') }}" class="btn btn-info">Add</a>
-                    <a href="{{ route('systemadmin.institution-settings') }}" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Back</a>
+                    @endcan
                 </div>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,25 +38,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse ($roles as $role)
+                                @forelse ($categories as $category)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $role->name }}</td>
+                                    <td>{{ $category->name }}</td>
                                     <td>
-                                        @foreach($role->permissions as $key => $item)
-                                            <span class="badge badge-info">{{ $item->slug }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('systemadmin.roles.edit', $role->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
-                                        <a class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                        @can('institution_categories_edit')
+                                        <a href="{{ route('systemadmin.institution-categories.edit', $category->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        @endcan
+                                        @can('institution_categories_show')
+                                        <a class="btn btn-info btn-sm" title="View institutions under this category"><i class="fas fa-eye"></i> View</a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="10" class="text-center text-bold">No registered Roles in the system</td>
+                                        <td colspan="10" class="text-center text-bold">No registered Institution categories.</td>
                                     </tr>
-                                @endforelse --}}
+                                @endforelse
                             </tbody>
                         </table>
                     </div>

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProgramLevelRequest;
+use App\Http\Requests\UpdateProgramLevelRequest;
+use App\Models\ProgramLevel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProgramLevelController extends Controller
 {
@@ -14,7 +19,11 @@ class ProgramLevelController extends Controller
      */
     public function index()
     {
-        //
+        abort_if(Gate::denies('program_level_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $programlevels = ProgramLevel::all();
+
+        return view('systemadmin.programLevels.index', compact('programlevels'));
     }
 
     /**
@@ -24,7 +33,9 @@ class ProgramLevelController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(Gate::denies('program_level_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('systemadmin.programLevels.create');
     }
 
     /**
@@ -33,9 +44,11 @@ class ProgramLevelController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProgramLevelRequest $request)
     {
-        //
+        ProgramLevel::create($request->all());
+
+        return redirect(route('systemadmin.program-levels.index'))->withSuccess('Program Level successfully created');
     }
 
     /**
@@ -46,7 +59,7 @@ class ProgramLevelController extends Controller
      */
     public function show($id)
     {
-        //
+        abort_if(Gate::denies('program_level_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
     }
 
     /**
@@ -55,9 +68,11 @@ class ProgramLevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProgramLevel $program_level)
     {
-        //
+        abort_if(Gate::denies('program_level_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return view('systemadmin.programLevels.edit', compact('program_level'));
     }
 
     /**
@@ -67,9 +82,11 @@ class ProgramLevelController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProgramLevelRequest $request, ProgramLevel $program_level)
     {
-        //
+        $program_level->update($request->all());
+        
+        return redirect(route('systemadmin.program-levels.index'))->withSuccess('Institution Program Level successfully updated');
     }
 
     /**

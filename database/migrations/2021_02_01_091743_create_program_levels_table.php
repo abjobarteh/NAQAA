@@ -18,7 +18,7 @@ class CreateProgramLevelsTable extends Migration
             
             $table->string('name',255);
 
-            $table->string('description',255)->nullable();
+            $table->text('description',300)->nullable();
 
             $table->timestamps();
         });

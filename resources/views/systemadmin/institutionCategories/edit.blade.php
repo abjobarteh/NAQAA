@@ -9,14 +9,14 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.institution-categories.update') }}" method="POST">
+                   <form action="{{ route('systemadmin.institution-categories.update', $institution_category->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter category name" id="name" name="name"  required autofocus>
+                                    <input type="text" class="form-control" placeholder="Enter category name" id="name" name="name" value="{{ $institution_category->name }}"  required autofocus>
                                 </div>
                                 <div class="mt-1">
                                     @if($errors->has('name'))
