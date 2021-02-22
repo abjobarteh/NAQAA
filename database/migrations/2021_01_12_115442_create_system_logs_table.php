@@ -17,10 +17,9 @@ class CreateSystemLogsTable extends Migration
             $table->id();
             $table->string('action');
             $table->string('description');
-            $table->dateTime('login_start');
-            $table->dateTime('login_end');
+            $table->dateTime('login_start')->nullable();
+            $table->dateTime('login_end')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('login_history_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });

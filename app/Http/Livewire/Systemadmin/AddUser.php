@@ -8,12 +8,18 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AddUser extends Component
 {
-    public $username, $email, $password, $password_confirmation, $first_name, $middle_name, $last_name, $phone_number, $address, $role, $department;
-    public $roles, $departments;
+    public $username, $email, $password, $password_confirmation, $first_name, $middle_name, $last_name, $phone_number, $address, $role, $directorate, $unit, $designation;
+    public $roles, $directorates, $units, $designations;
     public $systemadminModel;
+    public $didDirectorateChange = false;
 
     public function mount(systemadmin $systemadmin){
         $this->systemadminModel = $systemadmin;
+    }
+
+    public function updatedDirectorate(){
+        $this->didDirectorateChange = true;
+
     }
 
     public function createUser(){
@@ -27,7 +33,9 @@ class AddUser extends Component
             'phone_number' => 'required|digits_between:7,15',
             'address' => 'required|string',
             'role' => 'required',
-            'department' => 'required'
+            'directorate' => 'required',
+            'unit' => 'nullable',
+            'designation' => 'required'
         ],
         [
             'username.required' => 'Username cannot be empty. Please Enter a username!',
@@ -44,17 +52,29 @@ class AddUser extends Component
             'phone_number.digits_between' => 'Phone number can only be  between 7 and 15 digits long',
             'address.required' => 'Please Enter an Address',
             'role.required' => 'Please Select a Role to assign to User',
-            'department.required' => 'Please Select department to assign to User',
+            'directorate.required' => 'Please Select directorate to assign to User',
+            'designation.required' => 'Please Select designation to assign to User',
         ]);
         
         $this->systemadminModel->createUser(json_encode($data));
         Alert::toast('User successfully created!', 'success');
         return redirect(route('systemadmin.users'));
     }
+
     public function render()
     {
         $this->roles =  $this->systemadminModel->getRoles();
-        $this->departments = $this->systemadminModel->getDepartments();
+        $this->directorates = $this->systemadminModel->getDirectorates();
+        if(!$this->didDirectorateChange){
+
+            $this->units = $this->systemadminModel->getUnits();
+        }
+        else {
+            if(!$this->systemadminModel->getUnitsByDirectorate($this->directorate)->isEmpty()){
+            $this->units = $this->systemadminModel->getUnitsByDirectorate($this->directorate);
+        }
+        }
+        $this->designations = $this->systemadminModel->getDesignations();
         return view('livewire.systemadmin.add-user')->extends('layouts.systemadmin');
     }
 }

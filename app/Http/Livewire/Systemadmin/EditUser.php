@@ -9,9 +9,10 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class EditUser extends Component
 {
-    public $username, $email, $password, $password_confirmation, $first_name, $middle_name, $last_name, $phone_number, $address, $role, $department;
-    public $roles, $departments;
+    public $username, $email, $password, $password_confirmation, $first_name, $middle_name, $last_name, $phone_number, $address, $role, $directorate, $unit, $designation;
+    public $roles, $directorates, $units, $designations;
     public $systemadminModel, $details, $userId;
+    public $didDirectorateChange = false;
 
     public function mount(systemadmin $systemadmin, $id){
         $this->systemadminModel = $systemadmin;
@@ -25,13 +26,24 @@ class EditUser extends Component
         $this->phone_number = $this->details[0]->phone_number;
         $this->address = $this->details[0]->address;
         $this->role = $this->details[0]->role_id;
-        $this->department = $this->details[0]->department_id;
+        $this->directorate = $this->details[0]->directorate_id;
+        $this->unit = $this->details[0]->unit_id;
+        $this->designation = $this->details[0]->designation_id;
+    }
+
+    // public function updatedUnit(){
+    //     dd($this->didDirectorateChange); 
+    // }
+
+    public function updatedDirectorate(){
+        $this->didDirectorateChange = true;
+
     }
 
     public function EditUser(){
         $data = $this->validate([
-            'username' => 'required|string|unique:users',
-            'email' => 'required|email|unique:users',
+            'username' => 'required|string|unique:users,username, '.$this->userId,
+            'email' => 'required|email|unique:users,email, '.$this->userId,
             'password' => 'nullable|min:8|confirmed',
             'first_name' => 'required|string',
             'middle_name' => 'nullable|string',
@@ -39,7 +51,9 @@ class EditUser extends Component
             'phone_number' => 'required|digits_between:7,15',
             'address' => 'required|string',
             'role' => 'required',
-            'department' => 'required'
+            'directorate' => 'nullable',
+            'unit' => 'nullable',
+            'designation' => 'nullable'
         ],
         [
             'username.required' => 'Username cannot be empty. Please Enter a username!',
@@ -55,7 +69,6 @@ class EditUser extends Component
             'phone_number.digits_between' => 'Phone number can only be  between 7 and 15 digits long',
             'address.required' => 'Please Enter an Address',
             'role.required' => 'Please Select a Role to assign to User',
-            'department.required' => 'Please Select department to assign to User',
         ]);
         
         // check if password is being updated
@@ -68,7 +81,19 @@ class EditUser extends Component
     public function render()
     {
         $this->roles =  $this->systemadminModel->getRoles();
-        $this->departments = $this->systemadminModel->getDepartments();
+        $this->directorates = $this->systemadminModel->getDirectorates();
+
+        if($this->didDirectorateChange == false){
+
+            $this->units = [];
+        }
+        else {
+            !$this->systemadminModel->getUnitsByDirectorate($this->directorate)->isEmpty() ? $this->units = $this->systemadminModel->getUnitsByDirectorate($this->directorate)
+                : $this->units = [];
+            
+        }
+        $this->designations = $this->systemadminModel->getDesignations();
+       
         return view('livewire.systemadmin.edit-user')->extends('layouts.systemadmin');
     }
 }

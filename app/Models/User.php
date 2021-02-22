@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\HasPermissionsTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasPermissionsTrait; //Import The Trait;
 
     /**
      * The attributes that are mass assignable.
@@ -28,8 +29,9 @@ class User extends Authenticatable
         'address',
         'user_status',
         'default_password_status',
-        'role_id',
-        'department_id',
+        'directorate_id',
+        'unit_id',
+        'designation_id',
     ];
 
     /**
@@ -50,4 +52,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function directorates()
+    {
+        return $this->belongsTo(Directorate::class);
+    }
+
+    public function designations()
+    {
+        return $this->belongsTo(Designation::class);
+    }
+
+    public function units()
+    {
+        return $this->belongsTo(Unit::class);
+    }
 }
