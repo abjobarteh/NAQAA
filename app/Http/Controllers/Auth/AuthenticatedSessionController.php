@@ -36,8 +36,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if($request->user()->hasRole('systemadmin'))
+        if($request->user()->hasRole(
+            ...['registration_and_accreditation_manager','registration_and_accreditation_officer']
+        ))
         {
+            return redirect(route('registration-accreditation.dashboard'));
+        }
+        else if($request->user()->hasRole(
+            ...['assessment_and_certification_manager','assessment_and_certification_officer']
+        ))
+        {
+            return redirect(route('assessment-certification.dashboard'));
+        }
+        else{
             return redirect(route('systemadmin.index'));
         }
     }

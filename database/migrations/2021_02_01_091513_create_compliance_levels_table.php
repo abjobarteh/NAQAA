@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStandardsCategoryTable extends Migration
+class CreateComplianceLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateStandardsCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('standards_categories', function (Blueprint $table) {
-            
+        Schema::create('compliance_levels', function (Blueprint $table) {
             $table->id();
-            
             $table->string('name',100);
-
+            $table->integer('percentage_start');
+            $table->integer('percentage_end');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateStandardsCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('standards_categories');
+        Schema::dropIfExists('compliance_levels');
     }
 }

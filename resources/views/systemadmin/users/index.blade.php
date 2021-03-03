@@ -48,9 +48,9 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone_number }}</td>
                                     <td>{{ $user->address }}</td>
-                                    <td>{{ $user->directorate_name ?? 'N/A'}}</td>
-                                    <td>{{ $user->name ?? 'N/A'}}</td>
-                                    <td>{{ $user->designation_name ?? 'N/A'}}</td>
+                                    <td>{{ $user->directorate->name ?? 'N/A'}}</td>
+                                    <td>{{ $user->unit->name ?? 'N/A'}}</td>
+                                    <td>{{ $user->designation->name ?? 'N/A'}}</td>
                                     <td>
                                         @foreach ($user->roles as $role) 
                                             <span class="badge bg-danger">{{ $role->name ?? 'N/A' }}</span>

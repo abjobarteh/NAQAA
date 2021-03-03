@@ -5,6 +5,7 @@
 //     timer: 4000
 //   });
 $(document).ready(function(){
+  window._token = $('meta[name="csrf-token"]').attr('content')
     window.addEventListener('subdivision-added', event => {
       $('#add-or-update-subdivision').modal('hide');
       if(event.detail.action == 'create'){

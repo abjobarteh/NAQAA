@@ -138,7 +138,7 @@
                                       <select class="form-control custom-select" style="width: 100%;" name="directorate" required>
                                         <option value="" selected>Select directorate</option>
                                         @forelse ($directorates as $dt)  
-                                        <option value="{{$dt->id}}">{{$dt->directorate_name}}</option>
+                                        <option value="{{$dt->id}}">{{$dt->name}}</option>
                                       @empty
                                         <option>No Directorates registered in the system</option>
                                       @endforelse
@@ -153,7 +153,7 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                       <label>Unit</label>
-                                      <select class="form-control custom-select" style="width: 100%;" name="unit" required>
+                                      <select class="form-control custom-select" style="width: 100%;" name="unit">
                                         <option value="" selected>Select Unit</option>
                                         @forelse ($units as $un)  
                                         <option value="{{$un->id}}">{{$un->name}}</option>
@@ -174,7 +174,7 @@
                                      <select class="form-control custom-select" style="width: 100%;" name="designation" required>
                                        <option value="" selected>Select designation</option>
                                        @forelse ($designations as $desig)  
-                                       <option value="{{$desig->id}}">{{$desig->designation_name}}</option>
+                                       <option value="{{$desig->id}}">{{$desig->name}}</option>
                                      @empty
                                        <option>No Designations registered in the system</option>
                                      @endforelse

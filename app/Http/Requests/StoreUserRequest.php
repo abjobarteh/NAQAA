@@ -38,7 +38,7 @@ class StoreUserRequest extends FormRequest
             'address' => 'required|string',
             'roles' => ['required','array'],
             'directorate' => 'required',
-            'unit' => 'required',
+            'unit' => 'nullable',
             'designation' => 'required',
             'permissions' => ['nullable', 'array']
      

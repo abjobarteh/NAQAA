@@ -11,8 +11,8 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Unit;
 use App\Models\User;
-use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,6 +26,8 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
+
+        
         return view('systemadmin.users.index', compact('users'));
     }
 
@@ -66,7 +68,6 @@ class UsersController extends Controller
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name ?? null,
             'last_name' => $request->last_name,
-            'full_name' => $request->first_name.' '.$request->middle_name.' '.$request->last_name ?? $request->first_name.' '.$request->last_name,
             'phone_number' => $request->phone_number,
             'address' => $request->address,
             'role_id' => $request->role,
@@ -138,7 +139,6 @@ class UsersController extends Controller
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name ?? null,
                 'last_name' => $request->last_name,
-                'full_name' => $request->first_name.' '.$request->middle_name.' '.$request->last_name ?? $request->first_name.' '.$request->last_name,
                 'phone_number' => $request->phone_number,
                 'address' => $request->address,
                 'role_id' => $request->role,
@@ -157,7 +157,6 @@ class UsersController extends Controller
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name ?? null,
                 'last_name' => $request->last_name,
-                'full_name' => $request->first_name.' '.$request->middle_name.' '.$request->last_name ?? $request->first_name.' '.$request->last_name,
                 'phone_number' => $request->phone_number,
                 'address' => $request->address,
                 'role_id' => $request->role,

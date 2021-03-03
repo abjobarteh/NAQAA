@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Permission extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
        'name',
@@ -15,6 +16,8 @@ class Permission extends Model
        'created_at',
        'updated_at'
     ];
+    
+    protected static $logFillable = true;
     
     public function roles() 
     {

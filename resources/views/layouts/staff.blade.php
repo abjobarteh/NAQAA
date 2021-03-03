@@ -51,7 +51,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-ligh-indigo elevation-4">
     
       <!-- Sidebar -->
       <div class="sidebar">
@@ -64,7 +64,7 @@
             <a href="{{route('systemadmin.index')}}" class="d-block">{{ Auth::user()->full_name }}</a>
           </div>
         </div>
-            @include('partials.staffmenu')
+            @include('partials.commonmenu')
       </div>
       <!-- /.sidebar -->
     </aside>

@@ -139,7 +139,7 @@
                                             <select class="form-control custom-select" style="width: 100%;" name="directorate">
                                               <option value="" selected>Select directorate</option>
                                               @forelse ($directorates as $dt)  
-                                              <option value="{{$dt->id}}">{{$dt->directorate_name}}</option>
+                                              <option value="{{$dt->id}}">{{$dt->name}}</option>
                                             @empty
                                               <option>No Directorates registered in the system</option>
                                             @endforelse
@@ -175,7 +175,7 @@
                                            <select class="form-control custom-select" style="width: 100%;" name="designation">
                                              <option value="" selected>Select designation</option>
                                              @forelse ($designations as $desig)  
-                                             <option value="{{$desig->id}}">{{$desig->designation_name}}</option>
+                                             <option value="{{$desig->id}}">{{$desig->name}}</option>
                                            @empty
                                              <option>No Designations registered in the system</option>
                                            @endforelse
