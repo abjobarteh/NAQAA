@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class ProgramLevel extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'name',
@@ -15,4 +16,6 @@ class ProgramLevel extends Model
         'created_at',
         'updated_at'
     ];
+
+    protected static $logFillable = true;
 }

@@ -90,4 +90,10 @@ class LoginRequest extends FormRequest
     {
         return Str::lower($this->input('username')).'|'.$this->ip();
     }
+
+    // check default user password is still active
+    public function checkDefaultPasswordStatus()
+    {
+        
+    }
 }

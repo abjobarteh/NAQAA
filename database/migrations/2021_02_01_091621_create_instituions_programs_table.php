@@ -21,6 +21,7 @@ class CreateInstituionsProgramsTable extends Migration
             $table->unsignedBigInteger('institution_id')->nullable();
             $table->unsignedBigInteger('program_level_id')->nullable();
             $table->unsignedBigInteger('program_category_id')->nullable();
+            $table->foreignId('compliance_level_id')->nullable()->constrained();
             $table->timestamps();
             $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
             $table->foreign('program_level_id')->references('id')->on('program_levels')->onDelete('cascade');

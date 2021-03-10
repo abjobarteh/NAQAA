@@ -4,12 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Designation extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
-    protected $table = 'designations';
+    protected $fillable = [
+        'name',
+        'description',
+        'created_at',
+        'updated_at'
+    ];
+
+    protected static $logFillable = true;
 
     public function users()
     {

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RoleMiddleware
 {
@@ -14,9 +15,12 @@ class RoleMiddleware
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role, $permission = null)
-    {
-        if(!$request->user()->hasRole($role)) {
+    public function handle(Request $request, Closure $next, $roles, $permission = null)
+    { 
+        
+        $roles = explode('|', $roles);
+
+        if(!$request->user()->hasRole(...$roles)) {
 
             abort(404);
 

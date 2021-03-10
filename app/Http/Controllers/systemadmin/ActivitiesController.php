@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
-use App\Models\AuditLogs;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Activitylog\Models\Activity;
 
 class ActivitiesController extends Controller
 {
@@ -15,30 +17,15 @@ class ActivitiesController extends Controller
      */
     public function index()
     {
-        $activities = AuditLogs::all();
+        $activities = Activity::all();
 
-        return view('systemadmin.auditlogs.index', compact('activities'));
-    }
+        $roles = Role::all()->pluck('name','id');
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $users = User::all()->pluck('username','id');
+        
+        // dd($roles);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('systemadmin.auditlogs.index', compact('activities','roles','users'));
     }
 
     /**
@@ -52,37 +39,21 @@ class ActivitiesController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function activityLogsFilter(Request $request)
     {
-        //
+        // if($)
+        $data = $request->filter_by_user;
+        if(!empty($request->filter_by_user))
+        {
+            $result = Activity::where('causer_id', $request->filter_by_user)->get();
+        }
+
+        return response()->json([
+            'data' => $result,
+
+        ],200);
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

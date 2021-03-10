@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Gate;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
 class StoreUserRequest extends FormRequest
@@ -38,7 +38,7 @@ class StoreUserRequest extends FormRequest
             'address' => 'required|string',
             'roles' => ['required','array'],
             'directorate' => 'required',
-            'unit' => 'required',
+            'unit' => 'nullable',
             'designation' => 'required',
             'permissions' => ['nullable', 'array']
      

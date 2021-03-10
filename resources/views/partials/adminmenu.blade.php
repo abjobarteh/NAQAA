@@ -1,11 +1,11 @@
  <!-- Sidebar Menu -->
  <nav class="mt-2">
-  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+  <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
     <!-- Add icons to the links using the .nav-icon class
          with font-awesome or any other icon font library -->
     
     <li class="nav-item">
-      <a href="{{route('systemadmin.index')}}" class="nav-link {{ request()->is('systemadmin/') || request()->is('systemadmin/permissions/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.dashboard')}}" class="nav-link {{ request()->is('systemadmin/dashboard') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
           Dashboard
@@ -113,7 +113,7 @@
     @endcan
     @can('directorate_access')
     <li class="nav-item">
-      <a href="{{route('systemadmin.directorates')}}" class="nav-link {{ request()->is('systemadmin/directorates') || request()->is('systemadmin/directorates/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.directorates.index')}}" class="nav-link {{ request()->is('systemadmin/directorates') || request()->is('systemadmin/directorates/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-building"></i>
         <p>
           Directorates
@@ -121,9 +121,19 @@
       </a>
     </li>
     @endcan
+    @can('unit_access')
+    <li class="nav-item">
+      <a href="{{route('systemadmin.units.index')}}" class="nav-link {{ request()->is('systemadmin/units') || request()->is('systemadmin/units/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-building"></i>
+        <p>
+          Units
+        </p>
+      </a>
+    </li>
+    @endcan
     @can('designation_access')
       <li class="nav-item">
-      <a href="{{route('systemadmin.designations')}}" class="nav-link {{ request()->is('systemadmin/designations') || request()->is('systemadmin/designations/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.designations.index')}}" class="nav-link {{ request()->is('systemadmin/designations') || request()->is('systemadmin/designations/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-tag"></i>
         <p>
           Designations
@@ -132,42 +142,41 @@
     </li>
     @endcan
     @can('subdivision_access')
-    <li class="nav-item">
-      <a href="{{route('systemadmin.subdivisions')}}" class="nav-link {{ request()->is('systemadmin/subdivisions') || request()->is('systemadmin/subdivisions/*') ? 'active' : '' }}">
+    <li class="nav-item menu-open">
+      <a href="#" class="nav-link {{ request()->is('systemadmin/regions') || request()->is('systemadmin/regions/*') || request()->is('systemadmin/districts') || request()->is('systemadmin/districts/*') || request()->is('systemadmin/towns-villages') || request()->is('systemadmin/towns-villages/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-sitemap"></i>
         <p>
           Subdivisions
-        </p>
-      </a>
-    </li>
-    @endcan
-    @can('standards_access')
-    <li class="nav-item menu-open">
-      <a href="#" class="nav-link {{ request()->is('systemadmin/institution-categories') || request()->is('systemadmin/institution-types') || request()->is('systemadmin/program-levels') || request()->is('systemadmin/program-categories') || request()->is('systemadmin/institution-types/*') || request()->is('systemadmin/program-levels/*') || request()->is('systemadmin/program-categories/*') || request()->is('systemadmin/institution-categories/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-cog"></i>
-        <p>
-            Standards
           <i class="right fas fa-angle-left"></i>
         </p>
       </a>
       <ul class="nav nav-treeview">
-        @can('standards_list_access')
+        @can('region_access')
         <li class="nav-item">
-          <a href="{{ route('systemadmin.institution-categories.index') }}" class="nav-link {{ request()->is('systemadmin/institution-categories') || request()->is('systemadmin/institution-categories/*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-cogs"></i>
+          <a href="{{route('systemadmin.regions.index')}}" class="nav-link {{ request()->is('systemadmin/regions') || request()->is('systemadmin/regions/*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-compass"></i>
             <p>
-                Standards List
+              Regions
             </p>
           </a>
         </li>
         @endcan
-        
-        @can('standards_category_access')
+        @can('district_access')
         <li class="nav-item">
-          <a href="{{ route('systemadmin.institution-types.index') }}" class="nav-link {{ request()->is('systemadmin/institution-types') || request()->is('systemadmin/institution-types/*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-house-user"></i>
+          <a href="{{route('systemadmin.districts.index')}}" class="nav-link {{ request()->is('systemadmin/districts') || request()->is('systemadmin/districts/*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-location-arrow"></i>
             <p>
-                Standards Categories
+              Districts
+            </p>
+          </a>
+        </li>
+        @endcan
+        @can('towns_villages_access')
+        <li class="nav-item">
+          <a href="{{route('systemadmin.towns-villages.index')}}" class="nav-link {{ request()->is('systemadmin/towns-villages') || request()->is('systemadmin/towns-villages/*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-thumbtack"></i>
+            <p>
+              Towns/Villages
             </p>
           </a>
         </li>
@@ -175,29 +184,67 @@
       </ul>
     </li>
     @endcan
+    @can('standards_access')
+    <li class="nav-item">
+      <a href="{{ route('systemadmin.standards.index') }}" class="nav-link {{ request()->is('systemadmin/standards') || request()->is('systemadmin/standards/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-book-open"></i>
+        <p>
+            Standards
+        </p>
+      </a>
+    </li>
+    @endcan
+    @can('compliance_level_access')
+    <li class="nav-item">
+      <a href="{{route('systemadmin.compliance-levels.index')}}" class="nav-link {{ request()->is('systemadmin/compliance-levels') || request()->is('systemadmin/compliance-levels/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-clipboard-list"></i>
+        <p>
+            Compliance Levels
+        </p>
+      </a>
+    </li>
+    @endcan
     @can('activity_logs_access')
     <li class="nav-item">
-      <a href="{{route('systemadmin.auditlogs.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/activities') || request()->is('systemadmin/activities/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-archive"></i>
+        <p>
+          Activity Logs
+        </p>
+      </a>
+    </li>
+    @endcan
+    @can('systemadmin_reports_access')
+    <li class="nav-item">
+      <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
         <p>
-          Audit Logs
+            Reports
         </p>
       </a>
     </li>
     @endcan
-    @can('settings_access')
+    @can('backup_access')
     <li class="nav-item">
-      <a href="{{route('systemadmin.settings')}}" class="nav-link {{ request()->is('systemadmin/settings') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.backup')}}" class="nav-link {{ request()->is('systemadmin/settings') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-database"></i>
+        <p>
+          Backup
+        </p>
+      </a>
+    </li>
+    @endcan
+    <li class="nav-item">
+      <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-cog"></i>
         <p>
-          Settings
+          Profile
         </p>
       </a>
     </li>
-    @endcan
     <li class="nav-item">
       <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="nav-icon fas fa-sign-out-alt"></i>
+        <i class="nav-icon fas fa-power-off"></i>
         <p>
           Logout
         </p>

@@ -31,7 +31,7 @@
 <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-dark navbar-gray-dark">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -51,7 +51,7 @@
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <aside class="main-sidebar sidebar-dark-teal elevation-4">
     
       <!-- Sidebar -->
       <div class="sidebar">
@@ -61,10 +61,10 @@
             <img src="/img/man.svg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="{{route('systemadmin.index')}}" class="d-block">{{ Auth::user()->full_name }}</a>
+            <a href="{{route('registration-accreditation.dashboard')}}" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
           </div>
         </div>
-            @include('partials.staffmenu')
+            @include('partials.commonmenu')
       </div>
       <!-- /.sidebar -->
     </aside>

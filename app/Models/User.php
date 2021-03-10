@@ -7,10 +7,14 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\CausesActivity;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasPermissionsTrait; //Import The Trait;
+    use HasFactory, Notifiable, HasPermissionsTrait, LogsActivity, CausesActivity; //Import The Trait;
+    
+    protected static $logFillable = true;
 
     /**
      * The attributes that are mass assignable.
@@ -53,17 +57,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function directorates()
+    public function directorate()
     {
         return $this->belongsTo(Directorate::class);
     }
 
-    public function designations()
+    public function designation()
     {
         return $this->belongsTo(Designation::class);
     }
 
-    public function units()
+    public function unit()
     {
         return $this->belongsTo(Unit::class);
     }

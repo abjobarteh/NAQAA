@@ -18,13 +18,12 @@ class CreateStandardsTable extends Migration
 
             $table->string('title',100);
 
-            $table->text('description',255);
+            $table->text('description',255)->nullable();
 
-            $table->unsignedBigInteger('standard_category_id');
+            $table->float('maximum_score',8,2);
 
             $table->timestamps();
             
-            $table->foreign('standard_category_id')->references('id')->on('standards')->onDelete('cascade');
         });
     }
 

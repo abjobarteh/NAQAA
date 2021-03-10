@@ -1,10 +1,10 @@
-// var Toast = Swal.mixin({
-//     toast: true,
-//     position: 'top-end',
-//     showConfirmButton: false,
-//     timer: 4000
-//   });
+// show loading while window loads
+$(window).on('load', function () {
+   $('#loading').hide(); 
+  })
+
 $(document).ready(function(){
+  window._token = $('meta[name="csrf-token"]').attr('content')
     window.addEventListener('subdivision-added', event => {
       $('#add-or-update-subdivision').modal('hide');
       if(event.detail.action == 'create'){

@@ -1,4 +1,4 @@
-@extends('layouts.systemadmin')
+@extends('layouts.app')
 
 @section('content')
        <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('systemadmin.index')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
                 <li class="breadcrumb-item"><a href="{{route('systemadmin.users.index')}}">Users</a></li>
                 <li class="breadcrumb-item active">Edit User</li>
             </ol>
@@ -136,10 +136,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Directorate</label>
-                                            <select class="form-control custom-select" style="width: 100%;" name="directorate">
-                                              <option value="" selected>Select directorate</option>
+                                            <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate">
+                                              <option>Select directorate</option>
                                               @forelse ($directorates as $dt)  
-                                              <option value="{{$dt->id}}">{{$dt->directorate_name}}</option>
+                                              <option value="{{$dt->id}}" {{ $dt->id == auth()->user()->directorate_id ? 'selected' : ''}}>{{$dt->name}}</option>
                                             @empty
                                               <option>No Directorates registered in the system</option>
                                             @endforelse
@@ -154,10 +154,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Unit</label>
-                                            <select class="form-control custom-select" style="width: 100%;" name="unit">
-                                              <option value="" selected>Select Unit</option>
+                                            <select class="form-control select2" style="width: 100%;" name="unit">
+                                              <option>Select Unit</option>
                                               @forelse ($units as $un)  
-                                              <option value="{{$un->id}}">{{$un->name}}</option>
+                                              <option value="{{$un->id}}" {{ $un->id == auth()->user()->unit_id ? 'selected' : ''}}>{{$un->name}}</option>
                                             @empty
                                               <option>No Units</option>
                                             @endforelse
@@ -172,19 +172,18 @@
                                       <div class="col-md-4">
                                        <div class="form-group">
                                            <label>Designation</label>
-                                           <select class="form-control custom-select" style="width: 100%;" name="designation">
-                                             <option value="" selected>Select designation</option>
+                                           <select class="form-control select2" style="width: 100%;" name="designation" data-placeholder="Select designation">
                                              @forelse ($designations as $desig)  
-                                             <option value="{{$desig->id}}">{{$desig->designation_name}}</option>
-                                           @empty
-                                             <option>No Designations registered in the system</option>
-                                           @endforelse
+                                                <option value="{{$desig->id}}" {{ $desig->id == auth()->user()->designation_id ? 'selected' : ''}}>{{$desig->name}}</option>
+                                              @empty
+                                                <option>No Designations registered in the system</option>
+                                              @endforelse
                                            </select>
                                          </div>
                                          <div class="mt-1">
                                           @if($errors->has('designation'))
-                                          <span class="text-danger">{{ $errors->first('designation') }}</span>
-                                      @endif
+                                            <span class="text-danger">{{ $errors->first('designation') }}</span>
+                                          @endif
                                        </div>
                                      </div>
                                   </div>
@@ -202,6 +201,14 @@
                                             <span class="text-danger">{{ $errors->first('roles') }}</span>
                                         @endif
                                     </div>
+                                </div>
+                                <div class="col-12">
+                                  <div class="form-group">
+                                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                      <input type="checkbox" class="custom-control-input" id="enable" name="user_status" {{ $user->user_status == 1 ? 'checked' : '' }}>
+                                      <label class="custom-control-label" for="enable">Enable</label>
+                                    </div>
+                                  </div>
                                 </div>
                                   <div class="col-12">
                                     <div class="form-group">
@@ -230,4 +237,44 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+
+<script>
+    $(document).ready(function(){
+      $.ajax({
+                method: "GET",
+                url: "/systemadmin/users/getunitsbydirectorate/"+$('#directorate').val(),
+                dataType: "json",
+                success: function(response)
+                {
+
+                  $('select[name="unit"]').empty();
+                  $.each(response.data, function(key, value) {
+                              $('select[name="unit"]').append(`<option value="${key}"> ${value} </option>`);
+                    });
+                }
+          })
+        $('#directorate').change(function(e){
+          var directorateID = $(this).val();
+          if(directorateID){
+              $.ajax({
+                method: "GET",
+                url: "/systemadmin/users/getunitsbydirectorate/"+directorateID,
+                dataType: "json",
+                success: function(response)
+                {
+
+                  $('select[name="unit"]').empty();
+                  $.each(response.data, function(key, value) {
+                              $('select[name="unit"]').append('<option value="'+ key +'">'+ value +'</option>');
+                    });
+                }
+              })
+          }
+        })
+    })
+</script>
+    
 @endsection

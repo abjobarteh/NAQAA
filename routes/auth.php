@@ -62,3 +62,12 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+// change default sysadmin password
+Route::get('/change-default-password', [AuthenticatedSessionController::class, 'changeDefaultPassword'])
+                ->name('change-default-password')
+                ->middleware('auth');
+Route::put('/update-default-password', [AuthenticatedSessionController::class, 'updateDefaultPassword']);
+
+Route::post('/skip-default-password', [AuthenticatedSessionController::class, 'skipDefaultPasswordUpdate'])
+                ->name('skip-default-password');
