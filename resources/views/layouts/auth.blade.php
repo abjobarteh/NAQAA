@@ -69,5 +69,6 @@
   <script src="/js/custom.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="/js/pages/dashboard.js"></script> --}}
+  @include('sweetalert::alert')
 </body>
 </html>

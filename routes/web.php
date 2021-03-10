@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\RegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
+use App\Http\Controllers\systemadmin\BackupsController;
 use App\Http\Controllers\systemadmin\ComplianceLevelController;
+use App\Http\Controllers\systemadmin\DashboardController;
 use App\Http\Controllers\systemadmin\DesignationsController;
 use App\Http\Controllers\systemadmin\DirectoratesController;
 use App\Http\Controllers\systemadmin\DistrictsController;
@@ -21,7 +24,6 @@ use App\Http\Controllers\systemadmin\SubdivisionsController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
-use App\Http\Livewire\Systemadmin\Index as sysadmindashboard;
 use App\Http\Livewire\Systemadmin\Units;
 use Illuminate\Support\Facades\Route;
 
@@ -44,16 +46,27 @@ require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => 'auth'], function(){
+
+  // Profiles Settings
+    Route::get('settings', [ProfilesController::class, 'settings'])->middleware('auth')
+            ->name('settings');
+
+    Route::put('settings/profileupdate', [ProfilesController::class, 'updateProfile'])
+            ->name('settings.profileupdate');
+
+    Route::put('settings/passwordchnage', [ProfilesController::class, 'changePassword'])
+            ->name('settings.passwordchange');
     
     // systemadmin
     Route::group(['prefix' => 'systemadmin','as' => 'systemadmin.','middleware'=> 'role:systemadmin'], function(){
-        Route::redirect('/', '/systemadmin/');
-        Route::get('/', sysadmindashboard::class)->name('index');
-        Route::get('units', Units::class)->name('units');
+        Route::redirect('/', '/systemadmin/dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // institution settings
         Route::get('institution-settings', InstitutionControllerSettings::class)->name('institution-settings');
 
+        // Users
+        Route::get('users/getunitsbydirectorate/{directorate}', [UsersController::class, 'getUnitsByDirectorate'])->name('users.getunitsbydirectorate');
         Route::resource('users', UsersController::class)->except('destroy');
 
         // Permissions
@@ -105,6 +118,10 @@ Route::group(['middleware' => 'auth'], function(){
         // Compliaance Level routes
         Route::resource('compliance-levels', ComplianceLevelController::class);
 
+        // Backup system
+        Route::get('backup',[BackupsController::class, 'index'])->name('backup');
+        Route::get('backup/manual',[BackupsController::class, 'manualDatabaseBackup'])->name('backup.manual');
+
     });
 
     // Registration and Accreditation Routes
@@ -112,10 +129,10 @@ Route::group(['middleware' => 'auth'], function(){
     'middleware'=> ['role:registration_and_accreditation_manager|registration_and_accreditation_officer']
     ],function(){
 
-      Route::redirect('/','registration-accreditation/');
+      Route::redirect('/','registration-accreditation/dashboard');
 
       // Dashboard route
-      Route::get('/', [\App\Http\Controllers\RegistrationAccreditation\DashboardController::class, 'index'])->name('dashboard');
+      Route::get('/dashboard', [\App\Http\Controllers\RegistrationAccreditation\DashboardController::class, 'index'])->name('dashboard');
 
     //   Registration Routes
       Route::group(['prefix' => 'registration', 'as' => 'registration.'], function(){
@@ -139,7 +156,7 @@ Route::group(['middleware' => 'auth'], function(){
     
         // AssessorVerifeir  Registration Routes
         Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
-  });
+      });
 
     });
 

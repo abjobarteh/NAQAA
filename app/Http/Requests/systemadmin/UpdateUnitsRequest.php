@@ -3,6 +3,8 @@
 namespace App\Http\Requests\systemadmin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateUnitsRequest extends FormRequest
 {
@@ -13,7 +15,9 @@ class UpdateUnitsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        abort_if(Gate::denies('unit_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return true;
     }
 
     /**
@@ -24,7 +28,16 @@ class UpdateUnitsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'directorate' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Unit name cannot be empty. Please Enter a unit name',
+            'directorate.required' => 'Please select a directorate.'
         ];
     }
 }

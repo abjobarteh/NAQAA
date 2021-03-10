@@ -5,7 +5,7 @@
          with font-awesome or any other icon font library -->
     
     <li class="nav-item">
-      <a href="{{route('systemadmin.index')}}" class="nav-link {{ request()->is('systemadmin/') || request()->is('systemadmin/permissions/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.dashboard')}}" class="nav-link {{ request()->is('systemadmin/dashboard') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
           Dashboard
@@ -121,6 +121,16 @@
       </a>
     </li>
     @endcan
+    @can('unit_access')
+    <li class="nav-item">
+      <a href="{{route('systemadmin.units.index')}}" class="nav-link {{ request()->is('systemadmin/units') || request()->is('systemadmin/units/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-building"></i>
+        <p>
+          Units
+        </p>
+      </a>
+    </li>
+    @endcan
     @can('designation_access')
       <li class="nav-item">
       <a href="{{route('systemadmin.designations.index')}}" class="nav-link {{ request()->is('systemadmin/designations') || request()->is('systemadmin/designations/*') ? 'active' : '' }}">
@@ -196,7 +206,7 @@
     @endcan
     @can('activity_logs_access')
     <li class="nav-item">
-      <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/activities') || request()->is('systemadmin/activities/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-archive"></i>
         <p>
           Activity Logs
@@ -216,7 +226,7 @@
     @endcan
     @can('backup_access')
     <li class="nav-item">
-      <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/settings') ? 'active' : '' }}">
+      <a href="{{route('systemadmin.backup')}}" class="nav-link {{ request()->is('systemadmin/settings') ? 'active' : '' }}">
         <i class="nav-icon fas fa-database"></i>
         <p>
           Backup
@@ -224,7 +234,6 @@
       </a>
     </li>
     @endcan
-    @can('profile_access')
     <li class="nav-item">
       <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-cog"></i>
@@ -233,7 +242,6 @@
         </p>
       </a>
     </li>
-    @endcan
     <li class="nav-item">
       <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
         <i class="nav-icon fas fa-power-off"></i>

@@ -10,7 +10,10 @@ class Unit extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $table = 'units';
+    protected $fillable = [
+        'name',
+        'directorate_id'
+    ];
 
     protected static $logFillable = true;
 
@@ -19,7 +22,7 @@ class Unit extends Model
         return $this->hasMany(User::class);
     }
 
-    public function directorates()
+    public function directorate()
     {
         return $this->belongsTo(Directorate::class);
     }

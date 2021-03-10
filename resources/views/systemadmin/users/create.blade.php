@@ -1,4 +1,4 @@
-@extends('layouts.systemadmin')
+@extends('layouts.app')
 
 @section('content')
  <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('systemadmin.index')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
             <li class="breadcrumb-item"><a href="{{route('systemadmin.users.index')}}">Users</a></li>
             <li class="breadcrumb-item active">Add User</li>
         </ol>
@@ -135,7 +135,7 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                       <label>Directorate</label>
-                                      <select class="form-control custom-select" style="width: 100%;" name="directorate" required>
+                                      <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate" required>
                                         <option value="" selected>Select directorate</option>
                                         @forelse ($directorates as $dt)  
                                         <option value="{{$dt->id}}">{{$dt->name}}</option>
@@ -153,13 +153,13 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                       <label>Unit</label>
-                                      <select class="form-control custom-select" style="width: 100%;" name="unit">
+                                      <select class="form-control select2" id="unit" style="width: 100%;" name="unit">
                                         <option value="" selected>Select Unit</option>
                                         @forelse ($units as $un)  
-                                        <option value="{{$un->id}}">{{$un->name}}</option>
-                                      @empty
-                                        <option>No Units</option>
-                                      @endforelse
+                                          <option value="{{$un->id}}">{{$un->name}}</option>
+                                        @empty
+                                          <option>No Units</option>
+                                        @endforelse
                                       </select>
                                     </div>
                                     <div class="mt-1">
@@ -171,7 +171,7 @@
                                 <div class="col-md-4">
                                  <div class="form-group">
                                      <label>Designation</label>
-                                     <select class="form-control custom-select" style="width: 100%;" name="designation" required>
+                                     <select class="form-control select2" style="width: 100%;" name="designation" required>
                                        <option value="" selected>Select designation</option>
                                        @forelse ($designations as $desig)  
                                        <option value="{{$desig->id}}">{{$desig->name}}</option>
@@ -202,6 +202,14 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                  <input type="checkbox" class="custom-control-input" id="enable" name="user_status">
+                                  <label class="custom-control-label" for="enable">Enable</label>
+                                </div>
+                              </div>
+                            </div>
                               <div class="col-12">
                                 <div class="form-group">
                                     <label>Permissions</label>
@@ -228,4 +236,31 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+
+<script>
+    $(document).ready(function(){
+        $('#directorate').change(function(e){
+          var directorateID = $(this).val();
+          if(directorateID){
+              $.ajax({
+                method: "GET",
+                url: "/systemadmin/users/getunitsbydirectorate/"+directorateID,
+                dataType: "json",
+                success: function(response)
+                {
+
+                  $('select[name="unit"]').empty();
+                  $.each(response.data, function(key, value) {
+                              $('select[name="unit"]').append('<option value="'+ key +'">'+ value +'</option>');
+                    });
+                }
+              })
+          }
+        })
+    })
+</script>
+    
 @endsection

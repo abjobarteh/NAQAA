@@ -14,8 +14,6 @@ class Directorate extends Model
     protected $fillable = [
         'name',
         'directorate_code',
-        'created_at',
-        'updated_at'
     ];
 
     protected static $logFillable = true;

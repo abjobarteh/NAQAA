@@ -25,9 +25,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        
+        $users = User::all();
+ 
         return view('systemadmin.users.index', compact('users'));
     }
 
@@ -61,6 +62,7 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+       $user_status = $request->user_status == 'on' ? 1 : 0;
        $user =  User::create([
             'username' => $request->username,
             'email' => $request->email,
@@ -74,8 +76,8 @@ class UsersController extends Controller
             'directorate_id' => $request->directorate,
             'unit_id' => $request->unit,
             'designation_id' => $request->designation,
-            'user_status' => 1,
-            'default_password_status' => 0,
+            'user_status' => $user_status,
+            'default_password_status' => 1,
         ]);
 
         $user->roles()->sync($request->input('roles', []));
@@ -131,6 +133,7 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $user_status = $request->user_status == 'on' ? 1 : 0;
         if($request->filled('password')){
             $user->update([
                 'username' => $request->username,
@@ -145,15 +148,13 @@ class UsersController extends Controller
                 'directorate_id' => $request->directorate,
                 'unit_id' => $request->unit,
                 'designation_id' => $request->designation,
-                'user_status' => 1,
-                'default_password_status' => 0,
+                'user_status' => $user_status,
             ]);
         }
         else{
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => $user->password,
                 'first_name' => $request->first_name,
                 'middle_name' => $request->middle_name ?? null,
                 'last_name' => $request->last_name,
@@ -163,8 +164,7 @@ class UsersController extends Controller
                 'directorate_id' => $request->directorate,
                 'unit_id' => $request->unit,
                 'designation_id' => $request->designation,
-                'user_status' => 1,
-                'default_password_status' => 0,
+                'user_status' => $user_status,
             ]);
         }
 
@@ -184,5 +184,11 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getUnitsByDirectorate(Directorate $directorate)
+    {
+        $directorate->load('units');
+        return response()->json(['data' => $directorate->units->pluck('name','id')]);
     }
 }

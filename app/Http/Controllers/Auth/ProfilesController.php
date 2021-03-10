@@ -3,31 +3,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\UpdatePasswordRequest;
 use App\Http\Requests\Auth\UpdateProfileRequest;
-use App\Models\Designation;
-use App\Models\Directorate;
-use App\Models\Role;
-use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
 
 class ProfilesController extends Controller
 {
     public function settings()
     {
-        abort_if(Gate::denies('profile_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $userProfile = Auth::user();
-
-        return view('auth.profile', compact('userProfile'));
+        return view('auth.profile');
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $user  = User::Find(Auth::user()->id);
+        $user  = User::where(Auth::user()->id);
 
 
         $user->update([
@@ -41,5 +33,16 @@ class ProfilesController extends Controller
         ]);
 
         return redirect('settings')->withSuccess('Your Profile has successfuly been updated');
+    }
+
+    public function changePassword(UpdatePasswordRequest $request)
+    {
+        $user  = User::Find(Auth::user()->id);
+        
+        $user->update([
+            'password' => bcrypt($request->password)
+        ]);
+
+        return redirect('settings')->withSuccess('Password successfuly updated');
     }
 }

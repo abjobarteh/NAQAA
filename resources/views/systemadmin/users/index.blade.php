@@ -1,4 +1,4 @@
-@extends('layouts.systemadmin')
+@extends('layouts.app')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -9,7 +9,9 @@
             <h1 class="m-0">Users</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
+                @can('user_create')
                 <a href="{{route('systemadmin.users.create')}}" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add User</a>
+                @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -32,9 +34,8 @@
                                     <th>Email</th>
                                     <th>Phone Number</th>
                                     <th>Address</th>
-                                    <th>Directorate</th>
-                                    <th>Unit</th>
                                     <th>Designation</th>
+                                    <th>Enabled</th>
                                     <th>Role</th>
                                     <th>Date Created</th>
                                     <th>Actions</th>
@@ -48,9 +49,14 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone_number }}</td>
                                     <td>{{ $user->address }}</td>
-                                    <td>{{ $user->directorate->name ?? 'N/A'}}</td>
-                                    <td>{{ $user->unit->name ?? 'N/A'}}</td>
                                     <td>{{ $user->designation->name ?? 'N/A'}}</td>
+                                    <td>
+                                        @if ($user->user_status == 1)
+                                            <span class="badge bg-success">Enabled</span>
+                                        @else
+                                            <span class="badge bg-danger">Disabled</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         @foreach ($user->roles as $role) 
                                             <span class="badge bg-danger">{{ $role->name ?? 'N/A' }}</span>
@@ -58,13 +64,12 @@
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                     <td>
-                                        @if ($user->user_status == 1)
-                                            <button class="btn btn-danger btn-sm" title="Deactivate Account" wire:click="changeUserAccountStatus('{{$user->id}}','0')"><i class="fas fa-user-lock"></i></button>
-                                        @else
-                                            <button class="btn btn-success btn-sm" title="Activate Account" wire:click="changeUserAccountStatus('{{$user->id}}','1')"><i class="fas fa-user-check"></i></button>
-                                        @endif
+                                        @can('user_edit')
                                         <a href="{{ route('systemadmin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
+                                        @endcan
+                                        @can('user_show')
                                         <a href="{{ route('systemadmin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
+                                        @endcan
                                     </td>
                                 </tr>
                                 @empty

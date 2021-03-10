@@ -18,7 +18,7 @@ class CreateStandardsTable extends Migration
 
             $table->string('title',100);
 
-            $table->text('description',255);
+            $table->text('description',255)->nullable();
 
             $table->float('maximum_score',8,2);
 

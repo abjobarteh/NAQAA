@@ -16,10 +16,12 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.3",
         "realrashid/sweet-alert": "^3.2",
-        "spatie/laravel-activitylog": "^3.16"
+        "spatie/laravel-activitylog": "^3.16",
+        "spatie/laravel-backup": "^6.15"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
+        "beyondcode/laravel-query-detector": "^1.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.0",

@@ -1,9 +1,9 @@
  <!-- Sidebar Menu -->
  <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+    <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-      @role(['registration_and_accreditation_manager','registration_and_accreditation_officer'])
+      {{-- @role(['registration_and_accreditation_manager','registration_and_accreditation_officer']) --}}
       <li class="nav-item">
         <a href="{{route('registration-accreditation.dashboard')}}" class="nav-link {{ request()->is('registration-accreditation/') ? 'active' : '' }}">
           <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -13,7 +13,7 @@
         </a>
       </li>
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link {{ request()->is('systemadmin/permissions') || request()->is('systemadmin/roles') || request()->is('systemadmin/users') || request()->is('systemadmin/permissions/*') || request()->is('systemadmin/roles/*') || request()->is('systemadmin/users/*') || request()->is('systemadmin/permissions/*') ? 'active' : '' }}">
+        <a href="#" class="nav-link {{ request()->is('registration-accreditation/registration/institutions') || request()->is('registration-accreditation/registration/institutions/*') || request()->is('registration-accreditation/registration/trainers') || request()->is('registration-accreditation/registration/trainers/*') || request()->is('registration-accreditation/registration/assessor-verifiers') || request()->is('registration-accreditation/registration/assessor-verifiers/*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-users"></i>
           <p>
             Registration
@@ -48,7 +48,7 @@
         </ul>
       </li>
       <li class="nav-item menu-open">
-        <a href="#" class="nav-link {{ request()->is('systemadmin/permissions') || request()->is('systemadmin/roles') || request()->is('systemadmin/users') || request()->is('systemadmin/permissions/*') || request()->is('systemadmin/roles/*') || request()->is('systemadmin/users/*') || request()->is('systemadmin/permissions/*') ? 'active' : '' }}">
+        <a href="#" class="nav-link {{ request()->is('registration-accreditation/accreditation/institutions') || request()->is('registration-accreditation/accreditation/institutions/*') || request()->is('registration-accreditation/accreditation/trainers') || request()->is('registration-accreditation/accreditation/trainers/*') || request()->is('registration-accreditation/accreditation/assessor-verifiers') || request()->is('registration-accreditation/accreditation/assessor-verifiers/*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-users"></i>
           <p>
             Accreditation
@@ -82,50 +82,50 @@
           </li>
         </ul>
       </li>
-      @endrole
-      @can('activity_logs_access')
       <li class="nav-item">
-        <a href="{{route('registration-accreditation.licences')}}" class="nav-link {{ request()->is('registration-accreditation/licences') || request()->is('systemadmin/licences/*') ? 'active' : '' }}">
+        <a href="{{route('registration-accreditation.registration.institutions.index')}}" class="nav-link {{ request()->is('registration-accreditation/licences') || request()->is('systemadmin/licences/*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-book"></i>
           <p>
             Licences
           </p>
         </a>
       </li>
-      @endcan
-      @can('activity_logs_access')
       <li class="nav-item">
-        <a href="{{route('systemadmin.auditlogs.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
+        <a href="{{route('registration-accreditation.registration.institutions.index')}}" class="nav-link {{ request()->is('registration-accreditation/licences') || request()->is('systemadmin/licences/*') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-book"></i>
+          <p>
+            Appointments
+          </p>
+        </a>
+      </li>
+      {{-- @endrole --}}
+      <li class="nav-item">
+        <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-book"></i>
           <p>
             Surveys
           </p>
         </a>
       </li>
-      @endcan
-      @can('activity_logs_access')
       <li class="nav-item">
-        <a href="{{route('systemadmin.auditlogs.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
+        <a href="{{route('systemadmin.activities.index')}}" class="nav-link {{ request()->is('systemadmin/auditlogs') || request()->is('systemadmin/auditlogs/*') ? 'active' : '' }}">
           <i class="nav-icon fas fa-book"></i>
           <p>
             Institution Audits
           </p>
         </a>
       </li>
-      @endcan
-      @can('settings_access')
       <li class="nav-item">
-        <a href="{{route('systemadmin.settings')}}" class="nav-link {{ request()->is('systemadmin/settings') ? 'active' : '' }}">
+        <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
           <i class="nav-icon fas fa-user-cog"></i>
           <p>
-            Settings
+            Profile
           </p>
         </a>
       </li>
-      @endcan
       <li class="nav-item">
         <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
+          <i class="nav-icon fas fa-power-off"></i>
           <p>
             Logout
           </p>

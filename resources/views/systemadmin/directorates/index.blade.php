@@ -1,4 +1,4 @@
-@extends('layouts.systemadmin')
+@extends('layouts.app')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -49,9 +49,6 @@
                                             @endcan
                                             @can('directorate_show')
                                             <a href="{{ route('systemadmin.directorates.show', $directorate->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
-                                            @endcan
-                                            @can('unit_access')
-                                            <a href="{{ route('systemadmin.directorates.show', $directorate->id) }}" class="btn btn-warning btn-sm text-white"><i class="fas fa-plus"></i> Units</a>
                                             @endcan
                                         </td>
                                     </tr>

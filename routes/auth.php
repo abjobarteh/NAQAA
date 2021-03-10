@@ -6,7 +6,6 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -64,13 +63,11 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
 
-// Profiles Settings
-Route::get('settings', [ProfilesController::class, 'settings'])->middleware('auth')
-                ->middleware('auth')
-                ->name('settings');
-Route::put('settings/profileupdate', [ProfilesController::class, 'updateProfile'])
-                ->middleware('auth')
-                ->name('settings.profileupdate');
-Route::put('settings/passwordchnage', [ProfilesController::class, 'changePassword'])
-                ->middleware('auth')
-                ->name('settings.passwordchnage');
+// change default sysadmin password
+Route::get('/change-default-password', [AuthenticatedSessionController::class, 'changeDefaultPassword'])
+                ->name('change-default-password')
+                ->middleware('auth');
+Route::put('/update-default-password', [AuthenticatedSessionController::class, 'updateDefaultPassword']);
+
+Route::post('/skip-default-password', [AuthenticatedSessionController::class, 'skipDefaultPasswordUpdate'])
+                ->name('skip-default-password');

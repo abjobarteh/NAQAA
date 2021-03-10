@@ -1,4 +1,4 @@
-@extends('layouts.staff')
+@extends('layouts.app')
 
 @section('content')
     create page
