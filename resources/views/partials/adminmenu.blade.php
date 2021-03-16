@@ -57,7 +57,7 @@
         </ul>
       </li>
     @endcan
-    @can('institution_settings_access')
+    {{-- @can('institution_settings_access')
     <li class="nav-item menu-open">
       <a href="#" class="nav-link {{ request()->is('admin/institution-categories') || request()->is('admin/institution-types') || request()->is('admin/program-levels') || request()->is('admin/program-categories') || request()->is('admin/institution-types/*') || request()->is('admin/program-levels/*') || request()->is('admin/program-categories/*') || request()->is('admin/institution-categories/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-cog"></i>
@@ -110,7 +110,7 @@
         @endcan
       </ul>
     </li>
-    @endcan
+    @endcan --}}
     @can('directorate_access')
     <li class="nav-item">
       <a href="{{route('admin.directorates.index')}}" class="nav-link {{ request()->is('admin/directorates') || request()->is('admin/directorates/*') ? 'active' : '' }}">
@@ -250,17 +250,6 @@
         <p>
           Profile
         </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-        <i class="nav-icon fas fa-power-off"></i>
-        <p>
-          Logout
-        </p>
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-          {{ csrf_field() }}
-      </form>
       </a>
     </li>
   </ul>
