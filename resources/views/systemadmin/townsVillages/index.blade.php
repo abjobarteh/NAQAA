@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('towns_villages_create')
-                 <a href="{{ route('systemadmin.towns-villages.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Town/Village</a>
+                 <a href="{{ route('admin.towns-villages.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Town/Village</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -48,10 +48,10 @@
                                         <td>{{ $townVillage->name }}</td>
                                         <td>
                                             @can('towns_villages_edit')
-                                            <a href="{{ route('systemadmin.towns-villages.edit', $townVillage->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.towns-villages.edit', $townVillage->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                             @can('towns_villages_show')
-                                            <a href="{{ route('systemadmin.towns-villages.show', $townVillage->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.towns-villages.show', $townVillage->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

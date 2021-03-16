@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Units</li>
                 </ol>
             </div><!-- /.col -->
@@ -100,10 +100,10 @@
                                     <td>{{ $unit->directorate->name }}</td>
                                     <td>
                                         @can('unit_edit')
-                                        <a href="{{ route('systemadmin.units.edit', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        <a href="{{ route('admin.units.edit', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                        @endcan
                                        @can('unit_show')
-                                        <a href="{{ route('systemadmin.units.show', $unit->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                        <a href="{{ route('admin.units.show', $unit->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                        @endcan
                                     </td>
                                 </tr>
@@ -161,7 +161,7 @@
                     });
 
                     $.ajax({  
-                            url:"{{ route('systemadmin.units.store') }}",  
+                            url:"{{ route('admin.units.store') }}",  
                             method:"POST",  
                             data:$('#add-units').serialize(),
                             type:'json',

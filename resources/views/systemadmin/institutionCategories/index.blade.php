@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <div class="float-right">
                     @can('institution_categories_create')
-                    <a href="{{ route('systemadmin.institution-categories.create') }}" class="btn btn-info">Add</a>
+                    <a href="{{ route('admin.institution-categories.create') }}" class="btn btn-info">Add</a>
                     @endcan
                 </div>
             </div><!-- /.col -->
@@ -44,7 +44,7 @@
                                     <td>{{ $category->name }}</td>
                                     <td>
                                         @can('institution_categories_edit')
-                                        <a href="{{ route('systemadmin.institution-categories.edit', $category->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        <a href="{{ route('admin.institution-categories.edit', $category->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                         @endcan
                                         @can('institution_categories_show')
                                         <a class="btn btn-info btn-sm" title="View institutions under this category"><i class="fas fa-eye"></i> View</a>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
      <!-- Content Header (Page header) -->
@@ -16,7 +16,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="{{ route('systemadmin.institution-categories.index') }}">
+                        <a href="{{ route('admin.institution-categories.index') }}">
                             <div class="card card-primary card-outline">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <img src="/img/institution_icon.svg" alt="" class="rounded-circle" style="width: 100px; height: 100px">
@@ -26,7 +26,7 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="{{ route('systemadmin.institution-types.index') }}">
+                        <a href="{{ route('admin.institution-types.index') }}">
                             <div class="card card-primary card-outline">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <img src="/img/school-building.svg" alt="" class="rounded-circle" style="width: 100px; height: 100px">
@@ -36,7 +36,7 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="{{ route('systemadmin.program-levels.index') }}">
+                        <a href="{{ route('admin.program-levels.index') }}">
                             <div class="card card-primary card-outline">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <img src="/img/program-levels.svg" alt="" class="rounded-circle" style="width: 100px; height: 100px">
@@ -46,7 +46,7 @@
                         </a>
                     </div>
                     <div class="col-md-3">
-                        <a href="{{ route('systemadmin.program-categories.index') }}">
+                        <a href="{{ route('admin.program-categories.index') }}">
                             <div class="card card-primary card-outline">
                                 <div class="card-body d-flex flex-column align-items-center">
                                     <img src="/img/program-levels.svg" alt="" class="rounded-circle" style="width: 100px; height: 100px">

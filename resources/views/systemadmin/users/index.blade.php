@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('user_create')
-                <a href="{{route('systemadmin.users.create')}}" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add User</a>
+                <a href="{{route('admin.users.create')}}" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add User</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -65,10 +65,10 @@
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                     <td>
                                         @can('user_edit')
-                                        <a href="{{ route('systemadmin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
+                                        <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
                                         @endcan
                                         @can('user_show')
-                                        <a href="{{ route('systemadmin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
+                                        <a href="{{ route('admin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
                                         @endcan
                                     </td>
                                 </tr>

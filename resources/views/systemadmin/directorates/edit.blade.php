@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.directorates.update', $directorate->id) }}" method="POST">
+                   <form action="{{ route('admin.directorates.update', $directorate->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
  <!-- Content Header (Page header) -->
@@ -10,8 +10,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('systemadmin.users.index')}}">Users</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Users</a></li>
             <li class="breadcrumb-item active">Add User</li>
         </ol>
         </div><!-- /.col -->
@@ -27,7 +27,7 @@
                         <h3 class="card-title">Create User</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('systemadmin.users.store') }}" method="POST">
+                        <form action="{{ route('admin.users.store') }}" method="POST">
                           @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -227,7 +227,7 @@
                             </div>
                               <div class="form-group">
                                   <button type="submit" class="btn btn-info btn-lg">Save</button>
-                                  <a href="{{ route('systemadmin.users.index') }}" class="btn btn-danger btn-lg"><i class="fas fa-arrow-left"></i> Back</a>
+                                  <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-lg"><i class="fas fa-arrow-left"></i> Back</a>
                               </div>
                         </form>
                     </div>
@@ -247,7 +247,7 @@
           if(directorateID){
               $.ajax({
                 method: "GET",
-                url: "/systemadmin/users/getunitsbydirectorate/"+directorateID,
+                url: "/admin/users/getunitsbydirectorate/"+directorateID,
                 dataType: "json",
                 success: function(response)
                 {

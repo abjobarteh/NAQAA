@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.adminin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('region_create')
-                 <a href="{{ route('systemadmin.regions.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Region</a>
+                 <a href="{{ route('admin.regions.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Region</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -48,10 +48,10 @@
                                         <td>{{ $region->name }}</td>
                                         <td>
                                             @can('region_edit')
-                                            <a href="{{ route('systemadmin.regions.edit', $region->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.regions.edit', $region->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                             @can('region_show')
-                                            <a href="{{ route('systemadmin.regions.show', $region->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.regions.show', $region->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

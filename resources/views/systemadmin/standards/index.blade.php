@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <div class="float-right">
                     @can('standards_create')
-                    <a href="{{ route('systemadmin.standards.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('admin.standards.create') }}" class="btn btn-primary">Add New</a>
                     @endcan
                 </div>
             </div><!-- /.col -->
@@ -48,7 +48,7 @@
                                     <td>{{ $standard->maximum_score }}</td>
                                     <td>
                                         @can('standards_edit')
-                                        <a href="{{ route('systemadmin.standards.edit', $standard->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        <a href="{{ route('admin.standards.edit', $standard->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                         @endcan
                                         @can('standards_show')
                                         <a class="btn btn-info btn-sm" title="View programs on this category"><i class="fas fa-eye"></i> View</a>

@@ -112,7 +112,7 @@ class AuthenticatedSessionController extends Controller
             return redirect(route('assessment-certification.dashboard'));
         }
         else{
-            return redirect(route('systemadmin.dashboard'));
+            return redirect(route('admin.dashboard'));
         }
     }
 }

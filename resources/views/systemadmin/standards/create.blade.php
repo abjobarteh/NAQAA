@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.standards.store') }}" method="POST">
+                   <form action="{{ route('admin.standards.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -47,7 +47,7 @@
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Save</button>
-                                <a href="{{ route('systemadmin.standards.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"> back</i></a>
+                                <a href="{{ route('admin.standards.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"> back</i></a>
                             </div>
                         </div>
                     </form>

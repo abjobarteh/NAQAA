@@ -10,7 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Account Settings</li>
                 </ol>
                 </div><!-- /.col -->
@@ -26,7 +26,7 @@
                                 <h3 class="card-title">Profile Settings</h3>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('settings.profileupdate') }}" method="POST">
+                                <form action="{{ route('settings.updateprofile') }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">
@@ -125,7 +125,7 @@
                                 <h3 class="card-title">Change Password</h3>
                             </div>
                             <div class="card-body">
-                                <form action="{{ route('settings.passwordchange') }}" method="POST">
+                                <form action="{{ route('settings.changepassword') }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Units</li>
                 </ol>
             </div><!-- /.col -->
@@ -27,7 +27,7 @@
                         <div class="card-title">Edit Unit</div>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('systemadmin.units.update', $unit->id)}}" method="POST">
+                        <form action="{{route('admin.units.update', $unit->id)}}" method="POST">
                             @csrf
                             @method('PUT')
                                 <div class="row">

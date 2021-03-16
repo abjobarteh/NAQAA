@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.staff')
 
 @section('content')
        <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
         <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">Welcome to Registration and Accreditation</h1>
+            <h1 class="m-0">Dashboard Registration and Accreditation</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -23,7 +23,7 @@
                 <div class="inner">
                 <h3>150</h3>
 
-                <p>Total Users</p>
+                <p>Total Institution Applications</p>
                 </div>
                 <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -38,7 +38,7 @@
                 <div class="inner">
                 <h3>53</h3>
 
-                <p>Total Institutions</p>
+                <p>Total Trainer Applications</p>
                 </div>
                 <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -53,7 +53,7 @@
                 <div class="inner">
                 <h3>44</h3>
 
-                <p>Total Assesors</p>
+                <p>Total issued Licences</p>
                 </div>
                 <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -68,7 +68,7 @@
                 <div class="inner">
                 <h3>65</h3>
 
-                <p>Total Trainers</p>
+                <p>Total Pending Applications</p>
                 </div>
                 <div class="icon">
                 <i class="ion ion-pie-graph"></i>

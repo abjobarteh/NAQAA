@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
        <!-- Content Header (Page header) -->
@@ -10,8 +10,8 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('systemadmin.users.index')}}">Users</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Users</a></li>
                 <li class="breadcrumb-item active">Edit User</li>
             </ol>
             </div><!-- /.col -->
@@ -27,7 +27,7 @@
                             <h3 class="card-title">Edit User</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{ route('systemadmin.users.update',$user->id) }}" method="POST">
+                            <form action="{{ route('admin.users.update',$user->id) }}" method="POST">
                               @csrf
                               @method('PUT')
                                 <div class="row">
@@ -228,7 +228,7 @@
                                 <input type="hidden" name="user_id" value="{{$user->id}}">
                                   <div class="form-group">
                                       <button type="submit" class="btn btn-success btn-lg">Update <i class="fas fa-arrow-right"></i></button>
-                                      <a href="{{route('systemadmin.users.index')}}" class="btn btn-warning btn-lg"><i class="fas fa-ban"></i> Cancel</a>
+                                      <a href="{{route('admin.users.index')}}" class="btn btn-warning btn-lg"><i class="fas fa-ban"></i> Cancel</a>
                                   </div>
                             </form>
                         </div>
@@ -245,7 +245,7 @@
     $(document).ready(function(){
       $.ajax({
                 method: "GET",
-                url: "/systemadmin/users/getunitsbydirectorate/"+$('#directorate').val(),
+                url: "/admin/users/getunitsbydirectorate/"+$('#directorate').val(),
                 dataType: "json",
                 success: function(response)
                 {
@@ -261,7 +261,7 @@
           if(directorateID){
               $.ajax({
                 method: "GET",
-                url: "/systemadmin/users/getunitsbydirectorate/"+directorateID,
+                url: "/admin/users/getunitsbydirectorate/"+directorateID,
                 dataType: "json",
                 success: function(response)
                 {

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.institution-types.update', $institution_type->id) }}" method="POST">
+                   <form action="{{ route('admin.institution-types.update', $institution_type->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Save</button>
-                                <a href="{{ route('systemadmin.institution-types.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
+                                <a href="{{ route('admin.institution-types.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </form>

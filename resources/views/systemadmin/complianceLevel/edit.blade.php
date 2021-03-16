@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.compliance-levels.update', $complianceLevel->id) }}" method="POST">
+                   <form action="{{ route('admin.compliance-levels.update', $complianceLevel->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="row">
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Save</button>
-                                <a href="{{ route('systemadmin.compliance-levels.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"> back</i></a>
+                                <a href="{{ route('admin.compliance-levels.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"> back</i></a>
                             </div>
                         </div>
                     </form>

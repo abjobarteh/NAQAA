@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('district_create')
-                 <a href="{{ route('systemadmin.districts.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add District</a>
+                 <a href="{{ route('admin.districts.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add District</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -51,10 +51,10 @@
                                         {{-- <td>{{ $district->regions->name }}</td> --}}
                                         <td>
                                             @can('district_edit')
-                                            <a href="{{ route('systemadmin.districts.edit', $district->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.districts.edit', $district->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                             @can('district_show')
-                                            <a href="{{ route('systemadmin.districts.show', $district->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.districts.show', $district->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

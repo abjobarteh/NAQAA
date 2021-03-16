@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -114,7 +114,7 @@
             $.ajax({
                 headers: {'x-csrf-token': _token},
                 method: 'POST',
-                url: "{{ route('systemadmin.activities.filter') }}",
+                url: "{{ route('admin.activities.filter') }}",
                 data: params,
                 success: function(response){
                     @foreach(response.data as activity)

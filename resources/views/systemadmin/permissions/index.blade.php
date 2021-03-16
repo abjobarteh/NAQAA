@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
         <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <a href="{{ route('systemadmin.permissions.create') }}" class="btn btn-success">Create Permission</a>
+                <a href="{{ route('admin.permissions.create') }}" class="btn btn-success">Create Permission</a>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -36,8 +36,8 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $permission->slug }}</td>
                                         <td>
-                                            <a href="{{ route('systemadmin.permissions.edit', $permission->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
-                                            <a href="{{ route('systemadmin.permissions.edit', $permission->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
                                         </td>
                                     </tr>
                                     @empty

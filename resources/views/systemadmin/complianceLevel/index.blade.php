@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <div class="float-right">
                     @can('compliance_level_create')
-                    <a href="{{ route('systemadmin.compliance-levels.create') }}" class="btn btn-primary">Add New</a>
+                    <a href="{{ route('admin.compliance-levels.create') }}" class="btn btn-primary">Add New</a>
                     @endcan
                 </div>
             </div><!-- /.col -->
@@ -48,7 +48,7 @@
                                     <td>{{ $complianceLevel->percentage_end }}</td>
                                     <td>
                                         @can('compliance_level_edit')
-                                        <a href="{{ route('systemadmin.compliance-levels.edit', $complianceLevel->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        <a href="{{ route('admin.compliance-levels.edit', $complianceLevel->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                         @endcan
                                         @can('standards_show')
                                         <a class="btn btn-info btn-sm" title="View programs on this category"><i class="fas fa-eye"></i> View</a>

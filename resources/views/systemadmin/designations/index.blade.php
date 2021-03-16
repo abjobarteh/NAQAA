@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('designation_create')
-                 <a href="{{ route('systemadmin.designations.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Designation</a>
+                 <a href="{{ route('admin.designations.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Designation</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -51,10 +51,10 @@
                                         <td>{{ $desigantion->created_at }}</td>
                                         <td>
                                             @can('designation_edit')
-                                            <a href="{{ route('systemadmin.designations.edit', $desigantion->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.designations.edit', $desigantion->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                             @can('designation_show')
-                                            <a href="{{ route('systemadmin.designations.show', $desigantion->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.designations.show', $desigantion->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

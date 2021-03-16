@@ -3,8 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Admin | @yield('page-title')</title>
+  <title>@yield('page-title')</title>
   <!-- Google Font: Source Sans Pro -->
 {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
 <!-- Font Awesome -->
@@ -17,8 +16,6 @@
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-<!-- Toastr -->
-<link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -31,13 +28,10 @@
   @livewireStyles
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
-  {{-- <div id="loading">
-    <img id="loading-image" src="/img/loader.gif" alt="Loading..." />
-  </div> --}}
 <div class="wrapper">
 
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand navbar-dark navbar-gray-dark">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -67,14 +61,10 @@
             <img src="/img/man.svg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
+            <a href="{{route('admin.dashboard')}}" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
           </div>
         </div>
-        @unlessrole('systemadmin')
-            @include('partials.commonmenu')
-        @else
             @include('partials.adminmenu')
-        @endrole
       </div>
       <!-- /.sidebar -->
     </aside>
@@ -85,7 +75,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>Copyright &copy; {{date("Y")}} <a href="http://niftyict.com/">NiftyICT Solutions</a>.</strong>
+      <strong>Powered By <a href="http://niftyict.com/">NiftyICT Solutions</a>. {{date("Y")}}</strong>
       All rights reserved.
     </footer>
 
@@ -111,8 +101,6 @@
 <script src="/plugins/select2/js/select2.full.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-<!-- Toastr -->
-<script src="/plugins/toastr/toastr.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

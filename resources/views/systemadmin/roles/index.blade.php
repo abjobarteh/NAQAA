@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
         <!-- Content Header (Page header) -->
@@ -6,7 +6,7 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <a href="{{ route('systemadmin.roles.create') }}" class="btn btn-success">Add Role</a>
+                <a href="{{ route('admin.roles.create') }}" class="btn btn-success">Add Role</a>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -42,7 +42,7 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <a href="{{ route('systemadmin.roles.edit', $role->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                            <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                             <a class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
                                         </td>
                                     </tr>

@@ -24,7 +24,6 @@ use App\Http\Controllers\systemadmin\SubdivisionsController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
-use App\Http\Livewire\Systemadmin\Units;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +38,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', '/login');
 Route::redirect('/home', '/systemadmin/');
-// Route::redirect('/dashboard', '/registration-accreditation/');
 
 
 require __DIR__.'/auth.php';
@@ -48,18 +46,18 @@ require __DIR__.'/auth.php';
 Route::group(['middleware' => 'auth'], function(){
 
   // Profiles Settings
-    Route::get('settings', [ProfilesController::class, 'settings'])->middleware('auth')
+    Route::get('settings', [ProfilesController::class, 'settings'])
             ->name('settings');
 
-    Route::put('settings/profileupdate', [ProfilesController::class, 'updateProfile'])
-            ->name('settings.profileupdate');
+    Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
+            ->name('settings.updateprofile');
 
-    Route::put('settings/passwordchnage', [ProfilesController::class, 'changePassword'])
-            ->name('settings.passwordchange');
-    
-    // systemadmin
-    Route::group(['prefix' => 'systemadmin','as' => 'systemadmin.','middleware'=> 'role:systemadmin'], function(){
-        Route::redirect('/', '/systemadmin/dashboard');
+    Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
+            ->name('settings.changepassword');
+
+    // sysadmin Routes
+    Route::group(['prefix' => 'admin','as' => 'admin.','middleware'=> 'role:systemadmin'], function(){
+        Route::redirect('/', '/admin/dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // institution settings
@@ -115,7 +113,7 @@ Route::group(['middleware' => 'auth'], function(){
         // Institution Standards routes
         Route::resource('standards', StandardsController::class);
 
-        // Compliaance Level routes
+        // Compliance Level routes
         Route::resource('compliance-levels', ComplianceLevelController::class);
 
         // Backup system
@@ -141,7 +139,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             // Trainer  Registration Routes
             Route::Resource('trainers', TrainerRegistrationController::class);
-        
+
             // AssessorVerifeir  Registration Routes
             Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
       });
@@ -153,7 +151,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Trainer  Registration Routes
         Route::Resource('trainers', TrainerRegistrationController::class);
-    
+
         // AssessorVerifeir  Registration Routes
         Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
       });
@@ -166,5 +164,5 @@ Route::group(['middleware' => 'auth'], function(){
   ],function(){
 
   });
-    
+
 });

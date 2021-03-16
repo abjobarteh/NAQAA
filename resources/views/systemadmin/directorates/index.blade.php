@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('directorate_create')
-                 <a href="{{ route('systemadmin.directorates.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Directorate</a>
+                 <a href="{{ route('admin.directorates.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Directorate</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -45,10 +45,10 @@
                                         <td>{{ $directorate->created_at }}</td>
                                         <td>
                                             @can('directorate_edit')
-                                            <a href="{{ route('systemadmin.directorates.edit', $directorate->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            <a href="{{ route('admin.directorates.edit', $directorate->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                             @can('directorate_show')
-                                            <a href="{{ route('systemadmin.directorates.show', $directorate->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.directorates.show', $directorate->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

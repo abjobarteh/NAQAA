@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.permissions.update',[$permission->id]) }}" method="POST">
+                   <form action="{{ route('admin.permissions.update',[$permission->id]) }}" method="POST">
                         @method('PATCH')
                         @csrf
                         <div class="row">
@@ -40,7 +40,7 @@
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Update</button>
-                                <a href="{{ route('systemadmin.permissions.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
+                                <a href="{{ route('admin.permissions.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </form>

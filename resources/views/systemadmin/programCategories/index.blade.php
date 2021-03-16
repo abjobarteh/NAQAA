@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <div class="float-right">
                     @can('program_category_create')
-                    <a href="{{ route('systemadmin.program-categories.create') }}" class="btn btn-info">Add</a>
+                    <a href="{{ route('admin.program-categories.create') }}" class="btn btn-info">Add</a>
                     @endcan
                 </div>
             </div><!-- /.col -->
@@ -44,7 +44,7 @@
                                     <td>{{ $programcategory->name }}</td>
                                     <td>
                                         @can('program_category_edit')
-                                        <a href="{{ route('systemadmin.program-categories.edit', $programcategory->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        <a href="{{ route('admin.program-categories.edit', $programcategory->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                         @endcan
                                         @can('program_category_show')
                                         <a class="btn btn-info btn-sm" title="View programs on this category"><i class="fas fa-eye"></i> View</a>
