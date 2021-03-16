@@ -94,10 +94,6 @@ Route::group(['middleware' => 'auth'], function(){
         // Towns/Villages
         Route::resource('towns-villages', TownsVilagesController::class)->except('destroy');
 
-        // Audit Logs index route
-        Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');
-        Route::POST('activities/filter', [ActivitiesController::class,'activityLogsFilter'])->name('activities.filter');
-
         // Institution category
         Route::resource('institution-categories', InstitutionCategoryController::class);
 
@@ -115,6 +111,10 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Compliance Level routes
         Route::resource('compliance-levels', ComplianceLevelController::class);
+
+        // Audit Logs index route
+        Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');
+        Route::POST('activities/filter', [ActivitiesController::class,'activityLogsFilter'])->name('activities.filter');
 
         // Backup system
         Route::get('backup',[BackupsController::class, 'index'])->name('backup');

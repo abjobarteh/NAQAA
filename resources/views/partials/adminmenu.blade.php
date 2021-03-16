@@ -146,7 +146,7 @@
       <a href="#" class="nav-link {{ request()->is('admin/regions') || request()->is('admin/regions/*') || request()->is('admin/districts') || request()->is('admin/districts/*') || request()->is('admin/towns-villages') || request()->is('admin/towns-villages/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-sitemap"></i>
         <p>
-          Subdivisions
+          Country Subdivisions
           <i class="right fas fa-angle-left"></i>
         </p>
       </a>
