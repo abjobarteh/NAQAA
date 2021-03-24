@@ -15,14 +15,14 @@ class PermissionRoleTableSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = Permission::all();
+        $permissions = Permission::where('permission_type','sysadmin')->get('id');
 
-        $admin_permissions = $permissions->filter(function ($permission) {
-            return substr($permission->slug, 0, 5) == 'user_' || substr($permission->slug, 0, 5) == 'role_' || substr($permission->slug, 0, 11) == 'permission_' ||
-            substr($permission->slug, 0, 12) == 'directorate_' || substr($permission->slug, 0, 12) == 'designation_' || substr($permission->slug, 0, 12) == 'subdivision_'
-            || substr($permission->slug, 0, 5) == 'unit_';
-        });
+        // $admin_permissions = $permissions->filter(function ($permission) {
+        //     return substr($permission->slug, 0, 5) == 'user_' || substr($permission->slug, 0, 5) == 'role_' || substr($permission->slug, 0, 11) == 'permission_' ||
+        //     substr($permission->slug, 0, 12) == 'directorate_' || substr($permission->slug, 0, 12) == 'designation_' || substr($permission->slug, 0, 12) == 'subdivision_'
+        //     || substr($permission->slug, 0, 5) == 'unit_';
+        // });
     
-        Role::findOrFail(1)->permissions()->sync($admin_permissions->pluck('id'));
+        Role::findOrFail(1)->permissions()->sync($permissions);
     }
 }

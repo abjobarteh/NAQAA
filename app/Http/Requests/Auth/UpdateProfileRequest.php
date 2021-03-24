@@ -26,10 +26,10 @@ class UpdateProfileRequest extends FormRequest
         return [
             'username' => "required|string|unique:users,username, ".auth()->user()->id,
             'email' => "required|email|unique:users,email, ".auth()->user()->id,
-            'first_name' => 'required|string',
-            'middle_name' => 'nullable|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|digits_between:7,15',
+            'firstname' => 'required|string',
+            'middlename' => 'nullable|string',
+            'lastname' => 'required|string',
+            'phonenumber' => 'required|digits_between:7,15',
             'address' => 'required|string',
         ];
     }

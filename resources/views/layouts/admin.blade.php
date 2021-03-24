@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('page-title')</title>
   <!-- Google Font: Source Sans Pro -->
 {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
@@ -77,7 +78,7 @@
             <img src="/img/man.svg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="{{route('admin.dashboard')}}" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
+            <a href="{{route('admin.dashboard')}}" class="d-block">{{ auth()->user()->firstname.' '.auth()->user()->lastname }}</a>
           </div>
         </div>
             @include('partials.adminmenu')

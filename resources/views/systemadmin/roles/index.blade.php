@@ -6,7 +6,9 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <a href="{{ route('admin.roles.create') }}" class="btn btn-success">Add Role</a>
+                    @can('create_role')
+                    <a href="{{ route('admin.roles.create') }}" class="btn btn-success">Add Role</a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -42,8 +44,11 @@
                                             @endforeach
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
-                                            <a class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                            {{-- Remove edit button for security purpose @Biran --}}
+                                            {{-- <a href="{{ route('admin.roles.edit', $role->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a> --}}
+                                            @can('show_role')
+                                                <a class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @empty

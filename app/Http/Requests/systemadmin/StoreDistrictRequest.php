@@ -15,7 +15,7 @@ class StoreDistrictRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('district_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }

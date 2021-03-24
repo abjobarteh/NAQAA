@@ -20,23 +20,13 @@ class UnitsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('unit_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_unit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $units = Unit::with('directorate')->get();
 
         $directorates = Directorate::all()->pluck('name','id');
 
         return view('systemadmin.units.index', compact('units','directorates'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -82,7 +72,7 @@ class UnitsController extends Controller
      */
     public function edit(Unit $unit)
     {
-        abort_if(Gate::denies('unit_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_unit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $directorates = Directorate::all()->pluck('name','id');
 
@@ -98,9 +88,9 @@ class UnitsController extends Controller
      */
     public function update(UpdateUnitsRequest $request, Unit $unit)
     {
-        $unit->update($request->all());
+        $unit->update($request->validated());
 
-        return redirect(route('systemadmin.units.index'))->withSuccess('Unit successfully updated');
+        return redirect(route('admin.units.index'))->withSuccess('Unit successfully updated');
     }
 
     /**

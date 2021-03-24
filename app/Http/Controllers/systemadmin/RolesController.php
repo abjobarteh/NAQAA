@@ -7,37 +7,41 @@ use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class RolesController extends Controller
 {
     
     public function index()
     {
-        $roles = Role::with('permissions')->get();
+        abort_if(Gate::denies('access_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $roles = Role::with('permissions')->orderBy('created_at','desc')->get();
         
         return view('systemadmin.roles.index',compact('roles'));
     }
 
     public function create()
     {
+        abort_if(Gate::denies('create_role'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $permissions = Permission::all()->pluck('name','id');
+
         return view('systemadmin.roles.create', compact('permissions'));
     }
 
     public function store(StoreRoleRequest $request)
     {
 
-        $role = Role::create([
-            'name' => $request->role_name,
-            'slug' => $request->role_slug,
-        ]);
+        $role = Role::create($request->validated());
 
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('systemadmin.roles.index'))->with('success','Role successfully created!');
+        return redirect(route('admin.roles.index'))->with('success','Role successfully created!');
     }
 
+    // Remove edit role function for security purpose @Biran
     public function edit(Role $role)
     {
         $permissions = Permission::all()->pluck('name', 'id');
@@ -47,12 +51,13 @@ class RolesController extends Controller
         return view('systemadmin.roles.edit',compact('role','permissions'));
     }
 
+    // Remove update function as well for security purpose @Biran
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $role->update($request->all());
 
         $role->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('systemadmin.roles.index'))->with('success','Role successfully updated!');
+        return redirect(route('admin.roles.index'))->with('success','Role successfully updated!');
     }
 }

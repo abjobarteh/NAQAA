@@ -9,7 +9,7 @@
             <h1 class="m-0">Designations</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                @can('designation_create')
+                @can('create_designation')
                  <a href="{{ route('admin.designations.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add Designation</a>
                 @endcan
             </div><!-- /.col -->
@@ -50,10 +50,10 @@
                                         <td>{{ $desigantion->name }}</td>
                                         <td>{{ $desigantion->created_at }}</td>
                                         <td>
-                                            @can('designation_edit')
+                                            @can('edit_designation')
                                             <a href="{{ route('admin.designations.edit', $desigantion->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
-                                            @can('designation_show')
+                                            @can('show_designation')
                                             <a href="{{ route('admin.designations.show', $desigantion->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>

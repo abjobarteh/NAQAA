@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateTownsVillageRequest extends FormRequest
+class StoreLocalgovermentAreaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,8 +15,8 @@ class UpdateTownsVillageRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('edit_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
+        abort_if(Gate::denies('create_local_goverment_areas'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -28,16 +28,16 @@ class UpdateTownsVillageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'district_id' => 'required'
+            'name' => 'required|string',
+            'region_id' => 'required|integer'
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Town/Village name is required. Please Enter town/village name',
-            'district_id.required' => 'District is required to create Town/Village. Please select a district'
+            'name.required' => 'Localgoverment area cannot be empty!',
+            'region_id.required' => 'Please select Localgoverment area region!',
         ];
     }
 }

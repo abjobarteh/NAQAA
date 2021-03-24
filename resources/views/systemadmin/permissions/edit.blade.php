@@ -15,28 +15,25 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="permission_name">Permission Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="permission_name" name="permission_name" value="{{ $permission->name }}"  required autofocus>
+                                    <label for="name">Permission Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="name" name="permission_name" value="{{ $permission->name }}"  required autofocus>
                                 </div>
                                 <div class="mt-1">
-                                    @error('permission_name')
+                                    @error('name')
                                         <span class="text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="permission_name">Slug</label>
-                                    <input type="text" class="form-control" placeholder="Permission slug ex: edit-user" id="permission_slug" name="permission_slug" value="{{ $permission->slug }}"  required>
+                                    <label for="slug">Slug</label>
+                                    <input type="text" class="form-control" placeholder="Permission slug ex: edit-user" id="slug" name="permission_slug" value="{{ $permission->slug }}"  required>
                                 </div>
                                 <div class="mt-1">
-                                    @error('permission_slug')
+                                    @error('slug')
                                         <span class="text-danger">{{$message}}</span>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <input type="hidden" name="id" value="{{ $permission->id }}">
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Update</button>

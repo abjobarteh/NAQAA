@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStandardsTable extends Migration
+class CreateQualityAuditStandardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStandardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('standards', function (Blueprint $table) {
+        Schema::create('quality_audit_standards', function (Blueprint $table) {
             $table->id();
 
             $table->string('title',100);
@@ -34,6 +34,6 @@ class CreateStandardsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requirements');
+        Schema::dropIfExists('quality_audit_standards');
     }
 }

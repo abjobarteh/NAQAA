@@ -11,7 +11,6 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Unit;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +24,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('user_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_users'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::all();
+        $users = User::with(['designation','roles'])->get();
  
         return view('systemadmin.users.index', compact('users'));
     }
@@ -39,15 +38,15 @@ class UsersController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
-        $directorates = Directorate::all();
+        $directorates = Directorate::all()->pluck('name','id');
 
         $roles = Role::all()->pluck('name','id');
 
-        $units = Unit::all();
+        $units = Unit::all()->pluck('name','id');
 
-        $designations = Designation::all();
+        $designations = Designation::all()->pluck('name','id');
 
         $permissions = Permission::all()->pluck('name','id');
 
@@ -62,21 +61,21 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-       $user_status = $request->user_status == 'on' ? 1 : 0;
+
        $user =  User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name ?? null,
-            'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
+            'firstname' => $request->first_name,
+            'middlename' => $request->middle_name ?? null,
+            'lastname' => $request->last_name,
+            'phonenumber' => $request->phone_number,
             'address' => $request->address,
             'role_id' => $request->role,
             'directorate_id' => $request->directorate,
             'unit_id' => $request->unit,
             'designation_id' => $request->designation,
-            'user_status' => $user_status,
+            'user_status' => $request->user_status == 'on' ? 1 : 0,
             'default_password_status' => 1,
         ]);
 
@@ -106,15 +105,15 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        abort_if(Gate::denies('user_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
-        $directorates = Directorate::all();
+        $directorates = Directorate::all()->pluck('name','id');
 
         $roles = Role::all()->pluck('name','id');
 
-        $units = Unit::all();
+        $units = Unit::all()->pluck('name','id');
 
-        $designations = Designation::all();
+        $designations = Designation::all()->pluck('name','id');
 
         $permissions = Permission::all()->pluck('name','id');
 
@@ -139,10 +138,10 @@ class UsersController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name ?? null,
-                'last_name' => $request->last_name,
-                'phone_number' => $request->phone_number,
+                'firstname' => $request->first_name,
+                'middlename' => $request->middle_name ?? null,
+                'lastname' => $request->last_name,
+                'phonenumber' => $request->phone_number,
                 'address' => $request->address,
                 'role_id' => $request->role,
                 'directorate_id' => $request->directorate,
@@ -155,10 +154,10 @@ class UsersController extends Controller
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name ?? null,
-                'last_name' => $request->last_name,
-                'phone_number' => $request->phone_number,
+                'firstname' => $request->first_name,
+                'middlename' => $request->middle_name ?? null,
+                'lastname' => $request->last_name,
+                'phonenumber' => $request->phone_number,
                 'address' => $request->address,
                 'role_id' => $request->role,
                 'directorate_id' => $request->directorate,
@@ -175,16 +174,6 @@ class UsersController extends Controller
         return redirect(route('systemadmin.users.index'))->with('success','User Successfully updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 
     public function getUnitsByDirectorate(Directorate $directorate)
     {

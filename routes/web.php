@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
-use App\Http\Controllers\RegistrationAccreditation\RegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\systemadmin\DistrictsController;
 use App\Http\Controllers\systemadmin\InstitutionCategoryController;
 use App\Http\Controllers\systemadmin\InstitutionControllerSettings;
 use App\Http\Controllers\systemadmin\InstitutionTypeController;
+use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\ProgramCategoryController;
 use App\Http\Controllers\systemadmin\ProgramLevelController;
@@ -56,12 +56,12 @@ Route::group(['middleware' => 'auth'], function(){
             ->name('settings.changepassword');
 
     // sysadmin Routes
-    Route::group(['prefix' => 'admin','as' => 'admin.','middleware'=> 'role:systemadmin'], function(){
+    Route::group(['prefix' => 'admin','as' => 'admin.','middleware'=> 'role:sysadmin'], function(){
         Route::redirect('/', '/admin/dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // institution settings
-        Route::get('institution-settings', InstitutionControllerSettings::class)->name('institution-settings');
+        // Route::get('configurations', DirectoratesController::class)->name('configurations');
 
         // Users
         Route::get('users/getunitsbydirectorate/{directorate}', [UsersController::class, 'getUnitsByDirectorate'])->name('users.getunitsbydirectorate');
@@ -82,29 +82,17 @@ Route::group(['middleware' => 'auth'], function(){
         // Designations
         Route::resource('designations', DesignationsController::class)->except('destroy');
 
-        // Subdivisions
-        Route::resource('subdivisions', SubdivisionsController::class)->except('destroy');
-
         // Regions
         Route::resource('regions', RegionsController::class)->except('destroy');
+
+        // Local goverment Areas
+        Route::resource('localgovermentareas', LocalGovermentAreasController::class)->except('destroy');
 
         // Districts
         Route::resource('districts', DistrictsController::class)->except('destroy');
 
         // Towns/Villages
         Route::resource('towns-villages', TownsVilagesController::class)->except('destroy');
-
-        // Institution category
-        Route::resource('institution-categories', InstitutionCategoryController::class);
-
-        // Institution Type
-        Route::resource('institution-types', InstitutionTypeController::class);
-
-        // Program levels
-        Route::resource('program-levels', ProgramLevelController::class);
-
-        // Program Categories
-        Route::resource('program-categories', ProgramCategoryController::class);
 
         // Institution Standards routes
         Route::resource('standards', StandardsController::class);

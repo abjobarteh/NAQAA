@@ -5,7 +5,7 @@
        <div class="container-fluid">
            <div class="card mt-2">
                <div class="card-header">
-                   <h3 class="card-title">Create Permission</h3>
+                   <h3 class="card-title">Add Permission</h3>
                </div>
 
                <div class="card-body">
@@ -14,24 +14,40 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="permission_name">Permission Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="permission_name" name="permission_name"  required autofocus>
-                                </div>
-                                <div class="mt-1">
-                                    @error('permission_name')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="name">Permission Name</label>
+                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="permission_name" name="name"  required autofocus>
+                                    <div class="mt-1">
+                                        @error('name')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="permission_name">Slug</label>
-                                    <input type="text" class="form-control" placeholder="Pemrission slug ex: edit-user" id="permission_slug" name="permission_slug"  required>
+                                    <label for="slug">Slug</label>
+                                    <input type="text" class="form-control" placeholder="Pemrission slug ex: edit-user" id="permission_slug" name="slug"  required>
+                                    <div class="mt-1">
+                                        @error('slug')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
-                                <div class="mt-1">
-                                    @error('permission_slug')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="slug">Permission Type</label>
+                                    <select name="permission_type" id="permission_type" class="form-control custom-select">
+                                        <option>Select Permission type</option>
+                                        @foreach ($roles as $role)
+                                            <option value="{{$role}}">{{$role}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="mt-1">
+                                        @error('permission_type')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12">

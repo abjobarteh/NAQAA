@@ -20,7 +20,7 @@ class DistrictsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('district_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $districts = District::all();
 
@@ -34,7 +34,7 @@ class DistrictsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('district_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $regions = Region::all()->pluck('name','id');
 
@@ -49,7 +49,7 @@ class DistrictsController extends Controller
      */
     public function store(StoreDistrictRequest $request)
     {
-        District::create($request->all());
+        District::create($request->validated());
 
         return redirect(route('systemadmin.districts.index'))->withSuccess('District Successfully added');
     }
@@ -73,7 +73,7 @@ class DistrictsController extends Controller
      */
     public function edit(District $district)
     {
-        abort_if(Gate::denies('district_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $regions = Region::all()->pluck('name','id');
 
@@ -89,7 +89,7 @@ class DistrictsController extends Controller
      */
     public function update(UpdateDistrictRequest $request, District $district)
     {
-        $district->update($request->all());
+        $district->update($request->validated());
 
         return redirect(route('systemadmin.districts.index'))->withSuccess('District Successfully updated');
     }

@@ -62,7 +62,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                      <button class="btn btn-info btn-block">Save</button>
+                                      <button type="submit" class="btn btn-info btn-block">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,10 +99,10 @@
                                     <td>{{ $unit->name }}</td>
                                     <td>{{ $unit->directorate->name }}</td>
                                     <td>
-                                        @can('unit_edit')
+                                        @can('edit_unit')
                                         <a href="{{ route('admin.units.edit', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                        @endcan
-                                       @can('unit_show')
+                                       @can('show_unit')
                                         <a href="{{ route('admin.units.show', $unit->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                        @endcan
                                     </td>

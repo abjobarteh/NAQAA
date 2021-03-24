@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\systemadmin\StoreDirectorateRequest;
 use App\Http\Requests\systemadmin\UpdateDirectorateRequest;
 use App\Models\Directorate;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +18,7 @@ class DirectoratesController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('directorate_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_directorate'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $directorates = Directorate::all();
 
@@ -33,7 +32,7 @@ class DirectoratesController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('directorate_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_directorate'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.directorates.create');
     }
@@ -48,7 +47,7 @@ class DirectoratesController extends Controller
     {
         Directorate::create($request->all());
 
-        return redirect()->route('systemadmin.directorates.index')->withSuccess('Directorate successfully added');
+        return redirect()->route('admin.directorates.index')->withSuccess('Directorate successfully added');
     }
 
     /**
@@ -70,7 +69,7 @@ class DirectoratesController extends Controller
      */
     public function edit(Directorate $directorate)
     {
-        abort_if(Gate::denies('directorate_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_directorate'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.directorates.edit', compact('directorate'));
     }
@@ -88,15 +87,5 @@ class DirectoratesController extends Controller
 
         return redirect()->route('systemadmin.directorates.index')->withSuccess('Directorate successfully updated');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

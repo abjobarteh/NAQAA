@@ -28,14 +28,14 @@ class LoginActivityListener
      */
     public function handle(Login $event)
     {
-        DB::table('system_logs')->insert([
-            'action' => 'login',
-            'description' => 'Login by '.$event->user->username,
-            'login_start' => Carbon::now(),
-            'login_end' => null,
-            'user_id' => $event->user->id,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        // DB::table('system_logs')->insert([
+        //     'action' => 'login',
+        //     'description' => 'Login by '.$event->user->username,
+        //     'login_start' => Carbon::now(),
+        //     'login_end' => null,
+        //     'user_id' => $event->user->id,
+        //     'created_at' => Carbon::now(),
+        //     'updated_at' => Carbon::now(),
+        // ]);
     }
 }

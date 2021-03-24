@@ -6,7 +6,7 @@
         <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">Edit {{$user->first_name.' '.$user->middle_name.' '.$user->last_name}} Details</h1>
+            <h1 class="m-0">Edit {{$user->firstname.' '.$user->middlename.' '.$user->lastname}} Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -77,7 +77,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{$user->first_name}}" required>
+                                            <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{$user->firstname}}" required>
                                           </div>
                                           <div class="mt-1">
                                             @if($errors->has('first_name'))
@@ -88,7 +88,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Middle Name</label>
-                                            <input type="text" class="form-control" placeholder="Middle Name" name="middle_name" value="{{$user->middle_name}}">
+                                            <input type="text" class="form-control" placeholder="Middle Name" name="middle_name" value="{{$user->middlename}}">
                                           </div>
                                           <div class="mt-1">
                                             @if($errors->has('middle_name'))
@@ -99,7 +99,7 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{$user->last_name}}" required>
+                                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{$user->lastname}}" required>
                                           </div>
                                           <div class="mt-1">
                                             @if($errors->has('last_name'))
@@ -112,7 +112,7 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number">Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" value="{{$user->phone_number}}" required>
+                                            <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" value="{{$user->phonenumber}}" required>
                                           </div>
                                           <div class="mt-1">
                                             @if($errors->has('phone_number'))
@@ -136,10 +136,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Directorate</label>
-                                            <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate">
+                                            <select class="form-control custom-select" style="width: 100%;" id="directorate" name="directorate">
                                               <option>Select directorate</option>
-                                              @forelse ($directorates as $dt)  
-                                              <option value="{{$dt->id}}" {{ $dt->id == auth()->user()->directorate_id ? 'selected' : ''}}>{{$dt->name}}</option>
+                                              @forelse ($directorates as $id => $directorate)  
+                                              <option value="{{$id}}" {{ $id == auth()->user()->directorate_id ? 'selected' : ''}}>{{$directorate}}</option>
                                             @empty
                                               <option>No Directorates registered in the system</option>
                                             @endforelse
@@ -154,10 +154,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Unit</label>
-                                            <select class="form-control select2" style="width: 100%;" name="unit">
+                                            <select class="form-control custom-select" style="width: 100%;" name="unit">
                                               <option>Select Unit</option>
-                                              @forelse ($units as $un)  
-                                              <option value="{{$un->id}}" {{ $un->id == auth()->user()->unit_id ? 'selected' : ''}}>{{$un->name}}</option>
+                                              @forelse ($units as $id => $unit)  
+                                              <option value="{{$id}}" {{ $id == auth()->user()->unit_id ? 'selected' : ''}}>{{$unit}}</option>
                                             @empty
                                               <option>No Units</option>
                                             @endforelse
@@ -172,9 +172,9 @@
                                       <div class="col-md-4">
                                        <div class="form-group">
                                            <label>Designation</label>
-                                           <select class="form-control select2" style="width: 100%;" name="designation" data-placeholder="Select designation">
-                                             @forelse ($designations as $desig)  
-                                                <option value="{{$desig->id}}" {{ $desig->id == auth()->user()->designation_id ? 'selected' : ''}}>{{$desig->name}}</option>
+                                           <select class="form-control custom-select" style="width: 100%;" name="designation" data-placeholder="Select designation">
+                                             @forelse ($designations as $id => $designation)  
+                                                <option value="{{$id}}" {{ $id == auth()->user()->designation_id ? 'selected' : ''}}>{{$designation}}</option>
                                               @empty
                                                 <option>No Designations registered in the system</option>
                                               @endforelse
@@ -228,7 +228,7 @@
                                 <input type="hidden" name="user_id" value="{{$user->id}}">
                                   <div class="form-group">
                                       <button type="submit" class="btn btn-success btn-lg">Update <i class="fas fa-arrow-right"></i></button>
-                                      <a href="{{route('admin.users.index')}}" class="btn btn-warning btn-lg"><i class="fas fa-ban"></i> Cancel</a>
+                                      <a href="{{route('admin.users.index')}}" class="btn btn-danger btn-lg"><i class="fas fa-ban"></i> Cancel</a>
                                   </div>
                             </form>
                         </div>

@@ -135,10 +135,10 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                       <label>Directorate</label>
-                                      <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate" required>
+                                      <select class="form-control custom-select" style="width: 100%;" id="directorate" name="directorate" required>
                                         <option value="" selected>Select directorate</option>
-                                        @forelse ($directorates as $dt)  
-                                        <option value="{{$dt->id}}">{{$dt->name}}</option>
+                                        @forelse ($directorates as $id => $directorate)  
+                                        <option value="{{$id}}">{{$directorate}}</option>
                                       @empty
                                         <option>No Directorates registered in the system</option>
                                       @endforelse
@@ -153,10 +153,10 @@
                                 <div class="col-md-4">
                                   <div class="form-group">
                                       <label>Unit</label>
-                                      <select class="form-control select2" id="unit" style="width: 100%;" name="unit">
+                                      <select class="form-control custom-select" id="unit" style="width: 100%;" name="unit">
                                         <option value="" selected>Select Unit</option>
-                                        @forelse ($units as $un)  
-                                          <option value="{{$un->id}}">{{$un->name}}</option>
+                                        @forelse ($units as $id => $unit)  
+                                          <option value="{{$id}}">{{$unit}}</option>
                                         @empty
                                           <option>No Units</option>
                                         @endforelse
@@ -171,10 +171,10 @@
                                 <div class="col-md-4">
                                  <div class="form-group">
                                      <label>Designation</label>
-                                     <select class="form-control select2" style="width: 100%;" name="designation" required>
+                                     <select class="form-control custom-select" style="width: 100%;" name="designation" required>
                                        <option value="" selected>Select designation</option>
-                                       @forelse ($designations as $desig)  
-                                       <option value="{{$desig->id}}">{{$desig->name}}</option>
+                                       @forelse ($designations as $id => $designation)  
+                                       <option value="{{$id}}">{{$designation}}</option>
                                      @empty
                                        <option>No Designations registered in the system</option>
                                      @endforelse

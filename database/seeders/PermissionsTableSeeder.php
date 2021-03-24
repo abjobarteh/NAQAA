@@ -827,23 +827,53 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Access Institution Classification',
-                'slug' => 'access_institution_classification',
+                'name' => 'Access Training Provider Classification',
+                'slug' => 'access_training_provider_classification',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Create Institution classification',
-                'slug' => 'create_institution_classification',
+                'name' => 'Create Training Provider classification',
+                'slug' => 'create_training_provider_classification',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Edit Institution Classification',
-                'slug' => 'edit_institution_classification',
+                'name' => 'Edit Training Provider Classification',
+                'slug' => 'edit_training_provider_classification',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Show Institution Classification',
-                'slug' => 'show_institution_classification',
+                'name' => 'Show Training Provider Classification',
+                'slug' => 'access_training_provider_classification',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Training Provider Classification',
+                'slug' => 'delete_training_provider_classification',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Access Training Provider Ownership',
+                'slug' => 'access_training_provider_ownership',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Create Training Provider Ownership',
+                'slug' => 'create_training_provider_ownership',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Edit Training Provider Ownership',
+                'slug' => 'edit_training_provider_ownership',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Show Training Provider Ownership',
+                'slug' => 'show_training_provider_ownership',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Training Provider Ownership',
+                'slug' => 'delete_training_provider_ownership',
                 'permission_type' => 'sysadmin'
             ],
             [

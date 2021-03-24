@@ -13,26 +13,27 @@ class ProfilesController extends Controller
 {
     public function settings()
     {
+        $user = User::with('roles')->where('id',auth()->id())->get();
 
-        return view('auth.profile');
+        return view('auth.profile', compact('user'));
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $user  = User::where(Auth::user()->id);
+        $user  = User::where('id',Auth::user()->id);
 
 
         $user->update([
             'username' => $request->username,
             'email' => $request->email,
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
+            'firstname' => $request->firstname,
+            'middlename' => $request->middlename,
+            'lastname' => $request->lastname,
+            'phonenumber' => $request->phonenumber,
             'address' => $request->address,
         ]);
 
-        return redirect('settings')->withSuccess('Your Profile has successfuly been updated');
+        return redirect('settings')->withSuccess('Profile successfuly updated');
     }
 
     public function changePassword(UpdatePasswordRequest $request)

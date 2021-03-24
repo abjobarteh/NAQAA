@@ -9,7 +9,7 @@
             <h1 class="m-0">Districts</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                @can('district_create')
+                @can('create_district')
                  <a href="{{ route('admin.districts.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add District</a>
                 @endcan
             </div><!-- /.col -->
@@ -50,10 +50,10 @@
                                         <td>{{ $district->name }}</td>
                                         {{-- <td>{{ $district->regions->name }}</td> --}}
                                         <td>
-                                            @can('district_edit')
+                                            @can('edit_district')
                                             <a href="{{ route('admin.districts.edit', $district->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
-                                            @can('district_show')
+                                            @can('show_district')
                                             <a href="{{ route('admin.districts.show', $district->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>

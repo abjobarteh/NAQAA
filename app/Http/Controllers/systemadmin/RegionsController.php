@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\systemadmin\StoreRegionRequest;
 use App\Http\Requests\systemadmin\UpdateRegionRequest;
 use App\Models\Region;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +18,7 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('region_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_region'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $regions = Region::all();
 
@@ -33,7 +32,7 @@ class RegionsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('region_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_region'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.regions.create');
     }
@@ -46,7 +45,7 @@ class RegionsController extends Controller
      */
     public function store(StoreRegionRequest $request)
     {
-        Region::create($request->all());
+        Region::create($request->validated());
 
         return redirect(route('systemadmin.regions.index'))->withSuccess('Region Successfully added');
     }
@@ -70,7 +69,7 @@ class RegionsController extends Controller
      */
     public function edit(Region $region)
     {
-        abort_if(Gate::denies('region_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_region'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.regions.edit',compact('region'));
     }
@@ -84,7 +83,7 @@ class RegionsController extends Controller
      */
     public function update(UpdateRegionRequest $request, Region $region)
     {
-        $region->update($request->all());
+        $region->update($request->validated());
 
         return redirect(route('systemadmin.regions.index'))->withSuccess('Region Successfully updated');
     }

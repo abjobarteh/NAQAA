@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstitutionsCategoryTable extends Migration
+class CreateEmploymentTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateInstitutionsCategoryTable extends Migration
      */
     public function up()
     {
-        Schema::create('institution_categories', function (Blueprint $table) {
+        Schema::create('employment_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateInstitutionsCategoryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institutions_category');
+        Schema::dropIfExists('employment_types');
     }
 }

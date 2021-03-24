@@ -98,7 +98,6 @@ class AuthenticatedSessionController extends Controller
 
     public function redirectToCorrectUserDashboard($request)
     {
-        // dd($request->user());
         if($request->user()->hasRole(
             ...['registration_and_accreditation_manager','registration_and_accreditation_officer']
         ))

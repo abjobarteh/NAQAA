@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProgramCategoriesTable extends Migration
+class CreateLocalGovermentAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateProgramCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('program_categories', function (Blueprint $table) {
+        Schema::create('local_goverment_areas', function (Blueprint $table) {
             $table->id();
-
-            $table->string('name',255);
-            
+            $table->string('name');
+            $table->foreignId('region_id')->nullable()->constrained();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateProgramCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('program_categories');
+        Schema::dropIfExists('local_goverment_areas');
     }
 }

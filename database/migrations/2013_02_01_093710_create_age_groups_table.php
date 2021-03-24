@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProgramLevelsTable extends Migration
+class CreateAgeGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateProgramLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('program_levels', function (Blueprint $table) {
+        Schema::create('age_groups', function (Blueprint $table) {
             $table->id();
-            
-            $table->string('name',255);
-
-            $table->text('description',300)->nullable();
-
+            $table->string('name');
+            $table->string('start_age')->nullable();
+            $table->string('end_age')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateProgramLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('program_levels');
+        Schema::dropIfExists('age_groups');
     }
 }

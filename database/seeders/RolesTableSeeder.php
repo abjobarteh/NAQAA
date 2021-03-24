@@ -23,7 +23,7 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'Chief Exwcutive Officer',
+                'name' => 'Chief Executive Officer',
                 'slug' => 'ceo',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

@@ -17,4 +17,9 @@ class Region extends Model
     ];
 
     protected static $logFillable = true;
+
+    public function localgovermentareas()
+    {
+        return $this->hasMany(LocalGovermentAreas::class);
+    }
 }

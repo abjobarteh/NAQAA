@@ -15,7 +15,7 @@ class StoreDirectorateRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('directorate_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_directorate'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
