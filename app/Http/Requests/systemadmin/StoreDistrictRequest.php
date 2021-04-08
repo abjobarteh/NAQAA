@@ -29,7 +29,7 @@ class StoreDistrictRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'region_id' => 'required'
+            'region_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,8 @@ class StoreDistrictRequest extends FormRequest
     {
         return [
             'name.required' => 'Please Enter District name',
-            'region_id.required' => 'Region is requied to create district. Please select one'
+            'region_id.required' => 'Region is requied to create district. Please select one',
+            'region_id.integer' => 'No Region selected!',
         ];
     }
 }

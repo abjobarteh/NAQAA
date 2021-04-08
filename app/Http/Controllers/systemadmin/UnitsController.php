@@ -7,7 +7,6 @@ use App\Http\Requests\systemadmin\StoreUnitsRequest;
 use App\Http\Requests\systemadmin\UpdateUnitsRequest;
 use App\Models\Directorate;
 use App\Models\Unit;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -53,16 +52,6 @@ class UnitsController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

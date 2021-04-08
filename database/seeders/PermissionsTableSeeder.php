@@ -843,7 +843,7 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'name' => 'Show Training Provider Classification',
-                'slug' => 'access_training_provider_classification',
+                'slug' => 'show_training_provider_classification',
                 'permission_type' => 'sysadmin'
             ],
             [
@@ -877,58 +877,28 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Access Qualification Levels',
-                'slug' => 'access_qualifications_level',
+                'name' => 'Access Entry Level Qualifications',
+                'slug' => 'access_entry_level_qualifications',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Create Qualifications Level',
-                'slug' => 'create_qualifications_level',
+                'name' => 'Create Entry Level Qualifications',
+                'slug' => 'create_entry_level_qualifications',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Edit Qualifications Level',
-                'slug' => 'edit_qualifications_level',
+                'name' => 'Edit Entry Level Qualifications',
+                'slug' => 'edit_entry_level_qualifications',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Show Qualifications Level',
-                'slug' => 'show_qualifications_level',
+                'name' => 'Show Entry Level Qualifications',
+                'slug' => 'show_entry_level_qualifications',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Delete Qualifications Level',
-                'slug' => 'delete_qualifications_level',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'standards management access',
-                'slug' => 'standards_management_access',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'Access Standards',
-                'slug' => 'access_standards',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'Create Standards',
-                'slug' => 'create_standards',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'Edit Standards',
-                'slug' => 'edit_standards',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'Show Standards',
-                'slug' => 'show_standards',
-                'permission_type' => 'sysadmin'
-            ],
-            [
-                'name' => 'Delete Standards',
-                'slug' => 'delete_standards',
+                'name' => 'Delete Entry Level Qualifications',
+                'slug' => 'delete_entry_level_qualifications',
                 'permission_type' => 'sysadmin'
             ],
             [
@@ -937,28 +907,53 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Access Compliance Level',
-                'slug' => 'access_compliance_level',
+                'name' => 'Access Academic Rank Level',
+                'slug' => 'access_academic_rank_level',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Create Compliance Level',
-                'slug' => 'create_compliance_level',
+                'name' => 'Create Academic Rank Level',
+                'slug' => 'create_academic_rank_level',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Edit Compliance Level',
-                'slug' => 'edit_compliance_level',
+                'name' => 'Edit Academic Rank Level',
+                'slug' => 'edit_academic_rank_level',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Show Compliance Level',
-                'slug' => 'show_compliance_level',
+                'name' => 'Show Academic Rank Level',
+                'slug' => 'show_academic_rank_level',
                 'permission_type' => 'sysadmin'
             ],
             [
-                'name' => 'Delete Compliance Level',
-                'slug' => 'delete_compliance_level',
+                'name' => 'Delete Academic Rank Level',
+                'slug' => 'delete_academic_rank_level',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Access Academic Role Level',
+                'slug' => 'access_academic_role_level',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Create Academic Role Level',
+                'slug' => 'create_academic_Role_level',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Edit Academic Role Level',
+                'slug' => 'edit_academic_role_level',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Show Academic Role Level',
+                'slug' => 'show_academic_role_level',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Academic Role Level',
+                'slug' => 'delete_academic_role_level',
                 'permission_type' => 'sysadmin'
             ],
             [
@@ -974,6 +969,81 @@ class PermissionsTableSeeder extends Seeder
             [
                 'name' => 'Access Manual Backup',
                 'slug' => 'access_manual_backup',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Access Academic and Admin Staff Ranks',
+                'slug' => 'access_academic_admin_staff_ranks',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Create Academic and Admin Staff Rank',
+                'slug' => 'create_academic_admin_staff_rank',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Edit Academic and Admin Staff Rank',
+                'slug' => 'edit_academic_admin_staff_rank',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Show Academic and Admin Staff Rank',
+                'slug' => 'show_academic_admin_staff_rank',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Academic and Admin Staff Rank',
+                'slug' => 'delete_academic_admin_staff_rank',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Access Academic and Admin Staff Role',
+                'slug' => 'access_academic_admin_staff_role',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Create Academic and Admin Staff Role',
+                'slug' => 'create_academic_admin_staff_role',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Edit Academic and Admin Staff Role',
+                'slug' => 'edit_academic_admin_staff_role',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Show Academic and Admin Staff Role',
+                'slug' => 'show_academic_admin_staff_role',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Academic and Admin Staff Role',
+                'slug' => 'delete_academic_admin_staff_role',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Access Application Fees',
+                'slug' => 'access_application_fees',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Create Application Fees',
+                'slug' => 'create_application_fees',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Edit Application Fees',
+                'slug' => 'edit_application_fees',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Show Application Fees',
+                'slug' => 'show_application_fees',
+                'permission_type' => 'sysadmin'
+            ],
+            [
+                'name' => 'Delete Application Fees',
+                'slug' => 'delete_application_fees',
                 'permission_type' => 'sysadmin'
             ],
             

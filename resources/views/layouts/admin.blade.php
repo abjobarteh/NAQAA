@@ -6,11 +6,11 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>@yield('page-title')</title>
   <!-- Google Font: Source Sans Pro -->
-{{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
 <!-- Ionicons -->
-{{-- <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> --}}
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Tempusdominus Bootstrap 4 -->
 <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- Select2 -->
@@ -21,6 +21,8 @@
 <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<!-- Toastr -->
+<link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="/css/adminlte.min.css">
 <!-- custom style -->
@@ -30,7 +32,6 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
@@ -75,13 +76,33 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="/img/man.svg" class="img-circle elevation-2" alt="User Image">
+            <img src="/img/avatar.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
             <a href="{{route('admin.dashboard')}}" class="d-block">{{ auth()->user()->firstname.' '.auth()->user()->lastname }}</a>
           </div>
         </div>
-            @include('partials.adminmenu')
+         <!-- Sidebar Menu -->
+        <nav class="mt-2">
+           <!-- Add icons to the links using the .nav-icon class
+            with font-awesome or any other icon font library -->
+          <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            @role(...['sysadmin'])  
+              @include('partials.adminmenu')
+            @elserole(...['registration_and_accreditation_manager','registration_and_accreditation_officer'])
+              @include('partials.registration-accreditation-menu')
+            @endrole  
+              <li class="nav-item">
+                <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-user-cog"></i>
+                  <p>
+                    Profile
+                  </p>
+                </a>
+              </li>
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
       </div>
       <!-- /.sidebar -->
     </aside>
@@ -131,6 +152,8 @@
 <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Toastr -->
+<script src="/plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/js/adminlte.js"></script>
 <!-- custom js -->

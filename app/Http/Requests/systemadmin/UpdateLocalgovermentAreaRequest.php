@@ -38,6 +38,7 @@ class UpdateLocalgovermentAreaRequest extends FormRequest
         return [
             'name.required' => 'Localgoverment area cannot be empty!',
             'region_id.required' => 'Please select Localgoverment area region!',
+            'region_id.integer' => 'No Region Selected!',
         ];
     }
 }

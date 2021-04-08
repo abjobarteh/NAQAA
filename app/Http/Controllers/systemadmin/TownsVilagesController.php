@@ -51,7 +51,7 @@ class TownsVilagesController extends Controller
     {
        TownVillage::create($request->validated());
 
-       return redirect(route('systemadmin.towns-villages.index'))->withSuccess('Town/Village Successfully created');
+       return redirect(route('admin.towns-villages.index'))->withSuccess('Town/Village Successfully created');
     }
 
     /**
@@ -91,7 +91,7 @@ class TownsVilagesController extends Controller
     {
         $towns_village->update($request->validated());
 
-        return redirect(route('systemadmin.towns-villages.index'))->withSuccess('Town/Village Successfully updated');
+        return redirect(route('admin.towns-villages.index'))->withSuccess('Town/Village Successfully updated');
     }
 
     /**

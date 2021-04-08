@@ -4,6 +4,18 @@
 @endsection
 
 @section('content')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('admin.localgovermentareas.index')}}">Localgoverment areas</a></li>
+                        <li class="breadcrumb-item active">Add localgoverment area</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="content">
         <div class="container-fluid mt-2">
             <div class="card">
@@ -28,7 +40,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="region">Region</label>
-                                    <select name="region_id" id="region" class="form-control custom-select">
+                                    <select name="region_id" id="region" class="form-control select2">
                                         <option>Select region</option>
                                         @foreach ($regions as $id => $region)
                                             <option value="{{$id}}">{{$region}}</option>

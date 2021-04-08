@@ -29,7 +29,7 @@ class UpdateUnitsRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'directorate' => 'required'
+            'directorate_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,7 @@ class UpdateUnitsRequest extends FormRequest
     {
         return [
             'name.required' => 'Unit name cannot be empty. Please Enter a unit name',
-            'directorate.required' => 'Please select a directorate.'
+            'directorate_id.required' => 'Please select a directorate.'
         ];
     }
 }

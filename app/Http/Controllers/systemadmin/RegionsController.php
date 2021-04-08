@@ -47,7 +47,7 @@ class RegionsController extends Controller
     {
         Region::create($request->validated());
 
-        return redirect(route('systemadmin.regions.index'))->withSuccess('Region Successfully added');
+        return redirect(route('admin.regions.index'))->withSuccess('Region Successfully added');
     }
 
     /**
@@ -85,7 +85,7 @@ class RegionsController extends Controller
     {
         $region->update($request->validated());
 
-        return redirect(route('systemadmin.regions.index'))->withSuccess('Region Successfully updated');
+        return redirect(route('admin.regions.index'))->withSuccess('Region Successfully updated');
     }
 
     /**

@@ -13,11 +13,29 @@ class Role extends Model
     protected $fillable = [
        'name',
        'slug',
+       'role_level',
        'created_at',
        'updated_at'
     ];
 
     protected static $logFillable = true;
+
+    protected static $logName = 'Role';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New Role added by ".auth()->user()->username;
+            case 'updated': 
+                     return "Role updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "Role deleted by ".auth()->user()->username;
+        };
+        
+    }
     
     public function permissions() 
     {

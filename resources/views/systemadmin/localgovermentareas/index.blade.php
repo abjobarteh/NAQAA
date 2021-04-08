@@ -37,14 +37,6 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Name</th>
-                                        <th>Region</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @forelse ($lgas as $lga)
                                     <tr>

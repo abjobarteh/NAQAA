@@ -20,7 +20,9 @@ class LocalGovermentAreasController extends Controller
     public function index()
     {
         abort_if(Gate::denies('access_local_goverment_areas'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $lgas = LocalGovermentAreas::with('region');
+
+        $lgas = LocalGovermentAreas::with('region')->get();
+
         return view('systemadmin.localgovermentareas.index', compact('lgas'));
     }
 

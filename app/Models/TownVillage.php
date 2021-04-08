@@ -20,4 +20,26 @@ class TownVillage extends Model
     ];
 
     protected static $logFillable = true;
+    
+    protected static $logName = 'Towns/Villages';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New Towns/Villages added by ".auth()->user()->username;
+            case 'updated': 
+                     return "Towns/Villages updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "Towns/Villages deleted by ".auth()->user()->username;
+        };
+        
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
 }

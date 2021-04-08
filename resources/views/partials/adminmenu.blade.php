@@ -1,10 +1,5 @@
- <!-- Sidebar Menu -->
- <nav class="mt-2">
-  <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
-    <!-- Add icons to the links using the .nav-icon class
-         with font-awesome or any other icon font library -->
-    
-    <li class="nav-item">
+@role(...['sysadmin']) 
+     <li class="nav-item">
       <a href="{{route('admin.dashboard')}}" class="nav-link {{ request()->is('admin/dashboard') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tachometer-alt"></i>
         <p>
@@ -69,7 +64,7 @@
       <ul class="nav nav-treeview">
         @can('access_directorate')
         <li class="nav-item">
-          <a href="{{ route('admin.directorates.index') }}" class="nav-link {{ request()->is('admin/institution-categories') || request()->is('admin/institution-categories/*') ? 'active' : '' }}">
+          <a href="{{ route('admin.directorates.index') }}" class="nav-link {{ request()->is('admin/directorates') || request()->is('admin/directorates/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-university"></i>
             <p>
               Manage Directorates
@@ -80,7 +75,7 @@
         
         @can('access_unit')
         <li class="nav-item">
-          <a href="{{ route('admin.units.index') }}" class="nav-link {{ request()->is('admin/institution-types') || request()->is('admin/institution-types/*') ? 'active' : '' }}">
+          <a href="{{ route('admin.units.index') }}" class="nav-link {{ request()->is('admin/units') || request()->is('admin/units/*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-building"></i>
             <p>
               Manage Units
@@ -154,16 +149,27 @@
       </ul>
     </li>
     @endcan
-    {{-- @can('access_general_configurations')
+    @can('access_general_configurations')
     <li class="nav-item">
-      <a href="{{ route('admin.configurations') }}" class="nav-link {{ request()->is('admin/configurations') || request()->is('admin/standards/*') ? 'active' : '' }}">
+      <a href="{{ route('admin.configurations') }}" class="nav-link {{ 
+        request()->is('admin/configurations') || request()->is('admin/configurations/*')
+        || request()->is('admin/education-fields') || request()->is('admin/education-fields/*')
+        || request()->is('admin/education-subfields') || request()->is('admin/education-subfields/*')
+        || request()->is('admin/training-provider-staff-ranks') || request()->is('admin/training-provider-staff-ranks/*')
+        || request()->is('admin/training-provider-staff-roles') || request()->is('admin/training-provider-staff-roles/*')
+        || request()->is('admin/entry-level-qualifications') || request()->is('admin/entry-level-qualifications/*')
+        || request()->is('admin/training-provider-classifications') || request()->is('admin/training-provider-classifications/*')
+        || request()->is('admin/training-provider-ownerships') || request()->is('admin/training-provider-ownerships/*')
+        || request()->is('admin/application-fees-tariffs') || request()->is('admin/application-fees-tariffs/*')
+        ? 'active' : '' 
+        }}">
         <i class="nav-icon fas fa-tools"></i>
         <p>
-            General Settings
+            Predefine Configurations
         </p>
       </a>
     </li>
-    @endcan --}}
+    @endcan
     @can('access_activity_logs')
     <li class="nav-item">
       <a href="{{route('admin.activities.index')}}" class="nav-link {{ request()->is('admin/activities') || request()->is('admin/activities/*') ? 'active' : '' }}">
@@ -194,14 +200,4 @@
       </a>
     </li>
     @endcan
-    <li class="nav-item">
-      <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user-cog"></i>
-        <p>
-          Profile
-        </p>
-      </a>
-    </li>
-  </ul>
-</nav>
-<!-- /.sidebar-menu -->
+@endrole

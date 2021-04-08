@@ -24,17 +24,11 @@ class CreateUsersTable extends Migration
             $table->string('lastname');
             $table->string('phonenumber');
             $table->string('address');
-            $table->date('date_of_birth');
-            $table->string('gender');
             $table->string('user_status');
             $table->string('default_password_status');
-            $table->string('appointment_status')->nullable();
-            $table->string('appraisal_performance')->nullable();
-            $table->foreignId('age_group_id')->nullable()->constrained();
             $table->foreignId('directorate_id')->nullable()->constrained();
             $table->foreignId('unit_id')->nullable()->constrained();
             $table->foreignId('designation_id')->nullable()->constrained();
-            $table->foreignId('employment_type_id')->nullable()->constrained();
             $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();

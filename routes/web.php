@@ -4,24 +4,25 @@ use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
+use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
-use App\Http\Controllers\systemadmin\ComplianceLevelController;
 use App\Http\Controllers\systemadmin\DashboardController;
 use App\Http\Controllers\systemadmin\DesignationsController;
 use App\Http\Controllers\systemadmin\DirectoratesController;
 use App\Http\Controllers\systemadmin\DistrictsController;
-use App\Http\Controllers\systemadmin\InstitutionCategoryController;
-use App\Http\Controllers\systemadmin\InstitutionControllerSettings;
-use App\Http\Controllers\systemadmin\InstitutionTypeController;
+use App\Http\Controllers\systemadmin\EducationFieldsController;
+use App\Http\Controllers\systemadmin\EducationSubFieldsController;
+use App\Http\Controllers\systemadmin\EntryLevelQualificationsController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
-use App\Http\Controllers\systemadmin\ProgramCategoryController;
-use App\Http\Controllers\systemadmin\ProgramLevelController;
+use App\Http\Controllers\systemadmin\PredefinedSettingsController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
-use App\Http\Controllers\systemadmin\StandardsController;
-use App\Http\Controllers\systemadmin\SubdivisionsController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
+use App\Http\Controllers\systemadmin\TrainingProviderClassificationsController;
+use App\Http\Controllers\systemadmin\TrainingProviderOwnershipsController;
+use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
+use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -44,16 +45,6 @@ require __DIR__.'/auth.php';
 
 
 Route::group(['middleware' => 'auth'], function(){
-
-  // Profiles Settings
-    Route::get('settings', [ProfilesController::class, 'settings'])
-            ->name('settings');
-
-    Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
-            ->name('settings.updateprofile');
-
-    Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
-            ->name('settings.changepassword');
 
     // sysadmin Routes
     Route::group(['prefix' => 'admin','as' => 'admin.','middleware'=> 'role:sysadmin'], function(){
@@ -94,14 +85,36 @@ Route::group(['middleware' => 'auth'], function(){
         // Towns/Villages
         Route::resource('towns-villages', TownsVilagesController::class)->except('destroy');
 
-        // Institution Standards routes
-        Route::resource('standards', StandardsController::class);
+      // Predefined Settings Route
+        Route::get('configurations', PredefinedSettingsController::class)->name('configurations');
 
-        // Compliance Level routes
-        Route::resource('compliance-levels', ComplianceLevelController::class);
+        // Education Fields
+        Route::resource('education-fields', EducationFieldsController::class)->except('show');
+
+        // Education SubFields
+        Route::resource('education-subfields', EducationSubFieldsController::class)->except('show');
+
+        // Academic & Admin Staff Ranks
+        Route::resource('training-provider-staff-ranks', TrainingProviderStaffsRankController::class)->except('show');
+
+        // Academic & Admin Staff Roles
+        Route::resource('training-provider-staff-roles', TrainingProviderStaffsRoleController::class)->except('show');
+        
+        // EntryLevel Qualifications
+        Route::resource('entry-level-qualifications', EntryLevelQualificationsController::class)->except('show');
+
+        // Training Provider classfications
+        Route::resource('training-provider-classifications', TrainingProviderClassificationsController::class)->except('show');
+
+        // Training Provider Ownerships
+        Route::resource('training-provider-ownerships', TrainingProviderOwnershipsController::class)->except('show');
+
+        // Application Fees Tariffs
+        Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');
+        Route::get('show-activity/{id}', [ActivitiesController::class, 'show'])->name('activities.show');
         Route::POST('activities/filter', [ActivitiesController::class,'activityLogsFilter'])->name('activities.filter');
 
         // Backup system
@@ -152,5 +165,15 @@ Route::group(['middleware' => 'auth'], function(){
   ],function(){
 
   });
+
+  // Profiles Settings
+  Route::get('settings', [ProfilesController::class, 'settings'])
+  ->name('settings');
+
+  Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
+    ->name('settings.updateprofile');
+
+  Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
+    ->name('settings.changepassword');
 
 });

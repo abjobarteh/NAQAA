@@ -1,11 +1,25 @@
 @extends('layouts.admin')
-
+@section('page-title')
+    Edit Designation
+@endsection
 @section('content')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('admin.designations.index')}}">Designations</a></li>
+                        <li class="breadcrumb-item active">Edit designation</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
    <section class="content">
        <div class="container-fluid">
            <div class="card mt-2">
                <div class="card-header">
-                   <h3 class="card-title">Edit Designatnion</h3>
+                   <h3 class="card-title">Edit Designation</h3>
                </div>
 
                <div class="card-body">

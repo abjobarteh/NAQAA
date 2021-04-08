@@ -7,7 +7,6 @@ use App\Http\Requests\systemadmin\StoreDistrictRequest;
 use App\Http\Requests\systemadmin\UpdateDistrictRequest;
 use App\Models\District;
 use App\Models\Region;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,7 +50,7 @@ class DistrictsController extends Controller
     {
         District::create($request->validated());
 
-        return redirect(route('systemadmin.districts.index'))->withSuccess('District Successfully added');
+        return redirect(route('admin.districts.index'))->withSuccess('District Successfully added');
     }
 
     /**
@@ -91,7 +90,7 @@ class DistrictsController extends Controller
     {
         $district->update($request->validated());
 
-        return redirect(route('systemadmin.districts.index'))->withSuccess('District Successfully updated');
+        return redirect(route('admin.districts.index'))->withSuccess('District Successfully updated');
     }
 
     /**

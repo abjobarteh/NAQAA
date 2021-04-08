@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\systemadmin\StoreUserRequest;
+use App\Http\Requests\systemadmin\UpdateUserRequest;
 use App\Models\Designation;
 use App\Models\Directorate;
 use App\Models\Permission;
@@ -12,7 +12,6 @@ use App\Models\Role;
 use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends Controller
@@ -65,7 +64,7 @@ class UsersController extends Controller
        $user =  User::create([
             'username' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => bcrypt($request->password),
             'firstname' => $request->first_name,
             'middlename' => $request->middle_name ?? null,
             'lastname' => $request->last_name,
@@ -83,7 +82,7 @@ class UsersController extends Controller
 
         $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('systemadmin.users.index'))->with('success','User Successfully created');
+        return redirect(route('admin.users.index'))->with('success','User Successfully created');
     }
 
     /**
@@ -137,7 +136,7 @@ class UsersController extends Controller
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
                 'firstname' => $request->first_name,
                 'middlename' => $request->middle_name ?? null,
                 'lastname' => $request->last_name,
@@ -171,7 +170,7 @@ class UsersController extends Controller
 
         $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('systemadmin.users.index'))->with('success','User Successfully updated');
+        return redirect(route('admin.users.index'))->with('success','User Successfully updated');
     }
 
 

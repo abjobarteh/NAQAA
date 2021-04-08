@@ -32,6 +32,13 @@ class ActivitiesController extends Controller
         return view('systemadmin.auditlogs.index', compact('activities','roles','users'));
     }
 
+    public function show($id)
+    {
+        $activity = Activity::where('id', $id)->get();
+
+        return view('systemadmin.auditlogs.show', compact('activity'));
+    }
+
     public function activityLogsFilter(Request $request)
     {
         // if($)

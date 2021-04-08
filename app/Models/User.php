@@ -14,7 +14,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasPermissionsTrait, LogsActivity, CausesActivity; //Import The Trait;
     
-    protected static $logFillable = true;
 
     /**
      * The attributes that are mass assignable.
@@ -47,6 +46,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -55,6 +55,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static $logFillable = true;
+
+    protected static $logName = 'User';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New User created by ".auth()->user()->username;
+            case 'updated': 
+                     return "User updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "User deleted by ".auth()->user()->username;
+        };
+        
+    }
 
     public function directorate()
     {

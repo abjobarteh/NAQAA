@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('page-title')
+    Towns Villages
+@endsection
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -31,21 +33,16 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>Town/Village Name</th>
+                                        <th>District</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Town/Village Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @forelse ($townsVillages as $townVillage)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $townVillage->name }}</td>
+                                        <td>{{ $townVillage->district->name }}</td>
                                         <td>
                                             @can('edit_towns_villages')
                                             <a href="{{ route('admin.towns-villages.edit', $townVillage->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>

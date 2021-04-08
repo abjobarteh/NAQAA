@@ -136,10 +136,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Directorate</label>
-                                            <select class="form-control custom-select" style="width: 100%;" id="directorate" name="directorate">
+                                            <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate">
                                               <option>Select directorate</option>
                                               @forelse ($directorates as $id => $directorate)  
-                                              <option value="{{$id}}" {{ $id == auth()->user()->directorate_id ? 'selected' : ''}}>{{$directorate}}</option>
+                                              <option value="{{$id}}" {{ $id == $user->directorate_id ? 'selected' : ''}}>{{$directorate}}</option>
                                             @empty
                                               <option>No Directorates registered in the system</option>
                                             @endforelse
@@ -154,10 +154,10 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label>Unit</label>
-                                            <select class="form-control custom-select" style="width: 100%;" name="unit">
+                                            <select class="form-control select2" style="width: 100%;" name="unit">
                                               <option>Select Unit</option>
                                               @forelse ($units as $id => $unit)  
-                                              <option value="{{$id}}" {{ $id == auth()->user()->unit_id ? 'selected' : ''}}>{{$unit}}</option>
+                                              <option value="{{$id}}" {{ $id == $user->unit_id ? 'selected' : ''}}>{{$unit}}</option>
                                             @empty
                                               <option>No Units</option>
                                             @endforelse
@@ -172,9 +172,9 @@
                                       <div class="col-md-4">
                                        <div class="form-group">
                                            <label>Designation</label>
-                                           <select class="form-control custom-select" style="width: 100%;" name="designation" data-placeholder="Select designation">
+                                           <select class="form-control select2" style="width: 100%;" name="designation" data-placeholder="Select designation">
                                              @forelse ($designations as $id => $designation)  
-                                                <option value="{{$id}}" {{ $id == auth()->user()->designation_id ? 'selected' : ''}}>{{$designation}}</option>
+                                                <option value="{{$id}}" {{ $id == $user->designation_id ? 'selected' : ''}}>{{$designation}}</option>
                                               @empty
                                                 <option>No Designations registered in the system</option>
                                               @endforelse

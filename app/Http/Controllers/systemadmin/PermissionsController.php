@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePermissionRequest;
-use App\Http\Requests\UpdatePermissionRequest;
+use App\Http\Requests\systemadmin\StorePermissionRequest;
+use App\Http\Requests\systemadmin\UpdatePermissionRequest;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Support\Facades\Gate;

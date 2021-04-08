@@ -22,7 +22,6 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'Jobe',
             'phonenumber' => '2952173',
             'address' => 'Bundung Borehole',
-            'gender' => 'male',
             'default_password_status' => 1,
             'user_status' => 1,
         ];

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('page-title')
+    Units
+@endsection
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">

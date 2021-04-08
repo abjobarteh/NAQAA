@@ -29,7 +29,7 @@ class UpdateTownsVillageRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'district_id' => 'required'
+            'district_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,8 @@ class UpdateTownsVillageRequest extends FormRequest
     {
         return [
             'name.required' => 'Town/Village name is required. Please Enter town/village name',
-            'district_id.required' => 'District is required to create Town/Village. Please select a district'
+            'district_id.required' => 'District is required to create Town/Village. Please select a district',
+            'district_id.integer' => 'No District selected!',
         ];
     }
 }

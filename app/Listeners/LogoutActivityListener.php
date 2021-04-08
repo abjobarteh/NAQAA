@@ -28,13 +28,13 @@ class LogoutActivityListener
      */
     public function handle(Logout $event)
     {
-        if(DB::table('system_logs')->where('user_id',$event->user->id)->whereNull('login_end')->exists()){
-            DB::table('system_logs')->where('user_id',$event->user->id)->whereNull('login_end')
-                ->update([
-                    'login_end' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
-                ]);
-        }
+        // if(DB::table('system_logs')->where('user_id',$event->user->id)->whereNull('login_end')->exists()){
+        //     DB::table('system_logs')->where('user_id',$event->user->id)->whereNull('login_end')
+        //         ->update([
+        //             'login_end' => Carbon::now(),
+        //             'updated_at' => Carbon::now(),
+        //         ]);
+        // }
         
     }
 }

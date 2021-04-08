@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('page-title')
+    Regions
+@endsection
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -34,13 +36,6 @@
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Region Name</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @forelse ($regions as $region)
                                     <tr>

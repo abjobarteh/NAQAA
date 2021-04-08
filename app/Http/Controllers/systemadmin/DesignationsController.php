@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\systemadmin\StoreDesignationRequest;
 use App\Http\Requests\systemadmin\UpdateDesignationRequest;
 use App\Models\Designation;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 

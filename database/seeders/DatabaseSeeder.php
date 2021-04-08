@@ -20,7 +20,9 @@ class DatabaseSeeder extends Seeder
             DesignationTableSeeder::class,
             DirectorateTableSeeder::class,
             UsersTableSeeder::class,
-            RoleUserTableSeeder::class
+            RoleUserTableSeeder::class,
+            EducationFieldsTableSeeder::class,
+            CountriesTableSeeder::class
         ]);
     }
 }
