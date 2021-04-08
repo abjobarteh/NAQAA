@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\systemadmin\StoreDesignationRequest;
 use App\Http\Requests\systemadmin\UpdateDesignationRequest;
 use App\Models\Designation;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,7 +18,7 @@ class DesignationsController extends Controller
      */
     public function index()
     {
-      abort_if(Gate::denies('designation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+      abort_if(Gate::denies('access_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
       $designations = Designation::all();
 
@@ -33,7 +32,7 @@ class DesignationsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('designation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.designations.create');
     }
@@ -46,7 +45,7 @@ class DesignationsController extends Controller
      */
     public function store(StoreDesignationRequest $request)
     {
-        Designation::create($request->all());
+        Designation::create($request->validated());
 
         return redirect()->route('systemadmin.designations.index')->withSuccess('designation successfully created');
     }
@@ -70,7 +69,7 @@ class DesignationsController extends Controller
      */
     public function edit(Designation $designation)
     {
-        abort_if(Gate::denies('designation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.designations.edit', compact('designation'));
     }
@@ -84,19 +83,9 @@ class DesignationsController extends Controller
      */
     public function update(UpdateDesignationRequest $request, Designation $designation)
     {
-        $designation->update($request->all());
+        $designation->update($request->validated());
 
         return redirect()->route('systemadmin.designations.index')->withSuccess('designation successfully updated');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

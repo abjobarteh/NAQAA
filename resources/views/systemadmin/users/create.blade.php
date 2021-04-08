@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
  <!-- Content Header (Page header) -->
@@ -10,8 +10,8 @@
         </div><!-- /.col -->
         <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
-            <li class="breadcrumb-item"><a href="{{route('systemadmin.users.index')}}">Users</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{{route('admin.users.index')}}">Users</a></li>
             <li class="breadcrumb-item active">Add User</li>
         </ol>
         </div><!-- /.col -->
@@ -27,7 +27,7 @@
                         <h3 class="card-title">Create User</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('systemadmin.users.store') }}" method="POST">
+                        <form action="{{ route('admin.users.store') }}" method="POST">
                           @csrf
                             <div class="row">
                                 <div class="col-md-6">
@@ -136,9 +136,9 @@
                                   <div class="form-group">
                                       <label>Directorate</label>
                                       <select class="form-control select2" style="width: 100%;" id="directorate" name="directorate" required>
-                                        <option value="" selected>Select directorate</option>
-                                        @forelse ($directorates as $dt)  
-                                        <option value="{{$dt->id}}">{{$dt->name}}</option>
+                                        <option>Select directorate</option>
+                                        @forelse ($directorates as $id => $directorate)  
+                                        <option value="{{$id}}">{{$directorate}}</option>
                                       @empty
                                         <option>No Directorates registered in the system</option>
                                       @endforelse
@@ -154,9 +154,9 @@
                                   <div class="form-group">
                                       <label>Unit</label>
                                       <select class="form-control select2" id="unit" style="width: 100%;" name="unit">
-                                        <option value="" selected>Select Unit</option>
-                                        @forelse ($units as $un)  
-                                          <option value="{{$un->id}}">{{$un->name}}</option>
+                                        <option>Select Unit</option>
+                                        @forelse ($units as $id => $unit)  
+                                          <option value="{{$id}}">{{$unit}}</option>
                                         @empty
                                           <option>No Units</option>
                                         @endforelse
@@ -172,9 +172,9 @@
                                  <div class="form-group">
                                      <label>Designation</label>
                                      <select class="form-control select2" style="width: 100%;" name="designation" required>
-                                       <option value="" selected>Select designation</option>
-                                       @forelse ($designations as $desig)  
-                                       <option value="{{$desig->id}}">{{$desig->name}}</option>
+                                       <option>Select designation</option>
+                                       @forelse ($designations as $id => $designation)  
+                                       <option value="{{$id}}">{{$designation}}</option>
                                      @empty
                                        <option>No Designations registered in the system</option>
                                      @endforelse
@@ -227,7 +227,7 @@
                             </div>
                               <div class="form-group">
                                   <button type="submit" class="btn btn-info btn-lg">Save</button>
-                                  <a href="{{ route('systemadmin.users.index') }}" class="btn btn-danger btn-lg"><i class="fas fa-arrow-left"></i> Back</a>
+                                  <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-lg"><i class="fas fa-arrow-left"></i> Back</a>
                               </div>
                         </form>
                     </div>
@@ -247,7 +247,7 @@
           if(directorateID){
               $.ajax({
                 method: "GET",
-                url: "/systemadmin/users/getunitsbydirectorate/"+directorateID,
+                url: "/admin/users/getunitsbydirectorate/"+directorateID,
                 dataType: "json",
                 success: function(response)
                 {

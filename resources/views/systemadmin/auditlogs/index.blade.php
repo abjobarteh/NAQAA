@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -60,35 +60,25 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Author</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
+                                    <th>Log Name</th>
+                                    <th>User</th>
                                     <th>Description</th>
+                                    <th>Date</th>
+                                    {{-- <th>Action</th> --}}
                                 </tr>
                             </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Date</th>
-                                    <th>Author</th>
-                                    <th>Type</th>
-                                    <th>Action</th>
-                                    <th>Description</th>
-                                </tr>
-                            </tfoot>
                             <tbody>
                                 @forelse ($activities as $activity)
-                                    @if ($activity->causer_id == auth()->user()->id)
-                                        <tr class="bg-info text-white">
+                                        <tr @if($activity->causer_id == auth()->user()->id) class="text-dark-50" @endif>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $activity->created_at }}</td>
-                                            <td>{{ $activity->causer->username }}</td>
-                                            <td>{{ $activity->subject->getTable() }}</td>
                                             <td>{{ $activity->log_name }}</td>
+                                            <td>{{ $activity->causer->username }}</td>
                                             <td>{{ $activity->description }}</td>
+                                            <td>{{ $activity->created_at }}</td>
+                                            {{-- <td>
+                                                <a href="{{route('admin.activities.show', $activity->id)}}" class="btn btn-primary"><i class="fas fa-eye"></i> </a>
+                                            </td> --}}
                                         </tr>  
-                                    @endif
                                 @empty
                                     <tr>
                                         <td colspan="10" class="text-center text-bold">No logged activities in the system</td>
@@ -114,7 +104,7 @@
             $.ajax({
                 headers: {'x-csrf-token': _token},
                 method: 'POST',
-                url: "{{ route('systemadmin.activities.filter') }}",
+                url: "{{ route('admin.activities.filter') }}",
                 data: params,
                 success: function(response){
                     @foreach(response.data as activity)

@@ -1,6 +1,20 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
+@section('page-title')
+    Create Designation
+@endsection
 @section('content')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('admin.designations.index')}}">Designations</a></li>
+                        <li class="breadcrumb-item active">Create designation</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
    <section class="content">
        <div class="container-fluid">
            <div class="card mt-2">
@@ -9,7 +23,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.designations.store') }}" method="POST">
+                   <form action="{{ route('admin.designations.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-12">

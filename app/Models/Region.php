@@ -17,4 +17,31 @@ class Region extends Model
     ];
 
     protected static $logFillable = true;
+
+    protected static $logName = 'Region';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New Region added by ".auth()->user()->username;
+            case 'updated': 
+                     return "Region updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "Region deleted by ".auth()->user()->username;
+        };
+        
+    }
+
+    public function localgovermentareas()
+    {
+        return $this->hasMany(LocalGovermentAreas::class);
+    }
+
+    public function districts()
+    {
+        return $this->hasMany(District::class);
+    }
 }

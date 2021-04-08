@@ -1,5 +1,7 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
+@section('page-title')
+    Districts
+@endsection
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -9,8 +11,8 @@
             <h1 class="m-0">Districts</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                @can('district_create')
-                 <a href="{{ route('systemadmin.districts.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add District</a>
+                @can('create_district')
+                 <a href="{{ route('admin.districts.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Add District</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,30 +33,22 @@
                                     <tr>
                                         <th>No.</th>
                                         <th>District Name</th>
-                                        {{-- <th>Region</th> --}}
+                                        <th>Region</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>District Name</th>
-                                        {{-- <th>Region</th> --}}
-                                        <th>Actions</th>
-                                    </tr>
-                                </tfoot>
                                 <tbody>
                                     @forelse ($districts as $district)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $district->name }}</td>
-                                        {{-- <td>{{ $district->regions->name }}</td> --}}
+                                        <td>{{ $district->region->name }}</td>
                                         <td>
-                                            @can('district_edit')
-                                            <a href="{{ route('systemadmin.districts.edit', $district->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                                            @can('edit_district')
+                                            <a href="{{ route('admin.districts.edit', $district->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
-                                            @can('district_show')
-                                            <a href="{{ route('systemadmin.districts.show', $district->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            @can('show_district')
+                                            <a href="{{ route('admin.districts.show', $district->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                             @endcan
                                         </td>
                                     </tr>

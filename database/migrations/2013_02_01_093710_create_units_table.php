@@ -16,9 +16,8 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('directorate_id');
+            $table->foreignId('directorate_id')->constrained();
             $table->timestamps();
-            $table->foreign('directorate_id')->references('id')->on('directorates')->cascadeOnDelete();
         });
     }
 

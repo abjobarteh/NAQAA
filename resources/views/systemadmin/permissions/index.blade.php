@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
         <!-- Content Header (Page header) -->
@@ -6,7 +6,9 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                <a href="{{ route('systemadmin.permissions.create') }}" class="btn btn-success">Create Permission</a>
+                    @can('create_permission')
+                    <a href="{{ route('admin.permissions.create') }}" class="btn btn-success">Create Permission</a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -36,8 +38,13 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $permission->slug }}</td>
                                         <td>
-                                            <a href="{{ route('systemadmin.permissions.edit', $permission->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
-                                            <a href="{{ route('systemadmin.permissions.edit', $permission->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                            {{-- remove edit button for security purpose @Biran --}}
+                                            {{-- @can('edit_permission')
+                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                            @endcan --}}
+                                            @can('show_permission')
+                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @empty

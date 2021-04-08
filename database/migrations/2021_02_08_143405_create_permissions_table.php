@@ -17,6 +17,7 @@ class CreatePermissionsTable extends Migration
             $table->id();
             $table->string('name'); // edit posts
             $table->string('slug'); //edit-posts
+            $table->string('permission_type');
             $table->timestamps();
         });
     }

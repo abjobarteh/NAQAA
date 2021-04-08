@@ -15,7 +15,7 @@ class StoreDesignationRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('designation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }

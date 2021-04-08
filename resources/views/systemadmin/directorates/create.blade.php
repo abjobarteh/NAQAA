@@ -1,6 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('admin.directorates.index')}}">Directorates</a></li>
+                        <li class="breadcrumb-item active">Create directorate</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
    <section class="content">
        <div class="container-fluid">
            <div class="card mt-2">
@@ -9,7 +21,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.directorates.store') }}" method="POST">
+                   <form action="{{ route('admin.directorates.store') }}" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-12">

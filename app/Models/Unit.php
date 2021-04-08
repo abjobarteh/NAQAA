@@ -17,6 +17,23 @@ class Unit extends Model
 
     protected static $logFillable = true;
 
+    protected static $logName = 'Unit';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New Unit added by ".auth()->user()->username;
+            case 'updated': 
+                     return "Unit updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "Unit deleted by ".auth()->user()->username;
+        };
+        
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

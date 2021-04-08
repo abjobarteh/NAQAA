@@ -15,7 +15,7 @@ class UpdateUnitsRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('unit_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_unit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -29,7 +29,7 @@ class UpdateUnitsRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'directorate' => 'required'
+            'directorate_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,7 @@ class UpdateUnitsRequest extends FormRequest
     {
         return [
             'name.required' => 'Unit name cannot be empty. Please Enter a unit name',
-            'directorate.required' => 'Please select a directorate.'
+            'directorate_id.required' => 'Please select a directorate.'
         ];
     }
 }

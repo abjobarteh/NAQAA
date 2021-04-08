@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
    <section class="content">
@@ -9,7 +9,7 @@
                </div>
 
                <div class="card-body">
-                   <form action="{{ route('systemadmin.roles.update',[$role->id]) }}" method="POST" enctype="multipart/form-data">
+                   <form action="{{ route('admin.roles.update',[$role->id]) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="row">
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-info">Update</button>
-                                <a href="{{ route('systemadmin.roles.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
+                                <a href="{{ route('admin.roles.index')}}" class="btn btn-warning text-white">back <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </form>

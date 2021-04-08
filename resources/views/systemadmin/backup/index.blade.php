@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -10,7 +10,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 @can('manual_backup_access')
-                <a href="{{route('systemadmin.backup.manual')}}" class="btn btn-success float-right"><i class="fas fa-database"></i> Make Backup</a>
+                <a href="{{route('admin.backup.manual')}}" class="btn btn-success float-right"><i class="fas fa-database"></i> Make Backup</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->

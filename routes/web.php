@@ -2,29 +2,29 @@
 
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
-use App\Http\Controllers\RegistrationAccreditation\RegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
+use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
-use App\Http\Controllers\systemadmin\ComplianceLevelController;
 use App\Http\Controllers\systemadmin\DashboardController;
 use App\Http\Controllers\systemadmin\DesignationsController;
 use App\Http\Controllers\systemadmin\DirectoratesController;
 use App\Http\Controllers\systemadmin\DistrictsController;
-use App\Http\Controllers\systemadmin\InstitutionCategoryController;
-use App\Http\Controllers\systemadmin\InstitutionControllerSettings;
-use App\Http\Controllers\systemadmin\InstitutionTypeController;
+use App\Http\Controllers\systemadmin\EducationFieldsController;
+use App\Http\Controllers\systemadmin\EducationSubFieldsController;
+use App\Http\Controllers\systemadmin\EntryLevelQualificationsController;
+use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
-use App\Http\Controllers\systemadmin\ProgramCategoryController;
-use App\Http\Controllers\systemadmin\ProgramLevelController;
+use App\Http\Controllers\systemadmin\PredefinedSettingsController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
-use App\Http\Controllers\systemadmin\StandardsController;
-use App\Http\Controllers\systemadmin\SubdivisionsController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
+use App\Http\Controllers\systemadmin\TrainingProviderClassificationsController;
+use App\Http\Controllers\systemadmin\TrainingProviderOwnershipsController;
+use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
+use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
-use App\Http\Livewire\Systemadmin\Units;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +39,6 @@ use Illuminate\Support\Facades\Route;
 */
 Route::redirect('/', '/login');
 Route::redirect('/home', '/systemadmin/');
-// Route::redirect('/dashboard', '/registration-accreditation/');
 
 
 require __DIR__.'/auth.php';
@@ -47,23 +46,13 @@ require __DIR__.'/auth.php';
 
 Route::group(['middleware' => 'auth'], function(){
 
-  // Profiles Settings
-    Route::get('settings', [ProfilesController::class, 'settings'])->middleware('auth')
-            ->name('settings');
-
-    Route::put('settings/profileupdate', [ProfilesController::class, 'updateProfile'])
-            ->name('settings.profileupdate');
-
-    Route::put('settings/passwordchnage', [ProfilesController::class, 'changePassword'])
-            ->name('settings.passwordchange');
-    
-    // systemadmin
-    Route::group(['prefix' => 'systemadmin','as' => 'systemadmin.','middleware'=> 'role:systemadmin'], function(){
-        Route::redirect('/', '/systemadmin/dashboard');
+    // sysadmin Routes
+    Route::group(['prefix' => 'admin','as' => 'admin.','middleware'=> 'role:sysadmin'], function(){
+        Route::redirect('/', '/admin/dashboard');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
         // institution settings
-        Route::get('institution-settings', InstitutionControllerSettings::class)->name('institution-settings');
+        // Route::get('configurations', DirectoratesController::class)->name('configurations');
 
         // Users
         Route::get('users/getunitsbydirectorate/{directorate}', [UsersController::class, 'getUnitsByDirectorate'])->name('users.getunitsbydirectorate');
@@ -84,11 +73,11 @@ Route::group(['middleware' => 'auth'], function(){
         // Designations
         Route::resource('designations', DesignationsController::class)->except('destroy');
 
-        // Subdivisions
-        Route::resource('subdivisions', SubdivisionsController::class)->except('destroy');
-
         // Regions
         Route::resource('regions', RegionsController::class)->except('destroy');
+
+        // Local goverment Areas
+        Route::resource('localgovermentareas', LocalGovermentAreasController::class)->except('destroy');
 
         // Districts
         Route::resource('districts', DistrictsController::class)->except('destroy');
@@ -96,27 +85,37 @@ Route::group(['middleware' => 'auth'], function(){
         // Towns/Villages
         Route::resource('towns-villages', TownsVilagesController::class)->except('destroy');
 
+      // Predefined Settings Route
+        Route::get('configurations', PredefinedSettingsController::class)->name('configurations');
+
+        // Education Fields
+        Route::resource('education-fields', EducationFieldsController::class)->except('show');
+
+        // Education SubFields
+        Route::resource('education-subfields', EducationSubFieldsController::class)->except('show');
+
+        // Academic & Admin Staff Ranks
+        Route::resource('training-provider-staff-ranks', TrainingProviderStaffsRankController::class)->except('show');
+
+        // Academic & Admin Staff Roles
+        Route::resource('training-provider-staff-roles', TrainingProviderStaffsRoleController::class)->except('show');
+        
+        // EntryLevel Qualifications
+        Route::resource('entry-level-qualifications', EntryLevelQualificationsController::class)->except('show');
+
+        // Training Provider classfications
+        Route::resource('training-provider-classifications', TrainingProviderClassificationsController::class)->except('show');
+
+        // Training Provider Ownerships
+        Route::resource('training-provider-ownerships', TrainingProviderOwnershipsController::class)->except('show');
+
+        // Application Fees Tariffs
+        Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
+
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');
+        Route::get('show-activity/{id}', [ActivitiesController::class, 'show'])->name('activities.show');
         Route::POST('activities/filter', [ActivitiesController::class,'activityLogsFilter'])->name('activities.filter');
-
-        // Institution category
-        Route::resource('institution-categories', InstitutionCategoryController::class);
-
-        // Institution Type
-        Route::resource('institution-types', InstitutionTypeController::class);
-
-        // Program levels
-        Route::resource('program-levels', ProgramLevelController::class);
-
-        // Program Categories
-        Route::resource('program-categories', ProgramCategoryController::class);
-
-        // Institution Standards routes
-        Route::resource('standards', StandardsController::class);
-
-        // Compliaance Level routes
-        Route::resource('compliance-levels', ComplianceLevelController::class);
 
         // Backup system
         Route::get('backup',[BackupsController::class, 'index'])->name('backup');
@@ -141,7 +140,7 @@ Route::group(['middleware' => 'auth'], function(){
 
             // Trainer  Registration Routes
             Route::Resource('trainers', TrainerRegistrationController::class);
-        
+
             // AssessorVerifeir  Registration Routes
             Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
       });
@@ -153,7 +152,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Trainer  Registration Routes
         Route::Resource('trainers', TrainerRegistrationController::class);
-    
+
         // AssessorVerifeir  Registration Routes
         Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
       });
@@ -166,5 +165,15 @@ Route::group(['middleware' => 'auth'], function(){
   ],function(){
 
   });
-    
+
+  // Profiles Settings
+  Route::get('settings', [ProfilesController::class, 'settings'])
+  ->name('settings');
+
+  Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
+    ->name('settings.updateprofile');
+
+  Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
+    ->name('settings.changepassword');
+
 });

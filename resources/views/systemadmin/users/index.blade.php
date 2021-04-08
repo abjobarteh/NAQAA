@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -9,8 +9,8 @@
             <h1 class="m-0">Users</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                @can('user_create')
-                <a href="{{route('systemadmin.users.create')}}" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add User</a>
+                @can('create_user')
+                <a href="{{route('admin.users.create')}}" class="btn btn-primary float-right"><i class="fas fa-user-plus"></i> Add User</a>
                 @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -45,7 +45,7 @@
                                 @forelse ($users as $user)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->first_name.' '.$user->middle_name.' '.$user->last_name ?? $user->first_name.' '.$user->last_name }}</td>
+                                    <td>{{ $user->firstname.' '.$user->middlename.' '.$user->lastname ?? $user->firstname.' '.$user->lastname }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone_number }}</td>
                                     <td>{{ $user->address }}</td>
@@ -64,11 +64,11 @@
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                     <td>
-                                        @can('user_edit')
-                                        <a href="{{ route('systemadmin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
+                                        @can('edit_user')
+                                        <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
                                         @endcan
-                                        @can('user_show')
-                                        <a href="{{ route('systemadmin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
+                                        @can('show_user')
+                                        <a href="{{ route('admin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
                                         @endcan
                                     </td>
                                 </tr>

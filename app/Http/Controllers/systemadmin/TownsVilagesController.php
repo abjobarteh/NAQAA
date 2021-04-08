@@ -20,7 +20,7 @@ class TownsVilagesController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('towns_villages_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $townsVillages = TownVillage::all();
         
@@ -34,7 +34,7 @@ class TownsVilagesController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('towns_villages_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $districts = District::all()->pluck('name','id');
 
@@ -49,9 +49,9 @@ class TownsVilagesController extends Controller
      */
     public function store(StoreTownsVillageRequest $request)
     {
-       TownVillage::create($request->all());
+       TownVillage::create($request->validated());
 
-       return redirect(route('systemadmin.towns-villages.index'))->withSuccess('Town/Village Successfully created');
+       return redirect(route('admin.towns-villages.index'))->withSuccess('Town/Village Successfully created');
     }
 
     /**
@@ -73,7 +73,7 @@ class TownsVilagesController extends Controller
      */
     public function edit(TownVillage $towns_village)
     {
-        abort_if(Gate::denies('towns_villages_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $districts = District::all()->pluck('name','id');
         
@@ -89,9 +89,9 @@ class TownsVilagesController extends Controller
      */
     public function update(UpdateTownsVillageRequest $request, TownVillage $towns_village)
     {
-        $towns_village->update($request->all());
+        $towns_village->update($request->validated());
 
-        return redirect(route('systemadmin.towns-villages.index'))->withSuccess('Town/Village Successfully updated');
+        return redirect(route('admin.towns-villages.index'))->withSuccess('Town/Village Successfully updated');
     }
 
     /**

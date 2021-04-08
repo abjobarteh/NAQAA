@@ -15,7 +15,7 @@ class UpdateDistrictRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('district_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -29,7 +29,7 @@ class UpdateDistrictRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'region_id' => 'required'
+            'region_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,8 @@ class UpdateDistrictRequest extends FormRequest
     {
         return [
             'name.required' => 'Please Enter District name',
-            'region_id.required' => 'Region is requied to create district. Please select one'
+            'region_id.required' => 'Region is requied to create district. Please select one',
+            'region_id.integer' => 'No Region selected!',
         ];
     }
 }

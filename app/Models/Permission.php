@@ -13,11 +13,29 @@ class Permission extends Model
     protected $fillable = [
        'name',
        'slug',
+       'permission_type',
        'created_at',
        'updated_at'
     ];
     
     protected static $logFillable = true;
+
+    protected static $logName = 'Permission';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch($eventName){
+            case 'created': 
+                     return "New Permission added by ".auth()->user()->username;
+            case 'updated': 
+                     return "Permission updated by ".auth()->user()->username;
+            case 'deleted': 
+                     return "Permission deleted by ".auth()->user()->username;
+        };
+        
+    }
     
     public function roles() 
     {

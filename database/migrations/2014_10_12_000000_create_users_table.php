@@ -19,22 +19,19 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name');
-            $table->string('phone_number');
+            $table->string('firstname');
+            $table->string('middlename')->nullable();
+            $table->string('lastname');
+            $table->string('phonenumber');
             $table->string('address');
             $table->string('user_status');
-            $table->string('activity')->nullable();
             $table->string('default_password_status');
-            $table->unsignedBigInteger('directorate_id')->nullable();
-            $table->unsignedBigInteger('unit_id')->nullable();
-            $table->unsignedBigInteger('designation_id')->nullable();
+            $table->foreignId('directorate_id')->nullable()->constrained();
+            $table->foreignId('unit_id')->nullable()->constrained();
+            $table->foreignId('designation_id')->nullable()->constrained();
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('directorate_id')->references('id')->on('directorates')->onDelete('cascade');
-            $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
-            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
         });
     }
 

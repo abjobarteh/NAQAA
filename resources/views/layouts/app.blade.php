@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>System Admin | @yield('page-title')</title>
+  <title>Admin | @yield('page-title')</title>
   <!-- Google Font: Source Sans Pro -->
 {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
 <!-- Font Awesome -->
@@ -70,10 +70,10 @@
             <a href="#" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
           </div>
         </div>
-        @role('systemadmin')
-            @include('partials.adminmenu')
-        @else
+        @unlessrole('systemadmin')
             @include('partials.commonmenu')
+        @else
+            @include('partials.adminmenu')
         @endrole
       </div>
       <!-- /.sidebar -->

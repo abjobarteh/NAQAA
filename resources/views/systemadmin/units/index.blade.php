@@ -1,5 +1,7 @@
-@extends('layouts.app')
-
+@extends('layouts.admin')
+@section('page-title')
+    Units
+@endsection
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -10,7 +12,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-right">
-                    <li class="breadcrumb-item"><a href="{{route('systemadmin.dashboard')}}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
                     <li class="breadcrumb-item active">Units</li>
                 </ol>
             </div><!-- /.col -->
@@ -62,7 +64,7 @@
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                      <button class="btn btn-info btn-block">Save</button>
+                                      <button type="submit" class="btn btn-info btn-block">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,11 +101,11 @@
                                     <td>{{ $unit->name }}</td>
                                     <td>{{ $unit->directorate->name }}</td>
                                     <td>
-                                        @can('unit_edit')
-                                        <a href="{{ route('systemadmin.units.edit', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
+                                        @can('edit_unit')
+                                        <a href="{{ route('admin.units.edit', $unit->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
                                        @endcan
-                                       @can('unit_show')
-                                        <a href="{{ route('systemadmin.units.show', $unit->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                       @can('show_unit')
+                                        <a href="{{ route('admin.units.show', $unit->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
                                        @endcan
                                     </td>
                                 </tr>
@@ -161,7 +163,7 @@
                     });
 
                     $.ajax({  
-                            url:"{{ route('systemadmin.units.store') }}",  
+                            url:"{{ route('admin.units.store') }}",  
                             method:"POST",  
                             data:$('#add-units').serialize(),
                             type:'json',

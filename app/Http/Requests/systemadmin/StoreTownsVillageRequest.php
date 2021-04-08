@@ -15,7 +15,7 @@ class StoreTownsVillageRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('towns_villages_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         return true;
     }
@@ -29,7 +29,7 @@ class StoreTownsVillageRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'district_id' => 'required'
+            'district_id' => 'required|integer'
         ];
     }
 
@@ -37,7 +37,8 @@ class StoreTownsVillageRequest extends FormRequest
     {
         return [
             'name.required' => 'Town/Village name is required. Please Enter town/village name',
-            'district_id.required' => 'District is required to create Town/Village. Please select a district'
+            'district_id.required' => 'District is required to create Town/Village. Please select a district',
+            'district_id.integer' => 'No District selected!',
         ];
     }
 }
