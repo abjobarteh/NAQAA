@@ -38,9 +38,9 @@ class UpdateUserRequest extends FormRequest
             'phonenumber' => 'required|string',
             'address' => 'required|string',
             'roles' => ['required','array'],
-            'directorate' => 'nullable',
-            'unit' => 'nullable',
-            'designation' => 'nullable',
+            'directorate' => 'nullable|integer',
+            'unit' => 'nullable|integer',
+            'designation' => 'nullable|integer',
             'permissions' => ['nullable','array']
             
         ];
@@ -53,12 +53,12 @@ class UpdateUserRequest extends FormRequest
             'username.unique' => 'This username has already been taken. Please choose another one',
             'password.min' => 'Password cannot be less than 8 characters',
             'password.confirmed' => 'Passwords do not match',
-            'first_name.required' => 'Please Enter a First Name',
-            'first_name.string' => 'First Name cannot contain numeric characters',
-            'middle_name.string' => 'Midlle Name cannot contain numeric characters',
-            'last_name.required' => 'Please Enter a Last Name',
-            'last_name.string' => 'Last Name cannot contain numeric characters',
-            'phone_number.required' => 'Please Enter a Phone Number',
+            'firstname.required' => 'Please Enter a First Name',
+            'middlename.string' => 'First Name can only be a string',
+            'middle_name.string' => 'Midlle Name can only be a string',
+            'lastname.required' => 'Please Enter a Last Name',
+            'lastname.string' => 'Last Name cannot contain numeric characters',
+            'phonenumber.required' => 'Please Enter a Phone Number',
             'address.required' => 'Please Enter an Address',
             'roles.required' => 'Please Select a Role to assign to User',
         ];
