@@ -77,33 +77,33 @@
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="first_name">First Name</label>
-                                            <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{$user->firstname}}" required>
+                                            <input type="text" class="form-control" placeholder="First Name" name="firstname" value="{{$user->firstname}}" required>
                                           </div>
                                           <div class="mt-1">
-                                            @if($errors->has('first_name'))
-                                              <span class="text-danger">{{ $errors->first('first_name') }}</span>
+                                            @if($errors->has('firstname'))
+                                              <span class="text-danger">{{ $errors->first('firstname') }}</span>
                                             @endif
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="middle_name">Middle Name</label>
-                                            <input type="text" class="form-control" placeholder="Middle Name" name="middle_name" value="{{$user->middlename}}">
+                                            <input type="text" class="form-control" placeholder="Middle Name" name="middlename" value="{{$user->middlename}}">
                                           </div>
                                           <div class="mt-1">
-                                            @if($errors->has('middle_name'))
-                                              <span class="text-danger">{{ $errors->first('middle_name') }}</span>
+                                            @if($errors->has('middlename'))
+                                              <span class="text-danger">{{ $errors->first('middlename') }}</span>
                                             @endif
                                         </div>
                                       </div>
                                       <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="last_name">Last Name</label>
-                                            <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{$user->lastname}}" required>
+                                            <input type="text" class="form-control" placeholder="Last Name" name="lastname" value="{{$user->lastname}}" required>
                                           </div>
                                           <div class="mt-1">
-                                            @if($errors->has('last_name'))
-                                              <span class="text-danger">{{ $errors->first('last_name') }}</span>
+                                            @if($errors->has('lastname'))
+                                              <span class="text-danger">{{ $errors->first('lastname') }}</span>
                                             @endif
                                         </div>
                                       </div>
@@ -112,11 +112,11 @@
                                       <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="phone_number">Phone Number</label>
-                                            <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" value="{{$user->phonenumber}}" required>
+                                            <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" value="{{$user->phonenumber}}" required>
                                           </div>
                                           <div class="mt-1">
-                                            @if($errors->has('phone_number'))
-                                              <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                                            @if($errors->has('phonenumber'))
+                                              <span class="text-danger">{{ $errors->first('phonenumber') }}</span>
                                             @endif
                                         </div>
                                       </div>

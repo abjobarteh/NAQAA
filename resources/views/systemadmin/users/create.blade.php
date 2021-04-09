@@ -76,10 +76,10 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" name="first_name"  required>
+                                        <input type="text" class="form-control" placeholder="First Name" name="firstname"  required>
                                       </div>
                                       <div class="mt-1">
-                                        @error('first_name')
+                                        @error('firstname')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -87,10 +87,10 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="middle_name">Middle Name</label>
-                                        <input type="text" class="form-control" placeholder="Middle Name" name="middle_name">
+                                        <input type="text" class="form-control" placeholder="Middle Name" name="middlename">
                                       </div>
                                       <div class="mt-1">
-                                        @error('midle_name')
+                                        @error('middlename')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -98,10 +98,10 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+                                        <input type="text" class="form-control" placeholder="Last Name" name="lastname" required>
                                       </div>
                                       <div class="mt-1">
-                                        @error('last_name')
+                                        @error('lastname')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
@@ -111,10 +111,10 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone_number">Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" required>
+                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" required>
                                       </div>
                                       <div class="mt-1">
-                                        @error('phone_number')
+                                        @error('phonenumber')
                                             <span class="text-danger">{{$message}}</span>
                                         @enderror
                                     </div>
