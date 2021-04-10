@@ -40,7 +40,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h3>Admin</h3>
+          <h3>{{auth()->user()->roles[0]->name}}</h3>
         </li>
       </ul>
 
@@ -89,8 +89,8 @@
           <ul class="nav nav-pills nav-sidebar nav-child-indent nav-flat flex-column" data-widget="treeview" role="menu" data-accordion="false">
             @role(...['sysadmin'])  
               @include('partials.adminmenu')
-            @elserole(...['registration_and_accreditation_manager','registration_and_accreditation_officer'])
-              @include('partials.registration-accreditation-menu')
+            @else
+              @include('partials.menu')
             @endrole  
               <li class="nav-item">
                 <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">

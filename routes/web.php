@@ -166,14 +166,21 @@ Route::group(['middleware' => 'auth'], function(){
 
   });
 
-  // Profiles Settings
-  Route::get('settings', [ProfilesController::class, 'settings'])
-  ->name('settings');
+   // Research and Development routes
+   Route::group(['prefix'=>'assessment-certification','as'=>'assessment-certification.',
+   'middleware'=>'role:research_and_development_manager,research_and_development_officer'
+  ],function(){
 
-  Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
-    ->name('settings.updateprofile');
+  });
 
-  Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
-    ->name('settings.changepassword');
+    // Profiles Settings
+    Route::get('settings', [ProfilesController::class, 'settings'])
+    ->name('settings');
+
+    Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
+      ->name('settings.updateprofile');
+
+    Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
+      ->name('settings.changepassword');
 
 });
