@@ -114,7 +114,7 @@ class AuthenticatedSessionController extends Controller
             ...['research_and_development_manager','research_and_development_officer']
         ))
         {
-            return redirect(route('research-development.dashboard'));
+            return redirect(route('researchdevelopment.dashboard'));
         }
         else{
             return redirect(route('admin.dashboard'));

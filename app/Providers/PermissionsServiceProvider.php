@@ -38,9 +38,9 @@ class PermissionsServiceProvider extends ServiceProvider
         }
 
         //Blade directives
-        Blade::if('role', function ($role) {
-            // dd($role);
-             return auth()->check() && auth()->user()->hasRole($role);  //return this if statement inside php tag
+        Blade::if('role', function ($roles) {
+            $roles = explode('|', $roles);
+             return auth()->check() && auth()->user()->hasRole(...$roles);  //return this if statement inside php tag
         });
 
     }
