@@ -74,4 +74,9 @@ class InstitutionDetailsDataCollection extends Model
         return $this->belongsTo(LocalGovermentAreas::class,'lga_id');
     }
 
+    public function programdetails()
+    {
+        return $this->hasMany(ProgramDetailsDataCollection::class,'institution_detail_id');
+    }
+
 }

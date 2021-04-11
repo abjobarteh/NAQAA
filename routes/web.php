@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationContro
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
+use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -137,6 +138,7 @@ Route::group(['middleware' => 'auth'], function(){
     // data collection routes
     Route::group(['prefix' => 'datacollection','as'=>'datacollection.'], function(){
         Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
+        Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
     });
 
   });

@@ -32,8 +32,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
+      <a href="{{route('researchdevelopment.datacollection.program-details.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection/program-details') || 
+         request()->is('researchdevelopment/datacollection/program-details/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tasks"></i>
         <p>
           Programs Offered
