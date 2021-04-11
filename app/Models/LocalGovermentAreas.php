@@ -37,4 +37,9 @@ class LocalGovermentAreas extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    public function InstitutionDataCollections()
+    {
+        return $this->hasMany(InstitutionDetailsDataCollection::class, 'lga_id');
+    }
 }

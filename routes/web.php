@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
+use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -132,6 +133,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::redirect('/','researchdevelopment/dashboard');
 
     Route::get('/dashboard', ResearchdevelopmentDashboardController::class)->name('dashboard');
+
+    // data collection routes
+    Route::group(['prefix' => 'datacollection','as'=>'datacollection.'], function(){
+        Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
+    });
 
   });
 

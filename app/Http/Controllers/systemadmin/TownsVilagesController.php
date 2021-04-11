@@ -22,7 +22,7 @@ class TownsVilagesController extends Controller
     {
         abort_if(Gate::denies('access_towns_villages'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $townsVillages = TownVillage::all();
+        $townsVillages = TownVillage::with('district')->get();
         
         return view('systemadmin.townsVillages.index', compact('townsVillages'));
     }

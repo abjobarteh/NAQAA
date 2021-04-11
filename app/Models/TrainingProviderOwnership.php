@@ -30,4 +30,9 @@ class TrainingProviderOwnership extends Model
         };
         
     }
+
+    public function InstitutionDataCollections()
+    {
+        return $this->hasMany(InstitutionDetailsDataCollection::class, 'ownership_id');
+    }
 }

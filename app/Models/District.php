@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -44,6 +45,11 @@ class District extends Model
     public function townvillages()
     {
         return $this->hasMany(TownVillage::class);
+    }
+
+    public function InstitutionDataCollections()
+    {
+        return $this->hasMany(InstitutionDetailsDataCollection::class);
     }
     
 }

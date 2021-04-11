@@ -64,7 +64,7 @@
             <a href="{{route('registration-accreditation.dashboard')}}" class="d-block">{{ auth()->user()->first_name.' '.auth()->user()->last_name }}</a>
           </div>
         </div>
-            @include('partials.commonmenu')
+            @include('partials.menu')
       </div>
       <!-- /.sidebar -->
     </aside>

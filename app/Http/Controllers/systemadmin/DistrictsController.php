@@ -21,7 +21,7 @@ class DistrictsController extends Controller
     {
         abort_if(Gate::denies('access_district'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $districts = District::all();
+        $districts = District::with('region')->get();
 
         return view('systemadmin.districts.index', compact('districts'));
     }

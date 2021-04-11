@@ -11,7 +11,7 @@
 </li>
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
-  {{ request()->is('researchdevelopment/institutions') || 
+  {{ request()->is('researchdevelopment/datacollection/*') || 
      request()->is('researchdevelopment/assessor-verifiers/*') ? 'active' : '' }}"
     >
     <i class="nav-icon fas fa-server"></i>
@@ -22,19 +22,19 @@
   </a>
   <ul class="nav nav-treeview">
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/trainers') || 
-         request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-folder"></i>
+      <a href="{{route('researchdevelopment.datacollection.institution-details.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection/institution-details') || 
+         request()->is('researchdevelopment/datacollection/institution-details/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-university"></i>
         <p>
-          Institutions Details
+          Institution Details
         </p>
       </a>
     </li>
     <li class="nav-item">
       <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
       {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-folder"></i>
+        <i class="nav-icon fas fa-tasks"></i>
         <p>
           Programs Offered
         </p>
@@ -43,7 +43,7 @@
     <li class="nav-item">
       <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
       {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-folder"></i>
+        <i class="nav-icon fas fa-user-tie"></i>
         <p>
           Academic & Admin Staff
         </p>
@@ -52,7 +52,7 @@
     <li class="nav-item">
       <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
       {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-folder"></i>
+        <i class="nav-icon fas fa-user-graduate"></i>
         <p>
            Graduates
         </p>
@@ -61,7 +61,7 @@
     <li class="nav-item">
       <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
       {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-folder"></i>
+        <i class="nav-icon fas fa-hiking"></i>
         <p>
            Students Admission
         </p>
@@ -73,7 +73,7 @@
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
        request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
        >
-      <i class="nav-icon fas fa-tachometer-alt"></i>
+      <i class="nav-icon fas fa-book"></i>
       <p>
         Research Documentation
       </p>

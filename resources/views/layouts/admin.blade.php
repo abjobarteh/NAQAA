@@ -79,7 +79,7 @@
             <img src="/img/avatar.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="{{route('admin.dashboard')}}" class="d-block">{{ auth()->user()->firstname.' '.auth()->user()->lastname }}</a>
+            <a href="#" class="d-block">{{ auth()->user()->firstname.' '.auth()->user()->lastname }}</a>
           </div>
         </div>
          <!-- Sidebar Menu -->
