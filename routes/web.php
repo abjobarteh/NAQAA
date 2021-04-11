@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
+use App\Http\Controllers\researchdevelopment\DataCollections\AcademicAdminStaffDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
@@ -139,6 +140,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::group(['prefix' => 'datacollection','as'=>'datacollection.'], function(){
         Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
         Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
+        Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
     });
 
   });

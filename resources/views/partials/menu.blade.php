@@ -42,8 +42,9 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
+      <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection/academicadminstaff-details') || 
+         request()->is('researchdevelopment/datacollection/academicadminstaff-details/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-tie"></i>
         <p>
           Academic & Admin Staff
