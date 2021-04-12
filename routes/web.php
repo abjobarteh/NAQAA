@@ -5,6 +5,7 @@ use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationContro
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
 use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
 use App\Http\Controllers\researchdevelopment\DataCollections\AcademicAdminStaffDetailsController;
+use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImportsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
@@ -143,6 +144,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
         Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
+        Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
     });
 
   });
