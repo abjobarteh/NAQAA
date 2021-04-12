@@ -84,4 +84,9 @@ class InstitutionDetailsDataCollection extends Model
         return $this->hasMany(AcademicAdminStaffDataCollection::class,'institution_id');
     }
 
+    public function students()
+    {
+        return $this->hasMany(StudentDetailsDataCollection::class,'institution_id');
+    }
+
 }

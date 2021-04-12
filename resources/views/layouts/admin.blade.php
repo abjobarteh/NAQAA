@@ -15,6 +15,10 @@
 <link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- Select2 -->
 <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+<!-- daterange picker -->
+<link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker.css">
+<!-- Tempusdominus Bootstrap 4 -->
+<link rel="stylesheet" href="/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- DataTables -->
@@ -137,8 +141,15 @@
 <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Select2 -->
 <script src="/plugins/select2/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="/plugins/moment/moment.min.js"></script>
+<script src="/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- overlayScrollbars -->
 <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

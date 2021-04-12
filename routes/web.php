@@ -7,6 +7,7 @@ use App\Http\Controllers\researchdevelopment\DashboardController as Researchdeve
 use App\Http\Controllers\researchdevelopment\DataCollections\AcademicAdminStaffDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
+use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -141,6 +142,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
         Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
         Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
+        Route::resource('student-details', StudentDetailsController::class)->except('destroy');
     });
 
   });

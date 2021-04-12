@@ -75,5 +75,6 @@ $(document).ready(function(){
     "searching": true,
     "buttons": ["copy", "csv", "excel", "pdf", "print"]
 }).buttons().container().appendTo('#example2_wrapper .col-md-6:eq(0)');
+
 })
 

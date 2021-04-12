@@ -52,20 +52,12 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
+      <a href="{{route('researchdevelopment.datacollection.student-details.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection/student-details') || 
+         request()->is('researchdevelopment/datacollection/student-details/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-graduate"></i>
         <p>
-           Graduates
-        </p>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/trainers') || request()->is('researchdevelopment/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-hiking"></i>
-        <p>
-           Students Admission
+           Students Data
         </p>
       </a>
     </li>
