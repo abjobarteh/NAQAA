@@ -74,8 +74,9 @@
   </ul>
 </li>
 <li class="nav-item">
-    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
+    <a href="{{route('researchdevelopment.research-survey-documentation.index')}}" class="nav-link {{
+       request()->is('researchdevelopment/research-survey-documentation') ||
+       request()->is('researchdevelopment/research-survey-documentation/*') ? 'active' : '' }}"
        >
       <i class="nav-icon fas fa-book"></i>
       <p>

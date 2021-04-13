@@ -9,6 +9,7 @@ use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImpo
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
+use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -146,6 +147,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
         Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
     });
+
+    Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');
 
   });
 
