@@ -5,7 +5,9 @@ namespace App\Http\Controllers\researchdevelopment\DataCollections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreAcademicAdminStaffDetailsDataCollectionRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCollectionRequest;
+use App\Models\Country;
 use App\Models\EntryLevelQualification;
+use App\Models\Ethnicity;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderStaffsRank;
@@ -41,10 +43,14 @@ class AcademicAdminStaffDetailsController extends Controller
 
         $qualifications = EntryLevelQualification::all()->pluck('name','id');
 
+        $ethnicities = Ethnicity::all('name');
+
+        $countries = Country::all('name');
+
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
         
         return view('researchdevelopment.academicadminstaffdetails.create', 
-                    compact('staffs','ranks','roles','qualifications','learningcenters'));
+                    compact('staffs','ranks','roles','qualifications','learningcenters','countries','ethnicities'));
     }
 
     /**
@@ -90,10 +96,14 @@ class AcademicAdminStaffDetailsController extends Controller
 
         $qualifications = EntryLevelQualification::all()->pluck('name','id');
 
+        $ethnicities = Ethnicity::all('name');
+
+        $countries = Country::all('name');
+
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
         
         return view('researchdevelopment.academicadminstaffdetails.edit', 
-                compact('staff','ranks','roles','qualifications','learningcenters'));
+                compact('staff','ranks','roles','qualifications','learningcenters','countries','ethnicities'));
     }
 
     /**

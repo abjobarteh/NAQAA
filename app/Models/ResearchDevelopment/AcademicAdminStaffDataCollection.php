@@ -16,7 +16,18 @@ class AcademicAdminStaffDataCollection extends Model
         'firstname',
         'middlename',
         'lastname',
-        'qualifications',
+        'gender',
+        'nationality',
+        'ethnicity',
+        'date_of_birth',
+        'phone',
+        'email',
+        'job_title',
+        'salary_per_month',
+        'employment_date',
+        'employment_type',
+        'highest_qualification',
+        'other_qualifications',
         'specialisation',
         'main_teaching_field_of_study',
         'secondary_teaching_fields_of_study',
@@ -49,9 +60,9 @@ class AcademicAdminStaffDataCollection extends Model
         $this->attributes['secondary_teaching_fields_of_study'] = json_encode($value);
     }
 
-    public function setQualificationsAttribute($value)
+    public function setOtherQualificationsAttribute($value)
     {
-        $this->attributes['qualifications'] = json_encode($value);
+        $this->attributes['other_qualifications'] = json_encode($value);
     }
 
     public function getSecondaryTeachingFieldsOfStudyAttribute($value)
@@ -59,7 +70,7 @@ class AcademicAdminStaffDataCollection extends Model
         return json_decode($value);
     }
 
-    public function getQualificationsAttribute($value)
+    public function getOtherQualificationsAttribute($value)
     {
         return json_decode($value);
     }
