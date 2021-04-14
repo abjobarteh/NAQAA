@@ -94,7 +94,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <a href="{{route('researchdevelopment.research-survey-documentation.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Cancel</a>
+                        <a href="{{route('researchdevelopment.research-survey-documentation.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
                     </div>
                 </div>
             </div>

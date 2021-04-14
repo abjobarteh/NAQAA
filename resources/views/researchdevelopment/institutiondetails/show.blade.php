@@ -33,106 +33,87 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Training Provider Name: </label>
-                                        <h5>{{$data[0]->training_provider_name}}</h5>
+                                <div class="col-12 col-md-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Training Provider Name: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->training_provider_name}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Email: </label>
-                                        <h5>{{$data[0]->email}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Email: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->email}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Phone Number: </label>
-                                        <h5>{{$data[0]->phone}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Phone Number: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->phone}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Address: </label>
-                                        <h5>{{$data[0]->address}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Address: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->address}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">P.O Box: </label>
-                                        <h5>{{$data[0]->po_box}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">P.O Box: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->po_box}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Website: </label>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Website: </b>
                                         @if (!is_null($data[0]->website))
                                             <a href="{{$data[0]->website}}" target="_blank">{{$data[0]->website}} <i class="fas fa-external-link-alt"></i></a>   
                                         @else
-                                        <h5>N/A</h5>
+                                        <p class="col-sm-5 text-muted">N/A</p>
                                         @endif
                                         
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Financial Source: </label>
-                                        <h5>{{$data[0]->financial_source}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Region: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->regionName->name}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">District: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->district->name}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Local Goverment Area: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->localgovermentarea->name}}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Estimated Yearly Turnover: </label>
-                                        <h5>{{$data[0]->estimated_yearly_turnover}}</h5>
+                                <div class="col-12 col-md-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Financial Source: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->financial_source}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Estimated Yearly Turnover: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->estimated_yearly_turnover}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Enrollment Capacity: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->enrollment_capacity}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">No. of Lecture Rooms: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->no_of_lecture_rooms}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">No. of Computer Labs: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->no_of_computer_labs}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Total No. of Computers in Labs: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->total_no_of_computers_in_labs}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Ownership: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->ownership->name}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Classification: </b>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->classification->name}}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Enrollment Capacity: </label>
-                                        <h5>{{$data[0]->enrollment_capacity}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">No. of Lecture Rooms: </label>
-                                        <h5>{{$data[0]->no_of_lecture_rooms}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">No. of Computer Labs: </label>
-                                        <h5>{{$data[0]->no_of_computer_labs}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Total No. of Computers in Labs: </label>
-                                        <h5>{{$data[0]->total_no_of_computers_in_labs}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Ownership: </label>
-                                        <h5>{{$data[0]->ownership->name}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Classification: </label>
-                                        <h5>{{$data[0]->classification->name}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">District: </label>
-                                        <h5>{{$data[0]->district->name}}</h5>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Local Goverment Area: </label>
-                                        <h5>{{$data[0]->localgovermentarea->name}}</h5>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <a href="{{route('researchdevelopment.datacollection.institution-details.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
                                 </div>
                             </div>
                         </div>

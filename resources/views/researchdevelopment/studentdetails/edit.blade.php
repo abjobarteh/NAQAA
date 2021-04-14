@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
@@ -92,11 +92,55 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Phone: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="phone" value="{{$student[0]->phone}}" required>
                                             @error('phone')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Date of birth:</label>
+                                            <div class="input-group date" id="date_of_birth" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" value="{{$student[0]->phone}}" data-target="#date_of_birth"/>
+                                                <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                            @error('date_of_birth')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Nationality: <sup class="text-danger">*</sup></label>
+                                            <select name="nationality" id="nationality" class="form-control select2" required>
+                                                <option>Select nationality</option>
+                                                @foreach ($countries as $country)
+                                                    <option value="{{$country->name}}" {{$tudent[0]->nationality == $country->name ? 'selected' : ''}}>
+                                                        {{$country->name}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('gender')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Ethnicity: <sup class="text-danger">*</sup></label>
+                                            <select name="ethnicity" id="ethnicity" class="form-control select2" required>
+                                                <option>Select ethnicity</option>
+                                                <option value="other" {{$student[0]->ethnicity == 'other' ? 'selected' : ''}}>Other</option>
+                                            </select>
+                                            @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

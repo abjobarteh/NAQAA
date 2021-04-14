@@ -146,6 +146,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
         Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+        Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
     });
 
     Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');

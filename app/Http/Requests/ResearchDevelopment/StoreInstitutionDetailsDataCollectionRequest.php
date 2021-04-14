@@ -39,6 +39,7 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
             'ownership_id' => 'required|integer',
             'classification_id' => 'required|integer',
             'district_id' => 'required|integer',
+            'region' => 'required|integer',
             'lga_id' => 'required|integer',
         ];
     }
@@ -63,6 +64,8 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
             'ownership_id.integer' => 'No training provider ownership selected',
             'classification_id.required' => 'Please select training provider classfication',
             'classification_id.integer' => 'No training provider classfication selected',
+            'region.required' => 'Please select region',
+            'region.integer' => 'No region has been selected',
             'district_id.required' => 'Please select district',
             'district_id.integer' => 'No district has been selected',
             'lga_id.required' => 'Please select local goverment area',

@@ -19,8 +19,11 @@ class CreateStudentDetailsDataCollectionsTable extends Migration
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
-            $table->string('gender');
             $table->string('phone');
+            $table->string('gender');
+            $table->string('nationality')->nullable();
+            $table->string('ethnicity')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('programme');
             $table->string('attendance_status')->nullable();
             $table->date('admission_date')->nullable();

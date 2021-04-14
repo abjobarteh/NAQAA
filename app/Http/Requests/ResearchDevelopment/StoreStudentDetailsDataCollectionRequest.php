@@ -28,8 +28,11 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
             'firstname' => 'nullable|string',
             'middlename' => 'required|string',
             'lastname' => 'required|string',
-            'gender' => 'required|string',
+            'gender' => 'required|string|in:male,female',
             'phone' => 'required|string',
+            'nationality' => 'nullable|string',
+            'ethnicity' => 'nullable|string',
+            'date_of_birth' => 'nullable|date',
             'programme' => 'required|string',
             'attendance_status' => 'nullable|string',
             'admission_date' => 'nullable|date',
@@ -57,6 +60,7 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
             'education_field_id.numeric' => 'The selected filed of education value is not valid',
             'institution_id.numeric' => 'The selected learning center value is not valid',
             'studentdetail_type.required' => 'Please Select the type of student detail data collection type',
+            'date_of_birth.date' => 'Date of birth must be a valid date entry',
         ];
     }
 }

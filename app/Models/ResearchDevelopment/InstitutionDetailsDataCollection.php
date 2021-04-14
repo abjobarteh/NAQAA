@@ -4,6 +4,7 @@ namespace App\Models\ResearchDevelopment;
 
 use App\Models\District;
 use App\Models\LocalGovermentAreas;
+use App\Models\Region;
 use App\Models\TrainingProviderClassification;
 use App\Models\TrainingProviderOwnership;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +30,7 @@ class InstitutionDetailsDataCollection extends Model
         'total_no_of_computers_in_labs',
         'training_provider_ownership_id',
         'training_provider_classification_id',
+        'region',
         'district_id',
         'classification_id',
         'ownership_id',
@@ -62,6 +64,11 @@ class InstitutionDetailsDataCollection extends Model
     public function classification()
     {
         return $this->belongsTo(TrainingProviderClassification::class,'classification_id');
+    }
+
+    public function regionName()
+    {
+        return $this->belongsTo(Region::class, 'region');
     }
 
     public function district()

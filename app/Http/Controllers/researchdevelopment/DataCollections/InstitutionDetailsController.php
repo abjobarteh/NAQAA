@@ -7,6 +7,7 @@ use App\Http\Requests\ResearchDevelopment\StoreInstitutionDetailsDataCollectionR
 use App\Http\Requests\ResearchDevelopment\UpdateInstitutionDetailsDataCollectionRequest;
 use App\Models\District;
 use App\Models\LocalGovermentAreas;
+use App\Models\Region;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderClassification;
 use App\Models\TrainingProviderOwnership;
@@ -36,10 +37,12 @@ class InstitutionDetailsController extends Controller
     {
         $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
         $classifications = TrainingProviderClassification::all()->pluck('name','id');
+        $regions = Region::all()->pluck('name','id');
         $districts = District::all()->pluck('name','id');
         $lgas = LocalGovermentAreas::all()->pluck('name','id');
 
-        return view('researchdevelopment.institutiondetails.create',compact('ownerships','classifications','districts','lgas'));
+        return view('researchdevelopment.institutiondetails.create',
+                    compact('ownerships','classifications','districts','lgas','regions'));
     }
 
     /**
@@ -81,11 +84,12 @@ class InstitutionDetailsController extends Controller
         $data = InstitutionDetailsDataCollection::where('id', $id)->get();
         $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
         $classifications = TrainingProviderClassification::all()->pluck('name','id');
+        $regions = Region::all()->pluck('name','id');
         $districts = District::all()->pluck('name','id');
         $lgas = LocalGovermentAreas::all()->pluck('name','id');
 
         return view('researchdevelopment.institutiondetails.edit',
-                    compact('ownerships','classifications','districts','lgas','data'));
+                    compact('ownerships','classifications','districts','lgas','data','regions'));
     }
 
     /**

@@ -33,60 +33,53 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Full Name: </label>
-                                        <h5>{{$staffdetail[0]->full_name}}</h5>
+                                <div class="col-12 col-md-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Full Name: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->full_name}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Qualifications: </label>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Qualifications: </b>
                                         @if (isset($staffdetail[0]->qualifications))
                                         @foreach($staffdetail[0]->qualifications as $qualification)
                                             <span class="btn btn-sm btn-success m-1">{{$qualification}}</span>    
                                         @endforeach  
                                         @else
-                                            <h5>N/A</h5> 
+                                            <p class="col-sm-7 text-muted">N/A</p> 
                                         @endif
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Specialisation: </label>
-                                        <h5>{{$staffdetail[0]->specialisation}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Specialisation: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->specialisation}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Rank: </label>
-                                        <h5>{{$staffdetail[0]->rank->name ?? 'N/A'}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Rank: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->rank->name ?? 'N/A'}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Role: </label>
-                                        <h5>{{$staffdetail[0]->role->name ?? 'N/A'}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Role: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->role->name ?? 'N/A'}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Main Teaching Field of Study: </label>
-                                        <h5>{{$staffdetail[0]->main_teaching_field_of_study ?? 'N/A'}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Main Teaching Field of Study: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->main_teaching_field_of_study ?? 'N/A'}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Secondary Teaching Field of Study: </label>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Secondary Teaching Field of Study: </b>
                                         @if (isset($staffdetail[0]->secondary_teaching_fields_of_study))
                                             @foreach($staffdetail[0]->secondary_teaching_fields_of_study as $field)
                                                 <span class="btn btn-sm btn-info m-1">{{$field}}</span>    
                                             @endforeach  
                                         @else
-                                            <h5>N/A</h5> 
+                                            <p class="col-sm-7 text-muted">N/A</p> 
                                         @endif
                                         
                                     </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
                                 </div>
                             </div>
                         </div>

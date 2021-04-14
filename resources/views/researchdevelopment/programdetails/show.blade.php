@@ -33,54 +33,49 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Program Name: </label>
-                                        <h5>{{$programdetail[0]->program_name}}</h5>
+                                <div class="col-12 col-md-12 col-lg-12">
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Program Name: </b>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->program_name}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Field of Education: </label>
-                                        <h5>{{$programdetail[0]->educationfield->name}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Field of Education: </b>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->educationfield->name}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Duration (in Months): </label>
-                                        <h5>{{$programdetail[0]->duration}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Duration (in Months): </b>
+                                        <p>{{$programdetail[0]->duration}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Tuition Fee Per Year: </label>
-                                        <h5>{{$programdetail[0]->tuition_fee_per_year}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Tuition Fee Per Year: </b>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->tuition_fee_per_year}}</p>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Entry Requirements: </label>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Entry Requirements: </b>
                                         @if (isset($programdetail[0]->entry_requirements))
                                             @foreach($programdetail[0]->entry_requirements as $req)
                                                 <span class="btn btn-sm btn-success m-1">{{$req}}</span>    
                                             @endforeach  
                                         @else
-                                            <h5>N/A</h5> 
+                                            <p class="col-sm-7 text-muted">N/A</p> 
                                         @endif
                                         
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Awarding Body: </label>
-                                        <h5>{{$programdetail[0]->awarding_body}}</h5>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Awarding Body: </b>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->awarding_body}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Learning Center: </b>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->learningcenter->training_provider_name}}</p>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="form-group d-flex align-items-center">
-                                        <label class="mr-1">Learning Center: </label>
-                                        <h5>{{$programdetail[0]->learningcenter->training_provider_name}}</h5>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <a href="{{route('researchdevelopment.datacollection.program-details.index')}}" class="btn btn-warning text-white">
+                                      <i class="fas fa-arrow-left"></i>  Back
+                                    </a>
                                 </div>
                             </div>
                         </div>

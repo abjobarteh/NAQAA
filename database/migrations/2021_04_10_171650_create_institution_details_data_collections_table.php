@@ -27,8 +27,10 @@ class CreateInstitutionDetailsDataCollectionsTable extends Migration
             $table->string('no_of_lecture_rooms')->nullable();
             $table->string('no_of_computer_labs')->nullable();
             $table->string('total_no_of_computers_in_labs')->nullable();
+            $table->string('learningcenterid')->nullable();
             $table->foreignId('ownership_id')->nullable()->constrained('training_provider_ownerships');
             $table->foreignId('classification_id')->nullable()->constrained('training_provider_classifications');
+            $table->foreignId('region')->nullable()->constrained('regions');
             $table->foreignId('district_id')->nullable()->constrained();
             $table->foreignId('lga_id')->nullable()->constrained('local_goverment_areas');
             $table->timestamps();

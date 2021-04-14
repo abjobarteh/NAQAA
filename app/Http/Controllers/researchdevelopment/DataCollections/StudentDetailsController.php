@@ -5,6 +5,7 @@ namespace App\Http\Controllers\researchdevelopment\DataCollections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreStudentDetailsDataCollectionRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequest;
+use App\Models\Country;
 use App\Models\EducationField;
 use App\Models\EntryLevelQualification;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
@@ -37,7 +38,9 @@ class StudentDetailsController extends Controller
 
         $fields = EducationField::all()->pluck('name','id');
 
-        return view('researchdevelopment.studentdetails.create', compact('qualifications','learningcenters','fields'));
+        $countries = Country::all('name');
+
+        return view('researchdevelopment.studentdetails.create', compact('qualifications','learningcenters','fields', 'countries'));
     }
 
     /**
@@ -83,7 +86,10 @@ class StudentDetailsController extends Controller
 
         $fields = EducationField::all()->pluck('name','id');
 
-        return view('researchdevelopment.studentdetails.edit', compact('qualifications','learningcenters','fields','student'));
+        $countries = Country::all('name');
+
+        return view('researchdevelopment.studentdetails.edit', 
+                compact('qualifications','learningcenters','fields','student', 'countries'));
     }
 
     /**
