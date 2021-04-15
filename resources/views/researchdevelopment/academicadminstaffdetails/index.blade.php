@@ -11,10 +11,12 @@
                 <h1 class="m-0">Academic&Admin Staff Data Collection</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.create')}}" 
-                        class="btn btn-primary float-right">
-                        New Data collection
-                    </a>
+                    @can('create_data_collection')
+                        <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.create')}}" 
+                            class="btn btn-primary float-right">
+                            New Data collection
+                        </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -54,18 +56,22 @@
                                             <td>{{$staff->learningcenter->training_provider_name ?? 'N/A'}}</td>
                                             <td>{{$staff->created_at}}</td>
                                             <td>
+                                                @can('edit_data_collection')
                                                 <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.edit',$staff->id)
                                                     }}" class="btn btn-sm btn-danger"
                                                     title="edit staff details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
+                                                @endcan
+                                                @can('show_data_collection')
                                                 <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.show',$staff->id)
                                                     }}" class="btn btn-sm btn-info"
                                                     title="view staff details"
                                                     >
                                                     <i class="fas fa-eye"></i>    
                                                 </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

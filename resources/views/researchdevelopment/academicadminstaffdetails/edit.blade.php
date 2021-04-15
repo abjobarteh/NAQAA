@@ -32,7 +32,7 @@ Edit Academic&Admin Staff Details Data collection
                             <h3 class="card-title">Edit Academic&Admin staff Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.update',$staff[0]->id)}}" method="post">
+                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.update',$staff[0]->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">

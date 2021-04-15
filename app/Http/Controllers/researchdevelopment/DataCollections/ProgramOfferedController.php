@@ -9,6 +9,8 @@ use App\Models\EducationField;
 use App\Models\EntryLevelQualification;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProgramOfferedController extends Controller
 {
@@ -19,6 +21,8 @@ class ProgramOfferedController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        
         $programs = ProgramDetailsDataCollection::with('educationfield','learningcenter')->get();
 
         return view('researchdevelopment.programdetails.index', compact('programs'));
@@ -31,6 +35,8 @@ class ProgramOfferedController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $educationfields = EducationField::all()->pluck('name','id');
 
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
@@ -62,6 +68,8 @@ class ProgramOfferedController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $programdetail = ProgramDetailsDataCollection::with(['educationfield','learningcenter'])
                 ->where('id', $id)->get();
 
@@ -76,6 +84,8 @@ class ProgramOfferedController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $programdetail = ProgramDetailsDataCollection::where('id', $id)->get();
 
         $educationfields = EducationField::all()->pluck('name','id');

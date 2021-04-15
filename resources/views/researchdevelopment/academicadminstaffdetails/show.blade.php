@@ -39,9 +39,51 @@
                                         <p class="col-sm-7 text-muted">{{$staffdetail[0]->full_name}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-5 text-primary">Qualifications: </b>
-                                        @if (isset($staffdetail[0]->qualifications))
-                                        @foreach($staffdetail[0]->qualifications as $qualification)
+                                        <b class="col-sm-5 text-primary">Gender: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->gender}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Nationality: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->nationality}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Ethnicity: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->ethnicity}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Date of Birth: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->ethnicity}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Phone Number: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->phone}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Job Title: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->job_title}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Salary Per Month: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->salary_per_month}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Employment Date: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->employment_date}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Employment Type: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->employment_type}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Highest Qualification: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->highest_qualification}}</p>
+                                    </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-5 text-primary">Other Qualifications: </b>
+                                        @if (isset($staffdetail[0]->other_qualifications))
+                                        @foreach($staffdetail[0]->other_qualifications as $qualification)
                                             <span class="btn btn-sm btn-success m-1">{{$qualification}}</span>    
                                         @endforeach  
                                         @else

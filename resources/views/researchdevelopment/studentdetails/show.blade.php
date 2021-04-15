@@ -78,13 +78,6 @@
                                             <p class="col-sm-6 text-muted">{{$student[0]->qualificationAtEntry->name}}</p>
                                         </div>
  
-                                @else
-
-                                        <div class="form-group row">
-                                            <b class="col-sm-6 text-primary">Completion Date: </b>
-                                            <p class="col-sm-6 text-muted">{{$student[0]->completion_date}}</p>
-                                        </div>
- 
                                 @endif
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Programme: </b>

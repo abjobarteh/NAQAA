@@ -12,6 +12,8 @@ use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderClassification;
 use App\Models\TrainingProviderOwnership;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class InstitutionDetailsController extends Controller
 {
@@ -22,6 +24,7 @@ class InstitutionDetailsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
         $institutionsdata = InstitutionDetailsDataCollection::all();
 
@@ -35,6 +38,8 @@ class InstitutionDetailsController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
         $classifications = TrainingProviderClassification::all()->pluck('name','id');
         $regions = Region::all()->pluck('name','id');
@@ -67,6 +72,8 @@ class InstitutionDetailsController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $data = InstitutionDetailsDataCollection::with(['ownership','classification','district','localgovermentarea'])
                 ->where('id', $id)->get();
 
@@ -81,6 +88,8 @@ class InstitutionDetailsController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $data = InstitutionDetailsDataCollection::where('id', $id)->get();
         $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
         $classifications = TrainingProviderClassification::all()->pluck('name','id');
@@ -109,15 +118,5 @@ class InstitutionDetailsController extends Controller
         return redirect()->route('researchdevelopment.datacollection.institution-details.index')
                 ->withSuccess('Institution details data collection record successfully updated');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }

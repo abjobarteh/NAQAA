@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreResearchSurveyRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateResearchSurveyRequest;
 use App\Models\ResearchDevelopment\ResearchSurvey;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ResearchSurveyDocumentationController extends Controller
 {
@@ -16,6 +18,8 @@ class ResearchSurveyDocumentationController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_research_survey_documentation'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $surveys = ResearchSurvey::all();
 
         return view('researchdevelopment.researchsurveydocumentation.index',compact('surveys'));
@@ -28,6 +32,8 @@ class ResearchSurveyDocumentationController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_research_survey_documentation'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         return view('researchdevelopment.researchsurveydocumentation.create');
     }
 
@@ -38,7 +44,7 @@ class ResearchSurveyDocumentationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreResearchSurveyRequest $request)
-    {;
+    {
         ResearchSurvey::create($request->validated());
 
         return redirect()->route('researchdevelopment.research-survey-documentation.index')
@@ -53,6 +59,8 @@ class ResearchSurveyDocumentationController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_research_survey_documentation'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $survey = ResearchSurvey::where('id', $id)->get();
 
         return view('researchdevelopment.researchsurveydocumentation.show',compact('survey'));
@@ -66,6 +74,8 @@ class ResearchSurveyDocumentationController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_research_survey_documentation'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $survey = ResearchSurvey::where('id', $id)->get();
 
         return view('researchdevelopment.researchsurveydocumentation.edit',compact('survey'));

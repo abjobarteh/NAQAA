@@ -32,7 +32,7 @@
                             <h3 class="card-title">Edit Student Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.student-details.update', $student[0]->id)}}" method="post">
+                            <form action="{{route('researchdevelopment.datacollection.student-details.update', $student[0]->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -40,12 +40,23 @@
                                         <div class="form-group">
                                             <label>Student Data Collection Type: <sup class="text-danger">*</sup></label>
                                             <select name="studentdetail_type" id="studentdetail_type" class="form-control select2">
-                                                <option value="graduate" {{$student[0]->studentdetail_type == 'graduate' ? 'selected ' : ''}}>Graduates</option>
+                                                <option value="graduate" {{$student[0]->studentdetail_type == 'graduate' ? 'selected ' : ''}}>Graduate</option>
                                                 <option value="admission" {{$student[0]->studentdetail_type == 'admission' ? 'selected' : ''}}>Admission</option>
                                             </select>
                                             @if($errors->has('studentdetail_type'))
                                                 <span class="text-danger mt-1">{{ $errors->first('studentdetail_type') }}</span>
                                             @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Student ID: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="student_id" value="{{$student[0]->student_id}}" required autofocus>
+                                            @error('student_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -101,11 +112,11 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 show-admission">
                                         <div class="form-group">
                                             <label>Date of birth:</label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" value="{{$student[0]->phone}}" data-target="#date_of_birth"/>
+                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" value="{{$student[0]->phone}}" data-target="#date_of_birth"/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -117,26 +128,26 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-admission">
                                         <div class="form-group">
                                             <label>Nationality: <sup class="text-danger">*</sup></label>
-                                            <select name="nationality" id="nationality" class="form-control select2" required>
+                                            <select name="nationality" id="nationality" class="form-control select2 admission" required>
                                                 <option>Select nationality</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}" {{$tudent[0]->nationality == $country->name ? 'selected' : ''}}>
+                                                    <option value="{{$country->name}}" {{$student[0]->nationality == $country->name ? 'selected' : ''}}>
                                                         {{$country->name}}
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            @error('gender')
+                                            @error('nationality')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-admission">
                                         <div class="form-group">
                                             <label>Ethnicity: <sup class="text-danger">*</sup></label>
-                                            <select name="ethnicity" id="ethnicity" class="form-control select2" required>
+                                            <select name="ethnicity" id="ethnicity" class="form-control select2 admission" required>
                                                 <option>Select ethnicity</option>
                                                 <option value="other" {{$student[0]->ethnicity == 'other' ? 'selected' : ''}}>Other</option>
                                             </select>
@@ -170,10 +181,10 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 show-admission">
                                         <div class="form-group">
                                             <label>Attendance Status: <sup class="text-danger">*</sup></label>
-                                            <select name="attendance_status" id="attendance_status" class="form-control select2">
+                                            <select name="attendance_status" id="attendance_status" class="form-control select2 admission">
                                                 <option>Select attendance status</option>
                                                 <option value="full_time" {{$student[0]->attendance_status == 'full_time' ? 'selected ' : ''}}>Full Time</option>
                                                 <option value="part_time" {{$student[0]->attendance_status == 'part_time' ? 'selected ' : ''}}>Part Time</option>
@@ -187,9 +198,9 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Admission Date:</label>
+                                            <label>Admission Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="admission_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" value="{{$student[0]->admission_date}}" data-target="#admission_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" value="{{$student[0]->admission_date}}" data-target="#admission_date" required/>
                                                 <div class="input-group-append" data-target="#admission_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -200,7 +211,7 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <div class="form-group">
+                                        <div class="form-group show-graduate">
                                             <label>Completion Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="completion_date" data-target-input="nearest">
                                                 <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{$student[0]->completion_date}}" data-target="#completion_date"/>
@@ -215,10 +226,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-admission">
                                         <div class="form-group">
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
-                                            <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2">
+                                            <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
                                                 @foreach ($qualifications as $id => $qualification)
                                                     <option value="{{$id}}" {{$student[0]->qualification_at_entry == $id ? 'selected ' : ''}}>{{$qualification}}</option>
@@ -279,12 +290,41 @@
 
 @section('scripts')
     <script>
+        $(document).ready(function(){
+            var detailType = $("#studentdetail_type").val()
+            if(detailType == 'admission')
+            {
+                $('.show-graduate').hide();
+                $('.graduate').prop('disabled', true);
+                $('.show-admission').show();
+                
+            }
+            if ($(this).val() == "graduate"){
+                $('.show-admission').hide();
+                $('.admission').prop('disabled', true);
+                $('.show-graduate').show(); 
+            }
+            
+        })
         //Date range picker
         $('#admission_date').datetimepicker({
         format: 'YYYY-MM-DD'
         });
         $('#completion_date').datetimepicker({
         format: 'YYYY-MM-DD'
+        });
+
+        $("#studentdetail_type").change(function() {
+        if ($(this).val() == "admission") {
+            $('.show-graduate').hide();
+            $('.graduate').prop('disabled', true);
+            $('.show-admission').show();
+        } 
+        if ($(this).val() == "graduate") {
+            $('.show-admission').hide();
+            $('.admission').prop('disabled', true);
+            $('.show-graduate').show();
+        }
         });
     </script>
 @endsection

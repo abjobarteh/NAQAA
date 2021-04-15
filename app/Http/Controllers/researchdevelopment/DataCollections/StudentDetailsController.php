@@ -10,6 +10,8 @@ use App\Models\EducationField;
 use App\Models\EntryLevelQualification;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class StudentDetailsController extends Controller
 {
@@ -20,6 +22,8 @@ class StudentDetailsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        
         $students = StudentDetailsDataCollection::with(['learningcenter','educationField','studentaward'])->get();
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
@@ -32,6 +36,8 @@ class StudentDetailsController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $qualifications = EntryLevelQualification::all()->pluck('name','id');
 
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
@@ -65,6 +71,8 @@ class StudentDetailsController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $student = StudentDetailsDataCollection::where('id',$id)->get();
 
         return view('researchdevelopment.studentdetails.show', compact('student'));
@@ -78,6 +86,8 @@ class StudentDetailsController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $student = StudentDetailsDataCollection::where('id',$id)->get();
 
         $qualifications = EntryLevelQualification::all()->pluck('name','id');

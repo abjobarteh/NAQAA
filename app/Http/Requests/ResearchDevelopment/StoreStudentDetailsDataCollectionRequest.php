@@ -3,6 +3,8 @@
 namespace App\Http\Requests\ResearchDevelopment;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreStudentDetailsDataCollectionRequest extends FormRequest
 {
@@ -13,6 +15,8 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         return true;
     }
 
@@ -41,7 +45,7 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
             'award' => 'required|numeric|integer',
             'education_field_id' => 'nullable|numeric|integer',
             'institution_id' => 'required|numeric|integer',
-            'studentdetail_type' => 'required|string',
+            'studentdetail_type' => 'required|in:graduate,admission',
         ];
     }
 

@@ -32,19 +32,31 @@
                             <h3 class="card-title">New Student Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.student-details.store')}}" method="post">
+                            <form action="{{route('researchdevelopment.datacollection.student-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Student Data Collection Type: <sup class="text-danger">*</sup></label>
                                             <select name="studentdetail_type" id="studentdetail_type" class="form-control select2">
-                                                <option value="graduate">Graduates</option>
+                                                <option>Select student detail type</option>
+                                                <option value="graduate">Graduate</option>
                                                 <option value="admission">Admission</option>
                                             </select>
                                             @if($errors->has('studentdetail_type'))
                                                 <span class="text-danger mt-1">{{ $errors->first('studentdetail_type') }}</span>
                                             @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Student ID: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="student_id" required autofocus>
+                                            @error('student_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -100,11 +112,11 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 show-admission">
                                         <div class="form-group">
-                                            <label>Date of birth:</label>
+                                            <label>Date of birth: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" data-target="#date_of_birth"/>
+                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" data-target="#date_of_birth" required/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -115,11 +127,11 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row show-admission">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Nationality: <sup class="text-danger">*</sup></label>
-                                            <select name="nationality" id="nationality" class="form-control select2">
+                                            <select name="nationality" id="nationality" class="form-control select2 admission">
                                                 <option>Select nationality</option>
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->name}}">{{$country->name}}</option>
@@ -130,10 +142,10 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-admission">
                                         <div class="form-group">
                                             <label>Ethnicity: <sup class="text-danger">*</sup></label>
-                                            <select name="ethnicity" id="ethnicity" class="form-control select2">
+                                            <select name="ethnicity" id="ethnicity" class="form-control select2 admission">
                                                 <option>Select ethnicity</option>
                                                 <option value="other">Other</option>
                                             </select>
@@ -167,10 +179,10 @@
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-4 show-admission">
                                         <div class="form-group">
                                             <label>Attendance Status: <sup class="text-danger">*</sup></label>
-                                            <select name="attendance_status" id="attendance_status" class="form-control select2">
+                                            <select name="attendance_status" id="attendance_status" class="form-control select2 admission">
                                                 <option>Select attendance status</option>
                                                 <option value="full_time">Full Time</option>
                                                 <option value="part_time">Part Time</option>
@@ -184,9 +196,9 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Admission Date:</label>
+                                            <label>Admission Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="admission_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" data-target="#admission_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" data-target="#admission_date" required/>
                                                 <div class="input-group-append" data-target="#admission_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -196,11 +208,11 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-graduate">
                                         <div class="form-group">
                                             <label>Completion Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="completion_date" data-target="#completion_date"/>
+                                                <input type="text" class="form-control datetimepicker-input graduate" name="completion_date" data-target="#completion_date" required/>
                                                 <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -212,10 +224,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-6 show-admission">
                                         <div class="form-group">
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
-                                            <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2">
+                                            <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
                                                 @foreach ($qualifications as $id => $qualification)
                                                     <option value="{{$id}}">{{$qualification}}</option>
@@ -276,15 +288,32 @@
 
 @section('scripts')
     <script>
-        //Date range picker
-        $('#admission_date').datetimepicker({
-        format: 'YYYY-MM-DD'
-        });
-        $('#completion_date').datetimepicker({
-        format: 'YYYY-MM-DD'
-        });
-        $('#date_of_birth').datetimepicker({
-        format: 'YYYY-MM-DD'
-        });
+        $(document).ready(function(){
+             //Date range picker
+            $('#admission_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+            });
+            $('#completion_date').datetimepicker({
+            format: 'YYYY-MM-DD'
+            });
+            $('#date_of_birth').datetimepicker({
+            format: 'YYYY-MM-DD'
+            });
+
+            $("#studentdetail_type").change(function() {
+            if ($(this).val() == "admission") {
+                $('.show-graduate').hide();
+                $('.graduate').prop('disabled', true);
+                $('.admission').prop('disabled', false);
+                $('.show-admission').show();
+            }
+            if ($(this).val() == "graduate"){
+                $('.show-admission').hide();
+                $('.admission').prop('disabled', true);
+                $('.graduate').prop('disabled', false);
+                $('.show-graduate').show();
+            }
+            });
+        })
     </script>
 @endsection

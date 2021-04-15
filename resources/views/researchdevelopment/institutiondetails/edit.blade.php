@@ -32,7 +32,7 @@
                             <h3 class="card-title">Edit Institution Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.institution-details.update', $data[0]->id)}}" method="post">
+                            <form action="{{route('researchdevelopment.datacollection.institution-details.update', $data[0]->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">

@@ -11,10 +11,12 @@
                 <h1 class="m-0">Program Details Data Collection</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <a href="{{route('researchdevelopment.datacollection.program-details.create')}}" 
-                        class="btn btn-primary float-right">
-                        New Data collection
-                    </a>
+                    @can('create_data_collection')
+                        <a href="{{route('researchdevelopment.datacollection.program-details.create')}}" 
+                            class="btn btn-primary float-right">
+                            New Data collection
+                        </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -58,18 +60,22 @@
                                             <td>{{$program->learningcenter->training_provider_name}}</td>
                                             <td>{{$program->created_at}}</td>
                                             <td>
-                                                <a href="{{route('researchdevelopment.datacollection.program-details.edit',$program->id)
-                                                    }}" class="btn btn-sm btn-danger"
-                                                    title="edit program details"
-                                                    >
-                                                    <i class="fas fa-edit"></i>    
-                                                </a>
-                                                <a href="{{route('researchdevelopment.datacollection.program-details.show',$program->id)
-                                                    }}" class="btn btn-sm btn-info"
-                                                    title="view program details"
-                                                    >
-                                                    <i class="fas fa-eye"></i>    
-                                                </a>
+                                                @can('edit_data_collection')
+                                                    <a href="{{route('researchdevelopment.datacollection.program-details.edit',$program->id)
+                                                        }}" class="btn btn-sm btn-danger"
+                                                        title="edit program details"
+                                                        >
+                                                        <i class="fas fa-edit"></i>    
+                                                    </a>
+                                                @endcan
+                                                @can('show_data_collection')
+                                                    <a href="{{route('researchdevelopment.datacollection.program-details.show',$program->id)
+                                                        }}" class="btn btn-sm btn-info"
+                                                        title="view program details"
+                                                        >
+                                                        <i class="fas fa-eye"></i>    
+                                                    </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

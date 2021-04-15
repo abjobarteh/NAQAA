@@ -11,10 +11,12 @@
                 <h1 class="m-0">Research Surveys Documentation</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <a href="{{route('researchdevelopment.research-survey-documentation.create')}}" 
-                        class="btn btn-primary float-right">
-                        New Research Survey
-                    </a>
+                    @can('create_research_survey_documentation')
+                        <a href="{{route('researchdevelopment.research-survey-documentation.create')}}" 
+                            class="btn btn-primary float-right">
+                            New Research Survey
+                        </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -49,18 +51,22 @@
                                             <td>{{$survey->funded_by}}</td>
                                             <td>{{$survey->cost}}</td>
                                             <td>
-                                                <a href="{{route('researchdevelopment.research-survey-documentation.edit',$survey->id)
-                                                    }}" class="btn btn-sm btn-danger"
-                                                    title="edit research survey details"
-                                                    >
-                                                    <i class="fas fa-edit"></i>    
-                                                </a>
-                                                <a href="{{route('researchdevelopment.research-survey-documentation.show',$survey->id)
-                                                    }}" class="btn btn-sm btn-info"
-                                                    title="view research survey details"
-                                                    >
-                                                    <i class="fas fa-eye"></i>    
-                                                </a>
+                                                @can('edit_research_survey_documentation')
+                                                    <a href="{{route('researchdevelopment.research-survey-documentation.edit',$survey->id)
+                                                        }}" class="btn btn-sm btn-danger"
+                                                        title="edit research survey details"
+                                                        >
+                                                        <i class="fas fa-edit"></i>    
+                                                    </a>
+                                                @endcan
+                                                @can('show_research_survey_documentation')
+                                                    <a href="{{route('researchdevelopment.research-survey-documentation.show',$survey->id)
+                                                        }}" class="btn btn-sm btn-info"
+                                                        title="view research survey details"
+                                                        >
+                                                        <i class="fas fa-eye"></i>    
+                                                    </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

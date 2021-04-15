@@ -29,7 +29,7 @@
                             <h3 class="card-title">Edit Research Survey</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.research-survey-documentation.update', $survey[0]->id)}}" method="POST">
+                            <form action="{{route('researchdevelopment.research-survey-documentation.update', $survey[0]->id)}}" method="POST" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">

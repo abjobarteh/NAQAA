@@ -3,6 +3,8 @@
 namespace App\Http\Requests\ResearchDevelopment;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class UpdateProgramDetailsDataCollectionRequest extends FormRequest
 {
@@ -13,6 +15,8 @@ class UpdateProgramDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         return true;
     }
 

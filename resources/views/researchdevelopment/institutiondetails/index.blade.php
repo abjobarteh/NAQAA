@@ -11,10 +11,12 @@
                 <h1 class="m-0">Institution Details Data Collection</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <a href="{{route('researchdevelopment.datacollection.institution-details.create')}}" 
-                        class="btn btn-primary float-right">
-                        New Data collection
-                    </a>
+                    @can('create_data_collection')
+                        <a href="{{route('researchdevelopment.datacollection.institution-details.create')}}" 
+                            class="btn btn-primary float-right">
+                            New Data collection
+                        </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -52,18 +54,22 @@
                                             <td>{{$data->total_no_of_computers_in_labs}}</td>
                                             <td>{{$data->created_at}}</td>
                                             <td>
-                                                <a href="{{route('researchdevelopment.datacollection.institution-details.edit',$data->id)
-                                                    }}" class="btn btn-sm btn-danger"
-                                                    title="edit institution details"
-                                                    >
-                                                    <i class="fas fa-edit"></i>    
-                                                </a>
-                                                <a href="{{route('researchdevelopment.datacollection.institution-details.show',$data->id)
-                                                    }}" class="btn btn-sm btn-info"
-                                                    title="view institution details"
-                                                    >
-                                                    <i class="fas fa-eye"></i>    
-                                                </a>
+                                                @can('edit_data_collection')
+                                                    <a href="{{route('researchdevelopment.datacollection.institution-details.edit',$data->id)
+                                                        }}" class="btn btn-sm btn-danger"
+                                                        title="edit institution details"
+                                                        >
+                                                        <i class="fas fa-edit"></i>    
+                                                    </a>
+                                                @endcan
+                                                @can('show_data_collection')
+                                                    <a href="{{route('researchdevelopment.datacollection.institution-details.show',$data->id)
+                                                        }}" class="btn btn-sm btn-info"
+                                                        title="view institution details"
+                                                        >
+                                                        <i class="fas fa-eye"></i>    
+                                                    </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

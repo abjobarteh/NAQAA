@@ -12,7 +12,8 @@ use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderStaffsRank;
 use App\Models\TrainingProviderStaffsRole;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class AcademicAdminStaffDetailsController extends Controller
 {
@@ -23,6 +24,8 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $staffs = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->get();
 
         return view('researchdevelopment.academicadminstaffdetails.index', compact('staffs'));
@@ -35,6 +38,9 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function create()
     {
+
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $staffs = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->get();
 
         $ranks = TrainingProviderStaffsRank::all()->pluck('name','id');
@@ -75,6 +81,8 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $staffdetail = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->where('id',$id)->get();
 
         return view('researchdevelopment.academicadminstaffdetails.show', compact('staffdetail'));
@@ -88,6 +96,7 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
         $staff = AcademicAdminStaffDataCollection::where('id',$id)->get();
 
         $ranks = TrainingProviderStaffsRank::all()->pluck('name','id');

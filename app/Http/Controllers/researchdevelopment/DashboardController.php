@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\researchdevelopment;
 
 use App\Http\Controllers\Controller;
+use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
+use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
+use App\Models\ResearchDevelopment\ResearchSurvey;
+use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 
 class DashboardController extends Controller
 {
@@ -14,6 +18,41 @@ class DashboardController extends Controller
      */
     public function __invoke()
     {
-        return view('researchdevelopment.dashboard');
+        $tiles = [
+            [
+                'name' => 'Total Learning Centers',
+                'data' => InstitutionDetailsDataCollection::all()->count(),
+                'background' => 'bg-info',
+                'icon' => 'fas fa-university fa-3x'
+            ],
+            [
+                'name' => 'Total Programs Offered',
+                'data' => ProgramDetailsDataCollection::distinct()->count(),
+                'background' => 'bg-success',
+                'icon' => 'fas fa-tasks fa-3x'
+            ],
+            [
+                'name' => 'Total Graduates',
+                'data' => StudentDetailsDataCollection::where('studentdetail_type','graduate')->count(),
+                'background' => 'bg-warning',
+                'icon' => 'fas fa-graduation-cap'
+            ],
+            [
+                'name' => 'Total Admissions',
+                'data' => StudentDetailsDataCollection::where('studentdetail_type','admission')->count(),
+                'background' => 'bg-warning',
+                'icon' => 'fas fa-user-graduate'
+            ],
+            [
+                'name' => 'Total Research Documentation',
+                'data' => ResearchSurvey::all()->count(),
+                'background' => 'bg-warning',
+                'icon' => 'fas fa-poll-h fa-3x'
+            ]
+        ];
+
+        $latestresearches = ResearchSurvey::all()->sortByDesc('created_at')->take(10);
+
+        return view('researchdevelopment.dashboard', compact('tiles','latestresearches'));
     }
 }

@@ -29,7 +29,7 @@
                             <h3 class="card-title">Add new Research Survey</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.research-survey-documentation.store')}}" method="POST">
+                            <form action="{{route('researchdevelopment.research-survey-documentation.store')}}" method="POST" autocomplete="off">
                                 @csrf
                                 <div class="row">
                                     {{-- Form left side --}}

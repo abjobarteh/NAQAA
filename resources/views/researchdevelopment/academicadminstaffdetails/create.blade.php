@@ -32,7 +32,7 @@
                             <h3 class="card-title">New Academic&Admin staff Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.store')}}" method="post">
+                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-4">
