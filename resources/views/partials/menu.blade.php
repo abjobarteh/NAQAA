@@ -1,3 +1,4 @@
+{{-- Research and Development --}}
 @role('research_and_development_manager|research_and_development_officer')
 <li class="nav-item">
   <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
@@ -91,6 +92,44 @@
   </li>
   @endcan
   @can('access_research_development_reports')
+  <li class="nav-item">
+    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
+       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
+       >
+      <i class="nav-icon fas fa-chart-bar"></i>
+      <p>
+        Reports
+      </p>
+    </a>
+  </li>
+  @endcan
+@endrole
+{{-- Standards and curriculum --}}
+@role('standards_development_manager|satndards_development_officer')
+<li class="nav-item">
+  <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
+     request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Dashboard
+    </p>
+  </a>
+</li>
+@can('access_unit_standards')
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
+  {{ request()->is('researchdevelopment/datacollection/*') || 
+     request()->is('researchdevelopment/assessor-verifiers/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-scroll"></i>
+    <p>
+      Unit Standards
+    </p>
+  </a>
+  </li>
+  @endcan
+  @can('access_unit_standard_reports')
   <li class="nav-item">
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
        request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"

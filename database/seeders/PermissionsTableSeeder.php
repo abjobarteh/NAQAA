@@ -610,7 +610,41 @@ class PermissionsTableSeeder extends Seeder
                 'slug' => 'access_research_development_data_import',
                 'permission_type' => 'researchdevelopment'
             ],
-            
+            [
+                'name' => 'Access Unit Standards',
+                'slug' => 'access_unit_standards',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Edit Unit Standards',
+                'slug' => 'edit_unit_standards',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Show Unit Standards',
+                'slug' => 'show_unit_standards',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Access Unit Standard Reviews',
+                'slug' => 'access_unit_standard_reviews',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Create Unit Standard Reviews',
+                'slug' => 'create_unit_standard_reviews',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Show Unit Standard Reviews',
+                'slug' => 'show_unit_standard_reviews',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Access Unit Standard Reports',
+                'slug' => 'access_unit_standard_reports',
+                'permission_type' => 'standardscurriculum'
+            ],
         ];
 
         Permission::insert($permissions);
