@@ -30,7 +30,7 @@
                             <h3 class="card-title">Academic&Admin Staff Details Data collection lists</h3>
                         </div>
                         <div class="card-body">
-                            <table id="example-2" class="table datatable table-bordered table-hover">
+                            <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Fullname</th>
