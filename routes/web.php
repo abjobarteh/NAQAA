@@ -3,6 +3,13 @@
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
 use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
+use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
+use App\Http\Controllers\researchdevelopment\DataCollections\AcademicAdminStaffDetailsController;
+use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImportsController;
+use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
+use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
+use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
+use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -123,57 +130,83 @@ Route::group(['middleware' => 'auth'], function(){
 
     });
 
-    // Registration and Accreditation Routes
-    Route::group(['prefix'=>'registration-accreditation','as'=>'registration-accreditation.',
-    'middleware'=> ['role:registration_and_accreditation_manager|registration_and_accreditation_officer']
-    ],function(){
+   // Research and Development routes
+   Route::group(['prefix'=>'researchdevelopment','as'=>'researchdevelopment.',
+   'middleware'=>'role:research_and_development_manager|research_and_development_officer'
+  ],function(){
 
-      Route::redirect('/','registration-accreditation/dashboard');
+    Route::redirect('/','researchdevelopment/dashboard');
 
-      // Dashboard route
-      Route::get('/dashboard', [\App\Http\Controllers\RegistrationAccreditation\DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', ResearchdevelopmentDashboardController::class)->name('dashboard');
 
-    //   Registration Routes
-      Route::group(['prefix' => 'registration', 'as' => 'registration.'], function(){
-            // Instiution registration routes
-            Route::resource('institutions', InstitutionRegistrationController::class);
-
-            // Trainer  Registration Routes
-            Route::Resource('trainers', TrainerRegistrationController::class);
-
-            // AssessorVerifeir  Registration Routes
-            Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
-      });
-
-    //   Accreditation Routes
-      Route::group(['prefix' => 'accreditation', 'as' => 'accreditation.'], function(){
-        // Instiution registration routes
-        Route::resource('institutions', InstitutionRegistrationController::class);
-
-        // Trainer  Registration Routes
-        Route::Resource('trainers', TrainerRegistrationController::class);
-
-        // AssessorVerifeir  Registration Routes
-        Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
-      });
-
+    // data collection routes
+    Route::group(['prefix' => 'datacollection','as'=>'datacollection.'], function(){
+        Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
+        Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
+        Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
+        Route::resource('student-details', StudentDetailsController::class)->except('destroy');
+        Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+        Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
     });
 
-   // Assessment and certification routes
-   Route::group(['prefix'=>'assessment-certification','as'=>'assessment-certification.',
-   'middleware'=>'role:assessment_and_certification_manager,assessment_and_certification_officer'
-  ],function(){
+    Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');
 
   });
 
-  // Profiles Settings
-  Route::get('settings', [ProfilesController::class, 'settings'])
-  ->name('settings');
 
-  Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
-    ->name('settings.updateprofile');
+      // Registration and Accreditation Routes
+      Route::group(['prefix'=>'registration-accreditation','as'=>'registration-accreditation.',
+      'middleware'=> ['role:registration_and_accreditation_manager|registration_and_accreditation_officer']
+      ],function(){
+  
+        Route::redirect('/','registration-accreditation/dashboard');
+  
+        // Dashboard route
+        Route::get('/dashboard', [\App\Http\Controllers\RegistrationAccreditation\DashboardController::class, 'index'])->name('dashboard');
+  
+      //   Registration Routes
+        Route::group(['prefix' => 'registration', 'as' => 'registration.'], function(){
+              // Instiution registration routes
+              Route::resource('institutions', InstitutionRegistrationController::class);
+  
+              // Trainer  Registration Routes
+              Route::Resource('trainers', TrainerRegistrationController::class);
+  
+              // AssessorVerifeir  Registration Routes
+              Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
+        });
+  
+      //   Accreditation Routes
+        Route::group(['prefix' => 'accreditation', 'as' => 'accreditation.'], function(){
+          // Instiution registration routes
+          Route::resource('institutions', InstitutionRegistrationController::class);
+  
+          // Trainer  Registration Routes
+          Route::Resource('trainers', TrainerRegistrationController::class);
+  
+          // AssessorVerifeir  Registration Routes
+          Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
+        });
+  
+      });
+  
 
-  Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
-    ->name('settings.changepassword');
+  // Assessment and certification routes
+  Route::group(['prefix'=>'assessment-certification','as'=>'assessment-certification.',
+  'middleware'=>'role:assessment_and_certification_manager,assessment_and_certification_officer'
+ ],function(){
+
+ });
+
+
+    // Profiles Settings
+    Route::get('settings', [ProfilesController::class, 'settings'])
+    ->name('settings');
+
+    Route::put('settings/updateprofile', [ProfilesController::class, 'updateProfile'])
+      ->name('settings.updateprofile');
+
+    Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
+      ->name('settings.changepassword');
 
 });

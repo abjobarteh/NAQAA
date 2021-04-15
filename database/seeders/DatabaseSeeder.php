@@ -22,7 +22,10 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
             EducationFieldsTableSeeder::class,
-            CountriesTableSeeder::class
+            CountriesTableSeeder::class,
+            AwardingBodyTableSeeder::class,
+            EthnicityTableSeeder::class,
+            SponsorTableSeeder::class
         ]);
     }
 }

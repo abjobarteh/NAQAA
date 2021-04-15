@@ -30,4 +30,9 @@ class TrainingProviderClassification extends Model
         };
         
     }
+
+    public function InstitutionDataCollections()
+    {
+        return $this->hasMany(InstitutionDetailsDataCollection::class, 'classification_id');
+    }
 }
