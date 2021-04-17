@@ -19,9 +19,9 @@ class CreateUnitStandardsTable extends Migration
             $table->string('unit_standard_code');
             $table->string('minimum_required_hours');
             $table->longText('developed_by_stakeholders');
-            $table->longText('validated_by_stakeholders');
+            $table->longText('validated_by_stakeholders')->nullable();
             $table->string('validated');
-            $table->date('validation_date');
+            $table->date('validation_date')->nullable();
             $table->foreignId('education_field_id')->nullable()->constrained('education_fields');
             $table->foreignId('education_sub_field_id')->nullable()->constrained('education_sub_fields');
             $table->foreignId('qualification_level_id')->nullable()->constrained('qualification_levels');

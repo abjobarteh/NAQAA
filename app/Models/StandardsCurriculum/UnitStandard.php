@@ -26,6 +26,10 @@ class UnitStandard extends Model
         'qualification_level_id',
     ];
 
+    protected $dates = [
+        'validation_date'
+    ];
+
     protected static $logName = 'Unit Standard';
 
     protected static $logOnlyDirty = true;
@@ -43,6 +47,26 @@ class UnitStandard extends Model
         
     }
 
+    public function setDevelopedByStakeholdersAttribute($value)
+    {
+        $this->attributes['developed_by_stakeholders'] = json_encode($value);
+    }
+    public function setValidatedByStakeholdersAttribute($value)
+    {
+        $this->attributes['validated_by_stakeholders'] = json_encode($value);
+    }
+
+    public function getDevelopedByStakeholdersAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+    public function getValidatedByStakeholdersAttribute($value)
+    {
+        return json_decode($value);
+    }
+
+
     public function fieldOfEducation()
     {
         return $this->belongsTo(EducationField::class,'education_field_id');
@@ -53,7 +77,7 @@ class UnitStandard extends Model
         return $this->belongsTo(EducationSubField::class, 'education_sub_field_id');
     }
 
-    public function levelOfQaulification()
+    public function levelOfQualification()
     {
         return $this->belongsTo(QualificationLevel::class,'qualification_level_id');
     }

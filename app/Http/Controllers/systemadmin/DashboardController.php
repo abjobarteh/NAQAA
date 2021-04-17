@@ -35,7 +35,7 @@ class DashboardController extends Controller
             ]
         ];
 
-        $activities = Activity::with(['causer'])->latest()->take(10)->get();
+        $activities = Activity::with(['causer'])->whereHas('causer')->latest()->take(10)->get();
         
         return view('systemadmin.dashboard', compact('activities','tiles'));
     }

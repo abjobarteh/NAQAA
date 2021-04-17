@@ -10,6 +10,8 @@ use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsC
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
 use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
+use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCurriculumDashboardController;
+use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
 use App\Http\Controllers\systemadmin\BackupsController;
@@ -151,6 +153,18 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');
 
+  });
+
+  // Standard and Curriculum Unit Route
+  Route::group(['prefix'=>'standardscurriculum','as'=>'standardscurriculum.',
+  'middleware'=>'role:standards_development_manager|standards_development_officer'
+    ],function(){
+      Route::redirect('/','standardscurriculum/dashboard');
+
+      Route::get('/dashboard', StandardsCurriculumDashboardController::class)->name('dashboard');
+
+      // unit standards
+      Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
   });
 
 

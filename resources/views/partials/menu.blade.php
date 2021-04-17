@@ -105,10 +105,10 @@
   @endcan
 @endrole
 {{-- Standards and curriculum --}}
-@role('standards_development_manager|satndards_development_officer')
+@role('standards_development_manager|standards_development_officer')
 <li class="nav-item">
-  <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-     request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
+  <a href="{{route('standardscurriculum.dashboard')}}" class="nav-link {{
+     request()->is('standardscurriculum/dashboard') ? 'active' : '' }}"
      >
     <i class="nav-icon fas fa-tachometer-alt"></i>
     <p>
@@ -117,10 +117,10 @@
   </a>
 </li>
 @can('access_unit_standards')
-<li class="nav-item menu-open">
-  <a href="#" class="nav-link 
-  {{ request()->is('researchdevelopment/datacollection/*') || 
-     request()->is('researchdevelopment/assessor-verifiers/*') ? 'active' : '' }}"
+<li class="nav-item">
+  <a href="{{route('standardscurriculum.unit-standards.index')}}" class="nav-link 
+  {{ request()->is('standardscurriculum/unit-standards') || 
+     request()->is('standardscurriculum/unit-standards/*') ? 'active' : '' }}"
     >
     <i class="nav-icon fas fa-scroll"></i>
     <p>

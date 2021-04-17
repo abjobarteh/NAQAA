@@ -616,6 +616,11 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'standardscurriculum'
             ],
             [
+                'name' => 'Create Unit Standards',
+                'slug' => 'create_unit_standards',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
                 'name' => 'Edit Unit Standards',
                 'slug' => 'edit_unit_standards',
                 'permission_type' => 'standardscurriculum'
