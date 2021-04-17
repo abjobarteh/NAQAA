@@ -14,21 +14,6 @@ class QualificationLevelsTableSeeder extends Seeder
      */
     public function run()
     {
-        $levels = [
-          [
-              'name' => 'Level 1',
-          ],  
-          [
-              'name' => 'Level 2',
-          ],  
-          [
-              'name' => 'Level 3',
-          ],  
-          [
-              'name' => 'Level 4',
-          ],    
-        ];
-
-        QualificationLevel::insert($levels);
+       QualificationLevel::factory()->count(10)->create();
     }
 }

@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             CountriesTableSeeder::class,
             AwardingBodyTableSeeder::class,
             EthnicityTableSeeder::class,
-            SponsorTableSeeder::class
+            SponsorTableSeeder::class,
+            QualificationLevelsTableSeeder::class
         ]);
     }
 }

@@ -116,6 +116,12 @@ class AuthenticatedSessionController extends Controller
         {
             return redirect(route('researchdevelopment.dashboard'));
         }
+        else if($request->user()->hasRole(
+            ...['standards_development_manager','standards_development_officer']
+        ))
+        {
+            return redirect(route('standardscurriculum.dashboard'));
+        }
         else{
             return redirect(route('admin.dashboard'));
         }

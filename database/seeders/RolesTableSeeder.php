@@ -67,7 +67,7 @@ class RolesTableSeeder extends Seeder
             ],
             [
                 'name' => 'Standards Development Officer',
-                'slug' => 'satndards_development_officer',
+                'slug' => 'standards_development_officer',
                 'role_level' => 'officer',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
