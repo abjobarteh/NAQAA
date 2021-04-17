@@ -55,7 +55,7 @@
                 <div class="col-md-4">
                     <div class="card p-3">
                         <div class="d-flex flex-row mb-3"><i class="fas fa-certificate fa-3x text-warning"></i>
-                            <div class="d-flex flex-column ml-2"><span class="text-black-50">Entry Level Qualifications</span></div>
+                            <div class="d-flex flex-column ml-2"><span class="text-black-50">Qualifications</span></div>
                         </div>
                         <h6>Manage or create new Entry Level Qualifications</h6>
                         <a href="{{route('admin.entry-level-qualifications.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
@@ -77,6 +77,24 @@
                         </div>
                         <h6>Manage or create new Training Provider Ownerships.</h6>
                         <a href="{{route('admin.training-provider-ownerships.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="d-flex flex-row mb-3"><i class="fas fa-layer-group fa-3x text-teal"></i>
+                            <div class="d-flex flex-column ml-2"><span class="text-black-50">Ethnicity</span></div>
+                        </div>
+                        <h6>Manage or Add new Ethnicity.</h6>
+                        <a href="{{route('admin.ethnicity.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="d-flex flex-row mb-3"><i class="fas fa-layer-group fa-3x text-teal"></i>
+                            <div class="d-flex flex-column ml-2"><span class="text-black-50">Award Bodies</span></div>
+                        </div>
+                        <h6>Manage or Add new Award qualification awarding bodies.</h6>
+                        <a href="{{route('admin.ethnicity.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
                     </div>
                 </div>
                 <div class="col-md-4">

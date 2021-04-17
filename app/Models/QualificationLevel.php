@@ -19,16 +19,16 @@ class QualificationLevel extends Model
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New Qualification Level added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Qualification Level updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Qualification Level deleted by ".auth()->user()->username;
-        };
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch($eventName){
+    //         case 'created': 
+    //                  return "New Qualification Level added by ".auth()->user()->username;
+    //         case 'updated': 
+    //                  return "Qualification Level updated by ".auth()->user()->username;
+    //         case 'deleted': 
+    //                  return "Qualification Level deleted by ".auth()->user()->username;
+    //     };
         
-    }
+    // }
 }

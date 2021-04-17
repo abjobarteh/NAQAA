@@ -22,6 +22,7 @@ use App\Http\Controllers\systemadmin\DistrictsController;
 use App\Http\Controllers\systemadmin\EducationFieldsController;
 use App\Http\Controllers\systemadmin\EducationSubFieldsController;
 use App\Http\Controllers\systemadmin\EntryLevelQualificationsController;
+use App\Http\Controllers\systemadmin\EthnicityController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
@@ -120,6 +121,9 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Application Fees Tariffs
         Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
+
+        // Etnicity Routes
+        Route::resource('ethnicity', EthnicityController::class)->except('destroy');
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');

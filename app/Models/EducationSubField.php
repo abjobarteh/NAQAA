@@ -18,18 +18,18 @@ class EducationSubField extends Model
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New Subfield of Education added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Subfield of Education updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Subfield of Education deleted by ".auth()->user()->username;
-        };
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch($eventName){
+    //         case 'created': 
+    //                  return "New Subfield of Education added by ".auth()->user()->username;
+    //         case 'updated': 
+    //                  return "Subfield of Education updated by ".auth()->user()->username;
+    //         case 'deleted': 
+    //                  return "Subfield of Education deleted by ".auth()->user()->username;
+    //     };
         
-    }
+    // }
 
     public function educationField()
     {

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Edit Entry Level Qualification
+    Edit Qualification
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
             <div class="col-md-6 col-sm-12 text-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Entry level qualifications</a></li>
-                        <li class="breadcrumb-item active">Edit entry level qualification</li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Qualifications</a></li>
+                        <li class="breadcrumb-item active">Edit qualification</li>
                 </ol>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Edit Entry Level Qualification</h3>
+                        <h3 class="card-title">Edit Qualification</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{route('admin.entry-level-qualifications.update', $qualification[0]->id)}}" method="post">

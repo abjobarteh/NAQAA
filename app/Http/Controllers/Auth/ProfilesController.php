@@ -38,10 +38,18 @@ class ProfilesController extends Controller
 
     public function changePassword(UpdatePasswordRequest $request)
     {
-        $user  = User::Find(Auth::user()->id);
-        
+        $user  = User::Findorfail(Auth::user()->id);
+
+        if($user->default_password_status == 1)
+        {
+            $user->update([
+                'password' => bcrypt($request->password),
+                'default_password_status' => 0
+            ]);
+        }
+
         $user->update([
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
         ]);
 
         return redirect('settings')->withSuccess('Password successfuly updated');
