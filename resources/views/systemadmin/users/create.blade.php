@@ -33,7 +33,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username">Username</label>
-                                        <input type="text" class="form-control" placeholder="Enter Username" name="username" required>
+                                        <input type="text" class="form-control" placeholder="Enter Username" name="username" value="{{ old('username') }}" required>
                                       </div>
                                       <div class="mt-1">
                                           @error('username')
@@ -44,7 +44,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="email">Email</label>
-                                        <input type="email" class="form-control" placeholder="Enter Email" name="email" required>
+                                        <input type="email" class="form-control" placeholder="Enter Email" name="email" value="{{ old('email') }}" required>
                                       </div>
                                       <div class="mt-1">
                                         @error('email')
@@ -76,7 +76,7 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
-                                        <input type="text" class="form-control" placeholder="First Name" name="firstname"  required>
+                                        <input type="text" class="form-control" placeholder="First Name" name="firstname" value="{{ old('firstname') }}"  required>
                                       </div>
                                       <div class="mt-1">
                                         @error('firstname')
@@ -87,7 +87,7 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="middle_name">Middle Name</label>
-                                        <input type="text" class="form-control" placeholder="Middle Name" name="middlename">
+                                        <input type="text" class="form-control" placeholder="Middle Name" name="middlename" value="{{ old('middlename') }}">
                                       </div>
                                       <div class="mt-1">
                                         @error('middlename')
@@ -98,7 +98,7 @@
                                   <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="last_name">Last Name</label>
-                                        <input type="text" class="form-control" placeholder="Last Name" name="lastname" required>
+                                        <input type="text" class="form-control" placeholder="Last Name" name="lastname" value="{{ old('lastname') }}" required>
                                       </div>
                                       <div class="mt-1">
                                         @error('lastname')
@@ -111,7 +111,7 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="phone_number">Phone Number</label>
-                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" required>
+                                        <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" value="{{ old('phonenumber') }}" required>
                                       </div>
                                       <div class="mt-1">
                                         @error('phonenumber')
@@ -122,7 +122,7 @@
                                   <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="address">Address</label>
-                                        <input type="text" class="form-control" placeholder="Address" name="address" required>
+                                        <input type="text" class="form-control" placeholder="Address" name="address" value="{{ old('address') }}" required>
                                       </div>
                                       <div class="mt-1">
                                         @error('address')

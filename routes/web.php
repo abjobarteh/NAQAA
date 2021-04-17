@@ -14,6 +14,7 @@ use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCur
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
+use App\Http\Controllers\systemadmin\AwardingBodiesController;
 use App\Http\Controllers\systemadmin\BackupsController;
 use App\Http\Controllers\systemadmin\DashboardController;
 use App\Http\Controllers\systemadmin\DesignationsController;
@@ -124,6 +125,9 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Etnicity Routes
         Route::resource('ethnicity', EthnicityController::class)->except('destroy');
+
+        // Awarding bodies 
+        Route::resource('awarding-bodies', AwardingBodiesController::class);
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');

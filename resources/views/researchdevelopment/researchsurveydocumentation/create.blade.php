@@ -38,7 +38,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Research Topic: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="research_topic" required autofocus>
+                                                    <input type="text" class="form-control" name="research_topic" value="{{ old('research_topic') }}" required autofocus>
                                                     @error('research_topic')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -47,7 +47,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Publisher: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="publisher" required autofocus>
+                                                    <input type="text" class="form-control" name="publisher" value="{{ old('publisher') }}" required autofocus>
                                                     @error('publisher')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -57,7 +57,7 @@
                                                 <div class="form-group">
                                                     <label>Publication Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="publication_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input" name="publication_date" data-target="#completion_date"/>
+                                                        <input type="text" class="form-control datetimepicker-input" name="publication_date" value="{{ old('publication_date') }}" data-target="#completion_date"/>
                                                         <div class="input-group-append" data-target="#publication_date" data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                         </div>
@@ -70,7 +70,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Funded By: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="funded_by" required autofocus>
+                                                    <input type="text" class="form-control" name="funded_by" value="{{ old('funded_by') }}" required autofocus>
                                                     @error('funded_by')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -79,7 +79,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Cost (GMD): <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="cost" required autofocus>
+                                                    <input type="text" class="form-control" name="cost" value="{{ old('cost') }}" required autofocus>
                                                     @error('cost')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -106,7 +106,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Purpose: <sup class="text-danger">*</sup></label>
-                                                      <textarea class="form-control" name="purpose"></textarea>
+                                                      <textarea class="form-control" name="purpose">{{ old('purpose')}}</textarea>
                                                         @if($errors->has('purpose'))
                                                             <span class="text-danger mt-1">{{ $errors->first('purpose') }}</span>
                                                         @endif
@@ -115,7 +115,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Key Findings: <sup class="text-danger">*</sup></label>
-                                                      <textarea class="form-control" name="key_findings"></textarea>
+                                                      <textarea class="form-control" name="key_findings">{{ old('key_findings')}}</textarea>
                                                     @if($errors->has('key_findings'))
                                                         <span class="text-danger mt-1">{{ $errors->first('key_findings') }}</span>
                                                     @endif
@@ -124,7 +124,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Recommendation: <sup class="text-danger">*</sup></label>
-                                                      <textarea class="form-control" name="recommendation"></textarea>
+                                                      <textarea class="form-control" name="recommendation">{{ old('recommendation') }}</textarea>
                                                     @if($errors->has('recommendation'))
                                                         <span class="text-danger mt-1">{{ $errors->first('recommendation') }}</span>
                                                     @endif
@@ -133,7 +133,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Remarks: <sup class="text-danger">*</sup></label>
-                                                      <textarea class="form-control" name="remarks"></textarea>
+                                                      <textarea class="form-control" name="remarks">{{ old('remarks') }}</textarea>
                                                     @if($errors->has('remarks'))
                                                         <span class="text-danger mt-1">{{ $errors->first('remarks') }}</span>
                                                     @endif

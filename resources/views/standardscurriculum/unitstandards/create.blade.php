@@ -38,7 +38,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Unit Standard Title: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="unit_standard_title" required autofocus>
+                                            <input type="text" class="form-control" name="unit_standard_title" value="{{ old('unit_standard_title') }}" required autofocus>
                                             @error('unit_standard_title')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -47,7 +47,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Unit Standard Code: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="unit_standard_code" required>
+                                            <input type="text" class="form-control" name="unit_standard_code" value="{{ old('unit_standard_code') }}" required>
                                             @error('unit_standard_code')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -58,7 +58,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Minimum Hours Required: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="minimum_required_hours" required>
+                                            <input type="text" class="form-control" name="minimum_required_hours" value="{{ old('minimum_required_hours') }}" required>
                                             @error('unit_standard_code')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -127,7 +127,7 @@
                                         <div class="form-group">
                                             <label>Validation Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="validation_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input hide-validation-date" name="validation_date" data-target="#validation_date" required/>
+                                                <input type="text" class="form-control datetimepicker-input hide-validation-date" name="validation_date" value="{{ old('validation_date') }}" data-target="#validation_date" required/>
                                                 <div class="input-group-append" data-target="#validation_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>

@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Amount: <span class="text-danger"><sup>*</sup></span></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="amount" placeholder="Enter fee amount" required autofocus>
+                                        <input type="text" class="form-control" name="amount" value="{{ old('amount') }}" placeholder="Enter fee amount" required autofocus>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                        @error('amount')

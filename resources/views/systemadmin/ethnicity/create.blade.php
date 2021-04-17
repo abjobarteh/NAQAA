@@ -10,7 +10,7 @@
                 <div class="col-md-6 col-sm-12 text-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Ethnicities</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.ethnicity.index')}}">Ethnicities</a></li>
                         <li class="breadcrumb-item active">Add ethnicity</li>
                     </ol>
                 </div>
@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Name: <span class="text-danger"><sup>*</sup></span></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="name" placeholder="Enter ethnicity name" required autofocus>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter ethnicity name" required autofocus>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                        @error('name')

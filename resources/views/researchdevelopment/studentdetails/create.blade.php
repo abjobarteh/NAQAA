@@ -53,7 +53,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Student ID: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="student_id" required autofocus>
+                                            <input type="text" class="form-control" name="student_id" value="{{ old('student_id') }}" required autofocus>
                                             @error('student_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -64,7 +64,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="firstname" required autofocus>
+                                            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
                                             @error('firstname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -73,7 +73,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Middle Name:</label>
-                                            <input type="text" class="form-control" name="middlename">
+                                            <input type="text" class="form-control" name="middlename" value="{{ old('middlename') }}">
                                             @error('middlename')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -82,7 +82,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Last Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="lastname" required>
+                                            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
                                             @error('lastname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -106,7 +106,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Phone: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="phone" required>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
                                             @error('phone')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -116,7 +116,7 @@
                                         <div class="form-group">
                                             <label>Date of birth: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" data-target="#date_of_birth" required/>
+                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" value="{{ old('date_of_birth') }}" data-target="#date_of_birth" required/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -159,7 +159,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Programme: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="programme" required>
+                                            <input type="text" class="form-control" name="programme" value="{{ old('programme') }}" required>
                                             @error('programme')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -198,7 +198,7 @@
                                         <div class="form-group">
                                             <label>Admission Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="admission_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" data-target="#admission_date" required/>
+                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" value="{{ old('admission_date') }}" data-target="#admission_date" required/>
                                                 <div class="input-group-append" data-target="#admission_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -212,7 +212,7 @@
                                         <div class="form-group">
                                             <label>Completion Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input graduate" name="completion_date" data-target="#completion_date" required/>
+                                                <input type="text" class="form-control datetimepicker-input graduate" name="completion_date" value="{{ old('completion_date') }}" data-target="#completion_date" required/>
                                                 <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>

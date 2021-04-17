@@ -10,7 +10,7 @@
                 <div class="col-md-6 col-sm-12 text-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Ethnicities</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.ethnicity.index')}}">Ethnicities</a></li>
                         <li class="breadcrumb-item active">Add ethnicity</li>
                     </ol>
                 </div>

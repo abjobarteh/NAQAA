@@ -38,7 +38,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="firstname" required autofocus>
+                                            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
                                             @error('firstname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -47,7 +47,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Middle Name:</label>
-                                            <input type="text" class="form-control" name="middlename">
+                                            <input type="text" class="form-control" name="middlename" value="{{ old('middlename') }}">
                                             @error('middlename')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -56,7 +56,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Last Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="lastname" required>
+                                            <input type="text" class="form-control" name="lastname" value="{{ old('lastname') }}" required>
                                             @error('lastname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -111,7 +111,7 @@
                                         <div class="form-group">
                                             <label>Date of Birth: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" data-target="#employment_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" value="{{ old('date_of_birth') }}" data-target="#employment_date"/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -124,7 +124,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Phone:</label>
-                                            <input type="text" class="form-control" name="phone">
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}">
                                             @error('phone')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -133,7 +133,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" required>
+                                            <input type="text" class="form-control" name="email" value="{{ old('email') }}" required>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -144,7 +144,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Job Title: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="job_title" required autofocus>
+                                            <input type="text" class="form-control" name="job_title" value="{{ old('job_title') }}" required autofocus>
                                             @error('job_title')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -153,7 +153,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Salary Per Month:</label>
-                                            <input type="text" class="form-control" name="salary_per_month">
+                                            <input type="text" class="form-control" name="salary_per_month" value="{{ old('salary_per_month') }}">
                                             @error('salary_per_month')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -165,7 +165,7 @@
                                         <div class="form-group">
                                             <label>Employment Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="employment_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="employment_date" data-target="#employment_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="employment_date" value="{{ old('employment_date') }}" data-target="#employment_date"/>
                                                 <div class="input-group-append" data-target="#employment_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -220,7 +220,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Specialisation: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="specialisation" required>
+                                            <input type="text" class="form-control" name="specialisation" value="{{ old('specialisation') }}" required>
                                             @error('specialisation')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -261,7 +261,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Main Teaching Field of Study: <sup class="text-danger">*</sup></label>
-                                            <input type="text" name="main_teaching_field_of_study" class="form-control" required>
+                                            <input type="text" name="main_teaching_field_of_study" value="{{ old('main_teaching_field_of_study') }}" class="form-control" required>
                                             @error('main_teaching_field_of_study')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

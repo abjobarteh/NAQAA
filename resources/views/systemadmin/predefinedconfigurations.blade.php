@@ -94,7 +94,7 @@
                             <div class="d-flex flex-column ml-2"><span class="text-black-50">Award Bodies</span></div>
                         </div>
                         <h6>Manage or Add new Award qualification awarding bodies.</h6>
-                        <a href="{{route('admin.ethnicity.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                        <a href="{{route('admin.awarding-bodies.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
                     </div>
                 </div>
                 <div class="col-md-4">

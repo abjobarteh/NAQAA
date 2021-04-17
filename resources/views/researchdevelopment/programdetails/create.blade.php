@@ -38,7 +38,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Program Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="program_name" required autofocus>
+                                            <input type="text" class="form-control" name="program_name" value="{{ old('program_name') }}" required autofocus>
                                             @error('program_name')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -47,7 +47,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Duration: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="duration" required>
+                                            <input type="text" class="form-control" name="duration" value="{{ old('duration') }}" required>
                                             @error('duration')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -58,7 +58,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Tuition Fee per year: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="tuition_fee_per_year" required>
+                                            <input type="text" class="form-control" name="tuition_fee_per_year" value="{{ old('tuition_fee_per_year') }}" required>
                                             @error('tuition_fee_per_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -82,7 +82,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Awarding body:</label>
-                                            <input type="text" class="form-control" name="awarding_body">
+                                            <input type="text" class="form-control" name="awarding_body>
                                             @error('awarding_body')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

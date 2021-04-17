@@ -15,7 +15,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="name">Permission Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="permission_name" name="name"  required autofocus>
+                                    <input type="text" class="form-control" placeholder="Enter Permission Name ex: Edit User" id="permission_name" name="name" value="{{ old('name') }}"  required autofocus>
                                     <div class="mt-1">
                                         @error('name')
                                             <span class="text-danger">{{$message}}</span>
@@ -26,7 +26,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="slug">Slug</label>
-                                    <input type="text" class="form-control" placeholder="Pemrission slug ex: edit-user" id="permission_slug" name="slug"  required>
+                                    <input type="text" class="form-control" placeholder="Pemrission slug ex: edit-user" id="permission_slug" name="slug" value="{{ old('slug') }}"  required>
                                     <div class="mt-1">
                                         @error('slug')
                                             <span class="text-danger">{{$message}}</span>

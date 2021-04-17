@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Name: <span class="text-danger"><sup>*</sup></span></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="name" placeholder="Enter rank name" required autofocus>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter rank name" required autofocus>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                        @error('name')
@@ -42,7 +42,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Description:</label>
                                     <div class="col-md-8">
-                                        <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                                        <textarea name="description" id="description" value="{{ old('description') }}" class="form-control" cols="30" rows="10"></textarea>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         @error('name')
