@@ -82,6 +82,15 @@
                 <div class="col-md-4">
                     <div class="card p-3">
                         <div class="d-flex flex-row mb-3"><i class="fas fa-layer-group fa-3x text-teal"></i>
+                            <div class="d-flex flex-column ml-2"><span class="text-black-50">National Programmes</span></div>
+                        </div>
+                        <h6>Manage or Add new National Programmes.</h6>
+                        <a href="{{route('admin.programmes.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="d-flex flex-row mb-3"><i class="fas fa-layer-group fa-3x text-teal"></i>
                             <div class="d-flex flex-column ml-2"><span class="text-black-50">Ethnicity</span></div>
                         </div>
                         <h6>Manage or Add new Ethnicity.</h6>

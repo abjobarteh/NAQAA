@@ -27,6 +27,7 @@ use App\Http\Controllers\systemadmin\EthnicityController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
+use App\Http\Controllers\systemadmin\ProgrammesController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
@@ -128,6 +129,9 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Awarding bodies 
         Route::resource('awarding-bodies', AwardingBodiesController::class);
+        
+        // National programmes
+        Route::resource('programmes', ProgrammesController::class);
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');

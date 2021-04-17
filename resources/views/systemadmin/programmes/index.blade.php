@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Awarding Bodies
+    National Programmes
 @endsection
 
 @section('content')
@@ -8,11 +8,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Awarding Bodies</h1>
+                <h1 class="m-0">National Programmes</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     @can('create_general_configurations')
-                    <a href="{{route('admin.awarding-bodies.create')}}" class="btn btn-primary float-right">Add Awarding Bodies</a>
+                    <a href="{{route('admin.programmes.create')}}" class="btn btn-primary float-right">Add Programme</a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Awarding Bodies Lists</h6>
+                            <h6 class="card-title">National Programmes Lists</h6>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table datatable table-bordered table-hover">
@@ -36,19 +36,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($awardingbodies as $body)
+                                    @forelse ($programmes as $program)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $body->name }}</td>
+                                        <td>{{ $program->name }}</td>
                                         <td>
                                             @can('edit_general_configurations')
-                                            <a href="{{ route('admin.awarding-bodies.edit',$body->id) }}" class="btn btn-primary btn-sm" title="Edit award body"><i class="fas fa-user-edit"></i></a>
+                                            <a href="{{ route('admin.programmes.edit',$program->id) }}" class="btn btn-primary btn-sm" title="Edit award body"><i class="fas fa-user-edit"></i></a>
                                             @endcan
                                         </td>
                                     </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="10" class="text-center">No registered Awarding Body in the system</td>
+                                            <td colspan="10" class="text-center">No registered national programmes in the system</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

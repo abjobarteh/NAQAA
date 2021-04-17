@@ -162,6 +162,7 @@
         || request()->is('admin/training-provider-ownerships') || request()->is('admin/training-provider-ownerships/*')
         || request()->is('admin/ethnicity') || request()->is('admin/ethnicity/*')
         || request()->is('admin/awarding-bodies') || request()->is('admin/awarding-bodies/*')
+        || request()->is('admin/programmes') || request()->is('admin/programmes/*')
         || request()->is('admin/application-fees-tariffs') || request()->is('admin/application-fees-tariffs/*')
         ? 'active' : '' 
         }}">
