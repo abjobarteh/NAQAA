@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Region;
+use App\Models\TrainingProviderOwnership;
 use Illuminate\Database\Seeder;
 
-class RegionsTableSeeder extends Seeder
+class TrainingProviderOwnershipsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class RegionsTableSeeder extends Seeder
      */
     public function run()
     {
-        Region::factory()->count(5)->create();
+        TrainingProviderOwnership::factory()->count(5)->create();
     }
 }

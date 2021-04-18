@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -29,5 +30,10 @@ class AwardBody extends Model
                      return "Award body deleted by ".auth()->user()->username;
         };
         
+    }
+
+    public function programmes()
+    {
+        return $this->hasMany(ProgramDetailsDataCollection::class,'awarding_body_id');
     }
 }

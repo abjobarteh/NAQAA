@@ -187,6 +187,20 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
+                                            <label>Region: <sup class="text-danger">*</sup></label>
+                                            <select name="region" id="region" class="form-control select2" required>
+                                                <option>Select regions</option>
+                                                @foreach ($regions as $id => $region)
+                                                    <option value="{{$id}}">{{$region}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('region')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
                                             <label>District: <sup class="text-danger">*</sup></label>
                                             <select name="district_id" id="district_id" class="form-control select2" required>
                                                 <option>Select district</option>
@@ -209,20 +223,6 @@
                                                 @endforeach
                                             </select>
                                             @error('lga_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Region: <sup class="text-danger">*</sup></label>
-                                            <select name="region" id="region" class="form-control select2" required>
-                                                <option>Select regions</option>
-                                                @foreach ($regions as $id => $region)
-                                                    <option value="{{$id}}">{{$region}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('region')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

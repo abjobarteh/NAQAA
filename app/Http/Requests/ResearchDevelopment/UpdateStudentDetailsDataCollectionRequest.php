@@ -41,11 +41,11 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'attendance_status' => 'nullable|string',
             'admission_date' => 'nullable|date',
             'completion_date' => 'nullable|date',
-            'qualification_at_entry' => 'nullable|numeric|integer',
-            'award' => 'required|numeric|integer',
+            'qualification_at_entry' => 'nullable|string',
+            'award' => 'required|string',
             'education_field_id' => 'nullable|numeric|integer',
             'institution_id' => 'required|numeric|integer',
-            'studentdetail_type' => 'required|string',
+            'studentdetail_type' => 'required|in:graduate,admission',
         ];
     }
 
@@ -59,8 +59,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'programme.required' => 'Please Enter Programme name',
             'admission_date.date' => 'Admission Date must be a valid date entry',
             'completion_date.date' => 'Completion Date must be a valid date entry',
-            'qualification_at_entry.numeric' => 'The selected Qualification entry value is not valid',
-            'award.numeric' => 'The selected Award value is not valid',
+            'award.required' => 'Please select Award',
             'education_field_id.numeric' => 'The selected filed of education value is not valid',
             'institution_id.numeric' => 'The selected learning center value is not valid',
             'studentdetail_type.required' => 'Please Select the type of student detail data collection type',

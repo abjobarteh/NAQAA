@@ -68,6 +68,7 @@
                                         <div class="form-group">
                                             <label>Entry requirements: <sup class="text-danger">*</sup></label>
                                             <select name="entry_requirements[]" id="entry_requirements" class="form-control select2" multiple="multiple" required>
+                                                <option>Select entry requirements</option>
                                                 @foreach ($qualifications as $qualification)
                                                     <option value="{{$qualification}}">{{$qualification}}</option>
                                                 @endforeach
@@ -75,17 +76,6 @@
                                             @if($errors->has('entry_requirements'))
                                                 <span class="text-danger mt-1">{{ $errors->first('entry_requirements') }}</span>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Awarding body:</label>
-                                            <input type="text" class="form-control" name="awarding_body>
-                                            @error('awarding_body')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +95,22 @@
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Awarding body:</label>
+                                            <select name="awarding_body_id" id="awarding_body_id" class="form-control select2" required>
+                                                <option>Select awarding body</option>
+                                                @foreach ($awardbodies as $id => $body)
+                                                    <option value="{{$id}}">{{$body}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('awarding_body_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Learning center:</label>
                                             <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>

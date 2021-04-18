@@ -149,7 +149,9 @@
                                             <label>Ethnicity: <sup class="text-danger">*</sup></label>
                                             <select name="ethnicity" id="ethnicity" class="form-control select2 admission" required>
                                                 <option>Select ethnicity</option>
-                                                <option value="other" {{$student[0]->ethnicity == 'other' ? 'selected' : ''}}>Other</option>
+                                                @foreach ($ethnicities as $id => $ethnicity)
+                                                    <option value="{{$$ethnicity->name}}" {{$student[0]->ethnicity == $$ethnicity->name ? 'selected' : ''}}>{{$ethnicity}}</option>
+                                                @endforeach
                                             </select>
                                             @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -231,8 +233,8 @@
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
                                             <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
-                                                @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$id}}" {{$student[0]->qualification_at_entry == $id ? 'selected ' : ''}}>{{$qualification}}</option>
+                                                @foreach ($qualifications as $qualification)
+                                                    <option value="{{$qualification->name}}" {{$student[0]->qualification_at_entry == $qualification->name ? 'selected ' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('qualification_at_entry'))
@@ -246,7 +248,7 @@
                                             <select name="award" id="award" class="form-control select2" >
                                                 <option>Select Award</option>
                                                 @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$id}}" {{$student[0]->award == $id ? 'selected ' : ''}}>{{$qualification}}</option>
+                                                    <option value="{{$qualification->name}}" {{$student[0]->award == $qualification->name ? 'selected ' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @error('award')

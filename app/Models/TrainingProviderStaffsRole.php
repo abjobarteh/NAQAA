@@ -19,18 +19,18 @@ class TrainingProviderStaffsRole extends Model
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New Training Provider Staff Role added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Training Provider Staff Role updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Training Provider Staff Role deleted by ".auth()->user()->username;
-        };
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch($eventName){
+    //         case 'created': 
+    //                  return "New Training Provider Staff Role added by ".auth()->user()->username;
+    //         case 'updated': 
+    //                  return "Training Provider Staff Role updated by ".auth()->user()->username;
+    //         case 'deleted': 
+    //                  return "Training Provider Staff Role deleted by ".auth()->user()->username;
+    //     };
         
-    }
+    // }
 
     public function staffs()
     {

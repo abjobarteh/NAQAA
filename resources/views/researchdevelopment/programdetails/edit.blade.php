@@ -83,8 +83,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Awarding body:</label>
-                                            <input type="text" class="form-control" value="{{$programdetail[0]->awarding_body}}" name="awarding_body">
-                                            @error('awarding_body')
+                                            <select name="awarding_body_id" id="awarding_body_id" class="form-control select2" required>
+                                                <option>Select awarding body</option>
+                                                @foreach ($awardbodies as $id => $body)
+                                                    <option value="{{$id}}" {{$id == $programdetail[0]->awarding_body_id ? 'selected' : '' }}>{{$body}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('awarding_body_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

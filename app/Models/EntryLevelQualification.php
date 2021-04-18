@@ -32,13 +32,4 @@ class EntryLevelQualification extends Model
         
     // }
 
-    public function studentsAwards()
-    {
-        return $this->hasMany(StudentDetailsDataCollection::class,'award');
-    }
-
-    public function studentsEntryQualifications()
-    {
-        return $this->hasMany(StudentDetailsDataCollection::class,'qualification_at_entry');
-    }
 }

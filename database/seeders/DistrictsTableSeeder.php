@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\District;
+use App\Models\Region;
 use Illuminate\Database\Seeder;
 
 class DistrictsTableSeeder extends Seeder
@@ -13,6 +15,19 @@ class DistrictsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $regions = Region::all()->pluck('name','id');
+
+        if($regions->isNotEmpty()){
+            $regions->each(function($region, $id){
+                District::factory()->create([
+                    'region_id' => $id
+                ]);
+            });
+        }
+        else{
+
+            District::factory()->count(15)->create();
+        }
+
     }
 }

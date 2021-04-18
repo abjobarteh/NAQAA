@@ -8,6 +8,8 @@ use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequ
 use App\Models\Country;
 use App\Models\EducationField;
 use App\Models\EntryLevelQualification;
+use App\Models\Ethnicity;
+use App\Models\QualificationLevel;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 use Illuminate\Support\Facades\Gate;
@@ -24,7 +26,7 @@ class StudentDetailsController extends Controller
     {
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
         
-        $students = StudentDetailsDataCollection::with(['learningcenter','educationField','studentaward'])->get();
+        $students = StudentDetailsDataCollection::with(['learningcenter','educationField'])->get();
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
     }
@@ -38,7 +40,7 @@ class StudentDetailsController extends Controller
     {
         abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all('name');
 
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
 
@@ -46,7 +48,10 @@ class StudentDetailsController extends Controller
 
         $countries = Country::all('name');
 
-        return view('researchdevelopment.studentdetails.create', compact('qualifications','learningcenters','fields', 'countries'));
+        $ethnicities = Ethnicity::all('name');
+
+        return view('researchdevelopment.studentdetails.create',
+                     compact('qualifications','learningcenters','fields', 'countries','ethnicities'));
     }
 
     /**
@@ -90,7 +95,7 @@ class StudentDetailsController extends Controller
 
         $student = StudentDetailsDataCollection::where('id',$id)->get();
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all('name');
 
         $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
 
@@ -98,8 +103,10 @@ class StudentDetailsController extends Controller
 
         $countries = Country::all('name');
 
+        $ethnicities = Ethnicity::all('name');
+
         return view('researchdevelopment.studentdetails.edit', 
-                compact('qualifications','learningcenters','fields','student', 'countries'));
+                compact('qualifications','learningcenters','fields','student', 'countries','ethnicities'));
     }
 
     /**

@@ -62,16 +62,6 @@ class StudentDetailsDataCollection extends Model
         return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_id');
     }
 
-    public function qualificationAtEntry()
-    {
-        return $this->belongsTo(EntryLevelQualification::class,'qualification_at_entry');
-    }
-
-    public function studentaward()
-    {
-        return $this->belongsTo(EntryLevelQualification::class,'award'); 
-    }
-
     public function educationField()
     {
         return $this->belongsTo(EducationField::class,'education_field_id');

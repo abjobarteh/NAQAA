@@ -28,8 +28,8 @@ class CreateStudentDetailsDataCollectionsTable extends Migration
             $table->string('attendance_status')->nullable();
             $table->date('admission_date')->nullable();
             $table->date('completion_date')->nullable();
-            $table->foreignId('qualification_at_entry')->nullable()->constrained('entry_level_qualifications');
-            $table->foreignId('award')->nullable()->constrained('entry_level_qualifications');
+            $table->string('qualification_at_entry')->nullable();
+            $table->string('award');
             $table->foreignId('education_field_id')->nullable()->constrained();
             $table->foreignId('institution_id')->nullable()->constrained('institution_details_data_collections');
             $table->string('studentdetail_type')->nullable();

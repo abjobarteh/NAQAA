@@ -8,6 +8,7 @@ use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCol
 use App\Models\Country;
 use App\Models\EntryLevelQualification;
 use App\Models\Ethnicity;
+use App\Models\QualificationLevel;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderStaffsRank;
@@ -47,7 +48,7 @@ class AcademicAdminStaffDetailsController extends Controller
 
         $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all()->pluck('name','id');
 
         $ethnicities = Ethnicity::all('name');
 
@@ -103,7 +104,7 @@ class AcademicAdminStaffDetailsController extends Controller
 
         $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all()->pluck('name','id');
 
         $ethnicities = Ethnicity::all('name');
 

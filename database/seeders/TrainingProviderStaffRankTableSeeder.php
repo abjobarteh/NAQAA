@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\TrainingProviderStaffsRank;
 use Illuminate\Database\Seeder;
 
-class SubdivisionTableSeeder extends Seeder
+class TrainingProviderStaffRankTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,6 +14,6 @@ class SubdivisionTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        TrainingProviderStaffsRank::factory()->count(3)->create();
     }
 }

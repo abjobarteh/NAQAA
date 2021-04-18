@@ -147,7 +147,9 @@
                                             <label>Ethnicity: <sup class="text-danger">*</sup></label>
                                             <select name="ethnicity" id="ethnicity" class="form-control select2 admission">
                                                 <option>Select ethnicity</option>
-                                                <option value="other">Other</option>
+                                                @foreach ($ethnicities as $ethnicity)
+                                                    <option value="{{$ethnicity->name}}">{{$ethnicity->name}}</option>
+                                                @endforeach
                                             </select>
                                             @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -229,8 +231,8 @@
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
                                             <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
-                                                @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$id}}">{{$qualification}}</option>
+                                                @foreach ($qualifications as $qualification)
+                                                    <option value="{{$qualification->name}}">{{$qualification->name}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('qualification_at_entry'))
@@ -244,7 +246,7 @@
                                             <select name="award" id="award" class="form-control select2" >
                                                 <option>Select Award</option>
                                                 @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$id}}">{{$qualification}}</option>
+                                                    <option value="{{$qualification->name}}">{{$qualification->name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('award')

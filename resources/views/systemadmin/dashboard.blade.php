@@ -98,7 +98,7 @@
                       <tbody>
                         @forelse ($activities as $activity)
                                 <tr>
-                                    <td>{{ $activity->causer->username }}</td>
+                                    <td>{{ $activity->causer->username ?? 'N/A' }}</td>
                                     <td>{{ $activity->log_name }}</td>
                                     <td>{{ $activity->description }}</td>
                                     <td>{{ $activity->created_at }}</td>

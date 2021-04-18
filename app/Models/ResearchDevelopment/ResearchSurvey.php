@@ -23,6 +23,10 @@ class ResearchSurvey extends Model
         'remarks',
     ];
 
+    protected $casts = [
+        'publication_date' => 'datetime:Y-m-d'
+    ];
+
     protected static $logFillable = true;
 
     protected static $logName = 'Research Survey Documentation';

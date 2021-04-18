@@ -19,8 +19,8 @@ class CreateProgramDetailsDataCollectionsTable extends Migration
             $table->integer('duration');
             $table->double('tuition_fee_per_year');
             $table->string('entry_requirements');
-            $table->string('awarding_body');
             $table->foreignId('education_field_id')->nullable()->constrained();
+            $table->foreignId('awarding_body_id')->nullable()->constrained('award_bodies');
             $table->foreignId('institution_detail_id')->nullable()->constrained('institution_details_data_collections');
             $table->timestamps();
         });

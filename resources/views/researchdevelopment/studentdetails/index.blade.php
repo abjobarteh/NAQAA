@@ -19,11 +19,25 @@
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
+            {{-- <div class="row mt-2 mb-2">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <select name="filter_by_gender" id="filter_by_gender" class="form-control col-sm-3 select2">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
         </div>
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="roe">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -55,7 +69,7 @@
                                             <td>{{$student->phone ?? 'N/A'}}</td>
                                             <td>{{$student->admission_date ?? 'N/A'}}</td>
                                             <td>{{$student->programme}}</td>
-                                            <td>{{$student->studentaward->name}}</td>
+                                            <td>{{$student->award}}</td>
                                             <td>{{$student->learningcenter->training_provider_name ?? 'N/A'}}</td>
                                             <td>{{$student->studentdetail_type}}</td>
                                             <td>{{$student->created_at}}</td>
