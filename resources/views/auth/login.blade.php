@@ -6,7 +6,7 @@
         <div class="row d-flex">
             <div class="col-lg-6">
                 <div class="card1 pb-5">
-                    <div class="row"> <img src="/img/login-logo.png" class="logo"> </div>
+                    <div class="row"> <img src="/img/logo.jpg" class="logo"> </div>
                     <div class="row px-3 justify-content-center mt-4 mb-5 border-line"> <img src="/img/login-landing.png" class="image"> </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="bg-blue py-4">
             <div class="row px-3"> <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
-                <div class="social-contact ml-4 ml-sm-auto"> <span class="fa fa-facebook mr-4 text-sm"></span> <span class="fa fa-google-plus mr-4 text-sm"></span> <span class="fa fa-linkedin mr-4 text-sm"></span> <span class="fa fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
+                <div class="social-contact ml-4 ml-sm-auto"> <span class="fas fa-facebook mr-4 text-sm"></span> <span class="fas fa-google-plus mr-4 text-sm"></span> <span class="fas fa-linkedin mr-4 text-sm"></span> <span class="fas fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
             </div>
         </div>
     </div>

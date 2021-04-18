@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
 <!-- icheck bootstrap -->
 <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-@yield('styles')
+  @yield('styles')
 </head>
 <body class="hold-transition login-page">
 

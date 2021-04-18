@@ -1,55 +1,54 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="login-box">
-    <div class="card card-outline card-info">
-        <div class="card-header text-center">
-            <h1>NAQAA</h1>
-        </div>
-      <div class="card-body">
-        <p class="login-box-msg">{{ ucfirst(auth()->user()->first_name).' '.ucfirst(auth()->user()->last_name)  }}
-             for security reasons Please change your default sysadmin Password.
-        </p>
-  
-        <form action="/update-default-password" method="POST">
-            @csrf
-            @method('PUT')
-            <div class="input-group mb-3">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
+<div class="login_form_wrapper">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+              <!-- login_wrapper -->
+              <div class="login_wrapper">
+                  <div class="row">
+                      <div class="col-lg-12 col-md-6 col-xs-12 col-sm-6 mb-2">
+                          <b class="text-primary">For Security reasons you are adviced to please change your password</b>
+                      </div>
                   </div>
-                </div>
-                @error('password')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-              </div>
-              <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirmation">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fas fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-            <div class="row">
-                <div class="col-12">
-                <button type="submit" class="btn btn-info btn-block">Change Password</button>
-                </div>
-                <!-- /.col -->
-             </div>
-        </form>
-        <p class="mt-3 mb-1">
-            <a href="{{ route('skip-default-password') }}" onclick="event.preventDefault(); document.getElementById('skipDefaultpassworUpdate-form').submit();">Skip</a>
-            <form id="skipDefaultpassworUpdate-form" action="{{ route('skip-default-password') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-        </p>
+                  <form action="/update-default-password" method="post">
+                      @csrf
+                      @method('PUT')
+                      <div class="formsix-pos">
+                          <div class="form-group i-email">
+                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter New Password" required> 
+                          </div>
+                          @error('password')
+                            <div class="invalid-feedback m-1">{{ $message }}</div>
+                          @enderror
+                      </div>
+                      <div class="formsix-e">
+                          <div class="form-group i-password">
+                            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required> 
+                          </div>
+                      </div>
+
+                      <div class="login_btn_wrapper"> 
+                        <button type="submit" class="btn btn-primary btn-block login_btn"> Confirm </button>
+                      </div>
+                  </form>
+                    <div class="login_message">
+                        <p>Don’t want to change password ?
+                           <a href="{{ route('skip-default-password') }}" onclick="event.preventDefault(); document.getElementById('skipDefaultpassworUpdate-form').submit();"> Proceed </a>
+                        </p>
+                        <form id="skipDefaultpassworUpdate-form" action="{{ route('skip-default-password') }}" method="POST" style="display: none;">
+                          {{ csrf_field() }}
+                        </form>
+                    </div>
+              </div> <!-- /.login_wrapper-->
+          </div>
       </div>
-      <!-- /.login-card-body -->
-    </div>
   </div>
-  <!-- /.login-box -->
+</div>
+@endsection
+
+@section('styles')
+  <link rel="stylesheet" href="/css/auth.css">
 @endsection
 
