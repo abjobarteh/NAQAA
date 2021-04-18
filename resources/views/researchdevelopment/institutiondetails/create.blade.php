@@ -38,7 +38,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Learning Center Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="training_provider_name" required autofocus>
+                                            <input type="text" class="form-control" name="training_provider_name" value="{{ old('training_provider_name') }}" required autofocus>
                                             @error('training_provider_name')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -47,7 +47,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="email" class="form-control" name="email" required>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -58,7 +58,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Phone: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="phone" required>
+                                            <input type="text" class="form-control" name="phone" value="{{ old('phone') }}" required>
                                             @error('phone')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -67,7 +67,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Address: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="address" required>
+                                            <input type="text" class="form-control" name="address" value="{{ old('address') }}" required>
                                             @error('address')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -78,7 +78,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>P.O Box:</label>
-                                            <input type="text" class="form-control" name="po_box">
+                                            <input type="text" class="form-control" name="po_box" value="{{ old('po_box') }}">
                                             @error('po_box')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -87,7 +87,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Webiste:</label>
-                                            <input type="text" class="form-control" name="website">
+                                            <input type="text" class="form-control" name="website" value="{{ old('website') }}">
                                             @error('website')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -98,7 +98,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Financial Source: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="financial_source" required>
+                                            <input type="text" class="form-control" name="financial_source" value="{{ old('financial_source') }}" required>
                                             @error('financial_source')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -107,7 +107,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Estimated Yearly Tunrover:</label>
-                                            <input type="text" class="form-control" name="estimated_yearly_turnover">
+                                            <input type="text" class="form-control" name="estimated_yearly_turnover" value="{{ old('estimated_yearly_turnover') }}">
                                             @error('estimated_yearly_turnover')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -118,7 +118,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Enrollment Capacity:</label>
-                                            <input type="text" class="form-control" name="enrollment_capacity">
+                                            <input type="text" class="form-control" name="enrollment_capacity" value="{{ old('enrollment_capacity') }}">
                                             @error('enrollment_capacity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -129,7 +129,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>No. of Lecture rooms: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="no_of_lecture_rooms" required>
+                                            <input type="text" class="form-control" name="no_of_lecture_rooms" value="{{ old('no_of_lecture_rooms') }}" required>
                                             @error('no_of_lecture_rooms')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -138,7 +138,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>No. of Computer Labs: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="no_of_computer_labs" required>
+                                            <input type="text" class="form-control" name="no_of_computer_labs" value="{{ old('no_of_computer_labs') }}" required>
                                             @error('no_of_computer_labs')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -147,7 +147,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Total no. of Computers in Labs: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="total_no_of_computers_in_labs" required>
+                                            <input type="text" class="form-control" name="total_no_of_computers_in_labs" value="{{ old('total_no_of_computers_in_labs') }}" required>
                                             @error('total_no_of_computers_in_labs')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

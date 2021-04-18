@@ -11,7 +11,7 @@ Training Provider Ownerships
                 <h1 class="m-0">Training Provider Ownerships</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    @can('create_training_provider_classification')
+                    @can('create_general_configurations')
                     <a href="{{route('admin.training-provider-ownerships.create')}}" class="btn btn-primary float-right">Add Ownership</a>
                     @endcan
                 </div><!-- /.col -->
@@ -43,10 +43,10 @@ Training Provider Ownerships
                                         <td>{{ $ownership->name }}</td>
                                         <td>{{ $ownership->description ?? 'N/A'}}</td>
                                         <td>
-                                            @can('edit_training_provider_ownership')
+                                            @can('edit_general_configurations')
                                             <a href="{{ route('admin.training-provider-ownerships.edit',$ownership->id) }}" class="btn btn-primary btn-sm" title="Edit training provider ownerships"><i class="fas fa-user-edit"></i></a>
                                             @endcan
-                                            @can('delete_training_provider_ownership')
+                                            @can('delete_general_configurations')
                                             <a href="{{ route('admin.training-provider-ownerships.destroy',$ownership->id) }}" class="btn btn-danger btn-sm" title="delete training provider ownerships"><i class="fas fa-trash"></i></a>
                                             @endcan
                                         </td>

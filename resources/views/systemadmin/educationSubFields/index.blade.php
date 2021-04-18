@@ -11,7 +11,7 @@
                 <h1 class="m-0">SubFields of Education</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    @can('create_field_of_education')
+                    @can('create_general_configurations')
                     <a href="{{route('admin.education-subfields.create')}}" class="btn btn-primary float-right">Add SubField of Education</a>
                     @endcan
                 </div><!-- /.col -->
@@ -45,10 +45,10 @@
                                         <td>{{ $subfield->description ?? 'N/A'}}</td>
                                         <td>{{ $subfield->educationField->name ?? 'N/A'}}</td>
                                         <td>
-                                            @can('edit_field_of_education')
+                                            @can('edit_general_configurations')
                                             <a href="{{ route('admin.education-subfields.edit',$subfield->id) }}" class="btn btn-primary btn-sm" title="Edit field of education"><i class="fas fa-user-edit"></i></a>
                                             @endcan
-                                            @can('delete_field_of_education')
+                                            @can('delete_general_configurations')
                                             <a href="{{ route('admin.education-subfields.destroy',$subfield->id) }}" class="btn btn-danger btn-sm" title="delete field of education"><i class="fas fa-trash"></i></a>
                                             @endcan
                                         </td>

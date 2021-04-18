@@ -11,7 +11,7 @@ Training Provider Classifications
                 <h1 class="m-0">Training Provider Classifications</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    @can('create_training_provider_classification')
+                    @can('create_general_configurations')
                     <a href="{{route('admin.training-provider-classifications.create')}}" class="btn btn-primary float-right">Add Classification</a>
                     @endcan
                 </div><!-- /.col -->
@@ -43,10 +43,10 @@ Training Provider Classifications
                                         <td>{{ $classification->name }}</td>
                                         <td>{{ $classification->description ?? 'N/A'}}</td>
                                         <td>
-                                            @can('edit_training_provider_classification')
+                                            @can('edit_general_configurations')
                                             <a href="{{ route('admin.training-provider-classifications.edit',$classification->id) }}" class="btn btn-primary btn-sm" title="Edit entry level qualification"><i class="fas fa-user-edit"></i></a>
                                             @endcan
-                                            @can('delete_training_provider_classification')
+                                            @can('delete_general_configurations')
                                             <a href="{{ route('admin.training-provider-classifications.destroy',$classification->id) }}" class="btn btn-danger btn-sm" title="delete entry level qualification"><i class="fas fa-trash"></i></a>
                                             @endcan
                                         </td>

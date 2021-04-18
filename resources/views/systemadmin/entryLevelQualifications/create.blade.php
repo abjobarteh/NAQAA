@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Create Entry Level Qualification
+    Create Qualification
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
                 <div class="col-md-6 col-sm-12 text-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Entry Level Qualifications</a></li>
-                        <li class="breadcrumb-item active">Create entry level qualification</li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Qualifications</a></li>
+                        <li class="breadcrumb-item active">Create qualification</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Add Entry Level Qualification</h3>
+                            <h3 class="card-title">Add Qualification</h3>
                         </div>
                         <div class="card-body">
                             <form action="{{route('admin.entry-level-qualifications.store')}}" method="post">
@@ -31,7 +31,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Name: <span class="text-danger"><sup>*</sup></span></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="name" placeholder="Enter qualification name" required autofocus>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter qualification name" required autofocus>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                        @error('name')
@@ -42,7 +42,7 @@
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Description:</label>
                                     <div class="col-md-8">
-                                        <textarea name="description" id="description" class="form-control" cols="30" rows="10"></textarea>
+                                        <textarea name="description" id="description" value="{{ old('description') }}" class="form-control" cols="30" rows="10"></textarea>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                         @error('description')

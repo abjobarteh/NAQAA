@@ -19,18 +19,18 @@ class EntryLevelQualification extends Model
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New Entry level Qualification added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Entry level Qualification updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Entry level Qualification deleted by ".auth()->user()->username;
-        };
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch($eventName){
+    //         case 'created': 
+    //                  return "New Entry level Qualification added by ".auth()->user()->username;
+    //         case 'updated': 
+    //                  return "Entry level Qualification updated by ".auth()->user()->username;
+    //         case 'deleted': 
+    //                  return "Entry level Qualification deleted by ".auth()->user()->username;
+    //     };
         
-    }
+    // }
 
     public function studentsAwards()
     {

@@ -166,13 +166,24 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group row">
+                                            <label for="password" class="col-sm-2 col-form-label">Current Password</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" placeholder="Password" name="current_password">
+                                            </div>
+                                            <div class="mt-1">
+                                                @error('current_password')
+                                                    <span class="offset-sm-2 col-sm-10 text-danger">{{$message}}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
                                             <label for="password" class="col-sm-2 col-form-label">Password</label>
                                             <div class="col-sm-10">
                                                 <input type="password" class="form-control" placeholder="Password" name="password">
                                             </div>
                                             <div class="mt-1">
                                                 @error('password')
-                                                    <span class="text-danger">{{$message}}</span>
+                                                    <span class="offset-sm-2 col-sm-10 text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
                                         </div>

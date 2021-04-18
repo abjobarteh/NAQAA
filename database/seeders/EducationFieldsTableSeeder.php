@@ -49,6 +49,6 @@ class EducationFieldsTableSeeder extends Seeder
 
         // EducationField::insert($eduFields);
 
-        EducationField::factory()->count(20)->hasSubFields(20)->create();
+        EducationField::factory()->count(3)->hasSubFields(2)->create();
     }
 }

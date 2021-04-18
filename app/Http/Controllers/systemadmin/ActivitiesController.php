@@ -21,7 +21,7 @@ class ActivitiesController extends Controller
     {
         abort_if(Gate::denies('access_activity_logs'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
-        $activities = Activity::with(['causer','subject'])->orderBy('created_at','desc')->get();
+        $activities = Activity::with(['causer','subject'])->whereHas('causer')->orderBy('created_at','desc')->get();
 
         $roles = Role::all()->pluck('name','id');
 

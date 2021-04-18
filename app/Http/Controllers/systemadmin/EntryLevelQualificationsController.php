@@ -18,7 +18,7 @@ class EntryLevelQualificationsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_entry_level_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $qualifications = EntryLevelQualification::all();
 
@@ -32,7 +32,7 @@ class EntryLevelQualificationsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('create_entry_level_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.entryLevelQualifications.create');
     }
@@ -58,7 +58,7 @@ class EntryLevelQualificationsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('edit_entry_level_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $qualification = EntryLevelQualification::where('id',$id)->get();
 

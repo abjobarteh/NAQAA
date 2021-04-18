@@ -28,8 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Title</th>
-                                        <th>Actions</th>
+                                        <th>Name</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -37,15 +36,6 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $permission->slug }}</td>
-                                        <td>
-                                            {{-- remove edit button for security purpose @Biran --}}
-                                            {{-- @can('edit_permission')
-                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit "></i> Edit</a>
-                                            @endcan --}}
-                                            @can('show_permission')
-                                            <a href="{{ route('admin.permissions.edit', $permission->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye "></i> View</a>
-                                            @endcan
-                                        </td>
                                     </tr>
                                     @empty
                                         <tr>

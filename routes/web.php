@@ -14,6 +14,7 @@ use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCur
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
+use App\Http\Controllers\systemadmin\AwardingBodiesController;
 use App\Http\Controllers\systemadmin\BackupsController;
 use App\Http\Controllers\systemadmin\DashboardController;
 use App\Http\Controllers\systemadmin\DesignationsController;
@@ -22,9 +23,11 @@ use App\Http\Controllers\systemadmin\DistrictsController;
 use App\Http\Controllers\systemadmin\EducationFieldsController;
 use App\Http\Controllers\systemadmin\EducationSubFieldsController;
 use App\Http\Controllers\systemadmin\EntryLevelQualificationsController;
+use App\Http\Controllers\systemadmin\EthnicityController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
+use App\Http\Controllers\systemadmin\ProgrammesController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
@@ -120,6 +123,15 @@ Route::group(['middleware' => 'auth'], function(){
 
         // Application Fees Tariffs
         Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
+
+        // Etnicity Routes
+        Route::resource('ethnicity', EthnicityController::class)->except('destroy');
+
+        // Awarding bodies 
+        Route::resource('awarding-bodies', AwardingBodiesController::class);
+        
+        // National programmes
+        Route::resource('programmes', ProgrammesController::class);
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');

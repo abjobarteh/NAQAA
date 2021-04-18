@@ -15,7 +15,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="name">Name</label>
-                                    <input type="text" class="form-control" placeholder="Enter Role Name ex: User" id="name" name="name"  required autofocus>
+                                    <input type="text" class="form-control" placeholder="Enter Role Name ex: User" id="name" name="name" value="{{ old('name') }}"  required autofocus>
                                 </div>
                                 <div class="mt-1">
                                     @if($errors->has('name'))
@@ -26,7 +26,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="slug">Slug</label>
-                                    <input type="text" class="form-control" placeholder="Enter Role Name ex: user" id="slug" name="slug"  required autofocus>
+                                    <input type="text" class="form-control" placeholder="Enter Role Name ex: user" id="slug" name="slug" value="{{ old('slug') }}"  required autofocus>
                                 </div>
                                 <div class="mt-1">
                                     @if($errors->has('slug'))

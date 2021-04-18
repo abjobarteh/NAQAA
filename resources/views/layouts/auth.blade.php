@@ -31,6 +31,7 @@
 <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
 <!-- icheck bootstrap -->
 <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  @yield('styles')
 </head>
 <body class="hold-transition login-page">
 
@@ -65,8 +66,6 @@
   <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="/js/adminlte.js"></script>
-  <!-- custom js -->
-  <script src="/js/custom.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="/js/pages/dashboard.js"></script> --}}
   @include('sweetalert::alert')

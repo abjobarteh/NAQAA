@@ -43,10 +43,7 @@
                                         <td>{{ $region->name }}</td>
                                         <td>
                                             @can('edit_region')
-                                            <a href="{{ route('admin.regions.edit', $region->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
-                                            @endcan
-                                            @can('show_region')
-                                            <a href="{{ route('admin.regions.show', $region->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
+                                            <a href="{{ route('admin.regions.edit', $region->id) }}" class="btn btn-danger"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
                                         </td>
                                     </tr>
