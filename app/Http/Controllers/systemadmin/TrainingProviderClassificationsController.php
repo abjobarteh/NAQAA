@@ -18,7 +18,7 @@ class TrainingProviderClassificationsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_training_provider_classification'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $classifications = TrainingProviderClassification::all();
 
@@ -32,7 +32,7 @@ class TrainingProviderClassificationsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('create_training_provider_classification'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('systemadmin.trainingproviderclassifications.create');
     }
@@ -59,7 +59,7 @@ class TrainingProviderClassificationsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('edit_training_provider_classification'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $classification = TrainingProviderClassification::where('id', $id)->get();
 

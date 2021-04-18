@@ -19,7 +19,7 @@ class EducationSubFieldsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_sub_field_of_education'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $subfields = EducationSubField::with('educationField')->get();
 
@@ -33,7 +33,7 @@ class EducationSubFieldsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('create_sub_field_of_education'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('create_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $fields = EducationField::all()->pluck('name','id');
 
@@ -62,7 +62,7 @@ class EducationSubFieldsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('create_sub_field_of_education'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $subfield = EducationSubField::where('id',$id)->get();
 

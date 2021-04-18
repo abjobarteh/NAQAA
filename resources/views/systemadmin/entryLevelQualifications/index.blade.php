@@ -11,7 +11,7 @@
                 <h1 class="m-0">Qualifications</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    @can('create_entry_level_qualifications')
+                    @can('create_general_configurations')
                     <a href="{{route('admin.entry-level-qualifications.create')}}" class="btn btn-primary float-right">Add Qualification</a>
                     @endcan
                 </div><!-- /.col -->
@@ -43,10 +43,10 @@
                                         <td>{{ $qualification->name }}</td>
                                         <td>{{ $qualification->description ?? 'N/A'}}</td>
                                         <td>
-                                            @can('edit_entry_level_qualifications')
+                                            @can('edit_general_configurations')
                                             <a href="{{ route('admin.entry-level-qualifications.edit',$qualification->id) }}" class="btn btn-primary btn-sm" title="Edit entry level qualification"><i class="fas fa-user-edit"></i></a>
                                             @endcan
-                                            @can('delete_entry_level_qualifications')
+                                            @can('edit_entry_level_qualifications')
                                             <a href="{{ route('admin.entry-level-qualifications.destroy',$qualification->id) }}" class="btn btn-danger btn-sm" title="delete entry level qualification"><i class="fas fa-trash"></i></a>
                                             @endcan
                                         </td>

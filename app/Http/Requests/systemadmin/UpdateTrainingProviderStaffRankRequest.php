@@ -15,7 +15,7 @@ class UpdateTrainingProviderStaffRankRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('edit_academic_admin_staff_rank'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         return true;
     }

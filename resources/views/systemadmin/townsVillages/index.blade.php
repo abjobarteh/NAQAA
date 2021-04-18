@@ -47,9 +47,6 @@
                                             @can('edit_towns_villages')
                                             <a href="{{ route('admin.towns-villages.edit', $townVillage->id) }}" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> Edit</a>
                                             @endcan
-                                            @can('show_towns_villages')
-                                            <a href="{{ route('admin.towns-villages.show', $townVillage->id) }}" class="btn btn-info btn-sm"><i class="fas fa-eye"></i> view</a>
-                                            @endcan
                                         </td>
                                     </tr>
                                     @empty

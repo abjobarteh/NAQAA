@@ -15,7 +15,7 @@ class UpdateEntryLevelQualificationRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('edit_entry_level_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }

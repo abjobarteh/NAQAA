@@ -55,7 +55,8 @@
                             </div>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="btn btn-info btn-block">Save</button>
+                            <button type="submit" class="btn btn-info">Save</button>
+                            <a href="{{ route('admin.localgovermentareas.index') }}" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Back</a>
                         </div>
                     </div>
                 </form>
