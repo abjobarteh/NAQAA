@@ -25,7 +25,6 @@ class StudentDetailsDataCollection extends Model
         'programme',
         'attendance_status',
         'admission_date',
-        'completion_date',
         'qualification_at_entry',
         'award',
         'education_field_id',
@@ -65,6 +64,11 @@ class StudentDetailsDataCollection extends Model
     public function educationField()
     {
         return $this->belongsTo(EducationField::class,'education_field_id');
+    }
+
+    public function graduationDetail()
+    {
+        return $this->hasOne(GraduateStudentDataCollection::class,'student_details_id');
     }
 
 }

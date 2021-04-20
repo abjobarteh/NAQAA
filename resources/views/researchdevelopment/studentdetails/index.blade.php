@@ -14,7 +14,11 @@
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.student-details.create')}}" 
                             class="btn btn-primary float-right">
-                            New Data collection
+                            New Admission Data collection
+                        </a>
+                        <a href="{{route('researchdevelopment.datacollection.add-graduate-details')}}" 
+                            class="btn btn-info float-right mr-1">
+                            New Graduate Data collection
                         </a>
                     @endcan
                 </div><!-- /.col -->

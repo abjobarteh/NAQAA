@@ -11,6 +11,8 @@ use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedContr
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
 use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCurriculumDashboardController;
+use App\Http\Controllers\StandardsCurriculum\QualificationsController;
+use App\Http\Controllers\StandardsCurriculum\ReviewUnitStandardsController;
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
@@ -158,6 +160,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
         Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
         Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
+        Route::get('add-graduate-details', [StudentDetailsController::class,'addGraduateDetails'])->name('add-graduate-details');
+        Route::get('get-admission-details', [StudentDetailsController::class,'getAdmissionStudents'])->name('get-admission-details');
+        Route::post('store-graduation-details', [StudentDetailsController::class,'storeGraduationDetails'])->name('store-graduation-details');
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
         Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
         Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
@@ -177,6 +182,12 @@ Route::group(['middleware' => 'auth'], function(){
 
       // unit standards
       Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
+      Route::get('review-standards', [ReviewUnitStandardsController::class,'index'])->name('review-standards');
+      Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
+      Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
+
+      // Qualifications
+      Route::resource('qualifications',QualificationsController::class);
   });
 
 

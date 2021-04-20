@@ -116,7 +116,7 @@
                                         <div class="form-group">
                                             <label>Date of birth:</label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" value="{{$student[0]->phone}}" data-target="#date_of_birth"/>
+                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" value="{{$student[0]->date_of_birth}}" data-target="#date_of_birth"/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -149,8 +149,8 @@
                                             <label>Ethnicity: <sup class="text-danger">*</sup></label>
                                             <select name="ethnicity" id="ethnicity" class="form-control select2 admission" required>
                                                 <option>Select ethnicity</option>
-                                                @foreach ($ethnicities as $id => $ethnicity)
-                                                    <option value="{{$$ethnicity->name}}" {{$student[0]->ethnicity == $$ethnicity->name ? 'selected' : ''}}>{{$ethnicity}}</option>
+                                                @foreach ($ethnicities as $ethnicity)
+                                                    <option value="{{$ethnicity->name}}" {{$student[0]->ethnicity == $ethnicity->name ? 'selected' : ''}}>{{$ethnicity->name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('ethnicity')
@@ -212,20 +212,22 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group show-graduate">
-                                            <label>Completion Date: <sup class="text-danger">*</sup></label>
-                                            <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{$student[0]->completion_date}}" data-target="#completion_date"/>
-                                                <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    @if($student[0]->studentdetail_type == 'graduate')
+                                        <div class="col-sm-6">
+                                            <div class="form-group show-graduate">
+                                                <label>Completion Date: <sup class="text-danger">*</sup></label>
+                                                <div class="input-group date" id="completion_date" data-target-input="nearest">
+                                                    <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{$student[0]->completion_date}}" data-target="#completion_date"/>
+                                                    <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
                                                 </div>
+                                                @error('completion_date')
+                                                    <span class="text-danger mt-1">{{$message}}</span>
+                                                @enderror
                                             </div>
-                                            @error('completion_date')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 show-admission">
@@ -234,7 +236,7 @@
                                             <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
                                                 @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification->name}}" {{$student[0]->qualification_at_entry == $qualification->name ? 'selected ' : ''}}>{{$qualification}}</option>
+                                                    <option value="{{$qualification->name}}" {{$student[0]->qualification_at_entry == $qualification->name ? 'selected ' : ''}}>{{$qualification->name}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('qualification_at_entry'))
@@ -247,8 +249,8 @@
                                             <label>Award: <sup class="text-danger">*</sup></label>
                                             <select name="award" id="award" class="form-control select2" >
                                                 <option>Select Award</option>
-                                                @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$qualification->name}}" {{$student[0]->award == $qualification->name ? 'selected ' : ''}}>{{$qualification}}</option>
+                                                @foreach ($qualifications as $qualification)
+                                                    <option value="{{$qualification->name}}" {{$student[0]->award == $qualification->name ? 'selected ' : ''}}>{{$qualification->name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('award')
@@ -293,19 +295,19 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            var detailType = $("#studentdetail_type").val()
-            if(detailType == 'admission')
-            {
-                $('.show-graduate').hide();
-                $('.graduate').prop('disabled', true);
-                $('.show-admission').show();
+            // var detailType = $("#studentdetail_type").val()
+            // if(detailType == 'admission')
+            // {
+            //     $('.show-graduate').hide();
+            //     $('.graduate').prop('disabled', true);
+            //     $('.show-admission').show();
                 
-            }
-            if ($(this).val() == "graduate"){
-                $('.show-admission').hide();
-                $('.admission').prop('disabled', true);
-                $('.show-graduate').show(); 
-            }
+            // }
+            // if ($(this).val() == "graduate"){
+            //     $('.show-admission').hide();
+            //     $('.admission').prop('disabled', true);
+            //     $('.show-graduate').show(); 
+            // }
             
         })
         //Date range picker

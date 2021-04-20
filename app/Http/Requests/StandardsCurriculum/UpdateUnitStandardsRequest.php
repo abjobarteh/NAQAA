@@ -35,6 +35,7 @@ class UpdateUnitStandardsRequest extends FormRequest
             'validation_date' => 'required|date',
             'education_field_id' => 'required|numeric|integer',
             'education_sub_field_id' => 'required|numeric|integer',
+            'qualification_id' => 'required|numeric|integer',
             'qualification_level_id' => 'required|numeric|integer',
             'developed_by_stakeholders' => ['required', 'array'],
             'developed_by_stakeholders.*' => ['string'],
@@ -58,6 +59,8 @@ class UpdateUnitStandardsRequest extends FormRequest
             'education_field_id.numeric' => 'Please select a valid Unit Standard Field of Education',
             'education_sub_field_id.required' => 'Please select Unit Standard Sub Field of Education',
             'education_sub_field_id.numeric' => 'Please select a valid Unit Standard Sub Field of Education',
+            'qualification_id.required' => 'Please select Qualification',
+            'qualification_id.numeric' => 'Please select a valid Qualification',
             'qualification_level_id.required' => 'Please select Unit Standard NQF/GSQF Level',
             'qualification_level_id.numeric' => 'Please select a valid Unit Standard NQF/GSQF Level',
         ];

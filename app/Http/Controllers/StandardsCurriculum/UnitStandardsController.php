@@ -7,6 +7,7 @@ use App\Http\Requests\StandardsCurriculum\StoreUnitStandardsRequest;
 use App\Http\Requests\StandardsCurriculum\UpdateUnitStandardsRequest;
 use App\Models\EducationField;
 use App\Models\EducationSubField;
+use App\Models\Qualification;
 use App\Models\QualificationLevel;
 use App\Models\StandardsCurriculum\UnitStandard;
 use Illuminate\Support\Facades\Gate;
@@ -23,7 +24,9 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('access_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandards = UnitStandard::with(['fieldOfEducation','subFieldOfEducation','levelOfQualification'])->get();
+        $unitstandards = UnitStandard::with(
+            ['fieldOfEducation','subFieldOfEducation','levelOfQualification','qualification', 'unitStandardReviews'])
+            ->get();
 
         return view('standardscurriculum.unitstandards.index', compact('unitstandards'));
     }
@@ -40,8 +43,9 @@ class UnitStandardsController extends Controller
         $fields = EducationField::all()->pluck('name','id');
         $subfields = EducationSubField::all()->pluck('name','id');
         $levels = QualificationLevel::all()->pluck('name','id');
+        $qualifications = Qualification::all()->pluck('name','id');
 
-        return view('standardscurriculum.unitstandards.create', compact('fields','subfields','levels'));
+        return view('standardscurriculum.unitstandards.create', compact('fields','subfields','levels','qualifications'));
     }
 
     /**
@@ -88,8 +92,9 @@ class UnitStandardsController extends Controller
         $fields = EducationField::all()->pluck('name','id');
         $subfields = EducationSubField::all()->pluck('name','id');
         $levels = QualificationLevel::all()->pluck('name','id');
+        $qualifications = Qualification::all()->pluck('name','id');
 
-        return view('standardscurriculum.unitstandards.edit',compact('unitstandard','fields','subfields','levels'));
+        return view('standardscurriculum.unitstandards.edit',compact('unitstandard','fields','subfields','levels','qualifications'));
     }
 
     /**

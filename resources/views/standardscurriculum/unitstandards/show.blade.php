@@ -35,6 +35,10 @@
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
+                                        <b class="col-sm-6 text-primary">Qaulification: </b>
+                                        <p class="col-sm-6 text-muted">{{$unitstandard[0]->qualification->name ?? 'N/A'}}</p>
+                                    </div>
+                                    <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Unit Standard Title: </b>
                                         <p class="col-sm-6 text-muted">{{$unitstandard[0]->unit_standard_title}}</p>
                                     </div>
@@ -60,7 +64,7 @@
                                     </div> 
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Developed By (Stakeholders Involved): </b>
-                                        @if (isset($unitstandard[0]->other_qualifications))
+                                        @if (isset($unitstandard[0]->developed_by_stakeholders))
                                         @foreach($unitstandard[0]->developed_by_stakeholders as $stakeholder)
                                             <span class="badge rounded-pill bg-success m-1">{{$stakeholder}}</span>    
                                         @endforeach  
@@ -78,7 +82,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Stakeholders Involved in Validation: </b>
-                                        @if (isset($unitstandard[0]->other_qualifications))
+                                        @if (isset($unitstandard[0]->validated_by_stakeholders))
                                         @foreach($unitstandard[0]->validated_by_stakeholders as $stakeholder)
                                             <span class="badge rounded-pill bg-info m-1">{{$stakeholder}}</span>    
                                         @endforeach  

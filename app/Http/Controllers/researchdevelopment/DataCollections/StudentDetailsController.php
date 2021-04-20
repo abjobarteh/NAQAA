@@ -7,11 +7,13 @@ use App\Http\Requests\ResearchDevelopment\StoreStudentDetailsDataCollectionReque
 use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequest;
 use App\Models\Country;
 use App\Models\EducationField;
-use App\Models\EntryLevelQualification;
 use App\Models\Ethnicity;
 use App\Models\QualificationLevel;
+use App\Models\ResearchDevelopment\GraduateStudentDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -62,7 +64,22 @@ class StudentDetailsController extends Controller
      */
     public function store(StoreStudentDetailsDataCollectionRequest $request)
     {
-        StudentDetailsDataCollection::create($request->all());
+        
+        if($request->studentdetail_type == 'graduate')
+        {
+            DB::transaction(function () use($request) {
+                $student = StudentDetailsDataCollection::create($request->all());
+
+                GraduateStudentDataCollection::create([
+                    'student_details_id' => $student->id,
+                    'completion_date' => $request->completion_date
+                ]);
+            });
+           
+        }
+        else{
+            $student = StudentDetailsDataCollection::create($request->all());
+        }
 
         return redirect()->route('researchdevelopment.datacollection.student-details.index')
                 ->withSuccess('Student details data collection record successfully added');
@@ -93,7 +110,7 @@ class StudentDetailsController extends Controller
     {
         abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
-        $student = StudentDetailsDataCollection::where('id',$id)->get();
+        $student = StudentDetailsDataCollection::with('graduationDetail')->where('id',$id)->get();
 
         $qualifications = QualificationLevel::all('name');
 
@@ -121,10 +138,61 @@ class StudentDetailsController extends Controller
         StudentDetailsDataCollection $student_detail
         )
     {
-        $student_detail->update($request->validated());
+        if($request->studentdetail_type == 'graduate')
+        {
+            DB::transaction(function () use($student_detail, $request) {
+                $student_detail->update($request->validated());
+
+                $student_detail->graduationDetail()->update([
+                    'completion_date' => $request->completion_date
+                ]);
+
+            });
+           
+        }
+        else{
+            $student_detail = StudentDetailsDataCollection::create($request->all());
+        }
 
         return redirect()->route('researchdevelopment.datacollection.student-details.index')
                 ->withSuccess('Student details data collection record successfully updated');
+    }
+
+    public function addGraduateDetails()
+    {
+        $qualifications = QualificationLevel::all('name');
+
+        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
+
+        $fields = EducationField::all()->pluck('name','id');
+
+        $countries = Country::all('name');
+
+        $ethnicities = Ethnicity::all('name');
+
+        return view('researchdevelopment.studentdetails.create-graduate',
+                compact('qualifications','learningcenters','fields', 'countries','ethnicities'));
+    }
+
+    public function getAdmissionStudents(Request $request)
+    {
+        $students = StudentDetailsDataCollection::where('institution_id',$request->learningcenter)
+            ->where('studentdetail_type','admission')
+            ->whereYear('admission_date',$request->admission_year)->get();
+
+        return json_encode($students);
+    }
+
+    public function storeGraduationDetails(Request $request)
+    {
+        foreach($request->students as $student){
+            GraduateStudentDataCollection::create([
+                'student_details_id' => $student,
+                'completion_date' => $request->graduationDate
+            ]);
+        }
+
+        return json_encode(['status' => 200]);
     }
 
 }

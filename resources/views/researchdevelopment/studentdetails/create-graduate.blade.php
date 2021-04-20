@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    New Admission Student Details Data collection
+    New Student Details Data collection
 @endsection
 
 @section('content')
@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Record New Student Admission Details</h1>
+                <h1 class="m-0">Record New Graduate Student Details</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 col-md-6">
                     <ol class="breadcrumb float-right">
@@ -17,7 +17,7 @@
                                 Student details data collection
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">New Student details collection</li>
+                        <li class="breadcrumb-item active">New graduate Student details collection</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,12 +29,41 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">New Student Admission Details Collection</h3>
+                            <h3 class="card-title">New Student Graduate Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.student-details.store')}}" method="post" autocomplete="off">
+                            <div class="row filter-row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Learning Center: <sup class="text-danger">*</sup></label>
+                                        <select name="learningcenter" id="learningcenter" class="form-control select2" required>
+                                            <option>Select learning center</option>
+                                            @foreach ($learningcenters as $id => $center)
+                                                <option value="{{$id}}">{{$center}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Admission Year: <sup class="text-danger">*</sup></label>
+                                        <input type="text" class="form-control" name="admission_year" id="admission_year" required autofocus>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 d-flex btn-block align-items-end">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary btn-block" id="submit-filter">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row m-2 student-details">
+                                
+                            </div>
+
+                            <form action="{{route('researchdevelopment.datacollection.student-details.store')}}" method="post" autocomplete="off" id="new-graduation-form" hidden>
                                 @csrf
-                                <input type="hidden" name="studentdetail_type" value="admission">
+                                <input type="hidden" name="studentdetail_type" value="graduate">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -196,7 +225,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Admission Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="admission_date" data-target-input="nearest">
@@ -206,6 +235,20 @@
                                                 </div>
                                             </div>
                                             @error('admission_date')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 show-graduate">
+                                        <div class="form-group">
+                                            <label>Completion Date: <sup class="text-danger">*</sup></label>
+                                            <div class="input-group date" id="completion_date" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input graduate" name="completion_date" value="{{ old('completion_date') }}" data-target="#completion_date" required/>
+                                                <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                </div>
+                                            </div>
+                                            @error('completion_date')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -271,21 +314,192 @@
             $('#date_of_birth').datetimepicker({
             format: 'YYYY-MM-DD'
             });
+            
+            // Filter graduate students by admission year
+            $('#submit-filter').click(function(e){
+                    $.ajax({
+                    method: 'GET',
+                    url: "{{ route('researchdevelopment.datacollection.get-admission-details') }}",
+                    data: {learningcenter: $('#learningcenter').val(),admission_year:$('#admission_year').val()},
+                    success: function(response){
+                        let data = JSON.parse(response)
+                        if(data.length == 0)
+                        {
+                            toastr.error('No Students admitted in this year')
+                            $('#new-graduation-form').attr('hidden',false)
+                            $('.filter-row').attr('hidden',true)
+                            $('.student-details').attr('hidden',true)
+                        }
+                        else{
+                        let temp =  '<div class="row">'+
+                                    '<div class="col-sm-8">'+
+                                        '<div class="form-group">'+
+                                            '<label>Completion Date: <sup class="text-danger">*</sup></label>'+
+                                            '<div class="input-group date" id="graduation_date" data-target-input="nearest">'+
+                                                '<input type="text" class="form-control datetimepicker-input" name="graduation_date" id="graduation_year" data-target="#graduation_date" required/>'+
+                                                '<div class="input-group-append" data-target="#graduation_date" data-toggle="datetimepicker">'+
+                                                    '<div class="input-group-text"><i class="fa fa-calendar"></i></div>'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<div class="col-sm-4 d-flex align-items-end">'+
+                                        '<div class="form-group">'+
+                                            '<button class="btn btn-info btn-block" id="submit-graduates">Submit</button>'+
+                                        '</div>'+
+                                    '</div>'+
+                            '<div class="col-12">'+
+                            '<table id="example2" class="table datatable table-responsive">'+
+                                '<thead>'+
+                                    '<tr>'+
+                                        '<th><input type="checkbox" id="select-all-students" /></th>'+
+                                        '<th>StudentID</th>'+
+                                        '<th>Fullname</th>'+
+                                        '<th>Gender</th>'+
+                                        '<th>Ethnicity</th>'+
+                                        '<th>Date of Birth</th>'+
+                                        '<th>Admission Date</th>'+
+                                        '<th>Attendance Status</th>'+
+                                        '<th>Qualification at Entry</th>'+
+                                        '<th>Award</th>'+
+                                    '</tr>'+
+                                    '</thead>'+
+                                    '<tbody>';
+                                        data.forEach(function(val, key){
+                                            temp+='<tr>'+
+                                                `<td><input type="checkbox" name="students[]" class="students" value="${val.id}"/></td>`+
+                                                `<td>${val.student_id}</td>`+
+                                                `<td>${val.firstname +" " +val.middlename + " " +val.lastname }</td>`+
+                                                `<td>${val.gender}</td>`+
+                                                `<td>${val.ethnicity}</td>`+
+                                                `<td>${val.date_of_birth}</td>`+
+                                                `<td>${val.admission_date}</td>`+
+                                                `<td>${val.attendance_status}</td>`+
+                                                `<td>${val.qualification_at_entry}</td>`+
+                                                `<td>${val.award}</td>`+
+                                            '</tr>';
+                                        })
 
-            // $("#studentdetail_type").change(function() {
-            // if ($(this).val() == "admission") {
-            //     $('.show-graduate').hide();
-            //     $('.graduate').prop('disabled', true);
-            //     $('.admission').prop('disabled', false);
-            //     $('.show-admission').show();
-            // }
-            // if ($(this).val() == "graduate"){
-            //     $('.show-admission').hide();
-            //     $('.admission').prop('disabled', true);
-            //     $('.graduate').prop('disabled', false);
-            //     $('.show-graduate').show();
-            // }
-            // });
+                                    temp+='</tbody>'+
+                            '</table>'+
+                            '</div>'+
+                            '</div>';
+
+                            $('.student-details').append(temp);
+                            $('.datatable').DataTable({
+                                "responsive": true, "lengthChange": true, "autoWidth": false,"paging": true,
+                                "lengthChange": true,"ordering": false,"info": true,
+                                "searching": true,
+                                "buttons": ["copy", "csv", "excel", "pdf", "print"]
+                            });
+
+                            $('#graduation_date').datetimepicker({
+                                format: 'YYYY-MM-DD'
+                            });
+                        }
+                    },
+                    error: function(error){
+                        console.log(error)
+                    }
+                })
+            })
+
+            // Submit graduation students data
+            $(document).on('click', '#submit-graduates', function(){ 
+
+                let graduation_date =  $('#graduation_year').val();
+                let selectedstudents  = [];
+                let errors = [];
+            
+                $('.students').each(function(){
+                    if($(this).is(':checked')){
+                        selectedstudents.push(this.value)
+                    }
+                 });
+
+
+                if (selectedstudents.length == 0){
+                    Swal.fire({
+                                title: 'No Student selected',
+                                text: 'Please Select at least one student',
+                                icon: 'error',
+                                confirmButtonText: 'Close'
+                    })
+                    errors.push('student_error')
+
+                    return;
+                }
+                if(graduation_date == null || graduation_date == '' || graduation_date == undefined){
+                    Swal.fire({
+                                title: 'No Completion Date',
+                                text: 'Please Enter the Date of Completion',
+                                icon: 'error',
+                                confirmButtonText: 'Close'
+                    })
+                    errors.push('graduation_date_error')
+                    return;
+                }
+
+                if(errors.length > 0){
+                    Swal.fire({
+                        title: 'Errors',
+                        text: 'Please enter review date and select at least one unit standard',
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                    }) 
+                }
+                else{
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({  
+                            method:"POST",  
+                            url:"{{ route('researchdevelopment.datacollection.store-graduation-details') }}",  
+                            data: {students:selectedstudents,graduationDate:graduation_date},
+                            type:'json',
+                            success:function(response)  
+                            {
+                                let data = JSON.parse(response)
+                                if(data.status == 200){
+                                    Swal.fire({
+                                        title: 'Success',
+                                        text: 'Graduation date successfully added successfully added',
+                                        icon: 'success',
+                                        confirmButtonText: 'Close'
+                                    }) 
+                                }
+                            },
+                            error: function(err)
+                            {
+                                console.log(err);
+                            }  
+                    });     
+                }
+            });
+
+            // // Select all students checkbox
+            $(document).on('click', '#select-all-students', function(){  
+                if ($("#select-all-students").is(':checked')){
+                    $(".students").each(function (){
+                    $(this).prop("checked", true);
+                    });
+                    }
+                else{
+                    $(".students").each(function (){
+                            $(this).prop("checked", false);
+                    });
+                }
+            }); 
+
+            // Display forms if there is validation error
+            @if($errors->any())
+                $('#new-graduation-form').attr('hidden',false)
+                $('.filter-row').attr('hidden',true)
+            @endif
+    
         })
     </script>
 @endsection
