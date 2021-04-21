@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -31,4 +32,9 @@ class QualificationLevel extends Model
     //     };
         
     // }
+
+    public function students(){
+        
+        return $this->hasMany(StudentDetailsDataCollection::class,'qualification_at_entry');
+    }
 }

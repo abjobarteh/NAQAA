@@ -17,7 +17,7 @@
                                 Institution details data collection
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">{{$data[0]->training_provider_name}} data collection details</li>
+                        <li class="breadcrumb-item active">{{$data[0]->name}} data collection details</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,14 +29,14 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Showing {{$data[0]->training_provider_name}} Data Collection details</h3>
+                            <h3 class="card-title">Showing {{$data[0]->name}} Data Collection details</h3>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Training Provider Name: </b>
-                                        <p class="col-sm-5 text-muted">{{$data[0]->training_provider_name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data[0]->name}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Email: </b>

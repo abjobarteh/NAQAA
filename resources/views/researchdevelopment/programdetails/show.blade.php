@@ -63,11 +63,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Awarding Body: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->awarding_body}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->awardBody->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Learning Center: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->learningcenter->training_provider_name}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetail[0]->learningcenter->name}}</p>
                                     </div>
                                 </div>
                             </div>

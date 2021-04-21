@@ -46,7 +46,7 @@
                                 <tbody>
                                     @forelse ($institutionsdata as $data)
                                         <tr>
-                                            <td>{{$data->training_provider_name}}</td>
+                                            <td>{{$data->name}}</td>
                                             <td>{{$data->estimated_yearly_turnover}}</td>
                                             <td>{{$data->enrollment_capacity}}</td>
                                             <td>{{$data->no_of_lecture_rooms}}</td>

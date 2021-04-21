@@ -47,12 +47,8 @@
                                         <p class="col-sm-7 text-muted">{{$staffdetail[0]->nationality}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-5 text-primary">Ethnicity: </b>
-                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->ethnicity}}</p>
-                                    </div>
-                                    <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Date of Birth: </b>
-                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->ethnicity}}</p>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail[0]->date_of_birth}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Phone Number: </b>

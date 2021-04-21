@@ -38,14 +38,16 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Student Data Collection Type: <sup class="text-danger">*</sup></label>
-                                            <select name="studentdetail_type" id="studentdetail_type" class="form-control select2">
-                                                <option value="graduate" {{$student[0]->studentdetail_type == 'graduate' ? 'selected ' : ''}}>Graduate</option>
-                                                <option value="admission" {{$student[0]->studentdetail_type == 'admission' ? 'selected' : ''}}>Admission</option>
+                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
+                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
+                                                <option>Select learning center</option>
+                                                @foreach ($learningcenters as $id => $center)
+                                                    <option value="{{$id}}" {{$student[0]->institution_id == $id ? 'selected ' : ''}}>{{$center}}</option>
+                                                @endforeach
                                             </select>
-                                            @if($errors->has('studentdetail_type'))
-                                                <span class="text-danger mt-1">{{ $errors->first('studentdetail_type') }}</span>
-                                            @endif
+                                            @error('institution_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +130,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6 show-admission">
+                                    <div class="col-sm-12 show-admission">
                                         <div class="form-group">
                                             <label>Nationality: <sup class="text-danger">*</sup></label>
                                             <select name="nationality" id="nationality" class="form-control select2 admission" required>
@@ -140,20 +142,6 @@
                                                 @endforeach
                                             </select>
                                             @error('nationality')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 show-admission">
-                                        <div class="form-group">
-                                            <label>Ethnicity: <sup class="text-danger">*</sup></label>
-                                            <select name="ethnicity" id="ethnicity" class="form-control select2 admission" required>
-                                                <option>Select ethnicity</option>
-                                                @foreach ($ethnicities as $ethnicity)
-                                                    <option value="{{$ethnicity->name}}" {{$student[0]->ethnicity == $ethnicity->name ? 'selected' : ''}}>{{$ethnicity->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -212,22 +200,20 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    @if($student[0]->studentdetail_type == 'graduate')
-                                        <div class="col-sm-6">
-                                            <div class="form-group show-graduate">
-                                                <label>Completion Date: <sup class="text-danger">*</sup></label>
-                                                <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                    <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{$student[0]->completion_date}}" data-target="#completion_date"/>
-                                                    <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
-                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group show-graduate">
+                                            <label>Completion Date: <sup class="text-danger">*</sup></label>
+                                            <div class="input-group date" id="completion_date" data-target-input="nearest">
+                                                <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{$student[0]->completion_date}}" data-target="#completion_date"/>
+                                                <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
+                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
-                                                @error('completion_date')
-                                                    <span class="text-danger mt-1">{{$message}}</span>
-                                                @enderror
                                             </div>
+                                            @error('completion_date')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
                                         </div>
-                                    @endif
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 show-admission">
@@ -235,8 +221,8 @@
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
                                             <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
-                                                @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification->name}}" {{$student[0]->qualification_at_entry == $qualification->name ? 'selected ' : ''}}>{{$qualification->name}}</option>
+                                                @foreach ($qualifications as $id => $qualification)
+                                                    <option value="{{$id}}" {{$student[0]->qualification_at_entry == $id ? 'selected ' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('qualification_at_entry'))
@@ -249,27 +235,11 @@
                                             <label>Award: <sup class="text-danger">*</sup></label>
                                             <select name="award" id="award" class="form-control select2" >
                                                 <option>Select Award</option>
-                                                @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification->name}}" {{$student[0]->award == $qualification->name ? 'selected ' : ''}}>{{$qualification->name}}</option>
+                                                @foreach ($qualifications as $id => $qualification)
+                                                    <option value="{{$id}}" {{$student[0]->award == $id ? 'selected ' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @error('award')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
-                                                @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}" {{$student[0]->institution_id == $id ? 'selected ' : ''}}>{{$center}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('institution_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -318,17 +288,17 @@
         format: 'YYYY-MM-DD'
         });
 
-        $("#studentdetail_type").change(function() {
-        if ($(this).val() == "admission") {
-            $('.show-graduate').hide();
-            $('.graduate').prop('disabled', true);
-            $('.show-admission').show();
-        } 
-        if ($(this).val() == "graduate") {
-            $('.show-admission').hide();
-            $('.admission').prop('disabled', true);
-            $('.show-graduate').show();
-        }
-        });
+        // $("#studentdetail_type").change(function() {
+        // if ($(this).val() == "admission") {
+        //     $('.show-graduate').hide();
+        //     $('.graduate').prop('disabled', true);
+        //     $('.show-admission').show();
+        // } 
+        // if ($(this).val() == "graduate") {
+        //     $('.show-admission').hide();
+        //     $('.admission').prop('disabled', true);
+        //     $('.show-graduate').show();
+        // }
+        // });
     </script>
 @endsection

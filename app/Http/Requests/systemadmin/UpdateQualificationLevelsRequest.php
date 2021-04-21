@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class UpdateEntryLevelQualificationRequest extends FormRequest
+class UpdateQualificationLevelsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

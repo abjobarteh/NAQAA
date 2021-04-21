@@ -14,11 +14,7 @@
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.student-details.create')}}" 
                             class="btn btn-primary float-right">
-                            New Admission Data collection
-                        </a>
-                        <a href="{{route('researchdevelopment.datacollection.add-graduate-details')}}" 
-                            class="btn btn-info float-right mr-1">
-                            New Graduate Data collection
+                            New Student Data collection
                         </a>
                     @endcan
                 </div><!-- /.col -->
@@ -59,7 +55,6 @@
                                         <th>Programme</th>
                                         <th>Award</th>
                                         <th>Learning Center</th>
-                                        <th>Student Detail Type</th>
                                         <th>Date Collected</th>
                                         <th>Actions</th>
                                     </tr>
@@ -74,8 +69,7 @@
                                             <td>{{$student->admission_date ?? 'N/A'}}</td>
                                             <td>{{$student->programme}}</td>
                                             <td>{{$student->award}}</td>
-                                            <td>{{$student->learningcenter->training_provider_name ?? 'N/A'}}</td>
-                                            <td>{{$student->studentdetail_type}}</td>
+                                            <td>{{$student->learningcenter->name ?? 'N/A'}}</td>
                                             <td>{{$student->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

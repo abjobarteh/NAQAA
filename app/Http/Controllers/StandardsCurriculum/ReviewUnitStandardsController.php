@@ -29,12 +29,12 @@ class ReviewUnitStandardsController extends Controller
      */
     public function create(Request $request)
     {
-        foreach($request->standards as $standard){
-            UnitStandardReview::create([
-                'unit_standard_id' => $standard,
-                'review_date' => $request->reviewDate
-            ]);
-        }
+        // foreach($request->standards as $standard){
+        //     UnitStandardReview::create([
+        //         'unit_standard_id' => $standard,
+        //         'review_date' => $request->reviewDate
+        //     ]);
+        // }
 
         return json_encode(['status' => 200]);
     }

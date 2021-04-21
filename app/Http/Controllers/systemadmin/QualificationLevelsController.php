@@ -3,26 +3,21 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\systemadmin\CreateEntryLevelQualificationRequest;
-use App\Http\Requests\systemadmin\UpdateEntryLevelQualificationRequest;
-use App\Models\EntryLevelQualification;
+use App\Http\Requests\systemadmin\StoreQualificationLevelsRequest;
+use App\Http\Requests\systemadmin\UpdateQualificationLevelsRequest;
+use App\Models\QualificationLevel;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
-class EntryLevelQualificationsController extends Controller
+class QualificationLevelsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualifications = EntryLevelQualification::all();
+        $qualifications = QualificationLevel::all();
 
-        return view('systemadmin.entryLevelQualifications.index', compact('qualifications'));
+        return view('systemadmin.qualificationlevels.index', compact('qualifications'));
     }
 
     /**
@@ -34,7 +29,7 @@ class EntryLevelQualificationsController extends Controller
     {
         abort_if(Gate::denies('create_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('systemadmin.entryLevelQualifications.create');
+        return view('systemadmin.qualificationlevels.create');
     }
 
     /**
@@ -43,11 +38,11 @@ class EntryLevelQualificationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateEntryLevelQualificationRequest $request)
+    public function store(StoreQualificationLevelsRequest $request)
     {
-        EntryLevelQualification::create($request->validated());
+        QualificationLevel::create($request->validated());
 
-        return redirect(route('admin.entry-level-qualifications.index'))->withSuccess('Qualification successfully added');
+        return redirect(route('admin.qualification-levels.index'))->withSuccess('Qualification level successfully added');
     }
 
     /**
@@ -60,9 +55,9 @@ class EntryLevelQualificationsController extends Controller
     {
         abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualification = EntryLevelQualification::where('id',$id)->get();
+        $qualification = QualificationLevel::where('id',$id)->get();
 
-        return view('systemadmin.entryLevelQualifications.edit', compact('qualification'));
+        return view('systemadmin.qualificationlevels.edit', compact('qualification'));
     }
 
     /**
@@ -72,11 +67,11 @@ class EntryLevelQualificationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEntryLevelQualificationRequest $request, EntryLevelQualification $entry_level_qualification)
+    public function update(UpdateQualificationLevelsRequest $request, QualificationLevel $entry_level_qualification)
     {
         $entry_level_qualification->update($request->validated());
 
-        return redirect(route('admin.entry-level-qualifications.index'))->withSuccess('Qualification updated successfully');
+        return redirect(route('admin.qualification-levels.index'))->withSuccess('Qualification level updated successfully');
     }
 
     /**

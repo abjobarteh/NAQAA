@@ -18,7 +18,6 @@ class AcademicAdminStaffDataCollection extends Model
         'lastname',
         'gender',
         'nationality',
-        'ethnicity',
         'date_of_birth',
         'phone',
         'email',

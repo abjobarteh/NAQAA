@@ -36,6 +36,22 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Learning center:</label>
+                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
+                                                <option>Select learning center</option>
+                                                @foreach ($learningcenters as $id => $center)
+                                                    <option value="{{$id}}" {{$id == $programdetail[0]->institution_detail_id ? 'selected' : ''}}>{{$center}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('institution_detail_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Program Name: <sup class="text-danger">*</sup></label>
@@ -96,7 +112,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Field of Education: <sup class="text-danger">*</sup></label>
                                             <select name="education_field_id" id="education_field_id" class="form-control select2" required>
@@ -106,20 +122,6 @@
                                                 @endforeach
                                             </select>
                                             @error('education_field_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Learning center:</label>
-                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
-                                                @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}" {{$id == $programdetail[0]->institution_detail_id ? 'selected' : ''}}>{{$center}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('institution_detail_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

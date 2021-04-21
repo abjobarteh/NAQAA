@@ -35,6 +35,22 @@
                             <form action="{{route('researchdevelopment.datacollection.program-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Learning center:</label>
+                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
+                                                <option>Select learning center</option>
+                                                @foreach ($learningcenters as $id => $center)
+                                                    <option value="{{$id}}">{{$center}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('institution_detail_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Program Name: <sup class="text-danger">*</sup></label>
@@ -104,22 +120,6 @@
                                                 @endforeach
                                             </select>
                                             @error('awarding_body_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Learning center:</label>
-                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
-                                                @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}">{{$center}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('institution_detail_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

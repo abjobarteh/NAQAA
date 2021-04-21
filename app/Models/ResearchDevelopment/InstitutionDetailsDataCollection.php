@@ -16,7 +16,7 @@ class InstitutionDetailsDataCollection extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'training_provider_name',
+        'name',
         'email',
         'address',
         'po_box',

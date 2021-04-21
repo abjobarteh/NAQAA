@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Edit Qualification
+    Edit Qualification Level
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
             <div class="col-md-6 col-sm-12 text-right">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.entry-level-qualifications.index')}}">Qualifications</a></li>
-                        <li class="breadcrumb-item active">Edit qualification</li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.qualification-levels.index')}}">Qualification levels</a></li>
+                        <li class="breadcrumb-item active">Edit qualification Level</li>
                 </ol>
             </div>
         </div>
@@ -23,10 +23,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="card-title">Edit Qualification</h3>
+                        <h3 class="card-title">Edit Qualification Level</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{route('admin.entry-level-qualifications.update', $qualification[0]->id)}}" method="post">
+                        <form action="{{route('admin.qualification-levels.update', $qualification[0]->id)}}" method="post">
                             @csrf
                             @method('PUT')
                             <div class="form-group row">
@@ -54,7 +54,7 @@
                             <div class="form-group row">
                                 <div class="offset-md-4">
                                     <button class="btn btn-primary pr-2">Save</button>
-                                    <a href="{{route('admin.entry-level-qualifications.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
+                                    <a href="{{route('admin.qualification-levels.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
                                 </div>
                             </div>
                         </form>

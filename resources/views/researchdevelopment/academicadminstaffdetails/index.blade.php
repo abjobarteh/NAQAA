@@ -53,7 +53,7 @@
                                             <td>{{$staff->rank->name ?? 'N/A'}}</td>
                                             <td>{{$staff->role->name ?? 'N/A'}}</td>
                                             <td>{{$staff->main_teaching_field_of_study}}</td>
-                                            <td>{{$staff->learningcenter->training_provider_name ?? 'N/A'}}</td>
+                                            <td>{{$staff->learningcenter->name ?? 'N/A'}}</td>
                                             <td>{{$staff->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

@@ -35,6 +35,22 @@
                             <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
+                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
+                                                <option>Select learning center</option>
+                                                @foreach ($learningcenters as $id => $center)
+                                                    <option value="{{$id}}">{{$center}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('institution_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
@@ -64,7 +80,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
@@ -77,7 +93,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Nationality:</label>
                                             <select name="nationality" id="nationality" class="form-control select2">
@@ -87,20 +103,6 @@
                                                 @endforeach
                                             </select>
                                             @error('phone')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Ethnicity: <sup class="text-danger">*</sup></label>
-                                            <select name="ethnicity" id="ethnicity" class="form-control select2" required>
-                                                <option>Select ethnicity</option>
-                                                @foreach ($ethnicities as $ethnicity)
-                                                    <option value="{{$ethnicity->name}}">{{$ethnicity->name}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -276,22 +278,6 @@
                                             @if($errors->has('secondary_teaching_fields_of_study'))
                                                 <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_fields_of_study') }}</span>
                                             @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
-                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
-                                                @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}">{{$center}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('institution_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
                                         </div>
                                     </div>
                                 </div>

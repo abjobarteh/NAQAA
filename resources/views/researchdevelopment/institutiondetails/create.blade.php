@@ -38,8 +38,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Learning Center Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="training_provider_name" value="{{ old('training_provider_name') }}" required autofocus>
-                                            @error('training_provider_name')
+                                            <input type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                            @error('name')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

@@ -28,7 +28,7 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'training_provider_name' => 'required|string',
+            'name' => 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
             'address' => 'required|string',
@@ -51,7 +51,7 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
     public function messages()
     {
         return [
-            'training_provider_name.required' => 'Please Enter Learning center name!',
+            'name.required' => 'Please Enter Learning center name!',
             'emai.required' => 'Email field cannot be empty. Please Enter an email!',
             'emai.email' => 'Please Enter a valid email address!',
             'phone.required' => 'Please Enter a Phone number!',

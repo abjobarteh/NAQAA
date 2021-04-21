@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    National Programmes
+    Qualification Levels
 @endsection
 
 @section('content')
@@ -8,11 +8,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">National Programmes</h1>
+                <h1 class="m-0">Qualification Levels</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     @can('create_general_configurations')
-                    <a href="{{route('admin.programmes.create')}}" class="btn btn-primary float-right">Add Programme</a>
+                    <a href="{{route('admin.qualification-levels.create')}}" class="btn btn-primary float-right">Add Qualification Level</a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -24,7 +24,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">National Programmes Lists</h6>
+                            <h6 class="card-title">Qualification Levels Lists</h6>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table datatable table-bordered table-hover">
@@ -32,23 +32,28 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Description</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($programmes as $program)
+                                    @forelse ($qualifications as $qualification)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $program->name }}</td>
+                                        <td>{{ $qualification->name }}</td>
+                                        <td>{{ $qualification->description ?? 'N/A'}}</td>
                                         <td>
                                             @can('edit_general_configurations')
-                                            <a href="{{ route('admin.programmes.edit',$program->id) }}" class="btn btn-primary btn-sm" title="Edit award body"><i class="fas fa-user-edit"></i></a>
+                                            <a href="{{ route('admin.qualification-levels.edit',$qualification->id) }}" class="btn btn-primary btn-sm" title="Edit entry level qualification"><i class="fas fa-user-edit"></i></a>
+                                            @endcan
+                                            @can('edit_entry_level_qualifications')
+                                            <a href="{{ route('admin.qualification-levels.destroy',$qualification->id) }}" class="btn btn-danger btn-sm" title="delete entry level qualification"><i class="fas fa-trash"></i></a>
                                             @endcan
                                         </td>
                                     </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="10" class="text-center">No registered national programmes in the system</td>
+                                            <td colspan="10" class="text-center">No registered qualification levels in the system</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

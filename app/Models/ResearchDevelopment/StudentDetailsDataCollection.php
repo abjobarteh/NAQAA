@@ -3,7 +3,7 @@
 namespace App\Models\ResearchDevelopment;
 
 use App\Models\EducationField;
-use App\Models\EntryLevelQualification;
+use App\Models\QualificationLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -20,16 +20,15 @@ class StudentDetailsDataCollection extends Model
         'gender',
         'phone',
         'nationality',
-        'ethnicity',
         'date_of_birth',
         'programme',
         'attendance_status',
         'admission_date',
+        'completion_date',
         'qualification_at_entry',
         'award',
         'education_field_id',
         'institution_id',
-        'studentdetail_type',
     ];
 
     protected static $logFillable = true;
@@ -66,9 +65,14 @@ class StudentDetailsDataCollection extends Model
         return $this->belongsTo(EducationField::class,'education_field_id');
     }
 
-    public function graduationDetail()
+    public function entryQualification()
     {
-        return $this->hasOne(GraduateStudentDataCollection::class,'student_details_id');
+        return $this->belongsTo(QualificationLevel::class,'qualification_at_entry');
+    }
+
+    public function awardName()
+    {
+        return $this->belongsTo(QualificationLevel::class,'award');
     }
 
 }

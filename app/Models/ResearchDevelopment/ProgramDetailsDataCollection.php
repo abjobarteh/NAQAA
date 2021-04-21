@@ -17,7 +17,7 @@ class ProgramDetailsDataCollection extends Model
         'duration',
         'tuition_fee_per_year',
         'entry_requirements',
-        'awarding_body',
+        'awarding_body_id',
         'education_field_id',
         'institution_detail_id'
     ];

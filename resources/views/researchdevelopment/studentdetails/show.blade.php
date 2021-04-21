@@ -35,10 +35,6 @@
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Student Detail Data Collection Type: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->studentdetail_type}}</p>
-                                    </div>
-                                    <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Full Name: </b>
                                         <p class="col-sm-6 text-muted">{{$student[0]->full_name}}</p>
                                     </div>
@@ -60,13 +56,6 @@
                                         <p class="text-muted text-sm col-sm-6">{{$student[0]->nationality}}</p>
                                     </div>
 
-
-                                    <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Ethnicity: </b>
-                                        <p class="text-muted text-sm col-sm-6">{{$student[0]->ethnicity}}</p>
-                                    </div>
-
-
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Attendance Status: </b>
                                         <p class="col-sm-6 text-muted">{{$student[0]->attendance_status}}</p>
@@ -74,7 +63,7 @@
 
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Qualification At Entry: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->qualification_at_entry}}</p>
+                                        <p class="col-sm-6 text-muted">{{$student[0]->entryQualification->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Programme: </b>
@@ -88,32 +77,21 @@
                                         <b class="col-sm-6 text-primary">Attendance Status: </b>
                                         <p class="col-sm-6 text-muted">{{$student[0]->attendance_status}}</p>
                                     </div>
-
-
                                     <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Qualification At Entry: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->qualification_at_entry}}</p>
+                                        <b class="col-sm-6 text-primary">Completion Date: </b>
+                                        <p class="col-sm-6 text-muted">{{$student[0]->completion_date ?? 'N/A'}}</p>
                                     </div>
- 
-                                    @if ($student[0]->studentdetail_type == 'graduate')
-
-                                        <div class="form-group row">
-                                            <b class="col-sm-6 text-primary">Completion Date: </b>
-                                            <p class="col-sm-6 text-muted">{{$student[0]->graduationDetail->completion_date ?? 'N/A'}}</p>
-                                        </div>
- 
-                                     @endif
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Award: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->award}}</p>
+                                        <p class="col-sm-6 text-muted">{{$student[0]->awardName->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Field of Education: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->educationField->name}}</p>
+                                        <p class="col-sm-6 text-muted">{{$student[0]->educationField->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Learning Center: </b>
-                                        <p class="col-sm-6 text-muted">{{$student[0]->learningcenter->training_provider_name}}</p>
+                                        <p class="col-sm-6 text-muted">{{$student[0]->learningcenter->name ?? 'N/A'}}</p>
                                     </div> 
                                 </div>
                             </div>

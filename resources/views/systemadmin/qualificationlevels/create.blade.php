@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Add Ethnicity
+    Create Qualification Level
 @endsection
 
 @section('content')
@@ -10,8 +10,8 @@
                 <div class="col-md-6 col-sm-12 text-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.ethnicity.index')}}">Ethnicities</a></li>
-                        <li class="breadcrumb-item active">Add ethnicity</li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.qualification-levels.index')}}">Qualification levels</a></li>
+                        <li class="breadcrumb-item active">Create qualification level</li>
                     </ol>
                 </div>
             </div>
@@ -23,15 +23,15 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">Add Ethnicity</h3>
+                            <h3 class="card-title">Add Qualification Level</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('admin.ethnicity.store')}}" method="post">
+                            <form action="{{route('admin.qualification-levels.store')}}" method="post">
                                 @csrf
                                 <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Name: <span class="text-danger"><sup>*</sup></span></label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter ethnicity name" required autofocus>
+                                        <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter qualification name" required autofocus>
                                     </div>
                                     <div class="col-md-12 mt-1">
                                        @error('name')
@@ -40,9 +40,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="name" class="col-form-label col-md-4">Description:</label>
+                                    <div class="col-md-8">
+                                        <textarea name="description" id="description" value="{{ old('description') }}" class="form-control" cols="30" rows="10"></textarea>
+                                    </div>
+                                    <div class="col-md-12 mt-1">
+                                        @error('description')
+                                            <span class="text-danger">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <div class="offset-md-4">
                                         <button class="btn btn-primary pr-2">Save</button>
-                                        <a href="{{route('admin.ethnicity.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
+                                        <a href="{{route('admin.qualification-levels.index')}}" class="btn btn-warning text-white"><i class="fas fa-arrow-left"></i> Back</a>
                                     </div>
                                 </div>
                             </form>
