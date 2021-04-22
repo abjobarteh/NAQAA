@@ -63,7 +63,7 @@
         </p>
       </a>
     </li>
-    {{-- @can('access_research_development_data_import')
+    @can('access_research_development_data_import')
     <li class="nav-item">
       <a href="{{route('researchdevelopment.datacollection.datacollection-imports.index')}}" class="nav-link 
       {{ request()->is('researchdevelopment/datacollection/datacollection-imports') || 
@@ -74,7 +74,7 @@
         </p>
       </a>
     </li>
-    @endcan --}}
+    @endcan
   </ul>
 </li>
 @endcan
@@ -87,6 +87,19 @@
       <i class="nav-icon fas fa-poll"></i>
       <p>
         Research Documentation
+      </p>
+    </a>
+  </li>
+  @endcan
+@can('access_research_survey_documentation')
+<li class="nav-item">
+    <a href="{{route('researchdevelopment.job-vacancies.index')}}" class="nav-link {{
+       request()->is('researchdevelopment/job-vacancies') ||
+       request()->is('researchdevelopment/job-vacancies/*') ? 'active' : '' }}"
+       >
+      <i class="nav-icon fas fa-briefcase"></i>
+      <p>
+        Vacancies Information
       </p>
     </a>
   </li>

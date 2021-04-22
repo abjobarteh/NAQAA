@@ -371,6 +371,26 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'researchdevelopment'
             ],
             [
+                'name' => 'Access Job Vacancy',
+                'slug' => 'access_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Create Job Vacancy',
+                'slug' => 'create_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Edit Job Vacancy',
+                'slug' => 'edit_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Show Job Vacancy',
+                'slug' => 'show_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
                 'name' => 'Access Research Development Reports',
                 'slug' => 'access_research_development_reports',
                 'permission_type' => 'researchdevelopment'

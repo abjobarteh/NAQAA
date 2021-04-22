@@ -33,13 +33,13 @@ class DashboardController extends Controller
             ],
             [
                 'name' => 'Total Graduates',
-                'data' => StudentDetailsDataCollection::where('studentdetail_type','graduate')->count(),
+                'data' => StudentDetailsDataCollection::whereYear('completion_date', date('Y'))->count(),
                 'background' => 'bg-warning',
                 'icon' => 'fas fa-graduation-cap'
             ],
             [
                 'name' => 'Total Admissions',
-                'data' => StudentDetailsDataCollection::where('studentdetail_type','admission')->count(),
+                'data' => StudentDetailsDataCollection::whereYear('admission_date' ,date('Y'))->count(),
                 'background' => 'bg-warning',
                 'icon' => 'fas fa-user-graduate'
             ],
