@@ -6,8 +6,6 @@ use App\Imports\ResearchDevelopment\Sheets\AcademicAdminStaffSheetImport;
 use App\Imports\ResearchDevelopment\Sheets\InstitutiondetailsSheetImport;
 use App\Imports\ResearchDevelopment\Sheets\ProgramsOfferedSheetImport;
 use App\Imports\ResearchDevelopment\Sheets\StudentDetailSheetImport;
-use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class DatacollectionImport implements WithMultipleSheets
