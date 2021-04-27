@@ -25,7 +25,7 @@ class UnitStandardsController extends Controller
         abort_if(Gate::denies('access_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $unitstandards = UnitStandard::with(
-            ['fieldOfEducation','subFieldOfEducation','levelOfQualification','qualification', 'unitStandardReviews'])
+            ['fieldOfEducation','subFieldOfEducation','levelOfQualification','qualification'])
             ->get();
 
         return view('standardscurriculum.unitstandards.index', compact('unitstandards'));
@@ -72,7 +72,7 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('show_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandard = UnitStandard::with(['fieldOfEducation','subFieldOfEducation','levelOfQualification','UnitStandardReviews'])
+        $unitstandard = UnitStandard::with(['fieldOfEducation','subFieldOfEducation','levelOfQualification'])
                     ->where('id',$id)->get();
 
         return view('standardscurriculum.unitstandards.show', compact('unitstandard'));

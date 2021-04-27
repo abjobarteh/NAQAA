@@ -161,7 +161,7 @@
         
             })
 
-            // // Select all standards checkbox
+             // Select all standards checkbox
             $(document).on('click', '#select-all-standards', function(){  
                 if ($("#select-all-standards").is(':checked')){
                     $(".standards").each(function (){
@@ -228,7 +228,7 @@
 
                     $.ajax({  
                             method:"POST",  
-                            url:"{{ route('standardscurriculum.review-standards') }}",  
+                            url:"{{ route('standardscurriculum.update-review-date') }}",  
                             data: {standards:selectedstandards,reviewDate:review_date},
                             type:'json',
                             success:function(response)  

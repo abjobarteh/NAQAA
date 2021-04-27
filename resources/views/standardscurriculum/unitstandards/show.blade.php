@@ -63,10 +63,10 @@
                                         <p class="col-sm-6 text-muted">{{$unitstandard[0]->minimum_required_hours}}</p>
                                     </div> 
                                     <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Developed By (Stakeholders Involved): </b>
+                                        <b class="col-sm-6 text-primary">Developed By (Stakeholders Involved):</b>
                                         @if (isset($unitstandard[0]->developed_by_stakeholders))
                                         @foreach($unitstandard[0]->developed_by_stakeholders as $stakeholder)
-                                            <span class="badge rounded-pill bg-success m-1">{{$stakeholder}}</span>    
+                                            <span class="badge badge-rounded badge-primary m-1">{{$stakeholder}}</span>    
                                         @endforeach  
                                         @else
                                             <p class="col-sm-6 text-muted">N/A</p> 
@@ -84,20 +84,12 @@
                                         <b class="col-sm-6 text-primary">Stakeholders Involved in Validation: </b>
                                         @if (isset($unitstandard[0]->validated_by_stakeholders))
                                         @foreach($unitstandard[0]->validated_by_stakeholders as $stakeholder)
-                                            <span class="badge rounded-pill bg-info m-1">{{$stakeholder}}</span>    
+                                            <span class="badge badge-rounded badge-primary m-1">{{$stakeholder}}</span>    
                                         @endforeach  
                                         @else
                                             <p class="col-sm-6 text-muted">N/A</p> 
                                         @endif
-                                    </div> 
-                                    <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Last Review Date: </b>
-                                        @if ($unitstandard[0]->UnitStandardReviews()->exists())   
-                                            <p class="col-sm-6 text-muted">{{$unitstandard[0]->UnitStandardReviews->review_date}}</p>
-                                        @else
-                                           <P class="col-sm-6 text-muted">{{'N/A'}} </P>
-                                        @endif
-                                    </div> 
+                                    </div>  
                                 </div>
                             </div>
                             <div class="row">

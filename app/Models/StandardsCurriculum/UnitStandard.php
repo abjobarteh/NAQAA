@@ -68,11 +68,6 @@ class UnitStandard extends Model
         return json_decode($value);
     }
 
-    public function unitStandardReviews()
-    {
-        return $this->hasMany(UnitStandardReview::class,'unit_standard_id');
-    }
-
     public function fieldOfEducation()
     {
         return $this->belongsTo(EducationField::class,'education_field_id');

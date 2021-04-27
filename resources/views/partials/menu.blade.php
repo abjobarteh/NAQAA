@@ -135,7 +135,7 @@
   {{ request()->is('standardscurriculum/qualifications') || 
      request()->is('standardscurriculum/qualifications/*') ? 'active' : '' }}"
     >
-    <i class="nav-icon fas fa-scroll"></i>
+    <i class="nav-icon fas fa-award"></i>
     <p>
       Qualifications
     </p>
@@ -155,7 +155,7 @@
   </a>
   </li>
   @endcan
-@can('access_unit_standard_reviews')
+{{-- @can('access_unit_standard_reviews')
 <li class="nav-item">
   <a href="{{route('standardscurriculum.review-standards')}}" class="nav-link 
   {{ request()->is('standardscurriculum/review-standards') || 
@@ -167,7 +167,7 @@
     </p>
   </a>
   </li>
-  @endcan
+  @endcan --}}
   @can('access_unit_standard_reports')
   <li class="nav-item">
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{

@@ -13,10 +13,10 @@ class Qualification extends Model
 
     protected $fillable = [
         'name',
-        'tutition_fee',
+        'tuition_fee',
         'entry_requirements',
-        'description',
-        'duration',
+        'mode_of_delivery',
+        'minimum_duration',
         'qualification_level_id',
         'education_field_id',
         'education_sub_field_id',
@@ -54,5 +54,25 @@ class Qualification extends Model
     public function unitStandards()
     {
         return $this->hasMany(UnitStandard::class,'qualification_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(QualificationLevel::class,'qualification_level_id');
+    }
+
+    public function fieldOfEducation()
+    {
+        return $this->belongsTo(EducationField::class,'education_field_id');
+    }
+
+    public function subfieldOfEducation()
+    {
+        return $this->belongsTo(EducationSubField::class,'education_sub_field_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(QualificationReview::class);
     }
 }

@@ -440,6 +440,26 @@ class PermissionsTableSeeder extends Seeder
                 'slug' => 'access_unit_standard_reports',
                 'permission_type' => 'standardscurriculum'
             ],
+            [
+                'name' => 'Access Qualification',
+                'slug' => 'access_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Create Qualification',
+                'slug' => 'create_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Edit Qualification',
+                'slug' => 'edit_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Show Qualification',
+                'slug' => 'show_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
         ];
 
         Permission::insert($permissions);

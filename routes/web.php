@@ -180,10 +180,11 @@ Route::group(['middleware' => 'auth'], function(){
       // unit standards
       Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
       Route::get('review-standards', [ReviewUnitStandardsController::class,'index'])->name('review-standards');
-      Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
-      Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
+      // Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
+      // Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
 
       // Qualifications
+      Route::post('update-review-date', [QualificationsController::class,'updateReviewDate'])->name('update-review-date');
       Route::resource('qualifications',QualificationsController::class);
   });
 
