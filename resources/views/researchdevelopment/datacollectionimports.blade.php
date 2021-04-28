@@ -25,7 +25,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <form action="{{route('researchdevelopment.datacollection.datacollection-imports.store')}}" method="post" enctype="multipart/form-data">
+                            <form action="{{route('researchdevelopment.datacollection-imports.store')}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <label for="customFile">Datacollection Template:</label>
                                 <div class="form-group">

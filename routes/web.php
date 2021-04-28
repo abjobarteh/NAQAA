@@ -157,8 +157,6 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('get-admission-details', [StudentDetailsController::class,'getAdmissionStudents'])->name('get-admission-details');
         Route::post('store-graduation-details', [StudentDetailsController::class,'storeGraduationDetails'])->name('store-graduation-details');
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
-        Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
-        Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
     });
 
     // Research survey documentation
@@ -166,6 +164,10 @@ Route::group(['middleware' => 'auth'], function(){
 
     // Job vacancy
     Route::resource('job-vacancies',JobVacanciesDataController::class)->except('destroy');
+
+    // Imports
+    Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+    Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
   });
 

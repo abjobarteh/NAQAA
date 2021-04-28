@@ -24,7 +24,7 @@ class StudentDetailsController extends Controller
     {
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
         
-        $students = StudentDetailsDataCollection::with(['learningcenter','educationField'])->get();
+        $students = StudentDetailsDataCollection::with(['learningcenter','educationField','awardName'])->get();
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
     }

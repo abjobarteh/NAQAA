@@ -4,6 +4,7 @@ namespace App\Models\ResearchDevelopment;
 
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -50,6 +51,11 @@ class StudentDetailsDataCollection extends Model
         
     }
 
+    public function setDateOfBirthAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = new Carbon($value);
+    }
+    
     public function getFullNameAttribute()
     {
         return "{$this->firstname} .{$this->middlename}. {$this->lastname}";

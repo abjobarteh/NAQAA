@@ -63,18 +63,6 @@
         </p>
       </a>
     </li>
-    @can('access_research_development_data_import')
-    <li class="nav-item">
-      <a href="{{route('researchdevelopment.datacollection.datacollection-imports.index')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/datacollection/datacollection-imports') || 
-         request()->is('researchdevelopment/datacollection/datacollection-imports/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-import"></i>
-        <p>
-           Automatic Import
-        </p>
-      </a>
-    </li>
-    @endcan
   </ul>
 </li>
 @endcan
@@ -104,6 +92,18 @@
     </a>
   </li>
   @endcan
+  @can('access_research_development_data_import')
+    <li class="nav-item">
+      <a href="{{route('researchdevelopment.datacollection-imports.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection-imports') || 
+         request()->is('researchdevelopment/datacollection-imports/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-file-import"></i>
+        <p>
+           Automatic Import
+        </p>
+      </a>
+    </li>
+    @endcan
   @can('access_research_development_reports')
   <li class="nav-item">
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{

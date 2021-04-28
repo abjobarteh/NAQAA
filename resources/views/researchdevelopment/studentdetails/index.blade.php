@@ -68,7 +68,7 @@
                                             <td>{{$student->phone ?? 'N/A'}}</td>
                                             <td>{{$student->admission_date ?? 'N/A'}}</td>
                                             <td>{{$student->programme}}</td>
-                                            <td>{{$student->award}}</td>
+                                            <td>{{$student->awardName->name ?? 'N/A'}}</td>
                                             <td>{{$student->learningcenter->name ?? 'N/A'}}</td>
                                             <td>{{$student->created_at}}</td>
                                             <td>

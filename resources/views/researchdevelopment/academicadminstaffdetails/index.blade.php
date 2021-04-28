@@ -14,7 +14,7 @@
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.create')}}" 
                             class="btn btn-primary float-right">
-                            New Data collection
+                            Add staff
                         </a>
                     @endcan
                 </div><!-- /.col -->

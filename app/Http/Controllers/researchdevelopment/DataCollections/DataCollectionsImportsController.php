@@ -30,7 +30,7 @@ class DataCollectionsImportsController extends Controller
 
         Excel::import(new DatacollectionImport, $request->file('excelfile'));
 
-        return redirect()->route('researchdevelopment.datacollection.datacollection-imports.index')
+        return redirect()->route('researchdevelopment.datacollection-imports.index')
                 ->withSuccess('Import has started. we will notify when its done');
     }
 }
