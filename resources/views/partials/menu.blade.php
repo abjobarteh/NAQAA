@@ -63,18 +63,6 @@
         </p>
       </a>
     </li>
-    @can('access_research_development_data_import')
-    <li class="nav-item">
-      <a href="{{route('researchdevelopment.datacollection.datacollection-imports.index')}}" class="nav-link 
-      {{ request()->is('researchdevelopment/datacollection/datacollection-imports') || 
-         request()->is('researchdevelopment/datacollection/datacollection-imports/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-import"></i>
-        <p>
-           Automatic Import
-        </p>
-      </a>
-    </li>
-    @endcan
   </ul>
 </li>
 @endcan
@@ -91,6 +79,31 @@
     </a>
   </li>
   @endcan
+@can('access_research_survey_documentation')
+<li class="nav-item">
+    <a href="{{route('researchdevelopment.job-vacancies.index')}}" class="nav-link {{
+       request()->is('researchdevelopment/job-vacancies') ||
+       request()->is('researchdevelopment/job-vacancies/*') ? 'active' : '' }}"
+       >
+      <i class="nav-icon fas fa-briefcase"></i>
+      <p>
+        Vacancies Information
+      </p>
+    </a>
+  </li>
+  @endcan
+  @can('access_research_development_data_import')
+    <li class="nav-item">
+      <a href="{{route('researchdevelopment.datacollection-imports.index')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection-imports') || 
+         request()->is('researchdevelopment/datacollection-imports/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-file-import"></i>
+        <p>
+           Automatic Import
+        </p>
+      </a>
+    </li>
+    @endcan
   @can('access_research_development_reports')
   <li class="nav-item">
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
@@ -118,6 +131,19 @@
 </li>
 @can('access_unit_standards')
 <li class="nav-item">
+  <a href="{{route('standardscurriculum.qualifications.index')}}" class="nav-link 
+  {{ request()->is('standardscurriculum/qualifications') || 
+     request()->is('standardscurriculum/qualifications/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-award"></i>
+    <p>
+      Qualifications
+    </p>
+  </a>
+  </li>
+  @endcan
+@can('access_unit_standards')
+<li class="nav-item">
   <a href="{{route('standardscurriculum.unit-standards.index')}}" class="nav-link 
   {{ request()->is('standardscurriculum/unit-standards') || 
      request()->is('standardscurriculum/unit-standards/*') ? 'active' : '' }}"
@@ -129,6 +155,19 @@
   </a>
   </li>
   @endcan
+{{-- @can('access_unit_standard_reviews')
+<li class="nav-item">
+  <a href="{{route('standardscurriculum.review-standards')}}" class="nav-link 
+  {{ request()->is('standardscurriculum/review-standards') || 
+     request()->is('standardscurriculum/review-standards/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-scroll"></i>
+    <p>
+      Review Unit Standards
+    </p>
+  </a>
+  </li>
+  @endcan --}}
   @can('access_unit_standard_reports')
   <li class="nav-item">
     <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{

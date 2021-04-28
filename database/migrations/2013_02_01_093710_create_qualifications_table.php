@@ -16,10 +16,10 @@ class CreateQualificationsTable extends Migration
         Schema::create('qualifications', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('tuition_fee');
-            $table->text('entry_requirements');
-            $table->integer('duration');
-            $table->text('description')->nullable();
+            $table->double('tuition_fee');
+            $table->longText('entry_requirements');
+            $table->string('mode_of_delivery');
+            $table->integer('minimum_duration');
             $table->foreignId('qualification_level_id')->nullable()->constrained();
             $table->foreignId('education_field_id')->nullable()->constrained();
             $table->foreignId('education_sub_field_id')->nullable()->constrained();

@@ -24,6 +24,7 @@ class CreateUnitStandardsTable extends Migration
             $table->date('validation_date')->nullable();
             $table->foreignId('education_field_id')->nullable()->constrained('education_fields');
             $table->foreignId('education_sub_field_id')->nullable()->constrained('education_sub_fields');
+            $table->foreignId('qualification_id')->nullable()->constrained();
             $table->foreignId('qualification_level_id')->nullable()->constrained('qualification_levels');
             $table->timestamps();
         });

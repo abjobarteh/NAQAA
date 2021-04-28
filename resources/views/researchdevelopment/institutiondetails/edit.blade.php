@@ -39,8 +39,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Learning Center Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="training_provider_name" value="{{$data[0]->training_provider_name}}" required autofocus>
-                                            @error('training_provider_name')
+                                            <input type="text" class="form-control" name="name" value="{{$data[0]->name}}" required autofocus>
+                                            @error('name')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -188,6 +188,20 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
+                                            <label>Region: <sup class="text-danger">*</sup></label>
+                                            <select name="region" id="region" class="form-control select2" required>
+                                                <option>Select regfions</option>
+                                                @foreach ($regions as $id => $region)
+                                                    <option value="{{$region}}"{{$data[0]->region == $id ? 'selected' : ''}}>{{$region}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('region')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
                                             <label>District: <sup class="text-danger">*</sup></label>
                                             <select name="district_id" id="district_id" class="form-control select2" required>
                                                 <option>Select district</option>
@@ -210,20 +224,6 @@
                                                 @endforeach
                                             </select>
                                             @error('lga_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Region: <sup class="text-danger">*</sup></label>
-                                            <select name="region" id="region" class="form-control select2" required>
-                                                <option>Select regfions</option>
-                                                @foreach ($regions as $id => $region)
-                                                    <option value="{{$region}}"{{$data[0]->region == $id ? 'selected' : ''}}>{{$region}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('region')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

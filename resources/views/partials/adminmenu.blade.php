@@ -157,7 +157,7 @@
         || request()->is('admin/education-subfields') || request()->is('admin/education-subfields/*')
         || request()->is('admin/training-provider-staff-ranks') || request()->is('admin/training-provider-staff-ranks/*')
         || request()->is('admin/training-provider-staff-roles') || request()->is('admin/training-provider-staff-roles/*')
-        || request()->is('admin/entry-level-qualifications') || request()->is('admin/entry-level-qualifications/*')
+        || request()->is('admin/qualification-levels') || request()->is('admin/qualification-levels/*')
         || request()->is('admin/training-provider-classifications') || request()->is('admin/training-provider-classifications/*')
         || request()->is('admin/training-provider-ownerships') || request()->is('admin/training-provider-ownerships/*')
         || request()->is('admin/ethnicity') || request()->is('admin/ethnicity/*')

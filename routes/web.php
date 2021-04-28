@@ -9,8 +9,11 @@ use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImpo
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
+use App\Http\Controllers\ResearchDevelopment\JobVacanciesDataController;
 use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCurriculumDashboardController;
+use App\Http\Controllers\StandardsCurriculum\QualificationsController;
+use App\Http\Controllers\StandardsCurriculum\ReviewUnitStandardsController;
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
@@ -22,12 +25,10 @@ use App\Http\Controllers\systemadmin\DirectoratesController;
 use App\Http\Controllers\systemadmin\DistrictsController;
 use App\Http\Controllers\systemadmin\EducationFieldsController;
 use App\Http\Controllers\systemadmin\EducationSubFieldsController;
-use App\Http\Controllers\systemadmin\EntryLevelQualificationsController;
-use App\Http\Controllers\systemadmin\EthnicityController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
-use App\Http\Controllers\systemadmin\ProgrammesController;
+use App\Http\Controllers\systemadmin\QualificationLevelsController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
@@ -113,7 +114,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('training-provider-staff-roles', TrainingProviderStaffsRoleController::class)->except('show');
         
         // EntryLevel Qualifications
-        Route::resource('entry-level-qualifications', EntryLevelQualificationsController::class)->except('show');
+        Route::resource('qualification-levels', QualificationLevelsController::class)->except('show');
 
         // Training Provider classfications
         Route::resource('training-provider-classifications', TrainingProviderClassificationsController::class)->except('show');
@@ -124,14 +125,8 @@ Route::group(['middleware' => 'auth'], function(){
         // Application Fees Tariffs
         Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
 
-        // Etnicity Routes
-        Route::resource('ethnicity', EthnicityController::class)->except('destroy');
-
         // Awarding bodies 
         Route::resource('awarding-bodies', AwardingBodiesController::class);
-        
-        // National programmes
-        Route::resource('programmes', ProgrammesController::class);
 
         // Audit Logs index route
         Route::get('activities', [ActivitiesController::class,'index'])->name('activities.index');
@@ -158,12 +153,21 @@ Route::group(['middleware' => 'auth'], function(){
         Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
         Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
         Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
+        Route::get('add-graduate-details', [StudentDetailsController::class,'addGraduateDetails'])->name('add-graduate-details');
+        Route::get('get-admission-details', [StudentDetailsController::class,'getAdmissionStudents'])->name('get-admission-details');
+        Route::post('store-graduation-details', [StudentDetailsController::class,'storeGraduationDetails'])->name('store-graduation-details');
         Route::resource('student-details', StudentDetailsController::class)->except('destroy');
-        Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
-        Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
     });
 
+    // Research survey documentation
     Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');
+
+    // Job vacancy
+    Route::resource('job-vacancies',JobVacanciesDataController::class)->except('destroy');
+
+    // Imports
+    Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+    Route::post('store-datacollection-import',[DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
   });
 
@@ -177,6 +181,13 @@ Route::group(['middleware' => 'auth'], function(){
 
       // unit standards
       Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
+      Route::get('review-standards', [ReviewUnitStandardsController::class,'index'])->name('review-standards');
+      // Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
+      // Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
+
+      // Qualifications
+      Route::post('update-review-date', [QualificationsController::class,'updateReviewDate'])->name('update-review-date');
+      Route::resource('qualifications',QualificationsController::class);
   });
 
 

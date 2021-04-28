@@ -15,7 +15,7 @@ class CreateInstitutionDetailsDataCollectionsTable extends Migration
     {
         Schema::create('institution_details_data_collections', function (Blueprint $table) {
             $table->id();
-            $table->string('training_provider_name');
+            $table->string('name');
             $table->string('email');
             $table->string('phone');
             $table->string('address');
@@ -23,11 +23,10 @@ class CreateInstitutionDetailsDataCollectionsTable extends Migration
             $table->string('website')->nullable();
             $table->string('financial_source')->nullable();
             $table->string('estimated_yearly_turnover')->nullable();
-            $table->string('enrollment_capacity')->nullable();
-            $table->string('no_of_lecture_rooms')->nullable();
-            $table->string('no_of_computer_labs')->nullable();
-            $table->string('total_no_of_computers_in_labs')->nullable();
-            $table->string('learningcenterid')->nullable();
+            $table->integer('enrollment_capacity')->nullable();
+            $table->integer('no_of_lecture_rooms')->nullable();
+            $table->integer('no_of_computer_labs')->nullable();
+            $table->integer('total_no_of_computers_in_labs')->nullable();
             $table->foreignId('ownership_id')->nullable()->constrained('training_provider_ownerships');
             $table->foreignId('classification_id')->nullable()->constrained('training_provider_classifications');
             $table->foreignId('region')->nullable()->constrained('regions');

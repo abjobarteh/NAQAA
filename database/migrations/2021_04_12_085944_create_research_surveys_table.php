@@ -15,16 +15,16 @@ class CreateResearchSurveysTable extends Migration
     {
         Schema::create('research_surveys', function (Blueprint $table) {
             $table->id();
-            $table->string('research_topic');
-            $table->text('purpose');
-            $table->string('name_of_authors');
-            $table->text('key_findings');
-            $table->text('recommendation');
-            $table->string('publisher');
+            $table->text('research_topic');
+            $table->longText('purpose');
+            $table->text('name_of_authors');
+            $table->longText('key_findings');
+            $table->longText('recommendation');
+            $table->text('publisher');
             $table->date('publication_date');
             $table->string('funded_by');
             $table->double('cost');
-            $table->text('remarks');
+            $table->longText('remarks');
             $table->timestamps();
         });
     }

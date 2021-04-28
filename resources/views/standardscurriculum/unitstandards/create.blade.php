@@ -35,6 +35,22 @@
                             <form action="{{route('standardscurriculum.unit-standards.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label>Qualification: <sup class="text-danger">*</sup></label>
+                                            <select name="qualification_id" id="qualification_id" class="form-control select2">
+                                                <option>Select Qualification</option>
+                                                @foreach ($qualifications as $id => $qualification)
+                                                    <option value="{{$id}}">{{$qualification}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('qualification_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Unit Standard Title: <sup class="text-danger">*</sup></label>

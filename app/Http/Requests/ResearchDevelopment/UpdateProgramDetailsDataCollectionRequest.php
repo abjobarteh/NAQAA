@@ -31,11 +31,11 @@ class UpdateProgramDetailsDataCollectionRequest extends FormRequest
             'program_name' => 'required|String',
             'duration' => 'required|numeric|integer',
             'tuition_fee_per_year' => 'required|numeric',
-            'entry_requirements' => ['required','array'],
-            'entry_requirements.*' => ['string'],
-            'awarding_body' => 'required|string',
+            'awarding_body_id' => 'required|numeric|integer',
             'education_field_id' => 'required|numeric|integer',
             'institution_detail_id' => 'required|numeric|integer',
+            'entry_requirements' => ['required','array'],
+            'entry_requirements.*' => ['string'],
         ];
     }
 
@@ -48,7 +48,8 @@ class UpdateProgramDetailsDataCollectionRequest extends FormRequest
             'tuition_fee_per_year.required' => 'Please Enter Program tuition fee per year',
             'tuition_fee_per_year.numeric' => 'Tuition fee must be a numeric value',
             'entry_requirements.required' => 'Please Program Entery requirements',
-            'awarding_body.required' => 'Please Specify the Awarding body',
+            'awarding_body.required' => 'Please select the Awarding body',
+            'awarding_body.numeric' => 'Please select a valid awarding body',
             'education_field_id.required' => 'Please select program field of education',
             'education_field_id.numeric' => 'Field of education cannot be empty',
             'institution_detail_id.required' => 'Please select learning center',

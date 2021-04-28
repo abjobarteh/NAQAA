@@ -4,6 +4,7 @@ namespace App\Models\ResearchDevelopment;
 
 use App\Models\TrainingProviderStaffsRank;
 use App\Models\TrainingProviderStaffsRole;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -18,7 +19,6 @@ class AcademicAdminStaffDataCollection extends Model
         'lastname',
         'gender',
         'nationality',
-        'ethnicity',
         'date_of_birth',
         'phone',
         'email',
@@ -63,6 +63,16 @@ class AcademicAdminStaffDataCollection extends Model
     public function setOtherQualificationsAttribute($value)
     {
         $this->attributes['other_qualifications'] = json_encode($value);
+    }
+
+    public function setDateOfBirthAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = new Carbon($value);
+    }
+
+    public function setEmploymentDateAttribute($value)
+    {
+        $this->attributes['employment_date'] = new Carbon($value);
     }
 
     public function getSecondaryTeachingFieldsOfStudyAttribute($value)

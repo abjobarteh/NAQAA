@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Region;
 use Illuminate\Database\Seeder;
 
 class RegionsTableSeeder extends Seeder
@@ -13,6 +14,6 @@ class RegionsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Region::factory()->count(5)->create();
     }
 }

@@ -5,8 +5,9 @@ namespace App\Http\Controllers\researchdevelopment\DataCollections;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreProgramDetailsDataCollectionRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateProgramDetailsDataCollectionRequest;
+use App\Models\AwardBody;
 use App\Models\EducationField;
-use App\Models\EntryLevelQualification;
+use App\Models\QualificationLevel;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use Illuminate\Support\Facades\Gate;
@@ -39,11 +40,14 @@ class ProgramOfferedController extends Controller
 
         $educationfields = EducationField::all()->pluck('name','id');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
+        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name');
+        $qualifications = QualificationLevel::all()->pluck('name');
 
-        return view('researchdevelopment.programdetails.create',compact('educationfields','learningcenters','qualifications'));
+        $awardbodies = AwardBody::all()->pluck('name','id');
+
+        return view('researchdevelopment.programdetails.create',
+                compact('educationfields','learningcenters','qualifications','awardbodies'));
     }
 
     /**
@@ -70,7 +74,7 @@ class ProgramOfferedController extends Controller
     {
         abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
-        $programdetail = ProgramDetailsDataCollection::with(['educationfield','learningcenter'])
+        $programdetail = ProgramDetailsDataCollection::with(['educationfield','learningcenter','awardBody'])
                 ->where('id', $id)->get();
 
         return view('researchdevelopment.programdetails.show', compact('programdetail'));
@@ -90,12 +94,14 @@ class ProgramOfferedController extends Controller
 
         $educationfields = EducationField::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name');
+        $qualifications = QualificationLevel::all()->pluck('name');
+        
+        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
+        $awardbodies = AwardBody::all()->pluck('name','id');
 
         return view('researchdevelopment.programdetails.edit',
-                    compact('programdetail','educationfields','qualifications','learningcenters'));
+                    compact('programdetail','educationfields','qualifications','learningcenters', 'awardbodies'));
     }
 
     /**

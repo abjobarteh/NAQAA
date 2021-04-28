@@ -22,17 +22,15 @@ class CreateStudentDetailsDataCollectionsTable extends Migration
             $table->string('phone');
             $table->string('gender');
             $table->string('nationality')->nullable();
-            $table->string('ethnicity')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('programme');
             $table->string('attendance_status')->nullable();
             $table->date('admission_date')->nullable();
             $table->date('completion_date')->nullable();
-            $table->foreignId('qualification_at_entry')->nullable()->constrained('entry_level_qualifications');
-            $table->foreignId('award')->nullable()->constrained('entry_level_qualifications');
+            $table->foreignId('qualification_at_entry')->nullable()->constrained('qualification_levels');
+            $table->foreignId('award')->nullable()->constrained('qualification_levels');
             $table->foreignId('education_field_id')->nullable()->constrained();
             $table->foreignId('institution_id')->nullable()->constrained('institution_details_data_collections');
-            $table->string('studentdetail_type')->nullable();
             $table->timestamps();
         });
     }

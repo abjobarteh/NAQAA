@@ -2,6 +2,7 @@
 
 namespace App\Models\ResearchDevelopment;
 
+use App\Models\AwardBody;
 use App\Models\EducationField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,7 @@ class ProgramDetailsDataCollection extends Model
         'duration',
         'tuition_fee_per_year',
         'entry_requirements',
-        'awarding_body',
+        'awarding_body_id',
         'education_field_id',
         'institution_detail_id'
     ];
@@ -59,5 +60,10 @@ class ProgramDetailsDataCollection extends Model
     public function learningcenter()
     {
         return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_detail_id');
+    }
+
+    public function awardbody()
+    {
+        return $this->belongsTo(AwardBody::class,'awarding_body_id');
     }
 }

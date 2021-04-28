@@ -4,7 +4,9 @@ namespace App\Models\StandardsCurriculum;
 
 use App\Models\EducationField;
 use App\Models\EducationSubField;
+use App\Models\Qualification;
 use App\Models\QualificationLevel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -23,6 +25,7 @@ class UnitStandard extends Model
         'validation_date',
         'education_field_id',
         'education_sub_field_id',
+        'qualification_id',
         'qualification_level_id',
     ];
 
@@ -56,6 +59,11 @@ class UnitStandard extends Model
         $this->attributes['validated_by_stakeholders'] = json_encode($value);
     }
 
+    public function setValidationDateAttribute($value)
+    {
+        $this->attributes['validation_date'] = new Carbon($value);
+    }
+
     public function getDevelopedByStakeholdersAttribute($value)
     {
         return json_decode($value);
@@ -65,7 +73,6 @@ class UnitStandard extends Model
     {
         return json_decode($value);
     }
-
 
     public function fieldOfEducation()
     {
@@ -82,8 +89,9 @@ class UnitStandard extends Model
         return $this->belongsTo(QualificationLevel::class,'qualification_level_id');
     }
 
-    public function UnitStandardReviews()
+    public function qualification()
     {
-        return $this->hasMany(UnitStandardReview::class, 'unit_standard_id');
+        return $this->belongsTo(Qualification::class,'qualification_id');
     }
+
 }

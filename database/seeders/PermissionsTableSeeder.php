@@ -371,6 +371,26 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'researchdevelopment'
             ],
             [
+                'name' => 'Access Job Vacancy',
+                'slug' => 'access_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Create Job Vacancy',
+                'slug' => 'create_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Edit Job Vacancy',
+                'slug' => 'edit_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
+                'name' => 'Show Job Vacancy',
+                'slug' => 'show_job_vacancy',
+                'permission_type' => 'researchdevelopment'
+            ],
+            [
                 'name' => 'Access Research Development Reports',
                 'slug' => 'access_research_development_reports',
                 'permission_type' => 'researchdevelopment'
@@ -418,6 +438,26 @@ class PermissionsTableSeeder extends Seeder
             [
                 'name' => 'Access Unit Standard Reports',
                 'slug' => 'access_unit_standard_reports',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Access Qualification',
+                'slug' => 'access_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Create Qualification',
+                'slug' => 'create_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Edit Qualification',
+                'slug' => 'edit_qualifications',
+                'permission_type' => 'standardscurriculum'
+            ],
+            [
+                'name' => 'Show Qualification',
+                'slug' => 'show_qualifications',
                 'permission_type' => 'standardscurriculum'
             ],
         ];

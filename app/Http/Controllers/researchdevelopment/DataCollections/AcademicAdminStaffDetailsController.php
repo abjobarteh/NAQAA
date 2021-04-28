@@ -6,8 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreAcademicAdminStaffDetailsDataCollectionRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCollectionRequest;
 use App\Models\Country;
-use App\Models\EntryLevelQualification;
-use App\Models\Ethnicity;
+use App\Models\QualificationLevel;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderStaffsRank;
@@ -47,16 +46,14 @@ class AcademicAdminStaffDetailsController extends Controller
 
         $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
-
-        $ethnicities = Ethnicity::all('name');
+        $qualifications = QualificationLevel::all()->pluck('name','id');
 
         $countries = Country::all('name');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
+        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
         
         return view('researchdevelopment.academicadminstaffdetails.create', 
-                    compact('staffs','ranks','roles','qualifications','learningcenters','countries','ethnicities'));
+                    compact('staffs','ranks','roles','qualifications','learningcenters','countries'));
     }
 
     /**
@@ -97,22 +94,21 @@ class AcademicAdminStaffDetailsController extends Controller
     public function edit($id)
     {
         abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+
         $staff = AcademicAdminStaffDataCollection::where('id',$id)->get();
 
         $ranks = TrainingProviderStaffsRank::all()->pluck('name','id');
 
         $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
 
-        $qualifications = EntryLevelQualification::all()->pluck('name','id');
-
-        $ethnicities = Ethnicity::all('name');
+        $qualifications = QualificationLevel::all()->pluck('name','id');
 
         $countries = Country::all('name');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
+        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
         
         return view('researchdevelopment.academicadminstaffdetails.edit', 
-                compact('staff','ranks','roles','qualifications','learningcenters','countries','ethnicities'));
+                compact('staff','ranks','roles','qualifications','learningcenters','countries'));
     }
 
     /**

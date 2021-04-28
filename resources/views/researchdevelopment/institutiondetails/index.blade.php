@@ -14,7 +14,7 @@
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.institution-details.create')}}" 
                             class="btn btn-primary float-right">
-                            New Data collection
+                            Add Institution
                         </a>
                     @endcan
                 </div><!-- /.col -->
@@ -46,7 +46,7 @@
                                 <tbody>
                                     @forelse ($institutionsdata as $data)
                                         <tr>
-                                            <td>{{$data->training_provider_name}}</td>
+                                            <td>{{$data->name}}</td>
                                             <td>{{$data->estimated_yearly_turnover}}</td>
                                             <td>{{$data->enrollment_capacity}}</td>
                                             <td>{{$data->no_of_lecture_rooms}}</td>

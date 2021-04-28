@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Record New Student Details</h1>
+                <h1 class="m-0">Record New Student Admission Details</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 col-md-6">
                     <ol class="breadcrumb float-right">
@@ -37,15 +37,16 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Student Data Collection Type: <sup class="text-danger">*</sup></label>
-                                            <select name="studentdetail_type" id="studentdetail_type" class="form-control select2">
-                                                <option>Select student detail type</option>
-                                                <option value="graduate">Graduate</option>
-                                                <option value="admission">Admission</option>
+                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
+                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
+                                                <option>Select learning center</option>
+                                                @foreach ($learningcenters as $id => $center)
+                                                    <option value="{{$id}}">{{$center}}</option>
+                                                @endforeach
                                             </select>
-                                            @if($errors->has('studentdetail_type'))
-                                                <span class="text-danger mt-1">{{ $errors->first('studentdetail_type') }}</span>
-                                            @endif
+                                            @error('institution_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +129,7 @@
                                     </div>
                                 </div>
                                 <div class="row show-admission">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Nationality: <sup class="text-danger">*</sup></label>
                                             <select name="nationality" id="nationality" class="form-control select2 admission">
@@ -138,18 +139,6 @@
                                                 @endforeach
                                             </select>
                                             @error('nationality')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 show-admission">
-                                        <div class="form-group">
-                                            <label>Ethnicity: <sup class="text-danger">*</sup></label>
-                                            <select name="ethnicity" id="ethnicity" class="form-control select2 admission">
-                                                <option>Select ethnicity</option>
-                                                <option value="other">Other</option>
-                                            </select>
-                                            @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -208,11 +197,11 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6 show-graduate">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Completion Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input graduate" name="completion_date" value="{{ old('completion_date') }}" data-target="#completion_date" required/>
+                                                <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{ old('completion_date') }}" data-target="#completion_date"/>
                                                 <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -256,22 +245,6 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
-                                                @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}">{{$center}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('institution_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="form-group">
                                             <button class="btn btn-primary mr-1">Submit</button>
                                             <a href="{{route('researchdevelopment.datacollection.student-details.index')}}" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Cancel</a>
                                         </div>
@@ -300,20 +273,20 @@
             format: 'YYYY-MM-DD'
             });
 
-            $("#studentdetail_type").change(function() {
-            if ($(this).val() == "admission") {
-                $('.show-graduate').hide();
-                $('.graduate').prop('disabled', true);
-                $('.admission').prop('disabled', false);
-                $('.show-admission').show();
-            }
-            if ($(this).val() == "graduate"){
-                $('.show-admission').hide();
-                $('.admission').prop('disabled', true);
-                $('.graduate').prop('disabled', false);
-                $('.show-graduate').show();
-            }
-            });
+            // $("#studentdetail_type").change(function() {
+            // if ($(this).val() == "admission") {
+            //     $('.show-graduate').hide();
+            //     $('.graduate').prop('disabled', true);
+            //     $('.admission').prop('disabled', false);
+            //     $('.show-admission').show();
+            // }
+            // if ($(this).val() == "graduate"){
+            //     $('.show-admission').hide();
+            //     $('.admission').prop('disabled', true);
+            //     $('.graduate').prop('disabled', false);
+            //     $('.show-graduate').show();
+            // }
+            // });
         })
     </script>
 @endsection

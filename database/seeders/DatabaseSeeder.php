@@ -24,10 +24,16 @@ class DatabaseSeeder extends Seeder
             EducationFieldsTableSeeder::class,
             CountriesTableSeeder::class,
             AwardingBodyTableSeeder::class,
-            EthnicityTableSeeder::class,
-            SponsorTableSeeder::class,
             QualificationLevelsTableSeeder::class,
             EducationFieldsTableSeeder::class,
+            RegionsTableSeeder::class,
+            LocalGovermentAreaTableSeeder::class,
+            DistrictsTableSeeder::class,
+            UnitTableSeeder::class,
+            TrainingProviderStaffRankTableSeeder::class,
+            TrainingProviderStaffRolesTableSeeder::class,
+            TrainingProviderClassificationTableSeeder::class,
+            TrainingProviderOwnershipsTableSeeder::class
         ]);
     }
 }

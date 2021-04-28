@@ -18,18 +18,18 @@ class TrainingProviderOwnership extends Model
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New Training Provider ownership added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Training Provider ownership updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Training Provider ownership deleted by ".auth()->user()->username;
-        };
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch($eventName){
+    //         case 'created': 
+    //                  return "New Training Provider ownership added by ".auth()->user()->username;
+    //         case 'updated': 
+    //                  return "Training Provider ownership updated by ".auth()->user()->username;
+    //         case 'deleted': 
+    //                  return "Training Provider ownership deleted by ".auth()->user()->username;
+    //     };
         
-    }
+    // }
 
     public function InstitutionDataCollections()
     {

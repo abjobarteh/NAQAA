@@ -3,7 +3,8 @@
 namespace App\Models\ResearchDevelopment;
 
 use App\Models\EducationField;
-use App\Models\EntryLevelQualification;
+use App\Models\QualificationLevel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -20,7 +21,6 @@ class StudentDetailsDataCollection extends Model
         'gender',
         'phone',
         'nationality',
-        'ethnicity',
         'date_of_birth',
         'programme',
         'attendance_status',
@@ -30,7 +30,6 @@ class StudentDetailsDataCollection extends Model
         'award',
         'education_field_id',
         'institution_id',
-        'studentdetail_type',
     ];
 
     protected static $logFillable = true;
@@ -52,6 +51,11 @@ class StudentDetailsDataCollection extends Model
         
     }
 
+    public function setDateOfBirthAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = new Carbon($value);
+    }
+    
     public function getFullNameAttribute()
     {
         return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
@@ -62,19 +66,19 @@ class StudentDetailsDataCollection extends Model
         return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_id');
     }
 
-    public function qualificationAtEntry()
-    {
-        return $this->belongsTo(EntryLevelQualification::class,'qualification_at_entry');
-    }
-
-    public function studentaward()
-    {
-        return $this->belongsTo(EntryLevelQualification::class,'award'); 
-    }
-
     public function educationField()
     {
         return $this->belongsTo(EducationField::class,'education_field_id');
+    }
+
+    public function entryQualification()
+    {
+        return $this->belongsTo(QualificationLevel::class,'qualification_at_entry');
+    }
+
+    public function awardName()
+    {
+        return $this->belongsTo(QualificationLevel::class,'award');
     }
 
 }

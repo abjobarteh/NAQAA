@@ -29,16 +29,16 @@ class StoreResearchSurveyRequest extends FormRequest
     {
         return [
             'research_topic' => 'required|string',
-            'purpose' => 'required|string|max:100',
+            'purpose' => 'required|string',
             'name_of_authors' => ['required','array'],
             'name_of_authors.*' => ['string'],
-            'key_findings' => 'required|string|max:300',
-            'recommendation' => 'required|string|max:300',
+            'key_findings' => 'required|string',
+            'recommendation' => 'required|string',
             'publisher' => 'required|string',
             'publication_date' => 'required|date',
             'funded_by' => 'required|string',
             'cost' => 'required|numeric',
-            'remarks' => 'required|string|max:300',
+            'remarks' => 'required|string',
         ];
     }
 

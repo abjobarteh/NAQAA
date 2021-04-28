@@ -57,7 +57,7 @@
                                                 @endforeach
                                             </td>
                                             <td>{{$program->awarding_body}}</td>
-                                            <td>{{$program->learningcenter->training_provider_name}}</td>
+                                            <td>{{$program->learningcenter->name}}</td>
                                             <td>{{$program->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

@@ -15,7 +15,7 @@ class StoreProgramDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('creat_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
 
         return true;
     }
@@ -31,7 +31,7 @@ class StoreProgramDetailsDataCollectionRequest extends FormRequest
             'program_name' => 'required|String',
             'duration' => 'required|numeric|integer',
             'tuition_fee_per_year' => 'required|numeric',
-            'awarding_body' => 'required|string',
+            'awarding_body_id' => 'required|numeric|integer',
             'education_field_id' => 'required|numeric|integer',
             'institution_detail_id' => 'required|numeric|integer',
             'entry_requirements' => ['required','array'],
@@ -48,7 +48,8 @@ class StoreProgramDetailsDataCollectionRequest extends FormRequest
             'tuition_fee_per_year.required' => 'Please Enter Program tuition fee per year',
             'tuition_fee_per_year.numeric' => 'Tuition fee must be a numeric value',
             'entry_requirements.required' => 'Please Program Entery requirements',
-            'awarding_body.required' => 'Please Specify the Awarding body',
+            'awarding_body.required' => 'Please select the Awarding body',
+            'awarding_body.numeric' => 'Please select a valid awarding body',
             'education_field_id.required' => 'Please select program field of education',
             'education_field_id.numeric' => 'Field of education cannot be empty',
             'institution_detail_id.required' => 'Please select learning center',

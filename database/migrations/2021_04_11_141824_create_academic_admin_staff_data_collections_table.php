@@ -20,8 +20,7 @@ class CreateAcademicAdminStaffDataCollectionsTable extends Migration
             $table->string('lastname');
             $table->string('gender');
             $table->string('nationality')->nullable();
-            $table->string('ethnicity')->nullable();
-            $table->string('date_of_birth')->nullable();
+            $table->date('date_of_birth')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
             $table->string('job_title')->nullable();
@@ -29,10 +28,10 @@ class CreateAcademicAdminStaffDataCollectionsTable extends Migration
             $table->string('employment_date')->nullable();
             $table->string('employment_type')->nullable();
             $table->string('highest_qualification')->nullable();
-            $table->string('other_qualifications')->nullable();
+            $table->longText('other_qualifications')->nullable();
             $table->string('specialisation');
             $table->string('main_teaching_field_of_study');
-            $table->string('secondary_teaching_fields_of_study')->nullable();
+            $table->longText('secondary_teaching_fields_of_study')->nullable();
             $table->foreignId('rank_id')->nullable()->constrained('training_provider_staffs_ranks');
             $table->foreignId('role_id')->nullable()->constrained('training_provider_staffs_roles');
             $table->foreignId('institution_id')->nullable()->constrained('institution_details_data_collections');

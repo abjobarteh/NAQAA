@@ -2,6 +2,7 @@
 
 namespace App\Models\ResearchDevelopment;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -45,6 +46,11 @@ class ResearchSurvey extends Model
     public function setNameOfAuthorsAttribute($value)
     {
         $this->attributes['name_of_authors'] = json_encode($value);
+    }
+
+    public function setPublicationDateAttribute($value)
+    {
+        $this->attributes['publication_date'] = new Carbon($value);
     }
 
     public function getNameOfAuthorsAttribute($value)
