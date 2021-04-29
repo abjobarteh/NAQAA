@@ -22,7 +22,7 @@ class CreateTrainingProvidersTable extends Migration
             $table->foreignId('district_id')->nullable()->constrained();
             $table->foreignId('town_village_id')->nullable()->constrained('towns_villages');
             $table->string('location')->nullable();
-            $table->string('telepehone_work');
+            $table->string('telephone_work');
             $table->string('mobile_phone')->nullable();
             $table->string('fax')->nullable();
             $table->string('website')->nullable();

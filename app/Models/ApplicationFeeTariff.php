@@ -19,7 +19,7 @@ class ApplicationFeeTariff extends Model
         'description'
     ];
 
-    protected $logFillable = true;
+    protected static $logFillable = true;
 
     protected static $logName = 'Application Fees Tariffs';
 
