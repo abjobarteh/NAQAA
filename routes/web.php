@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\ProfilesController;
-use App\Http\Controllers\RegistrationAccreditation\InstitutionRegistrationController;
-use App\Http\Controllers\RegistrationAccreditation\TrainerRegistrationController;
+use App\Http\Controllers\RegistrationAccreditation\DashboardController as RegistrationAccreditationDashboardController;
+use App\Http\Controllers\RegistrationAccreditation\TrainersAccreditationController;
+use App\Http\Controllers\RegistrationAccreditation\TrainersRegistrationController;
+use App\Http\Controllers\RegistrationAccreditation\TrainingProviderProgramsAccreditationController;
+use App\Http\Controllers\RegistrationAccreditation\TrainingProvidersRegistrationController;
 use App\Http\Controllers\researchdevelopment\DashboardController as ResearchdevelopmentDashboardController;
 use App\Http\Controllers\researchdevelopment\DataCollections\AcademicAdminStaffDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImportsController;
@@ -199,31 +202,25 @@ Route::group(['middleware' => 'auth'], function(){
         Route::redirect('/','registration-accreditation/dashboard');
   
         // Dashboard route
-        Route::get('/dashboard', [\App\Http\Controllers\RegistrationAccreditation\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', RegistrationAccreditationDashboardController::class)->name('dashboard');
   
       //   Registration Routes
         Route::group(['prefix' => 'registration', 'as' => 'registration.'], function(){
-              // Instiution registration routes
-              Route::resource('institutions', InstitutionRegistrationController::class);
-  
-              // Trainer  Registration Routes
-              Route::Resource('trainers', TrainerRegistrationController::class);
-  
-              // AssessorVerifeir  Registration Routes
-              Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
+              
+              // Training providers
+              Route::resource('trainingproviders', TrainingProvidersRegistrationController::class);
+              Route::resource('trainers', TrainersRegistrationController::class);
         });
   
       //   Accreditation Routes
         Route::group(['prefix' => 'accreditation', 'as' => 'accreditation.'], function(){
-          // Instiution registration routes
-          Route::resource('institutions', InstitutionRegistrationController::class);
-  
-          // Trainer  Registration Routes
-          Route::Resource('trainers', TrainerRegistrationController::class);
-  
-          // AssessorVerifeir  Registration Routes
-          Route::Resource('assessor-verifiers', TrainerRegistrationController::class);
+              
+              // Trainers
+              Route::resource('trainers',TrainersAccreditationController::class);
+              Route::resource('programmes',TrainingProviderProgramsAccreditationController::class);
         });
+
+        
   
       });
   
