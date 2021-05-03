@@ -2,6 +2,11 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\ApplicationDetail;
+use App\Models\District;
+use App\Models\Region;
+use App\Models\TownVillage;
+use App\Models\TrainingProviderClassification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -22,7 +27,10 @@ class TrainingProvider extends Model
         'mobile_phone',
         'fax',
         'email',
+        'bank_names',
+        'bank_signatories',
         'category_id',
+        'storage_path'
     ];
 
     protected static $logFillable = true;
@@ -54,8 +62,33 @@ class TrainingProvider extends Model
         return $this->hasMany(BoardOfDirector::class,'training_provider_id');
     }
 
-    public function bankSignatories()
+    public function region()
     {
-        return $this->hasMany(BankSignatory::class,'training_provider_id');
+        return $this->belongsTo(Region::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function townVillage()
+    {
+        return $this->belongsTo(TownVillage::class,'town_village_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(TrainingProviderClassification::class,'category_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(ApplicationDetail::class,'training_provider_id');
+    }
+
+    public function licences()
+    {
+        return $this->hasMany(RegistrationLicenceDetail::class,'training_provider_id');
     }
 }

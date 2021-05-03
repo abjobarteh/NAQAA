@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\JobVacancy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -55,5 +56,10 @@ class Region extends Model
     public function jobvacancies()
     {
         return $this->hasMany(JobVacancy::class,'region_id');
+    }
+
+    public function trainingproviders()
+    {
+        return $this->hasMany(TrainingProvider::class);
     }
 }

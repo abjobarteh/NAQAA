@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -41,5 +42,10 @@ class TownVillage extends Model
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+
+    public function trainingproviders()
+    {
+        return $this->hasMany(TrainingProvider::class);
     }
 }

@@ -27,6 +27,8 @@ class CreateTrainingProvidersTable extends Migration
             $table->string('fax')->nullable();
             $table->string('website')->nullable();
             $table->string('email')->nullable();
+            $table->longText('bank_names')->nullable();
+            $table->json('bank_signatories')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('training_provider_classifications');
             $table->string('storage_path')->nullable();
             $table->timestamps();

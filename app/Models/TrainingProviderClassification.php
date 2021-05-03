@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -34,5 +35,10 @@ class TrainingProviderClassification extends Model
     public function InstitutionDataCollections()
     {
         return $this->hasMany(InstitutionDetailsDataCollection::class, 'classification_id');
+    }
+    
+    public function trainingproviders()
+    {
+        return $this->hasMany(TrainingProvider::class);
     }
 }

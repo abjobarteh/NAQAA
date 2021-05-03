@@ -15,7 +15,7 @@ class CreateBoardOfDirectorsTable extends Migration
     {
         Schema::create('board_of_directors', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('fullname');
             $table->string('nationality');
             $table->longText('work_experience')->nullable();
             $table->longText('position');

@@ -3,6 +3,12 @@
 namespace App\Http\Controllers\RegistrationAccreditation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegistrationAccreditation\StoreTrainingProviderRequest;
+use App\Models\District;
+use App\Models\Region;
+use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\TownVillage;
+use App\Models\TrainingProviderClassification;
 use Illuminate\Http\Request;
 
 class TrainingProvidersRegistrationController extends Controller
@@ -14,7 +20,9 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function index()
     {
-        //
+        $trainingproviders = TrainingProvider::with(['district','townVillage','category'])->get();
+
+        return view('registrationaccreditation.registration.trainingproviders.index',compact('trainingproviders'));
     }
 
     /**
@@ -24,7 +32,13 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function create()
     {
-        //
+        $regions = Region::all()->pluck('name','id');
+        $districts = District::all()->pluck('name','id');
+        $townvillages = TownVillage::all()->pluck('name','id');
+        $categories = TrainingProviderClassification::all()->pluck('name','id');
+
+        return view('registrationaccreditation.registration.trainingproviders.create',
+                    compact('regions','districts','townvillages','categories'));
     }
 
     /**
@@ -33,7 +47,7 @@ class TrainingProvidersRegistrationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTrainingProviderRequest $request)
     {
         //
     }
@@ -46,7 +60,7 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('registrationaccreditation.registration.trainingproviders.show');
     }
 
     /**
@@ -57,7 +71,7 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('registrationaccreditation.registration.trainingproviders.edit');
     }
 
     /**

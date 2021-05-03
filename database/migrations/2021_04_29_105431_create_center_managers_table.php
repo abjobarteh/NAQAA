@@ -23,7 +23,6 @@ class CreateCenterManagersTable extends Migration
             $table->string('nationality');
             $table->longText('relevant_experience');
             $table->longText('qualifications');
-            $table->longText('bank_names');
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
             $table->timestamps();
         });

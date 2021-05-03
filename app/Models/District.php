@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,11 @@ class District extends Model
     public function InstitutionDataCollections()
     {
         return $this->hasMany(InstitutionDetailsDataCollection::class);
+    }
+
+    public function traininproviders()
+    {
+        return $this->hasMany(TrainingProvider::class);
     }
     
 }

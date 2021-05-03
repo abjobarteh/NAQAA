@@ -229,7 +229,7 @@
 </li>
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
-  {{ request()->is('registration-accreditation/registration/*') ? 'active' : '' }}"
+  {{ request()->is('registration-accreditation/accreditation/*') ? 'active' : '' }}"
     >
     <i class="nav-icon fas fa-stamp"></i>
     <p>

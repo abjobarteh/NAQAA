@@ -19,7 +19,6 @@ class CenterManager extends Model
         'nationality',
         'relevant_experience',
         'qualifications',
-        'bank_names',
         'training_provider_id',
     ];
 
