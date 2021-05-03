@@ -2,7 +2,6 @@
 
 namespace App\Models\RegistrationAccreditation;
 
-use App\Models\ApplicationDetail;
 use App\Models\District;
 use App\Models\Region;
 use App\Models\TownVillage;
@@ -15,7 +14,7 @@ class TrainingProvider extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $filable = [
+    protected $fillable = [
         'name',
         'physical_address',
         'postal_address',
@@ -27,6 +26,7 @@ class TrainingProvider extends Model
         'mobile_phone',
         'fax',
         'email',
+        'website',
         'bank_names',
         'bank_signatories',
         'category_id',

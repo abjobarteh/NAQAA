@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -43,6 +44,11 @@ class ApplicationDetail extends Model
                      return "Application deleted by ".auth()->user()->username;
         };
         
+    }
+
+    public function setApplicationDateAttribute($value)
+    {
+        $this->attributes['application_date'] = new Carbon($value);
     }
 
     public function trainingprovider()

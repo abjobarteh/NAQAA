@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -50,6 +51,11 @@ class Trainer extends Model
                      return "Trainer deleted by ".auth()->user()->username;
         };
         
+    }
+
+    public function setDateOfBirthAttribute($value)
+    {
+        $this->attributes['date_of_birth'] = new Carbon($value);
     }
 
     public function applications()

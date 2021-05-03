@@ -32,13 +32,9 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Physical address</th>
-                                        <th>Postal address</th>
                                         <th>Email</th>
-                                        <th>District</th>
-                                        <th>Town/Village</th>
-                                        <th>Telephone (work)</th>
-                                        <th>Mobile Phone</th>
+                                        <th>Location</th>
+                                        <th>Contact Numbers</th>
                                         <th>Category</th>
                                         <th>Actions</th>
                                     </tr>
@@ -47,13 +43,9 @@
                                     @forelse ($trainingproviders as $trainingprovider)
                                         <tr>
                                             <td>{{$trainingprovider->name}}</td>
-                                            <td>{{$trainingprovider->physical_address}}</td>
-                                            <td>{{$trainingprovider->postal_address}}</td>
                                             <td>{{$trainingprovider->email}}</td>
-                                            <td>{{$trainingprovider->district->name}}</td>
-                                            <td>{{$trainingprovider->townVillage->name}}</td>
-                                            <td>{{$trainingprovider->telephone_work}}</td>
-                                            <td>{{$trainingprovider->mobile_phone}}</td>
+                                            <td>{{$trainingprovider->district->name ?? 'N/A'}},  {{$trainingprovider->physical_address}}</td>
+                                            <td>{{$trainingprovider->telephone_work}} <br> {{$trainingprovider->mobile_phone}}</td>
                                             <td>{{$trainingprovider->category->name}}</td>
                                             <td>
                                                 <a href="{{route('registration-accreditation.registration.trainingproviders.edit',$trainingprovider->id)

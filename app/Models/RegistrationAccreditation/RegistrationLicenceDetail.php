@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -14,8 +15,8 @@ class RegistrationLicenceDetail extends Model
         'training_provider_id',
         'trainer_id',
         'application_id',
-        'license_start_date',
-        'license_end_date',
+        'licence_start_date',
+        'licence_end_date',
         'license_status'
     ];
 
@@ -36,6 +37,16 @@ class RegistrationLicenceDetail extends Model
                      return "Registration Licence deleted by ".auth()->user()->username;
         };
         
+    }
+
+    public function setLicenceStartDateAttribute($value)
+    {
+        $this->attributes['licence_start_date'] = new Carbon($value);
+    }
+
+    public function setLicenceEndtDateAttribute($value)
+    {
+        $this->attributes['licence_end_date'] = new Carbon($value);
     }
 
     public function trainer()
