@@ -109,7 +109,15 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function show($id)
     {
-        $trainingprovider = TrainingProvider::findOrFail('id',$id)->with(['applications','licences'])->get();
+        $trainingprovider = TrainingProvider::findOrFail($id);
+
+        $trainingprovider->load(['applications' => function($query){
+            return $query->latest()->first();
+        },
+        'licences' => function($query){
+            return $query->where('license_status','valid')->first();
+        },
+        'region','district','townVillage', 'category']);
 
         return view('registrationaccreditation.registration.trainingproviders.show', compact('trainingprovider'));
     }
@@ -186,15 +194,28 @@ class TrainingProvidersRegistrationController extends Controller
 
             if($data['status'] === 'accepted')
             {
-                $trainingprovider->licences[0]->update([
-                        'application_id' => $application->id,
-                        'licence_start_date' => $data['license_start_date'],
-                        'licence_end_date' => $data['license_end_date'],
-                        'license_status' => 'valid',
-                ]);
+                    if(!$trainingprovider->licences->isEmpty()){
+
+                        $trainingprovider->licences[0]->update([
+                            'application_id' => $application->id,
+                            'licence_start_date' => $data['license_start_date'],
+                            'licence_end_date' => $data['license_end_date'],
+                            'license_status' => 'valid',
+                        ]);
+                    }
+                    else{
+                        RegistrationLicenceDetail::create([
+                            'training_provider_id' => $trainingprovider->id,
+                            'application_id' => $trainingprovider->applications[0]->id,
+                            'licence_start_date' => $data['license_start_date'],
+                            'licence_end_date' => $data['license_end_date'],
+                            'license_status' => 'valid',
+                        ]);
+                    }
+                
             }
             else{
-                if(!is_null($trainingprovider->licences[0])){
+                if(!$trainingprovider->licences->isEmpty()){
 
                     $trainingprovider->licences[0]->delete();
                 }

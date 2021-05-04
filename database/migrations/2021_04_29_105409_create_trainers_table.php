@@ -20,7 +20,7 @@ class CreateTrainersTable extends Migration
             $table->string('lastname');
             $table->date('date_of_birth')->nullable();
             $table->string('gender')->nullable();
-            $table->string('nationlaity')->nullable();
+            $table->string('nationality')->nullable();
             $table->string('TIN')->nullable();
             $table->string('NIN')->nullable();
             $table->string('AIN')->nullable();

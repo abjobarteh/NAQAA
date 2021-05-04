@@ -63,7 +63,7 @@ class Trainer extends Model
         return $this->hasMany(ApplicationDetail::class,'trainer_id');
     }
 
-    public function registrationLicenses()
+    public function licences()
     {
         return $this->hasMany(RegistrationLicenceDetail::class, 'trainer_id');
     }
