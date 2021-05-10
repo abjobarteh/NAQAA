@@ -13,7 +13,7 @@
                 <div class="col-sm-6">
                     <a href="{{route('registration-accreditation.registration.trainers.create')}}" 
                         class="btn btn-primary float-right">
-                        Add Trainer
+                        New Trainer Registration
                     </a>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,44 +25,46 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Trainers lists</h3>
+                            <h3 class="card-title">Trainers Registration Application lists</h3>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Date of Birth</th>
+                                        <th>Trainer Name</th>
+                                        <th>Birth Date</th>
                                         <th>Gender</th>
                                         <th>Nationality</th>
                                         <th>Email</th>
-                                        <th>TIN</th>
-                                        <th>Contact Numbers</th>
-                                        <th>Address</th>
-                                        <th>Type</th>
+                                        <th>Trainer type</th>
+                                        <th>status</th>
+                                        <th>Application date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($trainers as $trainer)
+                                    @forelse ($trainer_regitrations as $registration)
                                         <tr>
-                                            <td>{{$trainer->firstname}}. {{$trainer->middlename ?? ''}} .{{$trainer->lastname}}</td>
-                                            <td>{{$trainer->date_of_birth}}</td>
-                                            <td>{{$trainer->gender}}</td>
-                                            <td>{{$trainer->nationality}}</td>
-                                            <td>{{$trainer->email}}</td>
-                                            <td>{{$trainer->TIN}}</td>
-                                            <td>{{$trainer->phone_home}} <br> {{$trainer->phone_mobile}}</td>
-                                            <td>{{$trainer->physical_address}}</td>
-                                            <td>{{$trainer->type}}</td>
+                                            <td>{{$registration->trainer->firstname}}. {{$registration->trainer->middlename ?? ''}} .{{$registration->trainer->lastname}}</td>
+                                            <td>{{$registration->trainer->date_of_birth->toFormattedDateString()}}</td>
+                                            <td>{{$registration->trainer->gender}}</td>
+                                            <td>{{$registration->trainer->nationality}}</td>
+                                            <td>{{$registration->trainer->email}}</td>
+                                            <td>{{$registration->trainer->type}}</td>
                                             <td>
-                                                <a href="{{route('registration-accreditation.registration.trainers.edit',$trainer->id)
+                                                <span class="badge {{$registration->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                                                    {{$registration->status}}
+                                                 </span>
+                                            </td>
+                                            <td>{{$registration->application_date->toFormattedDateString()}}</td>
+                                            <td>
+                                                <a href="{{route('registration-accreditation.registration.trainers.edit',$registration->id)
                                                     }}" class="btn btn-sm btn-danger"
                                                     title="edit trainer registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
-                                                <a href="{{route('registration-accreditation.registration.trainers.show',$trainer->id)
+                                                <a href="{{route('registration-accreditation.registration.trainers.show',$registration->id)
                                                     }}" class="btn btn-sm btn-info"
                                                     title="view trainer registration details"
                                                     >

@@ -58,6 +58,11 @@ class Trainer extends Model
         $this->attributes['date_of_birth'] = new Carbon($value);
     }
 
+    public function getDateOfBirthAttribute($value)
+    {
+        return new Carbon($value);
+    }
+
     public function applications()
     {
         return $this->hasMany(ApplicationDetail::class,'trainer_id');

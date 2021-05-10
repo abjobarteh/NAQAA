@@ -9,7 +9,6 @@ use App\Models\Country;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class TrainersRegistrationController extends Controller
@@ -21,9 +20,15 @@ class TrainersRegistrationController extends Controller
      */
     public function index()
     {
-        $trainers = Trainer::all();
+        $trainer_regitrations = ApplicationDetail::with([
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
+            'registrationLicence'
+        ])->where('application_category', 'registration')
+            ->where('applicant_type', 'trainer')
+            ->latest()
+            ->get();
 
-        return view('registrationaccreditation.registration.trainers.index', compact('trainers'));
+        return view('registrationaccreditation.registration.trainers.index', compact('trainer_regitrations'));
     }
 
     /**
@@ -48,7 +53,7 @@ class TrainersRegistrationController extends Controller
     {
         $data = $request->validated();
 
-        DB::transaction(function() use($data, $request){
+        DB::transaction(function () use ($data, $request) {
             // store training provider details
             $trainer = Trainer::create([
                 'firstname' => $data['firstname'],
@@ -58,8 +63,8 @@ class TrainersRegistrationController extends Controller
                 'date_of_birth' => $data['date_of_birth'],
                 'nationality' => $data['nationality'],
                 'TIN' => $data['TIN'],
-                'NIN' => $request->filled('NIN') ? $data['NIN'] : null,
-                'AIN' => $request->filled('AIN') ? $data['AIN'] : null,
+                'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
+                'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,
                 'email' => $data['email'],
                 'physical_address' => $data['physical_address'],
                 'postal_address' => $data['postal_address'],
@@ -79,9 +84,8 @@ class TrainersRegistrationController extends Controller
                 'application_date' => $data['application_date'],
             ]);
 
-            // If application accepted, create a license record
-            if($data['status'] === 'accepted')
-            {
+            // If application is accepted, create a license record
+            if ($data['status'] === 'accepted') {
                 RegistrationLicenceDetail::create([
                     'trainer_id' => $trainer->id,
                     'application_id' => $application->id,
@@ -93,7 +97,7 @@ class TrainersRegistrationController extends Controller
         });
 
         return redirect()->route('registration-accreditation.registration.trainers.index')
-                ->withSuccess('Trainer registration details Successfully added in the system');
+            ->withSuccess('Trainer registration details Successfully added in the system');
     }
 
     /**
@@ -104,18 +108,9 @@ class TrainersRegistrationController extends Controller
      */
     public function show($id)
     {
-        $trainer = Trainer::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id)->load('trainer', 'registrationLicence');
 
-        $trainer->load([
-            'applications' => function($query){
-                return $query->latest()->first();
-            },
-            'licences' => function($query){
-                return $query->where('license_status','valid')->first();
-            }
-        ]);
-
-        return view('registrationaccreditation.registration.trainers.show', compact('trainer'));
+        return view('registrationaccreditation.registration.trainers.show', compact('registration'));
     }
 
     /**
@@ -126,19 +121,12 @@ class TrainersRegistrationController extends Controller
      */
     public function edit($id)
     {
-        $trainer = Trainer::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id);
         $countries = Country::all()->pluck('name');
 
-        $trainer->load([
-            'applications' => function($query){
-                return $query->latest()->first();
-            },
-            'licences' => function($query){
-                return $query->where('license_status','valid')->first();
-            }
-        ]);
-        
-        return view('registrationaccreditation.registration.trainers.edit', compact('trainer','countries'));
+        $registration->load(['registrationLicence', 'trainer']);
+
+        return view('registrationaccreditation.registration.trainers.edit', compact('registration', 'countries'));
     }
 
     /**
@@ -151,18 +139,11 @@ class TrainersRegistrationController extends Controller
     public function update(UpdateTrainerRegistrationRequest $request, $id)
     {
         $data = $request->validated();
-        $trainer = Trainer::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id)->load('trainer', 'registrationLicence');
 
-        DB::transaction(function() use($data, $trainer, $request){
-           
-            $trainer->load(['applications' => function($query){
-                return $query->latest()->first();
-            },
-            'licences' => function($query){
-                return $query->where('license_status','valid')->first();
-            }]);
+        DB::transaction(function () use ($data, $registration, $request) {
 
-           $trainer->update([
+            $registration->trainer->update([
                 'firstname' => $data['firstname'],
                 'middlename' => $data['middlename'],
                 'lastname' => $data['lastname'],
@@ -170,56 +151,49 @@ class TrainersRegistrationController extends Controller
                 'date_of_birth' => $data['date_of_birth'],
                 'nationality' => $data['nationality'],
                 'TIN' => $data['TIN'],
-                'NIN' => $request->filled('NIN') ? $data['NIN'] : null,
-                'AIN' => $request->filled('AIN') ? $data['AIN'] : null,
+                'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
+                'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,
                 'email' => $data['email'],
                 'physical_address' => $data['physical_address'],
                 'postal_address' => $data['postal_address'],
                 'phone_home' => $data['phone_home'],
                 'phone_mobile' => $data['phone_mobile'],
                 'type' => $data['type'],
-           ]);
+            ]);
 
-            $application = $trainer->applications[0]->update([
-                'application_no' => $data['application_no'],
-                'application_category' => 'registration',
+            $registration->update([
                 'status' => $data['status'],
                 'application_date' => $data['application_date'],
             ]);
 
-            if($data['status'] === 'accepted')
-            {
-                    if(!$trainer->licences->isEmpty()){
+            if ($data['status'] === 'accepted') {
 
-                        $trainer->licences[0]->update([
-                            'application_id' => $application->id,
-                            'licence_start_date' => $data['license_start_date'],
-                            'licence_end_date' => $data['license_end_date'],
-                            'license_status' => 'valid',
-                        ]);
-                    }
-                    else{
-                        RegistrationLicenceDetail::create([
-                            'trainer_id' => $trainer->id,
-                            'application_id' => $trainer->applications[0]->id,
-                            'licence_start_date' => $data['license_start_date'],
-                            'licence_end_date' => $data['license_end_date'],
-                            'license_status' => 'valid',
-                        ]);
-                    }
-            }
-            else{
+                if (!is_null($registration->registrationLicence)) {
 
-                if(!$trainer->licences->isEmpty()){
+                    $registration->registrationLicence->update([
+                        'licence_start_date' => $data['license_start_date'],
+                        'licence_end_date' => $data['license_end_date'],
+                        'license_status' => 'valid',
+                    ]);
+                } else {
+                    RegistrationLicenceDetail::create([
+                        'trainer_id' => $registration->trainer_id,
+                        'application_id' => $registration->id,
+                        'licence_start_date' => $data['license_start_date'],
+                        'licence_end_date' => $data['license_end_date'],
+                        'license_status' => 'valid',
+                    ]);
+                }
+            } else {
 
-                    $trainer->licences[0]->delete();
+                if (!is_null($registration->registrationLicence)) {
+
+                    $registration->registrationLicence->delete();
                 }
             }
-           
         });
 
-        return redirect()->route('registration-accreditation.registration.trainers.index')
-                ->withSuccess('Trainer registration details Successfully updated in the system');
+        return back()->withSuccess('Trainer registration details Successfully updated in the system');
     }
 
     /**

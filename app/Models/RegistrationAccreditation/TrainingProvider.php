@@ -33,6 +33,9 @@ class TrainingProvider extends Model
         'storage_path'
     ];
 
+    protected $with = ['region', 'district', 'townVillage', 'category'];
+
+
     protected static $logFillable = true;
 
     protected static $logName = 'Training Provider';
@@ -41,25 +44,24 @@ class TrainingProvider extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Training Provider added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Training Provider updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Training Provider deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function centerManager()
     {
-        return $this->hasOne(CenterManager::class,'training_provider_id');
+        return $this->hasOne(CenterManager::class, 'training_provider_id');
     }
 
     public function boardOfDirectors()
     {
-        return $this->hasMany(BoardOfDirector::class,'training_provider_id');
+        return $this->hasMany(BoardOfDirector::class, 'training_provider_id');
     }
 
     public function region()
@@ -74,21 +76,26 @@ class TrainingProvider extends Model
 
     public function townVillage()
     {
-        return $this->belongsTo(TownVillage::class,'town_village_id');
+        return $this->belongsTo(TownVillage::class, 'town_village_id');
     }
 
     public function category()
     {
-        return $this->belongsTo(TrainingProviderClassification::class,'category_id');
+        return $this->belongsTo(TrainingProviderClassification::class, 'category_id');
     }
 
     public function applications()
     {
-        return $this->hasMany(ApplicationDetail::class,'training_provider_id');
+        return $this->hasMany(ApplicationDetail::class, 'training_provider_id');
     }
 
     public function licences()
     {
-        return $this->hasMany(RegistrationLicenceDetail::class,'training_provider_id');
+        return $this->hasMany(RegistrationLicenceDetail::class, 'training_provider_id');
+    }
+
+    public function programmes()
+    {
+        return $this->hasMany(AccreditedProgramme::class, 'training_provider_id');
     }
 }

@@ -215,7 +215,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required>
+                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -288,7 +288,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <button class="btn btn-primary mr-1">Save Registration</button>
-                                            <a href="{{route('registration-accreditation.registration.trainingproviders.index')}}" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Cancel</a>
+                                            <a href="{{route('registration-accreditation.registration.trainers.index')}}" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Cancel</a>
                                         </div>
                                     </div>
                                 </div>

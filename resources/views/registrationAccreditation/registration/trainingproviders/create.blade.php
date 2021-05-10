@@ -35,7 +35,7 @@
                             <form action="{{route('registration-accreditation.registration.trainingproviders.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
                                             <div class="col-12"><h4 class="text-primary"><b>Training Provider Details</b></h4></div>
                                         </div>
@@ -178,7 +178,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
                                             <div class="col-12"><h4 class="text-primary"><b>Application Details</b></h4></div>
                                         </div>
@@ -186,7 +186,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required>
+                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

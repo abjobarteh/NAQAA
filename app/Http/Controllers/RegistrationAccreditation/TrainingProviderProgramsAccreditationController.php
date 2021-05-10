@@ -14,7 +14,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function index()
     {
-        //
+        return view('registrationaccreditation.accreditation.programmes.index');
     }
 
     /**
@@ -24,7 +24,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function create()
     {
-        //
+        return view('registrationaccreditation.accreditation.programmes.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('registrationaccreditation.accreditation.programmes.show');
     }
 
     /**
@@ -57,7 +57,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('registrationaccreditation.accreditation.programmes.edit');
     }
 
     /**

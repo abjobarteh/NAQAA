@@ -24,9 +24,15 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function index()
     {
-        $trainingproviders = TrainingProvider::with(['district','townVillage','category'])->get();
+        $registrations = ApplicationDetail::with([
+            'trainingprovider.district',
+            'registrationLicence'
+        ])->where('application_category', 'registration')
+            ->where('applicant_type', 'training_provider')
+            ->latest()
+            ->get();
 
-        return view('registrationaccreditation.registration.trainingproviders.index',compact('trainingproviders'));
+        return view('registrationaccreditation.registration.trainingproviders.index', compact('registrations'));
     }
 
     /**
@@ -36,13 +42,15 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function create()
     {
-        $regions = Region::all()->pluck('name','id');
-        $districts = District::all()->pluck('name','id');
-        $townvillages = TownVillage::all()->pluck('name','id');
-        $categories = TrainingProviderClassification::all()->pluck('name','id');
+        $regions = Region::all()->pluck('name', 'id');
+        $districts = District::all()->pluck('name', 'id');
+        $townvillages = TownVillage::all()->pluck('name', 'id');
+        $categories = TrainingProviderClassification::all()->pluck('name', 'id');
 
-        return view('registrationaccreditation.registration.trainingproviders.create',
-                    compact('regions','districts','townvillages','categories'));
+        return view(
+            'registrationaccreditation.registration.trainingproviders.create',
+            compact('regions', 'districts', 'townvillages', 'categories')
+        );
     }
 
     /**
@@ -55,7 +63,7 @@ class TrainingProvidersRegistrationController extends Controller
     {
         $data = $request->validated();
 
-        DB::transaction(function() use($data){
+        DB::transaction(function () use ($data) {
             // store training provider details
             $trainingprovider = TrainingProvider::create([
                 'name' => $data['name'],
@@ -84,8 +92,7 @@ class TrainingProvidersRegistrationController extends Controller
             ]);
 
             // If application accepted, create a license record
-            if($data['status'] === 'accepted')
-            {
+            if ($data['status'] === 'accepted') {
                 RegistrationLicenceDetail::create([
                     'training_provider_id' => $trainingprovider->id,
                     'application_id' => $application->id,
@@ -97,8 +104,7 @@ class TrainingProvidersRegistrationController extends Controller
         });
 
         return redirect()->route('registration-accreditation.registration.trainingproviders.index')
-                ->withSuccess('Training provider registration Successfully added in the system');
-       
+            ->withSuccess('Training provider registration Successfully added in the system');
     }
 
     /**
@@ -109,17 +115,9 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function show($id)
     {
-        $trainingprovider = TrainingProvider::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
-        $trainingprovider->load(['applications' => function($query){
-            return $query->latest()->first();
-        },
-        'licences' => function($query){
-            return $query->where('license_status','valid')->first();
-        },
-        'region','district','townVillage', 'category']);
-
-        return view('registrationaccreditation.registration.trainingproviders.show', compact('trainingprovider'));
+        return view('registrationaccreditation.registration.trainingproviders.show', compact('registration'));
     }
 
     /**
@@ -130,23 +128,17 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function edit($id)
     {
-        $trainingprovider = TrainingProvider::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
-        $regions = Region::all()->pluck('name','id');
-        $districts = District::all()->pluck('name','id');
-        $townvillages = TownVillage::all()->pluck('name','id');
-        $categories = TrainingProviderClassification::all()->pluck('name','id');
+        $regions = Region::all()->pluck('name', 'id');
+        $districts = District::all()->pluck('name', 'id');
+        $townvillages = TownVillage::all()->pluck('name', 'id');
+        $categories = TrainingProviderClassification::all()->pluck('name', 'id');
 
-        $trainingprovider->load(['applications' => function($query){
-            return $query->latest()->first();
-        },
-        'licences' => function($query){
-            return $query->where('license_status','valid')->first();
-        }]);
-        
-        // dd($trainingprovider);
-        return view('registrationaccreditation.registration.trainingproviders.edit', 
-                compact('trainingprovider','regions','districts','townvillages','categories'));
+        return view(
+            'registrationaccreditation.registration.trainingproviders.edit',
+            compact('registration', 'regions', 'districts', 'townvillages', 'categories')
+        );
     }
 
     /**
@@ -159,72 +151,56 @@ class TrainingProvidersRegistrationController extends Controller
     public function update(UpdateTrainingProviderRequest $request, $id)
     {
         $data = $request->validated();
-        $trainingprovider = TrainingProvider::findOrFail($id);
+        $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
-        DB::transaction(function() use($data, $trainingprovider){
-           
-            $trainingprovider->load(['applications' => function($query){
-                return $query->latest()->first();
-            },
-            'licences' => function($query){
-                return $query->where('license_status','valid')->first();
-            }]);
+        DB::transaction(function () use ($data, $registration) {
 
-           $trainingprovider->update([
-            'name' => $data['name'],
-            'physical_address' => $data['physical_address'],
-            'postal_address' => $data['postal_address'],
-            'region_id' => $data['region_id'],
-            'district_id' => $data['district_id'],
-            'town_village_id' => $data['town_village_id'],
-            'telephone_work' => $data['telephone_work'],
-            'mobile_phone' => $data['mobile_phone'],
-            'fax' => $data['fax'],
-            'website' => $data['website'],
-            'email' => $data['email'],
-            'category_id' => $data['category_id'],
-           ]);
+            $registration->trainingprovider->update([
+                'name' => $data['name'],
+                'physical_address' => $data['physical_address'],
+                'postal_address' => $data['postal_address'],
+                'region_id' => $data['region_id'],
+                'district_id' => $data['district_id'],
+                'town_village_id' => $data['town_village_id'],
+                'telephone_work' => $data['telephone_work'],
+                'mobile_phone' => $data['mobile_phone'],
+                'fax' => $data['fax'],
+                'website' => $data['website'],
+                'email' => $data['email'],
+                'category_id' => $data['category_id'],
+            ]);
 
-            $application = $trainingprovider->applications[0]->update([
-                'application_no' => $data['application_no'],
-                'application_category' => 'registration',
+            $registration->update([
                 'status' => $data['status'],
                 'application_date' => $data['application_date'],
             ]);
 
-            if($data['status'] === 'accepted')
-            {
-                    if(!$trainingprovider->licences->isEmpty()){
+            if ($data['status'] === 'accepted') {
+                if (!is_null($registration->registrationLicence)) {
 
-                        $trainingprovider->licences[0]->update([
-                            'application_id' => $application->id,
-                            'licence_start_date' => $data['license_start_date'],
-                            'licence_end_date' => $data['license_end_date'],
-                            'license_status' => 'valid',
-                        ]);
-                    }
-                    else{
-                        RegistrationLicenceDetail::create([
-                            'training_provider_id' => $trainingprovider->id,
-                            'application_id' => $trainingprovider->applications[0]->id,
-                            'licence_start_date' => $data['license_start_date'],
-                            'licence_end_date' => $data['license_end_date'],
-                            'license_status' => 'valid',
-                        ]);
-                    }
-                
-            }
-            else{
-                if(!$trainingprovider->licences->isEmpty()){
+                    $registration->registrationLicence->update([
+                        'licence_start_date' => $data['license_start_date'],
+                        'licence_end_date' => $data['license_end_date'],
+                        'license_status' => 'valid',
+                    ]);
+                } else {
+                    RegistrationLicenceDetail::create([
+                        'training_provider_id' => $registration->training_provider_id,
+                        'application_id' => $registration->id,
+                        'licence_start_date' => $data['license_start_date'],
+                        'licence_end_date' => $data['license_end_date'],
+                        'license_status' => 'valid',
+                    ]);
+                }
+            } else {
+                if (!is_null($registration->registrationLicence)) {
 
-                    $trainingprovider->licences[0]->delete();
+                    $registration->registrationLicence->delete();
                 }
             }
-           
         });
 
-        return redirect()->route('registration-accreditation.registration.trainingproviders.index')
-                ->withSuccess('Training provider registration Successfully updated in the system');
+        return back()->withSuccess('Training provider registration Successfully updated in the system');
     }
 
     /**

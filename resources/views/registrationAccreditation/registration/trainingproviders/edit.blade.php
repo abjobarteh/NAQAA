@@ -32,11 +32,11 @@
                             <h3 class="card-title">Edit Training provider</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('registration-accreditation.registration.trainingproviders.update', $trainingprovider->id)}}" method="post" autocomplete="off">
+                            <form action="{{route('registration-accreditation.registration.trainingproviders.update', $registration->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
                                             <div class="col-12"><h4 class="text-primary"><b>Training Provider Details</b></h4></div>
                                         </div>
@@ -44,7 +44,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Training Provider Name: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="name" value="{{ $trainingprovider->name }}" required autofocus>
+                                                    <input type="text" class="form-control" name="name" value="{{ $registration->trainingprovider->name }}" required autofocus>
                                                     @error('name')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -56,7 +56,7 @@
                                                     <select name="category_id" id="category_id" class="form-control select2" required>
                                                         <option value="">Select category</option>
                                                         @foreach ($categories as $id => $categories)
-                                                            <option value="{{$id}}" {{ $trainingprovider->category_id == $id ? 'selected' :'' }}>{{$categories}}</option>
+                                                            <option value="{{$id}}" {{ $registration->trainingprovider->category_id == $id ? 'selected' :'' }}>{{$categories}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('category_id')
@@ -69,7 +69,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Physical Address: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="physical_address" value="{{ $trainingprovider->physical_address }}" required>
+                                                    <input type="text" class="form-control" name="physical_address" value="{{ $registration->trainingprovider->physical_address }}" required>
                                                     @error('physical_address')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -78,7 +78,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Postal Address:</label>
-                                                    <input type="text" class="form-control" name="postal_address" value="{{ $trainingprovider->postal_address }}">
+                                                    <input type="text" class="form-control" name="postal_address" value="{{ $registration->trainingprovider->postal_address }}">
                                                     @error('postal_address')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -89,7 +89,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Telephone (Work):</label>
-                                                    <input type="text" class="form-control" name="telephone_work" value="{{ $trainingprovider->telephone_work }}">
+                                                    <input type="text" class="form-control" name="telephone_work" value="{{ $registration->trainingprovider->telephone_work }}">
                                                     @error('telephone_work')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -98,7 +98,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Mobile Phone:</label>
-                                                    <input type="text" class="form-control" name="mobile_phone" value="{{ $trainingprovider->mobile_phone }}">
+                                                    <input type="text" class="form-control" name="mobile_phone" value="{{ $registration->trainingprovider->mobile_phone }}">
                                                     @error('mobile_phone')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -107,7 +107,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Fax:</label>
-                                                    <input type="text" class="form-control" name="fax" value="{{ $trainingprovider->fax }}">
+                                                    <input type="text" class="form-control" name="fax" value="{{ $registration->trainingprovider->fax }}">
                                                     @error('fax')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -118,7 +118,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Email: <sup class="text-danger">*</sup></label>
-                                                    <input type="email" class="form-control" name="email" value="{{ $trainingprovider->email }}" required>
+                                                    <input type="email" class="form-control" name="email" value="{{ $registration->trainingprovider->email }}" required>
                                                     @error('email')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -127,7 +127,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Webiste:</label>
-                                                    <input type="text" class="form-control" name="website" value="{{ $trainingprovider->website }}">
+                                                    <input type="text" class="form-control" name="website" value="{{ $registration->trainingprovider->website }}">
                                                     @error('website')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -141,7 +141,7 @@
                                                     <select name="region_id" id="region_id" class="form-control select2" required>
                                                         <option value="">Select regions</option>
                                                         @foreach ($regions as $id => $region)
-                                                            <option value="{{$id}}" {{ $trainingprovider->region_id == $id ? 'selected' : '' }}>{{$region}}</option>
+                                                            <option value="{{$id}}" {{ $registration->trainingprovider->region_id == $id ? 'selected' : '' }}>{{$region}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('region_id')
@@ -155,7 +155,7 @@
                                                     <select name="district_id" id="district_id" class="form-control select2" required>
                                                         <option value="">Select district</option>
                                                         @foreach ($districts as $id => $district)
-                                                            <option value="{{$id}}" {{ $trainingprovider->district_id == $id ? 'selected' : '' }}>{{$district}}</option>
+                                                            <option value="{{$id}}" {{ $registration->trainingprovider->district_id == $id ? 'selected' : '' }}>{{$district}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('district_id')
@@ -169,7 +169,7 @@
                                                     <select name="town_village_id" id="town_village_id" class="form-control select2">
                                                         <option value="">Select Town/village</option>
                                                         @foreach ($townvillages as $id => $townvillage)
-                                                            <option value="{{$id}}" {{ $trainingprovider->town_village_id == $id ? 'selected' : '' }}>{{$townvillage}}</option>
+                                                            <option value="{{$id}}" {{ $registration->trainingprovider->town_village_id == $id ? 'selected' : '' }}>{{$townvillage}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('town_village_id')
@@ -179,7 +179,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-12 col-md-12 col-lg-6">
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
                                             <div class="col-12"><h4 class="text-primary"><b>Application Details</b></h4></div>
                                         </div>
@@ -187,7 +187,7 @@
                                             <div class="col-sm-12">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="{{ $trainingprovider->applications[0]->application_no ?? '' }}" required>
+                                                    <input type="text" class="form-control" name="application_no" value="{{ $registration->application_no ?? '' }}" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -199,7 +199,7 @@
                                                 <div class="form-group">
                                                     <label>Application Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="application_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input" name="application_date" value="{{ $trainingprovider->applications[0]->application_date ?? '' }}" data-target="#application_date"/>
+                                                        <input type="text" class="form-control datetimepicker-input" name="application_date" value="{{ $registration->application_date ?? '' }}" data-target="#application_date"/>
                                                         <div class="input-group-append" data-target="#application_date" data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                         </div>
@@ -216,9 +216,9 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>Select application status</option>
-                                                        <option value="accepted" {{ ($trainingprovider->applications[0]->status ?? '') == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                                        <option value="rejected" {{ ($trainingprovider->applications[0]->status ?? '') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                                        <option value="pending" {{ ($trainingprovider->applications[0]->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                        <option value="accepted" {{ ($registration->status ?? '') == 'accepted' ? 'selected' : '' }}>Accepted</option>
+                                                        <option value="rejected" {{ ($registration->status ?? '') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                                                        <option value="pending" {{ ($registration->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -227,11 +227,11 @@
                                             </div>
                                         </div>
                                         <div class="row license-registration-details">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>License Start Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_start_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="license_start_date" value="{{ $trainingprovider->licences[0]->licence_start_date ?? '' }}" data-target="#license_start_date"/>
+                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="license_start_date" value="{{ $registration->registrationLicence->licence_start_date ?? '' }}" data-target="#license_start_date"/>
                                                         <div class="input-group-append" data-target="#license_start_date" data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                         </div>
@@ -241,13 +241,11 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row license-registration-details">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>License End Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_end_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="license_end_date" value="{{ $trainingprovider->licences[0]->licence_end_date ?? '' }}" data-target="#license_end_date"/>
+                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="license_end_date" value="{{ $registration->registrationLicence->licence_end_date ?? '' }}" data-target="#license_end_date"/>
                                                         <div class="input-group-append" data-target="#license_end_date" data-toggle="datetimepicker">
                                                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                         </div>

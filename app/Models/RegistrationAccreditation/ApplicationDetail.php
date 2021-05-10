@@ -51,6 +51,11 @@ class ApplicationDetail extends Model
         $this->attributes['application_date'] = new Carbon($value);
     }
 
+    public function getApplicationDateAttribute($value)
+    {
+        return new Carbon($value);
+    }
+
     public function trainingprovider()
     {
         return $this->belongsTo(TrainingProvider::class,'training_provider_id');
@@ -66,9 +71,9 @@ class ApplicationDetail extends Model
         return $this->hasOne(RegistrationLicenceDetail::class,'application_id');
     }
 
-    public function trainerAccreditation()
+    public function trainerAccreditations()
     {
-        return $this->hasOne(TrainerAccreditationDetail::class,'application_id');
+        return $this->hasMany(TrainerAccreditationDetail::class,'application_id');
     }
 
 }
