@@ -16,7 +16,6 @@ class CreateAccreditedProgrammesTable extends Migration
         Schema::create('accredited_programmes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('trainingprovider_id')->nullable()->constrained('training_providers');
-            $table->foreignId('application_id')->nullable()->constrained('application_details');
             $table->string('programme_title');
             $table->string('level');
             $table->string('mentoring_institution')->nullable();
@@ -28,7 +27,7 @@ class CreateAccreditedProgrammesTable extends Migration
             $table->longText('admission_requirements')->nullable();
             $table->longText('progression_requirements')->nullable();
             $table->longText('learning_outcomes')->nullable();
-            $table->string('duration')->nullable();
+            $table->string('studentship_duration')->nullable();
             $table->string('total_qualification_time')->nullable();
             $table->string('level_of_fees')->nullable();
             $table->string('department_name')->nullable();
@@ -46,9 +45,6 @@ class CreateAccreditedProgrammesTable extends Migration
             $table->longText('staff_recruitment_policy')->nullable();
             $table->longText('provisions_for_disability')->nullable();
             $table->longText('provided_safety_facilities')->nullable();
-            $table->string('accreditation_status')->nullable();
-            $table->date('accreditation_start_date')->nullable();
-            $table->date('accreditation_end_date')->nullable();
             $table->timestamps();
         });
     }

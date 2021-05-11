@@ -8,11 +8,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Trainers</h1>
+                <h1 class="m-0">Programme Accreditations</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                    <a href="{{route('registration-accreditation.accreditation.trainers.create')}}" 
-                        class="btn btn-primary float-right">
+                    <a href="{{route('registration-accreditation.accreditation.programmes.create')}}" 
+                        class="btn btn-primary btn-flat float-right">
                         New Programme Accreditation
                     </a>
                 </div><!-- /.col -->
@@ -28,49 +28,45 @@
                             <h3 class="card-title">Programme Accreditation lists</h3>
                         </div>
                         <div class="card-body">
-                            {{-- <table id="example2" class="table datatable table-bordered table-hover">
+                            <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Trainer Name</th>
-                                        <th>Birth Date</th>
-                                        <th>Gender</th>
-                                        <th>Nationality</th>
-                                        <th>Email</th>
-                                        <th>Trainer type</th>
-                                        <th>status</th>
+                                        <th>Institution Name</th>
+                                        <th>Programme Title</th>
+                                        <th>Level</th>
+                                        <th>Duration</th>
+                                        <th>Programme Qualification Time</th>
+                                        <th>Fees</th>
+                                        <th>Application type</th>
                                         <th>Application date</th>
-                                        <th>Accreditation areas</th>
+                                        <th>Aplication status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
-                                            <td>{{$accreditation->trainer->firstname}}. {{$accreditation->trainer->middlename ?? ''}} .{{$accreditation->trainer->lastname}}</td>
-                                            <td>{{$accreditation->trainer->date_of_birth->toFormattedDateString()}}</td>
-                                            <td>{{$accreditation->trainer->gender}}</td>
-                                            <td>{{$accreditation->trainer->nationality}}</td>
-                                            <td>{{$accreditation->trainer->email}}</td>
-                                            <td>{{$accreditation->trainer->type}}</td>
+                                            <td>{{$accreditation->trainingprovider->name}}</td>
+                                            <td>{{$accreditation->programmeDetail->programme_title ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->programmeDetail->level ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->programmeDetail->studentship_duration ?? '0'}}</td>
+                                            <td>{{$accreditation->programmeDetail->total_qualification_time ?? '0'}} Hours</td>
+                                            <td><b>GMD</b>{{$accreditation->programmeDetail->level_of_fees ?? '0'}}</td>
+                                            <td><span class="badge badge-primary">{{$accreditation->application_type}}</span></td>
+                                            <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
                                             <td>
                                                 <span class="badge {{$accreditation->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
                                                     {{$accreditation->status}}
                                                 </span>
                                             </td>
-                                            <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
                                             <td>
-                                                @foreach ($accreditation->trainerAccreditations as $area)
-                                                    <p class="text-muted">{{$area->area}} - {{$area->level}},</p>
-                                                @endforeach
-                                            </td>
-                                            <td>
-                                                <a href="{{route('registration-accreditation.accreditation.trainers.edit',$accreditation->id)
+                                                <a href="{{route('registration-accreditation.accreditation.programmes.edit',$accreditation->id)
                                                     }}" class="btn btn-sm btn-danger"
                                                     title="edit trainer registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
-                                                <a href="{{route('registration-accreditation.accreditation.trainers.show',$accreditation->id)
+                                                <a href="{{route('registration-accreditation.accreditation.programmes.show',$accreditation->id)
                                                     }}" class="btn btn-sm btn-info"
                                                     title="view trainer registration details"
                                                     >
@@ -82,7 +78,7 @@
                                         
                                     @endforelse
                                 </tbody>
-                            </table> --}}
+                            </table>
                         </div>
                     </div>
                 </div>

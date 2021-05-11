@@ -25,6 +25,7 @@ class ApplicationDetail extends Model
         'received_by',
         'date_received',
         'application_checklists',
+        'programme_id'
     ];
 
     protected static $logFillable = true;
@@ -35,15 +36,14 @@ class ApplicationDetail extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Application added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Application updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Application deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Application added by " . auth()->user()->username;
+            case 'updated':
+                return "Application updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Application deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setApplicationDateAttribute($value)
@@ -58,22 +58,31 @@ class ApplicationDetail extends Model
 
     public function trainingprovider()
     {
-        return $this->belongsTo(TrainingProvider::class,'training_provider_id');
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
     public function trainer()
     {
-        return $this->belongsTo(Trainer::class,'trainer_id');
+        return $this->belongsTo(Trainer::class, 'trainer_id');
     }
 
     public function registrationLicence()
     {
-        return $this->hasOne(RegistrationLicenceDetail::class,'application_id');
+        return $this->hasOne(RegistrationLicenceDetail::class, 'application_id');
     }
 
     public function trainerAccreditations()
     {
-        return $this->hasMany(TrainerAccreditationDetail::class,'application_id');
+        return $this->hasMany(TrainerAccreditationDetail::class, 'application_id');
     }
 
+    public function programmeAccreditations()
+    {
+        return $this->hasOne(ProgrammeAccreditationDetails::class, 'application_id');
+    }
+
+    public function programmeDetail()
+    {
+        return $this->belongsTo(AccreditedProgramme::class, 'programme_id');
+    }
 }

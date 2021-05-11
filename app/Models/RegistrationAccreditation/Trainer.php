@@ -42,15 +42,14 @@ class Trainer extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Trainer added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Trainer updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Trainer deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Trainer added by " . auth()->user()->username;
+            case 'updated':
+                return "Trainer updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Trainer deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setDateOfBirthAttribute($value)
@@ -65,16 +64,11 @@ class Trainer extends Model
 
     public function applications()
     {
-        return $this->hasMany(ApplicationDetail::class,'trainer_id');
+        return $this->hasMany(ApplicationDetail::class, 'trainer_id');
     }
 
     public function licences()
     {
         return $this->hasMany(RegistrationLicenceDetail::class, 'trainer_id');
-    }
-
-    public function accreditations()
-    {
-        return $this->hasMany(TrainerAccreditationDetail::class,'trainer_id');
     }
 }

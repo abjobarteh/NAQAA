@@ -6,13 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-class TrainerAccreditationDetail extends Model
+class ProgrammeAccreditationDetails extends Model
 {
     use HasFactory, LogsActivity;
 
     protected $fillable =  [
-        'area',
-        'level',
         'application_id',
         'accreditation_status',
         'accreditation_start_date',
@@ -22,7 +20,7 @@ class TrainerAccreditationDetail extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Trainer accreditation';
+    protected static $logName = 'Programme accreditation';
 
     protected static $logOnlyDirty = true;
 
@@ -30,16 +28,16 @@ class TrainerAccreditationDetail extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Trainer accreditation added by " . auth()->user()->username;
+                return "New Programme accreditation added by " . auth()->user()->username;
             case 'updated':
-                return "Trainer accreditation updated by " . auth()->user()->username;
+                return "Programme accreditation updated by " . auth()->user()->username;
             case 'deleted':
-                return "Trainer accreditation deleted by " . auth()->user()->username;
+                return "Programme accreditation deleted by " . auth()->user()->username;
         };
     }
 
     public function application()
     {
-        return $this->belongsTo(ApplicationDetail::class, 'trainer_id');
+        return $this->belongsTo(ApplicationDetail::class, 'application_id');
     }
 }

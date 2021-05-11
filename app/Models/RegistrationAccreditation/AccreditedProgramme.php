@@ -24,7 +24,7 @@ class AccreditedProgramme extends Model
         'admission_requirements',
         'progression_requirements',
         'learning_outcomes',
-        'duration',
+        'studentship_duration',
         'total_qualification_time',
         'level_of_fees',
         'department_name',
@@ -47,14 +47,41 @@ class AccreditedProgramme extends Model
         'accreditation_end_date',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Training Provider Programme';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider Programme added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider Programme updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider Programme deleted by " . auth()->user()->username;
+        };
+    }
+
+    public function setAdmissionRequirementsAttribute($value)
+    {
+        $this->attributes['admission_requirements'] = json_encode($value);
+    }
+    public function getAdmissionRequirementsAttribute($value)
+    {
+        return json_decode($value);
+    }
+
     public function trainingprovider()
     {
         return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
-    public function application()
+    public function applications()
     {
-        return $this->belongsTo(ApplicationDetail::class, 'application_id');
+        return $this->hasMany(ApplicationDetail::class, 'programme_id');
     }
 
     public function staffs()
