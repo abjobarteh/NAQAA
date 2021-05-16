@@ -183,7 +183,7 @@
                                             <div class="col-12"><h4 class="text-primary"><b>Application Details</b></h4></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
@@ -192,9 +192,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="application_date" data-target-input="nearest">
@@ -226,7 +224,7 @@
                                             </div>
                                         </div>
                                         <div class="row license-registration-details">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>License Start Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_start_date" data-target-input="nearest">
@@ -240,9 +238,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row license-registration-details">
-                                            <div class="col-sm-12">
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>License End Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_end_date" data-target-input="nearest">

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ class QualificationLevel extends Model
         'description'
     ];
     protected static $logFillable = true;
-    
+
     protected static $logName = 'Qualification Level';
 
     protected static $logOnlyDirty = true;
@@ -30,11 +31,17 @@ class QualificationLevel extends Model
     //         case 'deleted': 
     //                  return "Qualification Level deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
-    public function students(){
-        
-        return $this->hasMany(StudentDetailsDataCollection::class,'qualification_at_entry');
+    public function students()
+    {
+
+        return $this->hasMany(StudentDetailsDataCollection::class, 'qualification_at_entry');
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class, 'programme_level_id');
     }
 }

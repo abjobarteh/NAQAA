@@ -11,7 +11,7 @@ class AccreditedProgramme extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'training_provider_id',
+        'trainingprovider_id',
         'application_id',
         'programme_title',
         'level',
@@ -79,9 +79,9 @@ class AccreditedProgramme extends Model
         return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
-    public function applications()
+    public function application()
     {
-        return $this->hasMany(ApplicationDetail::class, 'programme_id');
+        return $this->hasOne(ApplicationDetail::class, 'programme_id');
     }
 
     public function staffs()

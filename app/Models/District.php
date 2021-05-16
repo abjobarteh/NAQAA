@@ -35,7 +35,7 @@ class District extends Model
     //         case 'deleted': 
     //                  return "District deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
     public function region()
@@ -57,5 +57,9 @@ class District extends Model
     {
         return $this->hasMany(TrainingProvider::class);
     }
-    
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class);
+    }
 }

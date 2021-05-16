@@ -28,15 +28,14 @@ class RegistrationLicenceDetail extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Registration Licence added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Registration Licence updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Registration Licence deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Registration Licence added by " . auth()->user()->username;
+            case 'updated':
+                return "Registration Licence updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Registration Licence deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setLicenceStartDateAttribute($value)
@@ -44,23 +43,33 @@ class RegistrationLicenceDetail extends Model
         $this->attributes['licence_start_date'] = new Carbon($value);
     }
 
-    public function setLicenceEndtDateAttribute($value)
+    public function setLicenceEndDateAttribute($value)
     {
         $this->attributes['licence_end_date'] = new Carbon($value);
     }
 
+    public function getLicenceStartDateAttribute($value)
+    {
+        return new Carbon($value);
+    }
+
+    public function getLicenceEndDateAttribute($value)
+    {
+        return new Carbon($value);
+    }
+
     public function trainer()
     {
-        return $this->belongsTo(Trainer::class,'trainer_id');
+        return $this->belongsTo(Trainer::class, 'trainer_id');
     }
 
     public function trainingprovider()
     {
-        return $this->belongsTo(TrainingProvider::class,'training_provider_id');
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
     public function application()
     {
-        return $this->belongsTo(ApplicationDetail::class,'training_provider_id');
+        return $this->belongsTo(ApplicationDetail::class, 'application_id');
     }
 }

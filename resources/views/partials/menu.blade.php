@@ -219,7 +219,7 @@
       <a href="{{route('registration-accreditation.registration.trainers.index')}}" class="nav-link 
       {{ request()->is('registration-accreditation/registration/trainers') || 
          request()->is('registration-accreditation/registration/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user-tie"></i>
+        <i class="nav-icon fas fa-id-card-alt"></i>
         <p>
           Trainers
         </p>
@@ -252,9 +252,42 @@
       <a href="{{route('registration-accreditation.accreditation.trainers.index')}}" class="nav-link 
       {{ request()->is('registration-accreditation/accreditation/trainers') || 
          request()->is('registration-accreditation/accreditation/trainers/*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-user-tie"></i>
+        <i class="nav-icon fas fa-id-card-alt"></i>
         <p>
           Trainers
+        </p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
+  {{ request()->is('registration-accreditation/licences/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-credit-card"></i>
+    <p>
+      Licences
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.licence.registrations')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/licence/registrations') || 
+         request()->is('registration-accreditation/licence/registrations/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-newspaper"></i>
+        <p>
+          Registration
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.licence.accreditations')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/licence/accreditations') || 
+         request()->is('registration-accreditation/licence/accreditations/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-stamp"></i>
+        <p>
+          Accreditation
         </p>
       </a>
     </li>

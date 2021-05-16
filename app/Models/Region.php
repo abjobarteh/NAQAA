@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\JobVacancy;
@@ -35,7 +36,7 @@ class Region extends Model
     //         case 'deleted': 
     //                  return "Region deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
     public function localgovermentareas()
@@ -50,16 +51,21 @@ class Region extends Model
 
     public function InstitutionDataCollections()
     {
-        return $this->hasMany(InstitutionDetailsDataCollection::class,'region');
+        return $this->hasMany(InstitutionDetailsDataCollection::class, 'region');
     }
 
     public function jobvacancies()
     {
-        return $this->hasMany(JobVacancy::class,'region_id');
+        return $this->hasMany(JobVacancy::class, 'region_id');
     }
 
     public function trainingproviders()
     {
         return $this->hasMany(TrainingProvider::class);
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class);
     }
 }

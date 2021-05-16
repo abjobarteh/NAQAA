@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\AssessmentCertification\StudentAssessmentDetail;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -70,5 +71,10 @@ class Trainer extends Model
     public function licences()
     {
         return $this->hasMany(RegistrationLicenceDetail::class, 'trainer_id');
+    }
+
+    public function assessments()
+    {
+        return $this->hasMany(StudentAssessmentDetail::class, 'assessor_id');
     }
 }

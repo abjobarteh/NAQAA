@@ -40,6 +40,6 @@ class TrainerAccreditationDetail extends Model
 
     public function application()
     {
-        return $this->belongsTo(ApplicationDetail::class, 'trainer_id');
+        return $this->belongsTo(ApplicationDetail::class, 'application_id');
     }
 }

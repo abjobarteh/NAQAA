@@ -2,6 +2,8 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\AssessmentCertification\EndorsedCertificateDetail;
+use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\District;
 use App\Models\Region;
 use App\Models\TownVillage;
@@ -97,5 +99,15 @@ class TrainingProvider extends Model
     public function programmes()
     {
         return $this->hasMany(AccreditedProgramme::class, 'training_provider_id');
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class, 'institution_id');
+    }
+
+    public function certificateEndorsements()
+    {
+        return $this->hasMany(EndorsedCertificateDetail::class, 'institution_id');
     }
 }
