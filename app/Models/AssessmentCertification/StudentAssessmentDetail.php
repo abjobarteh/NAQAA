@@ -14,6 +14,7 @@ class StudentAssessmentDetail extends Model
     protected $fillable = [
         'student_id',
         'assessor_id',
+        'application_id',
         'assessment_status',
         'qualification_type',
         'last_assessment_date',
@@ -27,5 +28,10 @@ class StudentAssessmentDetail extends Model
     public function asessor()
     {
         return $this->belongsTo(Trainer::class, 'assessor_id');
+    }
+
+    public function registration()
+    {
+        return $this->belongsTo(StudentRegistrationDetail::class, 'application_id');
     }
 }

@@ -14,7 +14,7 @@ class AddEducationFieldIdToTrainerAccreditationDetails extends Migration
     public function up()
     {
         Schema::table('trainer_accreditation_details', function (Blueprint $table) {
-            $table->foreignId('field_of_education')->nullable()->constrained('education_fields');
+            $table->foreignId('field_of_education_id')->nullable()->constrained('education_fields');
         });
     }
 

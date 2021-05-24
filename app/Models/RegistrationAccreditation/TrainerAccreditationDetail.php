@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\EducationField;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -18,6 +19,7 @@ class TrainerAccreditationDetail extends Model
         'accreditation_start_date',
         'accreditation_end_date',
         'status',
+        'field_of_education_id'
     ];
 
     protected static $logFillable = true;
@@ -41,5 +43,10 @@ class TrainerAccreditationDetail extends Model
     public function application()
     {
         return $this->belongsTo(ApplicationDetail::class, 'application_id');
+    }
+
+    public function fieldOfEducation()
+    {
+        return $this->belongsTo(EducationField::class, 'field_of_education_id');
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsController;
+use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
+use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\RegistrationAccreditation\DashboardController as RegistrationAccreditationDashboardController;
 use App\Http\Controllers\RegistrationAccreditation\LicencesManagementController;
@@ -243,8 +246,26 @@ Route::group(['middleware' => 'auth'], function () {
   // Assessment and certification routes
   Route::group([
     'prefix' => 'assessment-certification', 'as' => 'assessment-certification.',
-    'middleware' => 'role:assessment_and_certification_manager,assessment_and_certification_officer'
+    'middleware' => 'role:assessment_and_certification_manager|assessment_and_certification_officer'
   ], function () {
+
+    Route::redirect('/', 'assessment-certification/registrations');
+
+    Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
+      Route::get('candidates', [StudentAssessmentsController::class, 'candidates'])->name('candidates');
+      Route::get('student-assessment', [StudentAssessmentsController::class, 'studentAssessment'])->name('student-assessment');
+      Route::post('generate-candidates', [StudentAssessmentsController::class, 'generateCandidates'])->name('generate-candidates');
+      Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
+      Route::get('export-candidates', [StudentAssessmentsController::class, 'exportCandidates'])->name('export-candidates');
+    });
+
+    // student registrations
+    Route::resource('registrations', StudentRegistrationsController::class);
+
+    // student assessments
+
+    // endorsement of certificates
+    Route::resource('certificate-endorsements', CertificateEndorsementsController::class);
   });
 
 

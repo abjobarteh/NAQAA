@@ -63,9 +63,28 @@ class Trainer extends Model
         return new Carbon($value);
     }
 
+    public function getFullNameAttribute()
+    {
+        return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+    }
+
     public function applications()
     {
         return $this->hasMany(ApplicationDetail::class, 'trainer_id');
+    }
+
+    public function accreditations()
+    {
+        return $this->hasMany(TrainerAccreditationDetail::class, 'trainer_id')->orderBy('id', 'desc');
+    }
+    public function currentAccreditation()
+    {
+        return $this->accreditaitons()->where('status', 'accepted')->where('accreditation_status', 'valid')->first();
+    }
+
+    public function accreditedAreas()
+    {
+        return $this->accreditations()->where('status', 'accepted')->where('accreditation_status', 'valid');
     }
 
     public function licences()

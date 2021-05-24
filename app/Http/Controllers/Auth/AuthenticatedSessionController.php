@@ -35,18 +35,17 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        if($request->user()->user_status == 0)
-        {
+        if ($request->user()->user_status == 0) {
             Auth::guard('web')->logout();
 
             $request->session()->invalidate();
-    
+
             $request->session()->regenerateToken();
 
             return back()->withWarning('Your Account is Deactivated. Please contact your administrator for further advice.');
         }
 
-        if($request->user()->default_password_status == 1) return $this->changeDefaultPassword();
+        if ($request->user()->default_password_status == 1) return $this->changeDefaultPassword();
 
         return $this->redirectToCorrectUserDashboard($request);
     }
@@ -98,31 +97,23 @@ class AuthenticatedSessionController extends Controller
 
     public function redirectToCorrectUserDashboard($request)
     {
-        if($request->user()->hasRole(
-            ...['registration_and_accreditation_manager','registration_and_accreditation_officer']
-        ))
-        {
+        if ($request->user()->hasRole(
+            ...['registration_and_accreditation_manager', 'registration_and_accreditation_officer']
+        )) {
             return redirect(route('registration-accreditation.dashboard'));
-        }
-        else if($request->user()->hasRole(
-            ...['assessment_and_certification_manager','assessment_and_certification_officer']
-        ))
-        {
-            return redirect(route('assessment-certification.dashboard'));
-        }
-        else if($request->user()->hasRole(
-            ...['research_and_development_manager','research_and_development_officer']
-        ))
-        {
+        } else if ($request->user()->hasRole(
+            ...['assessment_and_certification_manager', 'assessment_and_certification_officer']
+        )) {
+            return redirect(route('assessment-certification.registrations.index'));
+        } else if ($request->user()->hasRole(
+            ...['research_and_development_manager', 'research_and_development_officer']
+        )) {
             return redirect(route('researchdevelopment.dashboard'));
-        }
-        else if($request->user()->hasRole(
-            ...['standards_development_manager','standards_development_officer']
-        ))
-        {
+        } else if ($request->user()->hasRole(
+            ...['standards_development_manager', 'standards_development_officer']
+        )) {
             return redirect(route('standardscurriculum.dashboard'));
-        }
-        else{
+        } else {
             return redirect(route('admin.dashboard'));
         }
     }

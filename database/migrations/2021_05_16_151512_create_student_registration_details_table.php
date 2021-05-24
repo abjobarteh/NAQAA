@@ -18,6 +18,7 @@ class CreateStudentRegistrationDetailsTable extends Migration
             $table->foreignId('student_id')->nullable()->constrained('registered_students');
             $table->longText('registration_no')->nullable();
             $table->dateTime('registration_date')->nullable();
+            $table->string('serial_no')->nullable();
             $table->timestamps();
         });
     }

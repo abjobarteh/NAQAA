@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainerAccreditationDetail;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ class EducationField extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['name','description','code'];
+    protected $fillable = ['name', 'description', 'code'];
 
     protected static $logFillable = true;
 
@@ -30,7 +31,7 @@ class EducationField extends Model
     //         case 'deleted': 
     //                  return "Field of Education deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
     public function subFields()
@@ -40,11 +41,16 @@ class EducationField extends Model
 
     public function programDataCollection()
     {
-        return $this->hasMany(ProgramDetailsDataCollection::class,'education_field_id');
+        return $this->hasMany(ProgramDetailsDataCollection::class, 'education_field_id');
     }
 
     public function students()
     {
         return $this->hasMany(StudentDetailsDataCollection::class);
+    }
+
+    public function accreditedTrainers()
+    {
+        return $this->hasMany(TrainerAccreditationDetail::class, 'field_of_education_id');
     }
 }

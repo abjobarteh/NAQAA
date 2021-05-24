@@ -313,3 +313,70 @@
   </a>
 </li>
 @endrole
+
+@role('assessment_and_certification_manager|assessment_and_certification_officer')
+<li class="nav-item">
+  <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
+     request()->is('assessment-certification/registrations') || 
+     request()->is('assessment-certification/registrations/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Registrations
+    </p>
+  </a>
+</li>
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
+  {{ request()->is('assessment-certification/assessment/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-stamp"></i>
+    <p>
+      Assessmeent
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{route('assessment-certification.assessment.candidates')}}" class="nav-link 
+      {{ request()->is('assessment-certification/assessment/candidates') || 
+         request()->is('assessment-certification/assessment/candidates/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-certificate"></i>
+        <p>
+          Generate Candidates
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('assessment-certification.assessment.student-assessment')}}" class="nav-link 
+      {{ request()->is('assessment-certification/assessment/student-assessment') || 
+         request()->is('assessment-certification/assessment/student-assessment/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-id-card-alt"></i>
+        <p>
+          Student Assessment
+        </p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item">
+  <a href="{{route('assessment-certification.certificate-endorsements.index')}}" class="nav-link {{
+     request()->is('assessment-certification/certificate-endorsements') ||
+     request()->is('assessment-certification/certificate-endorsements/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Endorsements
+    </p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="#" class="nav-link"
+     >
+    <i class="nav-icon fas fa-chart-bar"></i>
+    <p>
+      Reports
+    </p>
+  </a>
+</li>
+@endrole
