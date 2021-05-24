@@ -22,8 +22,9 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'Jobe',
             'phonenumber' => '2952173',
             'address' => 'Bundung Borehole',
-            'default_password_status' => 1,
+            'default_password_status' => 0,
             'user_status' => 1,
+            'user_type' => 'system',
         ];
 
         User::insert($systemadmin);

@@ -170,8 +170,29 @@ class RolesTableSeeder extends Seeder
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ],
+            [
+                'name' => 'Instituttion',
+                'slug' => 'institution',
+                'role_level' => 'institution',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Trainer',
+                'slug' => 'trainer',
+                'role_level' => 'trainer',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'name' => 'Vendor',
+                'slug' => 'vendor',
+                'role_level' => 'vendor',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
         ];
-        
+
         Role::insert($roles);
     }
 }

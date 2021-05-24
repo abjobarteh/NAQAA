@@ -13,7 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasPermissionsTrait, LogsActivity, CausesActivity; //Import The Trait;
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +30,8 @@ class User extends Authenticatable
         'phonenumber',
         'address',
         'user_status',
+        'user_type',
+        'user_category',
         'default_password_status',
         'directorate_id',
         'unit_id',
@@ -64,15 +66,14 @@ class User extends Authenticatable
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New User created by ".auth()->user()->username;
-            case 'updated': 
-                     return "User updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "User deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New User created by " . auth()->user()->username;
+            case 'updated':
+                return "User updated by " . auth()->user()->username;
+            case 'deleted':
+                return "User deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function directorate()
