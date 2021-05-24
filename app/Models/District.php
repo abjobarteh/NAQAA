@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,7 +35,7 @@ class District extends Model
     //         case 'deleted': 
     //                  return "District deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
     public function region()
@@ -51,5 +52,14 @@ class District extends Model
     {
         return $this->hasMany(InstitutionDetailsDataCollection::class);
     }
-    
+
+    public function traininproviders()
+    {
+        return $this->hasMany(TrainingProvider::class);
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class);
+    }
 }

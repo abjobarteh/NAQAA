@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\StandardsCurriculum\UnitStandard;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +39,7 @@ class Qualification extends Model
     //         case 'deleted': 
     //                  return "Qualification deleted by ".auth()->user()->username;
     //     };
-        
+
     // }
 
     public function setEntryRequirementsAttribute($value)
@@ -53,26 +54,31 @@ class Qualification extends Model
 
     public function unitStandards()
     {
-        return $this->hasMany(UnitStandard::class,'qualification_id');
+        return $this->hasMany(UnitStandard::class, 'qualification_id');
     }
 
     public function level()
     {
-        return $this->belongsTo(QualificationLevel::class,'qualification_level_id');
+        return $this->belongsTo(QualificationLevel::class, 'qualification_level_id');
     }
 
     public function fieldOfEducation()
     {
-        return $this->belongsTo(EducationField::class,'education_field_id');
+        return $this->belongsTo(EducationField::class, 'education_field_id');
     }
 
     public function subfieldOfEducation()
     {
-        return $this->belongsTo(EducationSubField::class,'education_sub_field_id');
+        return $this->belongsTo(EducationSubField::class, 'education_sub_field_id');
     }
 
     public function reviews()
     {
         return $this->hasMany(QualificationReview::class);
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(RegisteredStudent::class, 'programme_id');
     }
 }

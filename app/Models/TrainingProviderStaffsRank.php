@@ -13,7 +13,7 @@ class TrainingProviderStaffsRank extends Model
 
     protected $fillable = ['name','description'];
 
-    protected $logFillable = true;
+    protected static $logFillable = true;
 
     protected static $logName = 'Training Provider Staff Ranks';
 
