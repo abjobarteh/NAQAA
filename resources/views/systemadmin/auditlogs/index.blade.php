@@ -19,40 +19,42 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="filter_activitylogs_form" method="post">
                         <div class="row">
-                            <div class="col-md-4">
-                                <input type="text" class="form-control" name="filter_param" id="filter_param" placeholder="User, Role, Action" />
-                            </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" id="role" name="role" data-placeholder="Select Role">
-                                            @foreach ($roles as $id => $roles)
-                                                <option value="{{ $id }}">{{ $roles }}</option>
-                                            @endforeach
-                                        </select>
-                                      </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <select class="form-control select2" style="width: 100%;" id="user" name="user" data-placeholder="Select User">
-                                            @foreach ($users as $id => $users)
-                                                <option value="{{ $id }}">{{ $users }}</option>
-                                            @endforeach
-                                        </select>
-                                      </div>
-                                </div>
-                                <div class="col-md-3">
-                                        <button type="submit" class="btn btn-info btn-block">Filter</button>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <select class="form-control select2" id="user" name="user">
+                                        <option value="">--- select user ---</option>
+                                        @foreach ($users as $id => $user)
+                                            <option value="{{ $id }}">{{ $user }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
-                        </form>
+                            <div class="col-sm-12 col-md-4 col-lg-4">
+                                <!-- Date range -->
+                                 <div class="form-group">
+                                     <div class="input-group">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                             </span>
+                                         </div>
+                                         <input type="text" class="form-control float-right" id="activity-daterange" value="">
+                                     </div>
+                                     <!-- /.input group -->
+                                 </div>
+                                 <!-- /.form group -->
+                             </div>
+                            <div class="col-md-3">
+                                    <button type="button" class="btn btn-info btn-block" id="filter-logs">Filter</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-12">
-                <div class="card">
-                    <div class="card-header bg-warning">
+                <div class="card logs-card">
+                    <div class="card-header bg-primary">
                         <h3 class="card-title">Activity Logs List</h3>
                     </div>
                     <div class="card-body">
@@ -95,35 +97,98 @@
 @endsection
 
 @section('scripts')
-    {{-- <script>
-        let params = {
-            filter_by_user: $('#user').val(),
-        }
-        $('#filter_activitylogs_form').on('submit',function(e){
-            e.preventDefault();
-            $.ajax({
-                headers: {'x-csrf-token': _token},
-                method: 'POST',
-                url: "{{ route('admin.activities.filter') }}",
-                data: params,
-                success: function(response){
-                    @foreach(response.data as activity)
-                        @if (activity.causer_id == auth()->user()->id)
-                            <tr class="bg-info text-white">
-                                <td>{{!! loop.iteration !!}}</td>
-                                <td>{{!! activity.created_at !!}}</td>
-                                <td>{{!! activity.causer.username !!}}</td>
-                                <td>{{!! activity.subject.getTable() !!}}</td>
-                                <td>{{!! activity.log_name !!}}</td>
-                                <td>{{!! activity.description !!}}</td>
-                            </tr>  
-                        @endif
-                    @endforeach
-                },
-                error: function(error){
-                    console.log(error)
+    <script>
+        $(document).ready(function(){
+            //Date range picker
+            $('#activity-daterange').daterangepicker({
+                linkedCalendars:false,
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
                 }
             })
+            $('#activity-daterange').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('#activity-daterange').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+
+            $('#filter-logs').click(function(e){
+                e.preventDefault()
+                let user_id = $('#user').val()
+                let activityDaterange = $('#activity-daterange').val()
+                let errors = []
+
+                if(user_id == null || user_id == '' || user_id == undefined){
+                    Swal.fire({
+                        title: 'No selected user',
+                        text: 'Please select a user',
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                    })
+                    errors.push('user_error')
+                    return;
+                }
+
+                $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({  
+                                method:"POST",  
+                                url:"{{ route('admin.filter-logs') }}",  
+                                data: {user_id:user_id,daterange:activityDaterange},
+                                type:'json',
+                                success:function(response)  
+                                {
+                                    response = JSON.parse(response)
+                                    if(response.status == 200){
+                                        let temp = '<table id="example1" class="table datatable table-bordered table-hover">'+
+                                                        '<thead>'+
+                                                            '<tr>'+
+                                                                '<th>No</th>'+
+                                                                '<th>Log Name</th>'+
+                                                                '<th>Description</th>'+
+                                                                '<th>Date</th>'+
+                                                            '</tr>'+
+                                                        '</thead>'+
+                                                        '<tbody>';
+                                                            $.each(response.data, function(index,val){
+                                                                temp+='<tr>'+
+                                                                            `<td>${index+1}</td>`+
+                                                                            '<td>'+val.log_name+'</td>'+
+                                                                            '<td>'+val.description+'</td>'+
+                                                                            '<td>'+val.created_at+'</td>'+
+                                                                        '</tr>';
+                                                            })
+                                                        temp+='</tbody>'+
+                                                    '</table>';
+                                        $('.logs-card .card-body').empty().append(temp)
+                                        $('.logs-card .card-title').empty().append('Filtered logs result')
+                                        $("#example1").DataTable({
+                                            "responsive": true, "lengthChange": true, "autoWidth": false,"paging": true,
+                                            "lengthChange": true,"ordering": true,"info": true,
+                                            "searching": true,
+                                            "buttons": [ "csv", "excel", "pdf", "print"]
+                                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                                        // $('#filter-logs-modal').modal('show')
+                                    }
+                                },
+                                error: function(err)
+                                {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        text: err.responseJSON.message,
+                                        icon: 'error',
+                                        confirmButtonText: 'Close'
+                                    })
+                                }  
+                        });
+            })
         })
-    </script> --}}
+    </script>
 @endsection

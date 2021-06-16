@@ -4,6 +4,19 @@ use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsControll
 use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
 use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
 use App\Http\Controllers\Auth\ProfilesController;
+use App\Http\Controllers\Portal\Institution\AccreditationController;
+use App\Http\Controllers\Portal\Institution\CertificateEndorsementController;
+use App\Http\Controllers\Portal\Institution\DashboardController as InstitutionDashboardController;
+use App\Http\Controllers\Portal\Institution\LearningCenterDataCollectionController;
+use App\Http\Controllers\Portal\Institution\ProfilesController as InstitutionProfilesController;
+use App\Http\Controllers\Portal\Institution\ProgrammeDataCollectionController;
+use App\Http\Controllers\Portal\Institution\RegistrationController;
+use App\Http\Controllers\Portal\Institution\StudentsDataCollectionController;
+use App\Http\Controllers\Portal\Institution\TrainerDataCollectionController;
+use App\Http\Controllers\Portal\Trainer\AccreditationsController;
+use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
+use App\Http\Controllers\Portal\Trainer\RegistrationsController;
+use App\Http\Controllers\RegistrationAccreditation\ApplicationsController;
 use App\Http\Controllers\RegistrationAccreditation\DashboardController as RegistrationAccreditationDashboardController;
 use App\Http\Controllers\RegistrationAccreditation\LicencesManagementController;
 use App\Http\Controllers\RegistrationAccreditation\TrainersAccreditationController;
@@ -17,6 +30,7 @@ use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsC
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
 use App\Http\Controllers\ResearchDevelopment\JobVacanciesDataController;
+use App\Http\Controllers\researchdevelopment\ReportsController;
 use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCurriculumDashboardController;
 use App\Http\Controllers\StandardsCurriculum\QualificationsController;
@@ -39,6 +53,7 @@ use App\Http\Controllers\systemadmin\QualificationLevelsController;
 use App\Http\Controllers\systemadmin\RegionsController;
 use App\Http\Controllers\systemadmin\RolesController;
 use App\Http\Controllers\systemadmin\TownsVilagesController;
+use App\Http\Controllers\systemadmin\TrainingProviderCategoryController;
 use App\Http\Controllers\systemadmin\TrainingProviderClassificationsController;
 use App\Http\Controllers\systemadmin\TrainingProviderOwnershipsController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
@@ -130,6 +145,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Training Provider Ownerships
     Route::resource('training-provider-ownerships', TrainingProviderOwnershipsController::class)->except('show');
 
+    Route::resource('training-provider-categories', TrainingProviderCategoryController::class);
+
     // Application Fees Tariffs
     Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
 
@@ -139,7 +156,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Audit Logs index route
     Route::get('activities', [ActivitiesController::class, 'index'])->name('activities.index');
     Route::get('show-activity/{id}', [ActivitiesController::class, 'show'])->name('activities.show');
-    Route::POST('activities/filter', [ActivitiesController::class, 'activityLogsFilter'])->name('activities.filter');
+    Route::post('filter-logs', [ActivitiesController::class, 'filterLogs'])->name('filter-logs');
 
     // Backup system
     Route::get('backup', [BackupsController::class, 'index'])->name('backup');
@@ -168,14 +185,23 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // Research survey documentation
+    Route::post('filter-research-survey', [JobVacanciesDataController::class, 'filterResearchSurvey'])->name('filter-research-survey');
     Route::resource('research-survey-documentation', ResearchSurveyDocumentationController::class)->except('destroy');
 
     // Job vacancy
+    Route::post('filter-vacancies', [JobVacanciesDataController::class, 'filterJobVacancy'])->name('filter-vacancies');
     Route::resource('job-vacancies', JobVacanciesDataController::class)->except('destroy');
 
     // Imports
     Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
+
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+      Route::get('learners', [ReportsController::class, 'learnersReport'])->name('learners');
+      Route::get('labour-market', [ReportsController::class, 'labourMarketReport'])->name('labour-market');
+      Route::get('research-survey', [ReportsController::class, 'researchSurveyReport'])->name('research-survey');
+      Route::post('research-report-generation', [ReportsController::class, 'generateResearchReport'])->name('research-report-generation');
+    });
   });
 
   // Standard and Curriculum Unit Route
@@ -214,7 +240,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'registration', 'as' => 'registration.'], function () {
 
       // Training providers
+      Route::post('filter-trainingproviders', [TrainingProvidersRegistrationController::class, 'filterTrainingProviders'])
+        ->name('filter-trainingproviders');
       Route::resource('trainingproviders', TrainingProvidersRegistrationController::class);
+
+      // Trainers
       Route::resource('trainers', TrainersRegistrationController::class);
     });
 
@@ -240,6 +270,9 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('licence-renewal/{id}', [LicencesManagementController::class, 'licenceRenewal'])->name('licence-renewal');
       Route::post('renewal', [LicencesManagementController::class, 'renewLicence'])->name('renewal');
     });
+
+    // applications
+    Route::resource('applications', ApplicationsController::class)->except('create');
   });
 
 
@@ -255,8 +288,10 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('candidates', [StudentAssessmentsController::class, 'candidates'])->name('candidates');
       Route::get('student-assessment', [StudentAssessmentsController::class, 'studentAssessment'])->name('student-assessment');
       Route::post('generate-candidates', [StudentAssessmentsController::class, 'generateCandidates'])->name('generate-candidates');
+      Route::post('generate-assessment-candidates', [StudentAssessmentsController::class, 'generateCandidatesForAssessment'])
+        ->name('generate-assessment-candidates');
       Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
-      Route::get('export-candidates', [StudentAssessmentsController::class, 'exportCandidates'])->name('export-candidates');
+      Route::post('store-assessment-details', [StudentAssessmentsController::class, 'storeAssessmentDetails'])->name('store-assessment-details');
     });
 
     // student registrations
@@ -278,4 +313,48 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
     ->name('settings.changepassword');
+
+
+  // Portal module routes
+
+  Route::group(['prefix' => 'portal', 'as' => 'portal.'], function () {
+
+    Route::group(['prefix' => 'institution', 'as' => 'institution.'], function () {
+
+      Route::redirect('/', 'institution/dashboard');
+
+      Route::get('dashboard', InstitutionDashboardController::class)->name('dashboard');
+      Route::resource('registration', RegistrationController::class);
+      Route::resource('accreditation', AccreditationController::class);
+      Route::resource('certificate-endorsements', CertificateEndorsementController::class);
+      Route::group(['prefix' => 'datacollection', 'as' => 'datacollection.'], function () {
+        Route::resource('learningcenter', LearningCenterDataCollectionController::class);
+        Route::resource('students', StudentsDataCollectionController::class);
+        Route::resource('trainers', TrainerDataCollectionController::class);
+        Route::resource('programmes', ProgrammeDataCollectionController::class);
+      });
+      // Route::get('settings',)
+    });
+    Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
+
+      Route::redirect('/', 'trainer/dashboard');
+
+      Route::get('dashboard', TrainerDashboardController::class)->name('dashboard');
+
+      // Trainer registratinons
+      Route::resource('registrations', RegistrationsController::class);
+
+      // Trainer accreditations
+      Route::resource('accreditations', AccreditationsController::class);
+    });
+    // Portal Profiles Settings
+    Route::get('settings', [InstitutionProfilesController::class, 'settings'])
+      ->name('settings');
+
+    Route::put('updateprofile', [InstitutionProfilesController::class, 'updateProfile'])
+      ->name('updateprofile');
+
+    Route::put('changepassword', [InstitutionProfilesController::class, 'changePassword'])
+      ->name('changepassword');
+  });
 });

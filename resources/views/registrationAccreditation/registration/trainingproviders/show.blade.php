@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Physical Address: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->physical_address}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->address}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Location: </b>
@@ -72,7 +72,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Category: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->category->name ?? 'N/A'}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->classification->name ?? 'N/A'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6">

@@ -15,13 +15,17 @@ class CreateTrainerAccreditationDetailsTable extends Migration
     {
         Schema::create('trainer_accreditation_details', function (Blueprint $table) {
             $table->id();
-            $table->string('area');
-            $table->string('level');
+            $table->string('area')->nullable();
+            $table->string('level')->nullable();
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
+            $table->foreignId('programme_level_id')->nullable()->constrained('qualification_levels');
             $table->foreignId('application_id')->nullable()->constrained('application_details');
+            $table->foreignId('trainer_id')->nullable()->constrained('trainers');
             $table->string('status')->nullable();
             $table->date('accreditation_start_date')->nullable();
             $table->date('accreditation_end_date')->nullable();
             $table->string('accreditation_status')->nullable();
+            $table->foreignId('field_of_education_id')->nullable()->constrained('education_fields');
             $table->timestamps();
             $table->softDeletes();
         });

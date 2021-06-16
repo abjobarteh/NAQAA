@@ -13,7 +13,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class UnitStandard extends Model
 {
-    use HasFactory,LogsActivity;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'unit_standard_title',
@@ -22,6 +22,7 @@ class UnitStandard extends Model
         'developed_by_stakeholders',
         'validated_by_stakeholders',
         'validated',
+        'unit_standard_type',
         'validation_date',
         'education_field_id',
         'education_sub_field_id',
@@ -39,15 +40,14 @@ class UnitStandard extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Unit Standard was added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Unit Standard was updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Unit Standard was deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Unit Standard was added by " . auth()->user()->username;
+            case 'updated':
+                return "Unit Standard was updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Unit Standard was deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setDevelopedByStakeholdersAttribute($value)
@@ -76,7 +76,7 @@ class UnitStandard extends Model
 
     public function fieldOfEducation()
     {
-        return $this->belongsTo(EducationField::class,'education_field_id');
+        return $this->belongsTo(EducationField::class, 'education_field_id');
     }
 
     public function subFieldOfEducation()
@@ -86,12 +86,11 @@ class UnitStandard extends Model
 
     public function levelOfQualification()
     {
-        return $this->belongsTo(QualificationLevel::class,'qualification_level_id');
+        return $this->belongsTo(QualificationLevel::class, 'qualification_level_id');
     }
 
     public function qualification()
     {
-        return $this->belongsTo(Qualification::class,'qualification_id');
+        return $this->belongsTo(Qualification::class, 'qualification_id');
     }
-
 }

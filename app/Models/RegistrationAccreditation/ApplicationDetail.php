@@ -2,6 +2,7 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\TrainingProviderProgramme;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,6 +15,7 @@ class ApplicationDetail extends Model
     protected $fillable = [
         'training_provider_id',
         'trainer_id',
+        'programme_id',
         'applicant_type',
         'application_no',
         'application_category',
@@ -21,11 +23,11 @@ class ApplicationDetail extends Model
         'status',
         'application_form_status',
         'application_date',
+        'submitted_through',
         'submitted_by',
         'received_by',
         'date_received',
         'application_checklists',
-        'programme_id'
     ];
 
     protected static $logFillable = true;
@@ -83,6 +85,6 @@ class ApplicationDetail extends Model
 
     public function programmeDetail()
     {
-        return $this->belongsTo(AccreditedProgramme::class, 'programme_id');
+        return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }
 }

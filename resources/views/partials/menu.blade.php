@@ -105,15 +105,46 @@
     </li>
     @endcan
   @can('access_research_development_reports')
-  <li class="nav-item">
-    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
-       >
-      <i class="nav-icon fas fa-chart-bar"></i>
+  <li class="nav-item menu-open">
+    <a href="#" class="nav-link 
+    {{ request()->is('researchdevelopment/reports/*') || 
+       request()->is('researchdevelopment/reports/*') ? 'active' : '' }}"
+      >
+      <i class="nav-icon fas fa-chart-area"></i>
       <p>
         Reports
+        <i class="right fas fa-angle-left"></i>
       </p>
     </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.learners')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/learners') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Learners
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.labour-market')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/labour-market') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-briefcase"></i>
+          <p>
+            Labour Market
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.research-survey')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/research-survey') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-search-dollar"></i>
+          <p>
+            Research or Survey
+          </p>
+        </a>
+      </li>
+    </ul>
   </li>
   @endcan
 @endrole
@@ -294,12 +325,19 @@
   </ul>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link"
+  <a href="{{route('registration-accreditation.applications.index')}}" class="nav-link 
+  {{ request()->is('registration-accreditation/applications') || 
+    request()->is('registration-accreditation/applications/*') ? 'active' : '' }}"
      >
     <i class="nav-icon fas fa-envelope"></i>
     <p>
       Applications
-      <span class="badge badge-info right">6</span>
+      <span class="badge badge-info right">@php
+          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_through', 'portal')
+            ->where('application_form_status', 'submitted')
+            ->latest()
+            ->count();
+      @endphp</span>
     </p>
   </a>
 </li>

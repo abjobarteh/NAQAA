@@ -38,13 +38,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Learning center:</label>
-                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
+                                            <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option>Select learning center</option>
                                                 @foreach ($learningcenters as $id => $center)
                                                     <option value="{{$id}}">{{$center}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('institution_detail_id')
+                                            @error('training_provider_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -63,7 +63,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Duration: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="duration" value="{{ old('duration') }}" required>
+                                            <input type="number" class="form-control" name="duration" value="{{ old('duration') }}" min="0" step="1" required>
                                             @error('duration')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -74,7 +74,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Tuition Fee per year: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="tuition_fee_per_year" value="{{ old('tuition_fee_per_year') }}" required>
+                                            <input type="number" class="form-control" name="tuition_fee_per_year" value="{{ old('tuition_fee_per_year') }}" min="0" step="1" required>
                                             @error('tuition_fee_per_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -85,8 +85,8 @@
                                             <label>Entry requirements: <sup class="text-danger">*</sup></label>
                                             <select name="entry_requirements[]" id="entry_requirements" class="form-control select2" multiple="multiple" required>
                                                 <option>Select entry requirements</option>
-                                                @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification}}">{{$qualification}}</option>
+                                                @foreach ($levels as $level)
+                                                    <option value="{{$level}}">{{$level}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('entry_requirements'))
@@ -99,13 +99,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_field_id" id="education_field_id" class="form-control select2" required>
+                                            <select name="field_of_education" id="field_of_education" class="form-control select2" required>
                                                 <option>Select field of education</option>
                                                 @foreach ($educationfields as $id => $field)
                                                     <option value="{{$id}}">{{$field}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('education_field_id')
+                                            @error('field_of_education')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -113,13 +113,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Awarding body:</label>
-                                            <select name="awarding_body_id" id="awarding_body_id" class="form-control select2" required>
+                                            <select name="awarding_body" id="awarding_body" class="form-control select2" required>
                                                 <option>Select awarding body</option>
                                                 @foreach ($awardbodies as $id => $body)
-                                                    <option value="{{$id}}">{{$body}}</option>
+                                                    <option value="{{$body}}">{{$body}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('awarding_body_id')
+                                            @error('awarding_body')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

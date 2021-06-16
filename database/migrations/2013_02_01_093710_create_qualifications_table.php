@@ -19,6 +19,7 @@ class CreateQualificationsTable extends Migration
             $table->double('tuition_fee');
             $table->longText('entry_requirements');
             $table->string('mode_of_delivery');
+            $table->string('practical');
             $table->integer('minimum_duration');
             $table->foreignId('qualification_level_id')->nullable()->constrained();
             $table->foreignId('education_field_id')->nullable()->constrained();

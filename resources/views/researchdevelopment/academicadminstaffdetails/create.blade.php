@@ -135,7 +135,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" value="{{ old('email') }}" required>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -155,7 +155,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Salary Per Month:</label>
-                                            <input type="text" class="form-control" name="salary_per_month" value="{{ old('salary_per_month') }}">
+                                            <input type="number" class="form-control" name="salary_per_month" value="{{ old('salary_per_month') }}" min="0" step="1">
                                             @error('salary_per_month')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -232,28 +232,28 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Rank: <sup class="text-danger">*</sup></label>
-                                            <select name="rank_id" id="rank_id" class="form-control select2" required>
-                                                <option>Select rank</option>
+                                            <label>Rank:</label>
+                                            <select name="rank" id="rank" class="form-control select2">
+                                                <option value="">Select rank</option>
                                                 @foreach ($ranks as $id => $rank)
-                                                    <option value="{{$id}}">{{$rank}}</option>
+                                                    <option value="{{$rank}}">{{$rank}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('rank_id')
+                                            @error('rank')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Role: <sup class="text-danger">*</sup></label>
-                                            <select name="role_id" id="role_id" class="form-control select2" required>
-                                                <option>Select role</option>
+                                            <label>Role:</label>
+                                            <select name="role" id="role" class="form-control select2">
+                                                <option value="">Select role</option>
                                                 @foreach ($roles as $id => $role)
-                                                    <option value="{{$id}}">{{$role}}</option>
+                                                    <option value="{{$role}}">{{$role}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('role_id')
+                                            @error('role')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

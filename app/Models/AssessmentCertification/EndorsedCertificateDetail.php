@@ -13,10 +13,11 @@ class EndorsedCertificateDetail extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'institution_id',
+        'training_provider_id',
         'programme',
         'level',
-        'total_certificates',
+        'total_certificates_declared',
+        'total_certificates_received',
         'total_males',
         'total_females',
         'trainer_details',
@@ -24,6 +25,7 @@ class EndorsedCertificateDetail extends Model
         'non_endorsed_certificates',
         'programme_start_date',
         'programme_end_date',
+        'request_status'
     ];
 
     public function setProgrammeStartDateAttribute($value)
@@ -51,8 +53,8 @@ class EndorsedCertificateDetail extends Model
         return json_decode($value);
     }
 
-    public function institution()
+    public function trainingprovider()
     {
-        return $this->belongsTo(TrainingProvider::class, 'institution_id');
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 }

@@ -45,7 +45,7 @@
                                                 <select name="trainer_id" id="trainer_id" class="form-control select2">
                                                     <option value="">-- select trainer --</option>
                                                    @foreach ($trainers as $trainer)
-                                                       <option value="{{$trainer->id}}" {{old('trainer_id') === $trainer->id ? 'selected' : ''}}>{{$trainer->firstname}}.{{$trainer->middlename}}.{{$trainer->lastname}}</option>
+                                                       <option value="{{$trainer->id}}" {{old('trainer_id') === $trainer->id ? 'selected' : ''}}>{{$trainer->firstname}} {{$trainer->middlename}} {{$trainer->lastname}}</option>
                                                    @endforeach
                                                 </select>
                                                 @error('trainer_id')

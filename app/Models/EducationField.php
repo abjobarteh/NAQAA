@@ -21,18 +21,17 @@ class EducationField extends Model
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch($eventName){
-    //         case 'created': 
-    //                  return "New Field of Education added by ".auth()->user()->username;
-    //         case 'updated': 
-    //                  return "Field of Education updated by ".auth()->user()->username;
-    //         case 'deleted': 
-    //                  return "Field of Education deleted by ".auth()->user()->username;
-    //     };
-
-    // }
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Field of Education added by " . auth()->user()->username;
+            case 'updated':
+                return "Field of Education updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Field of Education deleted by " . auth()->user()->username;
+        };
+    }
 
     public function subFields()
     {

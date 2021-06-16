@@ -15,7 +15,7 @@ class CreateAccreditedProgrammeStudentsDataTable extends Migration
     {
         Schema::create('accredited_programme_students_data', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('programme_id')->nullable()->constrained('accredited_programmes');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('student_data_type')->nullable();
             $table->json('students_data')->nullable();
             $table->json('projections')->nullable();

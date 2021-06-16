@@ -23,7 +23,7 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="roe">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -46,13 +46,13 @@
                                 <tbody>
                                     @forelse ($institutionsdata as $data)
                                         <tr>
-                                            <td>{{$data->name}}</td>
+                                            <td>{{$data->trainingprovider->name ?? 'N/A'}}</td>
                                             <td>{{$data->estimated_yearly_turnover}}</td>
                                             <td>{{$data->enrollment_capacity}}</td>
                                             <td>{{$data->no_of_lecture_rooms}}</td>
                                             <td>{{$data->no_of_computer_labs}}</td>
                                             <td>{{$data->total_no_of_computers_in_labs}}</td>
-                                            <td>{{$data->created_at}}</td>
+                                            <td>{{$data->created_at->toFormattedDateString()}}</td>
                                             <td>
                                                 @can('edit_data_collection')
                                                     <a href="{{route('researchdevelopment.datacollection.institution-details.edit',$data->id)

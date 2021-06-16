@@ -79,7 +79,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Cost (GMD): <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="cost" value="{{ old('cost') }}" required autofocus>
+                                                    <input type="number" class="form-control" name="cost" value="{{ old('cost') }}" min="0" step="1" required>
                                                     @error('cost')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

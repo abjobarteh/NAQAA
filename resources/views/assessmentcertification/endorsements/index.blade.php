@@ -30,7 +30,7 @@
                         <table id="example2" class="table datatable table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Institution Name</th>
+                                    <th>Training Provider</th>
                                     <th>Programme</th>
                                     <th>Level</th>
                                     <th>Total certificates</th>
@@ -44,10 +44,10 @@
                             <tbody>
                                 @forelse ($endorsements as $endorsement)
                                     <tr>
-                                        <td>{{$endorsement->institution->name}}</td>
+                                        <td>{{$endorsement->trainingprovider->name ?? 'N/A'}}</td>
                                         <td>{{$endorsement->programme}}</td>
                                         <td>{{$endorsement->level}}</td>
-                                        <td>{{$endorsement->total_certificates}}</td>
+                                        <td>{{$endorsement->total_certificates_received}}</td>
                                         <td>{{$endorsement->total_males ?? '0'}}</td>
                                         <td>{{$endorsement->total_females ?? '0'}}</td>
                                         <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>

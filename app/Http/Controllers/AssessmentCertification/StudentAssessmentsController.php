@@ -11,6 +11,7 @@ use App\Models\Qualification;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\TrainingProviderStudent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -28,7 +29,7 @@ class StudentAssessmentsController extends Controller
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
 
-        $tableColumns = collect((new RegisteredStudent)->getTableColumns())
+        $tableColumns = collect((new TrainingProviderStudent)->getTableColumns())
             ->diff(
                 [
                     'id',
@@ -47,39 +48,95 @@ class StudentAssessmentsController extends Controller
 
     public function generateCandidates(Request $request)
     {
-        $request->validate([
-            'institution_id' => ['required', 'numeric'],
-            'programme_id' => ['required', 'numeric'],
-            'programme_level_id' => ['required', 'numeric'],
-            'columns' => ['bail', 'nullable', 'array'],
-            'columns.*' => ['string'],
-        ]);
+        $candidates = null;
 
-        $candidates = RegisteredStudent::where('institution_id', $request->institution_id)
-            ->where('programme_id', $request->programme_id)
-            ->where('programme_level_id', $request->programme_level_id)
-            ->whereYear('academic_year', date('Y'))
-            ->with(['programme:id,name', 'level:id,name', 'institution:id,name', 'registration'])
-            ->latest()
-            ->get();
+        if ($request->candidate_type === 'regular') {
+            $request->validate([
+                'institution' => ['required', 'numeric'],
+                'programme' => ['required', 'numeric'],
+                'level' => ['required', 'numeric'],
+            ]);
+
+            $candidates = TrainingProviderStudent::where('training_provider_id', $request->institution)
+                ->where('programme_id', $request->programme)
+                ->where('programme_level_id', $request->level)
+                ->where('academic_year', '2021')
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                ->latest()
+                ->get();
+        } else {
+            $candidates = TrainingProviderStudent::whereHas('registration', function (Builder $query) use ($request) {
+                $query->where('registration_no', $request->registration_no);
+            })
+                ->where('date_of_birth', $request->date_of_birth)
+                ->where('academic_year', '2021')
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                ->latest()
+                ->get();
+        }
 
         if ($candidates->isEmpty()) {
-            return back()->withSuccess('No candidates available under these paramteres');
+            return json_encode(['status' => 404, 'message' => 'No candidates available under these paramters']);
         } else {
 
             $assessors = Trainer::whereHas('accreditedAreas')->with('accreditedAreas')
                 ->where('type', 'assessor')->get();
 
-            return view('assessmentcertification.assessment.candidate', compact('candidates', 'assessors'));
+            return json_encode(['status' => 200, 'data' => ['candidates' => $candidates, 'assessors' => $assessors]]);
+        }
+    }
+
+    public function generateCandidatesForAssessment(Request $request)
+    {
+        $candidates = null;
+        if ($request->assessment_type === 'new') {
+            if ($request->candidate_type === 'regular') {
+                $request->validate([
+                    'institution' => ['required', 'numeric'],
+                    'programme' => ['required', 'numeric'],
+                    'level' => ['required', 'numeric'],
+                ]);
+
+                $candidates = TrainingProviderStudent::where('training_provider_id', $request->institution)
+                    ->where('programme_id', $request->programme)
+                    ->where('programme_level_id', $request->level)
+                    ->where('academic_year', '2021')
+                    ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                    ->latest()
+                    ->get();
+            } else {
+                $candidates = TrainingProviderStudent::whereHas('registration', function (Builder $query) use ($request) {
+                    $query->where('registration_no', $request->registration_no);
+                })
+                    ->where('date_of_birth', $request->date_of_birth)
+                    ->where('academic_year', '2021')
+                    ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                    ->latest()
+                    ->get();
+            }
+        } else {
+            $candidates = TrainingProviderStudent::whereHas('registration', function (Builder $query) use ($request) {
+                $query->where('registration_no', $request->candidate_registration_no);
+            })
+                ->where('date_of_birth', $request->candidate_date_of_birth)
+                ->where('academic_year', '2021')
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                ->latest()
+                ->get();
+        }
+
+        if ($candidates->isEmpty()) {
+            return json_encode(['status' => 404, 'message' => 'No candidates available under these paramters']);
+        } else {
+
+            return json_encode(['status' => 200, 'data' => ['candidates' => $candidates]]);
         }
     }
 
     public function assessorAssignment(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'assessor' => ['required', 'numeric'],
-            'excel_type' => ['required', 'in:excel,pdf'],
             'candidates' => ['required', 'array'],
             'candidates.*' => ['numeric'],
         ]);
@@ -89,7 +146,10 @@ class StudentAssessmentsController extends Controller
 
         for ($candidate = 0; $candidate < count($candidates); $candidate++) {
             $assessmentExist = StudentAssessmentDetail::where('student_id', $candidates[$candidate])
-                ->where('assessor_id', $assessor)->whereNull('assessment_status')->exists();
+                ->where('assessor_id', $assessor)
+                ->whereNull('assessment_status')
+                ->orWhere('assessment_status', 'competent')
+                ->exists();
 
             if (!$assessmentExist) {
                 $application = StudentRegistrationDetail::where('student_id', $candidates[$candidate])->get();
@@ -102,19 +162,76 @@ class StudentAssessmentsController extends Controller
                     ]
                 );
             } else {
-                array_push($errors, ['candidate' => $candidates[$candidate], 'message' => 'Candidate already assigned an assesor']);
+                array_push($errors, ['candidate' => $candidates[$candidate]]);
                 continue;
             }
+        }
+
+        if (count($errors) > 0 && count($errors) == count($candidates)) {
+
+            return response()->json(['message' => 'This candidates has already being assigned to this assessor', 'errors' => $errors, 'status' => 401], 200);
         }
 
         return response()->json(['message' => 'Candidates successfully assigned to assessor', 'errors' => $errors, 'status' => 200], 200);
     }
 
-    public function exportCandidates(Request $request)
+    public function studentAssessment()
     {
-        if ($request->type === 'excel') {
-            Excel::download(new CandidatesExport($request->assessor, $request->candidates), 'candidates.xlsx');
+        $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
+            $query->where('license_status', 'valid');
+        })->pluck('name', 'id');
+
+        $programmes = Qualification::all()->pluck('name', 'id');
+
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+
+
+        return view('assessmentcertification.assessment.assessment', compact('institutions', 'programmes', 'levels'));
+    }
+
+    public function storeAssessmentDetails(Request $request)
+    {
+        $request->validate([
+            'candidates' => ['required', 'array'],
+            'candidates.*' => ['numeric'],
+            'assessment_status' => ['required', 'array'],
+            'assessment_status.*' => ['string'],
+            'qualification_type' => ['required', 'array'],
+            'qualification_type.*' => ['string'],
+            'last_assessment_date' => ['required', 'array'],
+            'last_assessment_date.*' => ['date'],
+        ]);
+        $candidates = $request->candidates;
+        $assessment_statuses = $request->assessment_status;
+        $qualification_types = $request->qualification_type;
+        $last_assessment_dates = $request->last_assessment_date;
+        $errors = [];
+
+        for ($candidate = 0; $candidate < count($candidates); $candidate++) {
+            if ($assessment_statuses[$candidate] === 'competent') {
+                $alreadyAssessed = StudentAssessmentDetail::where('assessment_status', 'competent')
+                    ->where('student_id', $candidates[$candidate])
+                    ->exists();
+
+                if (!$alreadyAssessed) {
+                    StudentAssessmentDetail::where('student_id', $candidates[$candidate])
+                        ->update([
+                            'assessment_status' => $assessment_statuses[$candidate],
+                            'qualification_type' => $qualification_types[$candidate],
+                            'last_assessment_date' => $last_assessment_dates[$candidate],
+                        ]);
+                } else {
+                    array_push($errors, ['candidate' => $candidates[$candidate]]);
+                    continue;
+                }
+            }
         }
-        return json_encode(['status' => 'export successfull']);
+
+        if (count($errors) > 0 && count($errors) == count($candidates)) {
+
+            return response()->json(['message' => 'This candidates has already being assessed to be competent', 'errors' => $errors, 'status' => 401], 200);
+        }
+
+        return response()->json(['message' => 'Candidates assessment details successfully added', 'status' => 200], 200);
     }
 }

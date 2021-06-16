@@ -12,6 +12,7 @@ class ProgrammeAccreditationDetails extends Model
 
     protected $fillable =  [
         'application_id',
+        'programme_id',
         'accreditation_status',
         'accreditation_start_date',
         'accreditation_end_date',

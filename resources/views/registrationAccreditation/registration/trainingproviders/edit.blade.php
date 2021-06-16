@@ -41,7 +41,7 @@
                                             <div class="col-12"><h4 class="text-primary"><b>Training Provider Details</b></h4></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Training Provider Name: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="name" value="{{ $registration->trainingprovider->name }}" required autofocus>
@@ -50,13 +50,27 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                             <div class="col-sm-6">
+                                             <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Classification: <sup class="text-danger">*</sup></label>
+                                                    <select name="classification_id" id="classification_id" class="form-control select2" required>
+                                                        <option value="">Select classification</option>
+                                                        @foreach ($classifications as $id => $classification)
+                                                            <option value="{{$id}}" {{ $registration->trainingprovider->classification_id == $id ? 'selected' :'' }}>{{$classification}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('classification_id')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Category: <sup class="text-danger">*</sup></label>
                                                     <select name="category_id" id="category_id" class="form-control select2" required>
-                                                        <option value="">Select category</option>
-                                                        @foreach ($categories as $id => $categories)
-                                                            <option value="{{$id}}" {{ $registration->trainingprovider->category_id == $id ? 'selected' :'' }}>{{$categories}}</option>
+                                                        <option value="">--- select category ---</option>
+                                                        @foreach ($categories as $id => $categpry)
+                                                            <option value="{{$id}}" {{$registration->trainingprovider->category_id == $id ? 'selected' : ''}}>{{$categpry}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('category_id')
@@ -66,20 +80,34 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Physical Address: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="physical_address" value="{{ $registration->trainingprovider->physical_address }}" required>
-                                                    @error('physical_address')
+                                                    <label>Ownership: <sup class="text-danger">*</sup></label>
+                                                    <select name="ownership_id" id="ownership_id" class="form-control select2" required>
+                                                        <option value="">--- select ownership ---</option>
+                                                        @foreach ($ownerships as $id => $ownership)
+                                                            <option value="{{$id}}" {{$registration->trainingprovider->ownership_id == $id ? 'selected' : ''}}>{{$ownership}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('ownership_id')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Physical Address: <sup class="text-danger">*</sup></label>
+                                                    <input type="text" class="form-control" name="address" value="{{ $registration->trainingprovider->address }}" required>
+                                                    @error('address')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Postal Address:</label>
-                                                    <input type="text" class="form-control" name="postal_address" value="{{ $registration->trainingprovider->postal_address }}">
-                                                    @error('postal_address')
+                                                    <input type="text" class="form-control" name="po_box" value="{{ $registration->trainingprovider->po_box }}">
+                                                    @error('po_box')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>

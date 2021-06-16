@@ -11,7 +11,7 @@ class TrainingProviderClassification extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name', 'description'];
 
     protected static $logFillable = true;
 
@@ -19,26 +19,20 @@ class TrainingProviderClassification extends Model
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch($eventName){
-    //         case 'created': 
-    //                  return "New Training Provider classification added by ".auth()->user()->username;
-    //         case 'updated': 
-    //                  return "Training Provider classification updated by ".auth()->user()->username;
-    //         case 'deleted': 
-    //                  return "Training Provider classification deleted by ".auth()->user()->username;
-    //     };
-        
-    // }
-
-    public function InstitutionDataCollections()
+    public function getDescriptionForEvent(string $eventName): string
     {
-        return $this->hasMany(InstitutionDetailsDataCollection::class, 'classification_id');
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider classification added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider classification updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider classification deleted by " . auth()->user()->username;
+        };
     }
-    
+
     public function trainingproviders()
     {
-        return $this->hasMany(TrainingProvider::class);
+        return $this->hasMany(TrainingProvider::class, 'classification_id');
     }
 }

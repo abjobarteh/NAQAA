@@ -184,23 +184,23 @@
     </li>
     @endcan
     @can('access_sysadmin_reports')
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a href="{{route('admin.activities.index')}}" class="nav-link {{ request()->is('admin/auditlogs') || request()->is('admin/auditlogs/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-book"></i>
         <p>
             Reports
         </p>
       </a>
-    </li>
+    </li> --}}
     @endcan
     @can('access_backup_settings')
-    <li class="nav-item">
+    {{-- <li class="nav-item">
       <a href="{{route('admin.backup')}}" class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
         <i class="nav-icon fas fa-database"></i>
         <p>
           Backup
         </p>
       </a>
-    </li>
+    </li> --}}
     @endcan
 @endrole

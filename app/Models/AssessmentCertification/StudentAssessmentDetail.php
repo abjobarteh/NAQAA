@@ -3,6 +3,8 @@
 namespace App\Models\AssessmentCertification;
 
 use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\TrainingProviderStudent;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -20,9 +22,19 @@ class StudentAssessmentDetail extends Model
         'last_assessment_date',
     ];
 
+    public function setLastAssessmentDateAttribute($value)
+    {
+        $this->attributes['last_assessment_date'] = new Carbon($value);
+    }
+
+    public function getLastAssessmentDateAttribute($value)
+    {
+        return (new Carbon($value))->toFormattedDateString();
+    }
+
     public function student()
     {
-        return $this->belongsTo(RegisteredStudent::class, 'student_id');
+        return $this->belongsTo(TrainingProviderStudent::class, 'student_id');
     }
 
     public function asessor()

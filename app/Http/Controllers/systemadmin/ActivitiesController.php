@@ -19,17 +19,17 @@ class ActivitiesController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_activity_logs'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('access_activity_logs'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $activities = Activity::with(['causer','subject'])->whereHas('causer')->orderBy('created_at','desc')->get();
+        $activities = Activity::with(['causer', 'subject'])->whereHas('causer')->orderBy('created_at', 'desc')->get();
 
-        $roles = Role::all()->pluck('name','id');
+        $roles = Role::all()->pluck('name', 'id');
 
-        $users = User::all()->pluck('username','id');
-        
+        $users = User::all()->pluck('username', 'id');
+
         // dd($roles);
 
-        return view('systemadmin.auditlogs.index', compact('activities','roles','users'));
+        return view('systemadmin.auditlogs.index', compact('activities', 'roles', 'users'));
     }
 
     public function show($id)
@@ -39,21 +39,26 @@ class ActivitiesController extends Controller
         return view('systemadmin.auditlogs.show', compact('activity'));
     }
 
-    public function activityLogsFilter(Request $request)
+    public function filterLogs(Request $request)
     {
-        // if($)
-        $data = $request->filter_by_user;
-        if(!empty($request->filter_by_user))
-        {
-            $result = Activity::where('causer_id', $request->filter_by_user)->get();
+        $activity = Activity::query();
+
+        if (
+            ($request->user_id != null || $request->user_id != '')
+            && ($request->daterange == '' || $request->daterange == null)
+        ) {
+            $activity->where('causer_id', $request->user_id);
         }
 
-        return response()->json([
-            'data' => $result,
+        if (
+            ($request->user_id != null || $request->user_id != '')
+            && ($request->daterange != '' || $request->daterange != null)
+        ) {
+            $daterange = explode('-', $request->daterange);
+            $activity->where('causer_id', $request->user_id)
+                ->whereDate('created_at', '>=', $daterange[0])->whereDate('created_at', '>=', $daterange[1]);
+        }
 
-        ],200);
-        
+        return json_encode(['data' => $activity->get(), 'status' => 200]);
     }
-
-
 }

@@ -107,7 +107,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Estimated Yearly Tunrover:</label>
-                                            <input type="text" class="form-control" name="estimated_yearly_turnover" value="{{ old('estimated_yearly_turnover') }}">
+                                            <input type="number" class="form-control" name="estimated_yearly_turnover" value="{{ old('estimated_yearly_turnover') }}" min="0" step="1">
                                             @error('estimated_yearly_turnover')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -118,7 +118,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Enrollment Capacity:</label>
-                                            <input type="text" class="form-control" name="enrollment_capacity" value="{{ old('enrollment_capacity') }}">
+                                            <input type="number" class="form-control" name="enrollment_capacity" value="{{ old('enrollment_capacity') }}" min="0" step="1">
                                             @error('enrollment_capacity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -129,7 +129,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>No. of Lecture rooms: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="no_of_lecture_rooms" value="{{ old('no_of_lecture_rooms') }}" required>
+                                            <input type="number" class="form-control" name="no_of_lecture_rooms" value="{{ old('no_of_lecture_rooms') }}" min="0" step="1" required>
                                             @error('no_of_lecture_rooms')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -138,7 +138,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>No. of Computer Labs: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="no_of_computer_labs" value="{{ old('no_of_computer_labs') }}" required>
+                                            <input type="number" class="form-control" name="no_of_computer_labs" value="{{ old('no_of_computer_labs') }}" min="0" step="1" required>
                                             @error('no_of_computer_labs')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -147,7 +147,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Total no. of Computers in Labs: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="total_no_of_computers_in_labs" value="{{ old('total_no_of_computers_in_labs') }}" required>
+                                            <input type="number" class="form-control" name="total_no_of_computers_in_labs" value="{{ old('total_no_of_computers_in_labs') }}" min="0" step="1" required>
                                             @error('total_no_of_computers_in_labs')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -188,13 +188,13 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Region: <sup class="text-danger">*</sup></label>
-                                            <select name="region" id="region" class="form-control select2" required>
+                                            <select name="region_id" id="region_id" class="form-control select2" required>
                                                 <option>Select regions</option>
                                                 @foreach ($regions as $id => $region)
                                                     <option value="{{$id}}">{{$region}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('region')
+                                            @error('region_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

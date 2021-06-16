@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\StandardsCurriculum\UnitStandard;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +17,7 @@ class Qualification extends Model
         'entry_requirements',
         'mode_of_delivery',
         'minimum_duration',
+        'practical',
         'qualification_level_id',
         'education_field_id',
         'education_sub_field_id',
@@ -29,18 +29,17 @@ class Qualification extends Model
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch($eventName){
-    //         case 'created': 
-    //                  return "New Qualification added by ".auth()->user()->username;
-    //         case 'updated': 
-    //                  return "Qualification updated by ".auth()->user()->username;
-    //         case 'deleted': 
-    //                  return "Qualification deleted by ".auth()->user()->username;
-    //     };
-
-    // }
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Qualification added by " . auth()->user()->username;
+            case 'updated':
+                return "Qualification updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Qualification deleted by " . auth()->user()->username;
+        };
+    }
 
     public function setEntryRequirementsAttribute($value)
     {
@@ -79,6 +78,6 @@ class Qualification extends Model
 
     public function registeredStudents()
     {
-        return $this->hasMany(RegisteredStudent::class, 'programme_id');
+        return $this->hasMany(TrainingProviderStudent::class, 'programme_id');
     }
 }

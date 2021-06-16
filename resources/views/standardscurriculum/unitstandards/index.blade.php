@@ -50,9 +50,9 @@
                                             <td>{{$unitstandard->unit_standard_code}}</td>
                                             <td>{{$unitstandard->minimum_required_hours}}</td>
                                             <td>{{$unitstandard->validated}}</td>
-                                            <td>{{$unitstandard->fieldOfEducation->name}}</td>
-                                            <td>{{$unitstandard->subFieldOfEducation->name}}</td>
-                                            <td>{{$unitstandard->levelOfQualification->name}}</td>
+                                            <td>{{$unitstandard->fieldOfEducation->name ?? 'N/A'}}</td>
+                                            <td>{{$unitstandard->subFieldOfEducation->name ?? 'N/A'}}</td>
+                                            <td>{{$unitstandard->levelOfQualification->name ?? 'N/A'}}</td>
                                             <td>
                                                 @can('edit_unit_standards')
                                                     <a href="{{route('standardscurriculum.unit-standards.edit',$unitstandard->id)

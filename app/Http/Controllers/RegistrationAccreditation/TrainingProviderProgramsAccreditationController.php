@@ -10,6 +10,7 @@ use App\Models\RegistrationAccreditation\AccreditedProgramme;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\ProgrammeAccreditationDetails;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\TrainingProviderProgramme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -58,7 +59,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
 
         DB::transaction(function () use ($data) {
             // Store Programme details
-            $programme = AccreditedProgramme::create([
+            $programme = TrainingProviderProgramme::create([
                 'trainingprovider_id' => $data['trainingprovider_id'],
                 'programme_title' => $data['programme_title'],
                 'level' => $data['level'],
@@ -66,6 +67,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
                 'total_qualification_time' => $data['total_qualification_time'],
                 'level_of_fees' => $data['level_of_fees'],
                 'admission_requirements' => $data['admission_requirements'],
+                'is_accredited' => $data['status'] === 'accepted' ? 1 : 0,
             ]);
 
             // store training provider application details

@@ -22,6 +22,9 @@ class ResearchSurvey extends Model
         'funded_by',
         'cost',
         'remarks',
+        'region_id',
+        'district_id',
+        'localgoverment_area_id',
     ];
 
     protected static $logFillable = true;
@@ -32,15 +35,14 @@ class ResearchSurvey extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Research Survey documentation added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Research Survey documentation updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Research Survey documentation deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Research Survey documentation added by " . auth()->user()->username;
+            case 'updated':
+                return "Research Survey documentation updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Research Survey documentation deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setNameOfAuthorsAttribute($value)
@@ -51,6 +53,11 @@ class ResearchSurvey extends Model
     public function setPublicationDateAttribute($value)
     {
         $this->attributes['publication_date'] = new Carbon($value);
+    }
+
+    public function getPublicationDateAttribute($value)
+    {
+        return (new Carbon($value))->toFormattedDateString();
     }
 
     public function getNameOfAuthorsAttribute($value)

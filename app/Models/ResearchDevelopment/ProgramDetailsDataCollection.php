@@ -2,8 +2,7 @@
 
 namespace App\Models\ResearchDevelopment;
 
-use App\Models\AwardBody;
-use App\Models\EducationField;
+use App\Models\TrainingProviderProgramme;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -13,13 +12,12 @@ class ProgramDetailsDataCollection extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'program_name',
+        'programme_id',
         'duration',
         'tuition_fee_per_year',
         'entry_requirements',
-        'awarding_body_id',
-        'education_field_id',
-        'institution_detail_id'
+        'awarding_body',
+        'academic_year',
     ];
 
     protected static $logFillable = true;
@@ -30,15 +28,14 @@ class ProgramDetailsDataCollection extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Program details data collection added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Program details data collection updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Program details data collection deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Program details data collection added by " . auth()->user()->username;
+            case 'updated':
+                return "Program details data collection updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Program details data collection deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setEntryRequirementsAttribute($requirements)
@@ -46,24 +43,14 @@ class ProgramDetailsDataCollection extends Model
         $this->attributes['entry_requirements'] = json_encode($requirements);
     }
 
-    
+
     public function getEntryRequirementsAttribute($requirements)
     {
         return json_decode($requirements);
     }
 
-    public function educationfield()
+    public function programme()
     {
-        return $this->belongsTo(EducationField::class,'education_field_id');
-    }
-
-    public function learningcenter()
-    {
-        return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_detail_id');
-    }
-
-    public function awardbody()
-    {
-        return $this->belongsTo(AwardBody::class,'awarding_body_id');
+        return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }
 }

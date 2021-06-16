@@ -12,6 +12,8 @@ class QualificationReview extends Model
 
     protected $fillable = [
         'qualification_level_id',
+        'unit_standard_id',
+        'review_status',
         'review_date'
     ];
 
@@ -23,19 +25,18 @@ class QualificationReview extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Qualification review added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Qualification review updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Qualification review deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Qualification review added by " . auth()->user()->username;
+            case 'updated':
+                return "Qualification review updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Qualification review deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function qualification()
     {
-        return $this->belongsTo(Qualification::class,'qualification_id');
+        return $this->belongsTo(Qualification::class, 'qualification_id');
     }
 }

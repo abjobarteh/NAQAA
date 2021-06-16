@@ -15,7 +15,7 @@ class CreateAccreditedProgrammeStaffTable extends Migration
     {
         Schema::create('accredited_programme_staff', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('accredited_programme_id')->nullable()->constrained('accredited_programmes');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('name');
             $table->string('gender');
             $table->string('nationality');

@@ -45,17 +45,17 @@ class RegisteredStudent extends Model
 
     public function getDateOfBirthAttribute($value)
     {
-        return new Carbon($value);
+        return (new Carbon($value))->toFormattedDateString();
     }
 
     public function setAcademicYearAttribute($value)
     {
-        $this->attributes['academic_year'] = new Carbon($value);
+        $this->attributes['academic_year'] = (new Carbon($value))->format('Y');
     }
 
     public function getAcademicYearAttribute($value)
     {
-        return new Carbon($value);
+        return (new Carbon($value))->format('Y');
     }
 
     public function getFullNameAttribute()

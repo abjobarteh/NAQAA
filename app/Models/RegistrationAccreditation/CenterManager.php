@@ -8,9 +8,9 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 class CenterManager extends Model
 {
-    use HasFactory,LogsActivity;
+    use HasFactory, LogsActivity;
 
-    protected $filable = [
+    protected $fillable = [
         'firstname',
         'middlename',
         'lastname',
@@ -30,19 +30,18 @@ class CenterManager extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Center manager added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Center manager updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Center manager deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Center manager added by " . auth()->user()->username;
+            case 'updated':
+                return "Center manager updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Center manager deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function institution()
     {
-        return $this->belongsTo(TrainingProvider::class,'training_provider_id');
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 }

@@ -47,7 +47,6 @@
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>StudentID</th>
                                         <th>Fullname</th>
                                         <th>Gender</th>
                                         <th>Phone</th>
@@ -62,14 +61,13 @@
                                 <tbody>
                                     @forelse ($students as $student)
                                         <tr>
-                                            <td>{{$student->student_id ?? 'N/A'}}</td>
                                             <td>{{$student->full_name}}</td>
                                             <td>{{$student->gender}}</td>
                                             <td>{{$student->phone ?? 'N/A'}}</td>
                                             <td>{{$student->admission_date ?? 'N/A'}}</td>
-                                            <td>{{$student->programme}}</td>
+                                            <td>{{$student->programme_name}}</td>
                                             <td>{{$student->awardName->name ?? 'N/A'}}</td>
-                                            <td>{{$student->learningcenter->name ?? 'N/A'}}</td>
+                                            <td>{{$student->trainingprovider->name ?? 'N/A'}}</td>
                                             <td>{{$student->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

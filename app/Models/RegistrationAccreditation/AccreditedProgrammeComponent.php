@@ -11,7 +11,7 @@ class AccreditedProgrammeComponent extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'accredited_programme_id',
+        'programme_id',
         'course_level_no',
         'course_title',
         'pre_requisite',

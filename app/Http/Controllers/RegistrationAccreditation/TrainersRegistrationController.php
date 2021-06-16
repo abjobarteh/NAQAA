@@ -52,7 +52,7 @@ class TrainersRegistrationController extends Controller
     public function store(StoreTrainerRegistrationRequest $request)
     {
         $data = $request->validated();
-
+        // dd($data);
         DB::transaction(function () use ($data, $request) {
             // store training provider details
             $trainer = Trainer::create([
@@ -72,6 +72,7 @@ class TrainersRegistrationController extends Controller
                 'phone_mobile' => $data['phone_mobile'],
                 'type' => $data['type'],
             ]);
+            // dd($trainer->id);
 
             // store training provider application details
             $application = ApplicationDetail::create([
@@ -87,11 +88,12 @@ class TrainersRegistrationController extends Controller
             // If application is accepted, create a license record
             if ($data['status'] === 'accepted') {
                 RegistrationLicenceDetail::create([
-                    'trainer_id' => $trainer->id,
+                    'trainer_id' => $application->trainer_id,
                     'application_id' => $application->id,
                     'licence_start_date' => $data['license_start_date'],
                     'licence_end_date' => $data['license_end_date'],
                     'license_status' => 'valid',
+                    'license_no' => $application->application_no,
                 ]);
             }
         });

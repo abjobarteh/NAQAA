@@ -52,8 +52,8 @@
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
                                                     @endif
                                                 </td>
-                                                <td>{{$licence->licence_start_date->toDayDateTimeString() ?? 'N/A'}}</td>
-                                                <td>{{$licence->licence_end_date->toDayDateTimeString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-rounded @if($licence->license_status === 'valid') badge-success @else badge-danger @endif">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
@@ -136,8 +136,8 @@
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
                                                     @endif
                                                 </td>
-                                                <td>{{$licence->licence_start_date->toDayDateTimeString() ?? 'N/A'}}</td>
-                                                <td>{{$licence->licence_end_date->toDayDateTimeString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-success badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
@@ -202,8 +202,8 @@
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
                                                     @endif
                                                 </td>
-                                                <td>{{$licence->licence_start_date->toDayDateTimeString() ?? 'N/A'}}</td>
-                                                <td>{{$licence->licence_end_date->toDayDateTimeString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
@@ -251,8 +251,8 @@
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
                                                     @endif
                                                 </td>
-                                                <td>{{$licence->licence_start_date->toDayDateTimeString() ?? 'N/A'}}</td>
-                                                <td>{{$licence->licence_end_date->toDayDateTimeString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
+                                                <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>

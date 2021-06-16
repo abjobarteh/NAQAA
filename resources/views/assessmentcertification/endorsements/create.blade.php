@@ -33,13 +33,13 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Institution:</label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
+                                            <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option value="">---select institution---</option>
                                                 @foreach ($institutions as $id => $institution)
-                                                    <option value="{{$id}}" {{ old('institution_id') === $id ? 'selected' : ''}}>{{$institution}}</option>
+                                                    <option value="{{$id}}" {{ old('training_provider_id') === $id ? 'selected' : ''}}>{{$institution}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('institution_id')
+                                            @error('training_provider_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -103,9 +103,9 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Total certificates: <sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="total_certificates" value="{{ old('total_certificates') }}" min="0" step="1" required>
-                                            @error('total_certificates')
+                                            <label>Total certificates received: <sup class="text-danger">*</sup></label>
+                                            <input type="number" class="form-control" name="total_certificates_received" value="{{ old('total_certificates_received') }}" min="0" step="1" required>
+                                            @error('total_certificates_received')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

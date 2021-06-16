@@ -34,7 +34,7 @@
                                     <h3 class="card-title"><i class="fas fa-eye"></i> Programme Accreditation</h3>
                                 </div>
                                 <div class="col-md-6 d-flex flex-direction-row justify-content-end">
-                                    <button class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Programmes</button>
+                                    <a href="{{route('registration-accreditation.accreditation.programmes.index')}}" class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Programmes</a>
                                     <a href="{{route('registration-accreditation.accreditation.programmes.edit',$accreditation->id)}}" class="btn btn-danger btn-flat"><i class="fas fa-edit"></i> Edit</a>
                                 </div>
                             </div>

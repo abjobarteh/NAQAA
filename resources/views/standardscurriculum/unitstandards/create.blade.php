@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Title: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="unit_standard_title" value="{{ old('unit_standard_title') }}" required autofocus>
@@ -60,11 +60,24 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Code: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="unit_standard_code" value="{{ old('unit_standard_code') }}" required>
                                             @error('unit_standard_code')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Unit Standard Type: <sup class="text-danger">*</sup></label>
+                                            <select name="unit_standard_type" id="unit_standard_type" class="form-control select2" required>
+                                                <option>--- select unit standard type ---</option>
+                                                <option value="key">Key Skill</option>
+                                                <option value="occupational">Occupational Skill</option>
+                                            </select>
+                                            @error('unit_standard_type')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -74,7 +87,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Minimum Hours Required: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="minimum_required_hours" value="{{ old('minimum_required_hours') }}" required>
+                                            <input type="number" class="form-control" name="minimum_required_hours" value="{{ old('minimum_required_hours') }}" min="0" step="1" required>
                                             @error('unit_standard_code')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -100,7 +113,7 @@
                                         <div class="form-group">
                                             <label>Field of Education: <sup class="text-danger">*</sup></label>
                                             <select name="education_field_id" id="education_field_id" class="form-control select2" required>
-                                                <option>Select field of education</option>
+                                                <option value="">Select field of education</option>
                                                 @foreach ($fields as $id => $field)
                                                     <option value="{{$id}}">{{$field}}</option>
                                                 @endforeach
@@ -112,9 +125,9 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Sub-Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_sub_field_id" id="education_sub_field_id" class="form-control select2" required>
-                                                <option>Select sub-field</option>
+                                            <label>Sub-Field of Education:</label>
+                                            <select name="education_sub_field_id" id="education_sub_field_id" class="form-control select2">
+                                                <option value="">Select sub-field</option>
                                                 @foreach ($subfields as $id => $subfield)
                                                     <option value="{{$id}}">{{$subfield}}</option>
                                                 @endforeach

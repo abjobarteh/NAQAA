@@ -17,6 +17,7 @@ class CreateApplicationDetailsTable extends Migration
             $table->id();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
             $table->foreignId('trainer_id')->nullable()->constrained('trainers');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('applicant_type')->nullable();
             $table->string('application_no')->nullable();
             $table->string('application_category')->nullable();
@@ -25,9 +26,10 @@ class CreateApplicationDetailsTable extends Migration
             $table->string('application_form_status')->nullable();
             $table->date('application_date')->nullable();
             $table->string('submitted_by')->nullable();
+            $table->string('submitted_through')->nullable();
             $table->string('received_by')->nullable();
             $table->date('date_received')->nullable();
-            $table->json('application_checklists')->nullable();
+            $table->longText('application_checklists')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

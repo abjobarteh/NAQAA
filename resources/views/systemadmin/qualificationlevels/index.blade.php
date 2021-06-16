@@ -10,9 +10,10 @@
                 <div class="col-sm-12 col-md-6">
                 <h1 class="m-0">Qualification Levels</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <a href="{{route('admin.configurations')}}" class="btn btn-success btn-flat mr-1">Configurations</a>
                     @can('create_general_configurations')
-                    <a href="{{route('admin.qualification-levels.create')}}" class="btn btn-primary float-right">Add Qualification Level</a>
+                    <a href="{{route('admin.qualification-levels.create')}}" class="btn btn-primary btn-flat"><i class="fas fa-plus"></i> Add Qualification Level</a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,6 +33,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Qualification level type</th>
                                         <th>Description</th>
                                         <th>Actions</th>
                                     </tr>
@@ -41,6 +43,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $qualification->name }}</td>
+                                        <td>{{ $qualification->type ?? 'N/A' }}</td>
                                         <td>{{ $qualification->description ?? 'N/A'}}</td>
                                         <td>
                                             @can('edit_general_configurations')

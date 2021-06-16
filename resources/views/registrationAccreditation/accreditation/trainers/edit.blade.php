@@ -43,7 +43,7 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Name: <sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" value="{{ $accreditation->trainer->firstname }} .{{ $accreditation->trainer->middlename }}. {{ $accreditation->trainer->lastname }}" required readonly />
+                                                <input type="text" class="form-control" value="{{ $accreditation->trainer->firstname }} {{ $accreditation->trainer->middlename }} {{ $accreditation->trainer->lastname }}" required readonly />
                                                 @error('trainer_id')
                                                     <span class="text-danger mt-1">{{$message}}</span>
                                                 @enderror

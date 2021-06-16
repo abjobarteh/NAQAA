@@ -15,7 +15,7 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -42,8 +42,8 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
             'total_no_of_computers_in_labs' => 'required|integer',
             'ownership_id' => 'required|integer',
             'classification_id' => 'required|integer',
+            'region_id' => 'required|integer',
             'district_id' => 'required|integer',
-            'region' => 'required|integer',
             'lga_id' => 'required|integer',
         ];
     }
@@ -68,8 +68,8 @@ class StoreInstitutionDetailsDataCollectionRequest extends FormRequest
             'ownership_id.integer' => 'No training provider ownership selected',
             'classification_id.required' => 'Please select training provider classfication',
             'classification_id.integer' => 'No training provider classfication selected',
-            'region.required' => 'Please select region',
-            'region.integer' => 'No region has been selected',
+            'region_id.required' => 'Please select region',
+            'region_id.integer' => 'No region has been selected',
             'district_id.required' => 'Please select district',
             'district_id.integer' => 'No district has been selected',
             'lga_id.required' => 'Please select local goverment area',

@@ -37,14 +37,14 @@
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Learning Center: <sup class="text-danger">*</sup></label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
-                                                <option>Select learning center</option>
+                                            <label>Training Provider: <sup class="text-danger">*</sup></label>
+                                            <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
+                                                <option>--- select traininig provider ---</option>
                                                 @foreach ($learningcenters as $id => $center)
                                                     <option value="{{$id}}">{{$center}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('institution_id')
+                                            @error('training_provider_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -148,8 +148,8 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Programme: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="programme" value="{{ old('programme') }}" required>
-                                            @error('programme')
+                                            <input type="text" class="form-control" name="programme_name" value="{{ old('programme_name') }}" required>
+                                            @error('programme_name')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -157,14 +157,14 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_field_id" id="education_field_id" class="form-control select2">
+                                            <select name="field_of_education" id="field_of_education" class="form-control select2">
                                                 <option>Select Field of Education</option>
                                                 @foreach ($fields as $id => $field)
-                                                    <option value="{{$id}}">{{$field}}</option>
+                                                    <option value="{{$field}}">{{$field}}</option>
                                                 @endforeach
                                             </select>
-                                            @if($errors->has('education_field_id'))
-                                                <span class="text-danger mt-1">{{ $errors->first('education_field_id') }}</span>
+                                            @if($errors->has('field_of_education'))
+                                                <span class="text-danger mt-1">{{ $errors->first('field_of_education') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -218,7 +218,7 @@
                                             <label>Qualification at Entry: <sup class="text-danger">*</sup></label>
                                             <select name="qualification_at_entry" id="qualification_at_entry" class="form-control select2 admission">
                                                 <option>Select Qualification at entry</option>
-                                                @foreach ($qualifications as $id => $qualification)
+                                                @foreach ($levels as $id => $qualification)
                                                     <option value="{{$id}}">{{$qualification}}</option>
                                                 @endforeach
                                             </select>
@@ -232,7 +232,7 @@
                                             <label>Award: <sup class="text-danger">*</sup></label>
                                             <select name="award" id="award" class="form-control select2" >
                                                 <option>Select Award</option>
-                                                @foreach ($qualifications as $id => $qualification)
+                                                @foreach ($levels as $id => $qualification)
                                                     <option value="{{$id}}">{{$qualification}}</option>
                                                 @endforeach
                                             </select>

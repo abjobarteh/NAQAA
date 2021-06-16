@@ -50,8 +50,8 @@
                                             <td>{{$staff->full_name}}</td>
                                             <td>{{$staff->specialisation}}</td>
                                             <td>{{$staff->highest_qualification}}</td>
-                                            <td>{{$staff->rank->name ?? 'N/A'}}</td>
-                                            <td>{{$staff->role->name ?? 'N/A'}}</td>
+                                            <td>{{$staff->rank ?? 'N/A'}}</td>
+                                            <td>{{$staff->role ?? 'N/A'}}</td>
                                             <td>{{$staff->main_teaching_field_of_study}}</td>
                                             <td>{{$staff->learningcenter->name ?? 'N/A'}}</td>
                                             <td>{{$staff->created_at}}</td>

@@ -37,38 +37,9 @@
         <!-- /.row -->
         <!-- Main row -->
         <div class="row">
-            <!-- Left col -->
-            <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
-            <div class="card">
-                <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-chart-pie mr-1"></i>
-                    Graphs
-                </h3>
-                <div class="card-tools">
-                    <ul class="nav nav-pills ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Institutions</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#sales-chart" data-toggle="tab">Trainers</a>
-                    </li>
-                    </ul>
-                </div>
-                </div><!-- /.card-header -->
-                <div class="card-body">
-                <div class="tab-content p-0">
-                    {{-- Chart data goes here --}}
-                </div>
-                </div><!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
-            </section>
             <!-- /.Left col -->
             <!-- right col (We are only adding the ID to make the widgets sortable)-->
-            <section class="col-lg-6 connectedSortable">
+            <section class="col-lg-12 connectedSortable">
                 <!-- TABLE: LATEST ORDERS -->
             <div class="card">
                 <div class="card-header border-transparent">

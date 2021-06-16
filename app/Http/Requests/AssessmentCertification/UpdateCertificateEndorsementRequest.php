@@ -24,10 +24,10 @@ class UpdateCertificateEndorsementRequest extends FormRequest
     public function rules()
     {
         return [
-            'institution_id' => ['required', 'numeric'],
+            'training_provider_id' => ['required', 'numeric'],
             'programme' => ['required', 'string'],
             'level' => ['required', 'string'],
-            'total_certificates' => ['required', 'numeric'],
+            'total_certificates_received' => ['required', 'numeric'],
             'total_males' => ['required', 'numeric'],
             'total_females' => ['required', 'numeric'],
             'trainer_details' => ['nullable', 'array'],
@@ -42,10 +42,10 @@ class UpdateCertificateEndorsementRequest extends FormRequest
     public function messages()
     {
         return [
-            'institution_id.required' => 'Please select institution',
+            'training_provider_id.required' => 'Please select institution',
             'programme.required' => 'Please Enter programme name',
             'level.required' => 'Please select level',
-            'total_certificates.required' => 'Please enter total number of certificates',
+            'total_certificates_received.required' => 'Please enter total number of certificates',
             'total_males.required' => 'Please Enter total number of males in programme',
             'total_females.required' => 'Please Enter total number of females in programme',
             'endorsed_certificates' => 'Please Enter total number of certificates endorsed',

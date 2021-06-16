@@ -23,7 +23,7 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="roe">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -47,8 +47,8 @@
                                 <tbody>
                                     @forelse ($programs as $program)
                                         <tr>
-                                            <td>{{$program->program_name}}</td>
-                                            <td>{{$program->educationfield->name}}</td>
+                                            <td>{{$program->programme->programme_title}}</td>
+                                            <td>{{$program->programme->fieldOfEducation->name ?? 'N/A'}}</td>
                                             <td>{{$program->duration}}</td>
                                             <td>{{$program->tuition_fee_per_year}}</td>
                                             <td>
@@ -57,8 +57,8 @@
                                                 @endforeach
                                             </td>
                                             <td>{{$program->awarding_body}}</td>
-                                            <td>{{$program->learningcenter->name}}</td>
-                                            <td>{{$program->created_at}}</td>
+                                            <td>{{$program->programme->trainingprovider->name ?? 'N/A'}}</td>
+                                            <td>{{$program->created_at->toFormattedDateString()}}</td>
                                             <td>
                                                 @can('edit_data_collection')
                                                     <a href="{{route('researchdevelopment.datacollection.program-details.edit',$program->id)

@@ -29,13 +29,14 @@ class StoreQualificationsRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'tuition_fee' => ['required','numeric'],
-            'entry_requirements' => ['required','array'],
+            'practical' => ['required', 'in:yes,no'],
+            'tuition_fee' => ['required', 'numeric'],
+            'entry_requirements' => ['required', 'array'],
             'entry_requirements.*' => ['string'],
-            'mode_of_delivery' => ['required','string'],
-            'minimum_duration' => ['required','numeric'],
-            'qualification_level_id' => ['required','numeric','integer'],
-            'education_field_id' => ['required','numeric','integer'],
+            'mode_of_delivery' => ['required', 'string'],
+            'minimum_duration' => ['required', 'numeric'],
+            'qualification_level_id' => ['required', 'numeric', 'integer'],
+            'education_field_id' => ['required', 'numeric', 'integer'],
             'education_sub_field_id' => ['nullable'],
         ];
     }

@@ -20,7 +20,7 @@ class CertificateEndorsementsController extends Controller
      */
     public function index()
     {
-        $endorsements = EndorsedCertificateDetail::with('institution:id,name')->whereYear('created_at', date('Y'))->get();
+        $endorsements = EndorsedCertificateDetail::with('trainingprovider:id,name')->whereYear('created_at', date('Y'))->get();
 
         return view('assessmentcertification.endorsements.index', compact('endorsements'));
     }
@@ -105,8 +105,6 @@ class CertificateEndorsementsController extends Controller
         })->pluck('name', 'id');
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
-
-        // dd($endorsement->trainer_details);
 
         return view('assessmentcertification.endorsements.edit', compact('institutions', 'levels', 'endorsement'));
     }

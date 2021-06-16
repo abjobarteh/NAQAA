@@ -15,7 +15,7 @@ class QualificationLevelsController extends Controller
     {
         abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualifications = QualificationLevel::all();
+        $qualifications = QualificationLevel::all()->sortByDesc('id');
 
         return view('systemadmin.qualificationlevels.index', compact('qualifications'));
     }
@@ -55,7 +55,7 @@ class QualificationLevelsController extends Controller
     {
         abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualification = QualificationLevel::where('id',$id)->get();
+        $qualification = QualificationLevel::where('id', $id)->get();
 
         return view('systemadmin.qualificationlevels.edit', compact('qualification'));
     }
@@ -71,7 +71,7 @@ class QualificationLevelsController extends Controller
     {
         $entry_level_qualification->update($request->validated());
 
-        return redirect(route('admin.qualification-levels.index'))->withSuccess('Qualification level updated successfully');
+        return back()->withSuccess('Qualification level updated successfully');
     }
 
     /**

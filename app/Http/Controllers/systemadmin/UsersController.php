@@ -25,8 +25,8 @@ class UsersController extends Controller
     {
         abort_if(Gate::denies('access_users'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $users = User::with(['designation','roles'])->get();
- 
+        $users = User::with(['designation', 'roles'])->get();
+
         return view('systemadmin.users.index', compact('users'));
     }
 
@@ -38,18 +38,18 @@ class UsersController extends Controller
     public function create()
     {
         abort_if(Gate::denies('create_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        $directorates = Directorate::all()->pluck('name','id');
 
-        $roles = Role::all()->pluck('name','id');
+        $directorates = Directorate::all()->pluck('name', 'id');
 
-        $units = Unit::all()->pluck('name','id');
+        $roles = Role::all()->pluck('name', 'id');
 
-        $designations = Designation::all()->pluck('name','id');
+        $units = Unit::all()->pluck('name', 'id');
 
-        $permissions = Permission::all()->pluck('name','id');
+        $designations = Designation::all()->pluck('name', 'id');
 
-        return view('systemadmin.users.create',compact('directorates','roles','units','designations','permissions'));
+        $permissions = Permission::all()->pluck('name', 'id');
+
+        return view('systemadmin.users.create', compact('directorates', 'roles', 'units', 'designations', 'permissions'));
     }
 
     /**
@@ -61,7 +61,7 @@ class UsersController extends Controller
     public function store(StoreUserRequest $request)
     {
 
-       $user =  User::create([
+        $user =  User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -82,7 +82,7 @@ class UsersController extends Controller
 
         $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('admin.users.index'))->with('success','User Successfully created');
+        return redirect(route('admin.users.index'))->with('success', 'User Successfully created');
     }
 
     /**
@@ -105,21 +105,21 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         abort_if(Gate::denies('edit_user'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
-        $directorates = Directorate::all()->pluck('name','id');
 
-        $roles = Role::all()->pluck('name','id');
+        $directorates = Directorate::all()->pluck('name', 'id');
 
-        $units = Unit::all()->pluck('name','id');
+        $roles = Role::all()->pluck('name', 'id');
 
-        $designations = Designation::all()->pluck('name','id');
+        $units = Unit::all()->pluck('name', 'id');
 
-        $permissions = Permission::all()->pluck('name','id');
+        $designations = Designation::all()->pluck('name', 'id');
 
-        $user->load(['roles','permissions']);
+        $permissions = Permission::all()->pluck('name', 'id');
+
+        $user->load(['roles', 'permissions']);
 
 
-        return view('systemadmin.users.edit', compact('user','directorates','roles','units','designations','permissions'));
+        return view('systemadmin.users.edit', compact('user', 'directorates', 'roles', 'units', 'designations', 'permissions'));
     }
 
     /**
@@ -132,7 +132,7 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user_status = $request->user_status == 'on' ? 1 : 0;
-        if($request->filled('password')){
+        if ($request->filled('password')) {
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
@@ -148,8 +148,7 @@ class UsersController extends Controller
                 'designation_id' => $request->designation,
                 'user_status' => $user_status,
             ]);
-        }
-        else{
+        } else {
             $user->update([
                 'username' => $request->username,
                 'email' => $request->email,
@@ -170,13 +169,13 @@ class UsersController extends Controller
 
         $user->permissions()->sync($request->input('permissions', []));
 
-        return redirect(route('admin.users.index'))->with('success','User Successfully updated');
+        return back()->with('success', 'User Successfully updated');
     }
 
 
     public function getUnitsByDirectorate(Directorate $directorate)
     {
         $directorate->load('units');
-        return response()->json(['data' => $directorate->units->pluck('name','id')]);
+        return response()->json(['data' => $directorate->units->pluck('name', 'id')]);
     }
 }

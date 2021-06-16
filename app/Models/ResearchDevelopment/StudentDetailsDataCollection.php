@@ -24,11 +24,11 @@ class StudentDetailsDataCollection extends Model
         'date_of_birth',
         'programme',
         'attendance_status',
+        'qualification_at_entry',
         'admission_date',
         'completion_date',
-        'qualification_at_entry',
         'award',
-        'education_field_id',
+        'field_of_education',
         'institution_id',
     ];
 
@@ -40,22 +40,21 @@ class StudentDetailsDataCollection extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Student Detail data collection record added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Student Detail data collection record updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Student Detail data collection record deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Student Detail data collection record added by " . auth()->user()->username;
+            case 'updated':
+                return "Student Detail data collection record updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Student Detail data collection record deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function setDateOfBirthAttribute($value)
     {
         $this->attributes['date_of_birth'] = new Carbon($value);
     }
-    
+
     public function getFullNameAttribute()
     {
         return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
@@ -63,22 +62,21 @@ class StudentDetailsDataCollection extends Model
 
     public function learningcenter()
     {
-        return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_id');
+        return $this->belongsTo(InstitutionDetailsDataCollection::class, 'institution_id');
     }
 
     public function educationField()
     {
-        return $this->belongsTo(EducationField::class,'education_field_id');
+        return $this->belongsTo(EducationField::class, 'education_field_id');
     }
 
     public function entryQualification()
     {
-        return $this->belongsTo(QualificationLevel::class,'qualification_at_entry');
+        return $this->belongsTo(QualificationLevel::class, 'qualification_at_entry');
     }
 
     public function awardName()
     {
-        return $this->belongsTo(QualificationLevel::class,'award');
+        return $this->belongsTo(QualificationLevel::class, 'award');
     }
-
 }

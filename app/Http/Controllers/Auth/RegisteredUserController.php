@@ -37,36 +37,30 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
-            'first_name' => 'required|string',
-            'middle_name' => 'nullable|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|string|digits_between:7,15',
-            'address' => 'required|string',
+            'username' => ['required', 'string', 'unique:users'],
+            'email' => ['required', 'email', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed', 'min:8'],
+            'user_type' => ['required', 'in:institution,trainer'],
         ]);
-        
+
         Auth::login($user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name ?? null,
-            'last_name' => $request->last_name,
-            'full_name' => $request->first_name.' '.$request->middle_name.' '.$request->last_name ?? $request->first_name.' '.$request->last_name,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
-            'directorate_id' => null,
-            'unit_id' => null,
-            'designation_id' => null,
+            'user_type' => $request->user_type,
+            'user_category' => 'portal',
             'user_status' => 1,
-            'default_password_status' => 1,
+            'default_password_status' => 0,
         ]));
 
-        event(new Registered($user));
-        $user->roles()->attach(Role::where('slug','systemadmin')->first());
+        $user->roles()->attach(Role::where('slug', $request->user_type)->first());
 
-        return redirect(route('systemadmin.index'));
+        event(new Registered($user));
+
+        if ($request->user_type === 'institution') {
+            return redirect(route('portal.institution.dashboard'));
+        } else if ($request->user_type === 'trainer') {
+            return redirect(route('portal.trainer.dashboard'));
+        }
     }
 }

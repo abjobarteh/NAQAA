@@ -233,33 +233,33 @@
                     $('#confirm-selection').click(function(e){
                         e.preventDefault()
                         $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
-                    $.ajax({  
-                            method:"POST",  
-                            url:"{{ route('assessment-certification.assessment.assign-assessor') }}",  
-                            data: {assessor:assessor,candidates:selectedCandidates},
-                            type:'json',
-                            success:function(response)  
-                            {
-                                if(response.status == 200){
-                                    Swal.fire({
-                                        title: 'Success',
-                                        text: response.message,
-                                        icon: 'success',
-                                        confirmButtonText: 'Close'
-                                    })
-                                    $('#assign-candidates-modal').modal('hide') 
-                                }
-                            },
-                            error: function(err)
-                            {
-                                console.log(err);
-                            }  
-                    });
+                        $.ajax({  
+                                method:"POST",  
+                                url:"{{ route('assessment-certification.assessment.assign-assessor') }}",  
+                                data: {assessor:assessor,candidates:selectedCandidates},
+                                type:'json',
+                                success:function(response)  
+                                {
+                                    if(response.status == 200){
+                                        Swal.fire({
+                                            title: 'Success',
+                                            text: response.message,
+                                            icon: 'success',
+                                            confirmButtonText: 'Close'
+                                        })
+                                        $('#assign-candidates-modal').modal('hide') 
+                                    }
+                                },
+                                error: function(err)
+                                {
+                                    console.log(err);
+                                }  
+                        });
                     })
      
                     }

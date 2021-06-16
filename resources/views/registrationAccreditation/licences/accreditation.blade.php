@@ -46,7 +46,7 @@
                                                 <td><span class="badge badge-rounded @if($accreditation[0]->application->status === 'accepted') badge-success @else badge-danger @endif">{{$accreditation[0]->application->status}}</span></td>
                                                 <td>
                                                     @foreach ($accreditation as $field)
-                                                        <span>{{$field->area}} -- {{$field->level}} -- {{$field->status ?? 'N/A'}}</span>
+                                                        <span>{{$field->area}} -- {{$field->level}} -- <span class="badge badge-primary">{{$field->status ?? 'N/A'}}</span></span>
                                                         @if (!$loop->last)
                                                             <hr>
                                                         @endif

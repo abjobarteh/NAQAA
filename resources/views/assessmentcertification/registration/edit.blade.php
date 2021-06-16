@@ -28,20 +28,20 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('assessment-certification.registrations.update',$registeredstudent->id)}}" method="post" autocomplete="off">
+                            <form action="{{route('assessment-certification.registrations.update',$registeredstudent->id)}}" method="post" enctype="multipart/form-data" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Institution:</label>
-                                            <select name="institution_id" id="institution_id" class="form-control select2" required>
+                                            <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option value="">---select institution---</option>
                                                 @foreach ($institutions as $id => $institution)
-                                                    <option value="{{$id}}" {{ $registeredstudent->institution_id === $id ? 'selected' : ''}}>{{$institution}}</option>
+                                                    <option value="{{$id}}" {{ $registeredstudent->training_provider_id === $id ? 'selected' : ''}}>{{$institution}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('institution_id')
+                                            @error('training_provider_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -148,9 +148,9 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Contact Number: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="contact_number" value="{{ $registeredstudent->contact_number }}" required>
-                                            @error('contact_number')
+                                            <label>Phone Number: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="phone" value="{{ $registeredstudent->phone }}" required>
+                                            @error('phone')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -218,13 +218,13 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Town/Vllage: <sup class="text-danger">*</sup></label>
-                                            <select name="townvillage_id" id="townvillage_id" class="form-control select2">
+                                            <select name="town_village_id" id="town_village_id" class="form-control select2">
                                                 <option value="">---select town/village---</option>
                                                 @foreach ($townvillages as $id => $townvillage)
-                                                    <option value="{{$id}}" {{ $registeredstudent->townvillage_id === $id ? 'selected' : ''}}>{{$townvillage}}</option>
+                                                    <option value="{{$id}}" {{ $registeredstudent->town_village_id === $id ? 'selected' : ''}}>{{$townvillage}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('townvillage_id')
+                                            @error('town_village_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

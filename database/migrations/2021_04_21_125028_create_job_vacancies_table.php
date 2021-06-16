@@ -21,7 +21,15 @@ class CreateJobVacanciesTable extends Migration
             $table->longText('fields_of_study');
             $table->string('job_status');
             $table->string('institution');
+            $table->string('employer_type')->nullable();
+            $table->date('date_advertised')->nullable();
+            $table->string('programme')->nullable();
+            $table->string('education_level')->nullable();
+            $table->string('major_occupational_area')->nullable();
+            $table->string('industrial_sector')->nullable();
             $table->foreignId('region_id')->nullable()->constrained();
+            $table->foreignId('district_id')->nullable()->constrained();
+            $table->foreignId('localgoverment_area_id')->nullable()->constrained('local_goverment_areas');
             $table->timestamps();
         });
     }

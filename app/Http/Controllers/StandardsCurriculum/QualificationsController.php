@@ -25,7 +25,7 @@ class QualificationsController extends Controller
     {
         abort_if(Gate::denies('access_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualifications = Qualification::with(['level','fieldOfEducation'])->get();
+        $qualifications = Qualification::with(['level', 'fieldOfEducation'])->get();
 
         return view('standardscurriculum.qualifications.index', compact('qualifications'));
     }
@@ -39,11 +39,11 @@ class QualificationsController extends Controller
     {
         abort_if(Gate::denies('create_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fields = EducationField::all()->pluck('name','id');
-        $subfields = EducationSubField::all()->pluck('name','id');
-        $levels = QualificationLevel::all()->pluck('name','id');
+        $fields = EducationField::all()->pluck('name', 'id');
+        $subfields = EducationSubField::all()->pluck('name', 'id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.qualifications.create', compact('fields','subfields','levels'));
+        return view('standardscurriculum.qualifications.create', compact('fields', 'subfields', 'levels'));
     }
 
     /**
@@ -69,7 +69,7 @@ class QualificationsController extends Controller
     {
         abort_if(Gate::denies('show_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualification->load(['fieldOfEducation','subfieldOfEducation','level','unitStandards']);
+        $qualification->load(['fieldOfEducation', 'subfieldOfEducation', 'level', 'unitStandards']);
 
         return view('standardscurriculum.qualifications.show', compact('qualification'));
     }
@@ -84,11 +84,11 @@ class QualificationsController extends Controller
     {
         abort_if(Gate::denies('edit_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fields = EducationField::all()->pluck('name','id');
-        $subfields = EducationSubField::all()->pluck('name','id');
-        $levels = QualificationLevel::all()->pluck('name','id');
+        $fields = EducationField::all()->pluck('name', 'id');
+        $subfields = EducationSubField::all()->pluck('name', 'id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.qualifications.edit', compact('qualification','fields','subfields','levels'));
+        return view('standardscurriculum.qualifications.edit', compact('qualification', 'fields', 'subfields', 'levels'));
     }
 
     /**
@@ -102,7 +102,7 @@ class QualificationsController extends Controller
     {
         $qualification->update($request->validated());
 
-        return redirect()->route('standardscurriculum.qualifications.index')->withSuccess('Qualification successfully updated');
+        return back()->withSuccess('Qualification successfully updated');
     }
 
 
@@ -113,9 +113,7 @@ class QualificationsController extends Controller
         $qualification = Qualification::find($request->id);
 
         $qualification->reviews()->save($review);
-        
+
         return json_encode(['status' => '200', 'message' => 'Qualification review Date Successfully added']);
     }
-
-  
 }

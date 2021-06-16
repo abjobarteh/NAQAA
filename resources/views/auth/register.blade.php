@@ -1,135 +1,110 @@
-@extends('layouts.auth')
+<!doctype html>
+<html lang="en">
+ <head>
+ <!-- Required meta tags -->
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-<div class="login-box">
-    <div class="login-logo">
-      <a href="/"><b>NAQAA</b></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-      <div class="card-body register-card-body">
-        <p class="login-box-msg">Create Account</p>
-  
-        <form action="{{ route('register') }}" method="POST">
-            @csrf
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Username" name="username" value="{{old('username')}}" required autofocus>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
+ <!-- CoreUI CSS -->
+ <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+ <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/free.min.css">
+ <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/brand.min.css">
+ <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/flag.min.css">
+
+ <title>Registration</title>
+ </head>
+ <body class="c-app flex-row align-items-center">
+   <div class="container-fluid">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card mx-4">
+            <div class="card-body p-4">
+                <h1>Register</h1>
+                <p class="text-muted">Create your account</p>
+                <form action="{{ route('register') }}" method="POST">
+                  @csrf
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="cil-energy"></i>
+                        </span>
+                      </div>
+                      <input class="form-control" type="text" placeholder="Enter Username" name="username" required>
+                      @error('username')  
+                        <div>
+                          <span class="text-danger mt-1">{{$message}}</span>
+                        </div>
+                      @enderror
+                  </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="cil-energy"></i>
+                        </span>
+                      </div>
+                      <input class="form-control" type="email" placeholder="Enter Email" name="email" required>
+                      @error('email')  
+                        <div>
+                          <span class="text-danger mt-1">{{$message}}</span>
+                        </div>
+                      @enderror
+                  </div>
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="cil-energy"></i>
+                        </span>
+                      </div>
+                      <input class="form-control" type="password" name="password" placeholder="Enter Password">
+                      @error('password')
+                        <div>
+                          <span class="text-danger mt-1">{{$message}}</span>
+                        </div>  
+                      @enderror
+                  </div>
+                  <div class="input-group mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="cil-energy"></i>
+                        </span>
+                      </div>
+                      <input class="form-control" type="password" name="password_confirmation" placeholder="Confirm password" required>
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">
+                        <i class="cil-energy"></i>
+                      </span>
+                    </div>
+                    <select name="user_type" id="user_type" class="custom-select" required>
+                      <option value="">--- select type of user ---</option>
+                      <option value="institution">Institution</option>
+                      <option value="trainer">Trainer</option>
+                    </select>
+                      @error('user_type')  
+                        <div>
+                          <span class="text-danger mt-1">{{$message}}</span>
+                        </div>
+                      @enderror
+                  </div>
+                  <button class="btn btn-block btn-success" type="submit">Create Account</button>
+                </form>
             </div>
-            <div>
-                @error('username')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Email" name="email" value="{{old('email')}}" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-            <div>
-                @error('email')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="new-password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" name="password_confirmation" placeholder="Confirm Password" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="First Name" name="first_name" value="{{old('first_name')}}" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user-circle"></span>
-              </div>
-            </div>
-            <div>
-                @error('first_name')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Middle Name" name="middle_name" value="{{old('middle_name')}}">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user-circle"></span>
-              </div>
-            </div>
-            <div>
-                @error('middle_name')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Last Name" name="last_name" value="{{old('last_name')}}" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user-circle"></span>
-              </div>
-            </div>
-            <div>
-                @error('last_name')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Phone Number" name="phone_number" value="{{old('phone_number')}}" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-phone"></span>
-              </div>
-            </div>
-            <div>
-                @error('phone_number')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
+            <div class="card-footer">
+                <div class="row">
+                  <div class="col-12 p-4  d-flex justify-content-center">
+                    <p>Already have an account ?</p>
+                    <a href="/login" class="text-primary pl-2 align-items-center"><span>Login</span> <i class="cil-arrow-right"></i></a>
+                  </div>
+                </div>
             </div>
           </div>
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Address" name="address" value="{{old('address')}}" required>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-map-marker-alt"></span>
-              </div>
-            </div>
-            <div>
-                @error('address')  
-                    <span class="text-danger">{{$message}}</span>
-                @enderror
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <button type="submit" class="btn btn-primary btn-block">Register</button>
-            </div>
-            <!-- /.col -->
-          </div>
-        </form>
+        </div>
       </div>
-      <!-- /.login-card-body -->
-    </div>
-  </div>
-  <!-- /.login-box -->
-@endsection
+      </div>
 
+ <!-- Optional JavaScript -->
+ <!-- Popper.js first, then CoreUI JS -->
+ <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+ </body>
+</html>

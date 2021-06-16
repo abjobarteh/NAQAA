@@ -25,7 +25,8 @@ class UnitStandardsController extends Controller
         abort_if(Gate::denies('access_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $unitstandards = UnitStandard::with(
-            ['fieldOfEducation','subFieldOfEducation','levelOfQualification','qualification'])
+            ['fieldOfEducation', 'subFieldOfEducation', 'levelOfQualification', 'qualification']
+        )
             ->get();
 
         return view('standardscurriculum.unitstandards.index', compact('unitstandards'));
@@ -40,12 +41,12 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('create_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fields = EducationField::all()->pluck('name','id');
-        $subfields = EducationSubField::all()->pluck('name','id');
-        $levels = QualificationLevel::all()->pluck('name','id');
-        $qualifications = Qualification::all()->pluck('name','id');
+        $fields = EducationField::all()->pluck('name', 'id');
+        $subfields = EducationSubField::all()->pluck('name', 'id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+        $qualifications = Qualification::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.unitstandards.create', compact('fields','subfields','levels','qualifications'));
+        return view('standardscurriculum.unitstandards.create', compact('fields', 'subfields', 'levels', 'qualifications'));
     }
 
     /**
@@ -59,7 +60,7 @@ class UnitStandardsController extends Controller
         UnitStandard::create($request->all());
 
         return redirect()->route('standardscurriculum.unit-standards.index')
-                ->withSuccess('Unit Standard successfully added');
+            ->withSuccess('Unit Standard successfully added');
     }
 
     /**
@@ -72,8 +73,8 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('show_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandard = UnitStandard::with(['fieldOfEducation','subFieldOfEducation','levelOfQualification'])
-                    ->where('id',$id)->get();
+        $unitstandard = UnitStandard::with(['fieldOfEducation', 'subFieldOfEducation', 'levelOfQualification'])
+            ->where('id', $id)->get();
 
         return view('standardscurriculum.unitstandards.show', compact('unitstandard'));
     }
@@ -88,13 +89,13 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('edit_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandard = UnitStandard::where('id',$id)->get();
-        $fields = EducationField::all()->pluck('name','id');
-        $subfields = EducationSubField::all()->pluck('name','id');
-        $levels = QualificationLevel::all()->pluck('name','id');
-        $qualifications = Qualification::all()->pluck('name','id');
+        $unitstandard = UnitStandard::where('id', $id)->get();
+        $fields = EducationField::all()->pluck('name', 'id');
+        $subfields = EducationSubField::all()->pluck('name', 'id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+        $qualifications = Qualification::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.unitstandards.edit',compact('unitstandard','fields','subfields','levels','qualifications'));
+        return view('standardscurriculum.unitstandards.edit', compact('unitstandard', 'fields', 'subfields', 'levels', 'qualifications'));
     }
 
     /**
@@ -108,8 +109,6 @@ class UnitStandardsController extends Controller
     {
         $unit_standard->update($request->validated());
 
-        return redirect()->route('standardscurriculum.unit-standards.index')
-                ->withSuccess('Unit Standard successfully update');
+        return back()->withSuccess('Unit Standard successfully update');
     }
-
 }

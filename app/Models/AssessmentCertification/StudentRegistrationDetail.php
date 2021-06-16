@@ -2,6 +2,7 @@
 
 namespace App\Models\AssessmentCertification;
 
+use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +21,7 @@ class StudentRegistrationDetail extends Model
 
     public function registeredStudent()
     {
-        return $this->belongsTo(RegisteredStudent::class, 'student_id');
+        return $this->belongsTo(TrainingProviderStudent::class, 'student_id');
     }
 
     public function studentAssessments()
@@ -35,6 +36,6 @@ class StudentRegistrationDetail extends Model
 
     public function getRegistrationDateAttribute($value)
     {
-        return new Carbon($value);
+        return (new Carbon($value))->toDayDateTimeString();
     }
 }

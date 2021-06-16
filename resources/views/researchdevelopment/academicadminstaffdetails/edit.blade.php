@@ -32,7 +32,7 @@ Edit Academic&Admin Staff Details Data collection
                             <h3 class="card-title">Edit Academic&Admin staff Details Collection</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.update',$staff[0]->id)}}" method="post" autocomplete="off">
+                            <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.update',$staff->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -42,7 +42,7 @@ Edit Academic&Admin Staff Details Data collection
                                             <select name="institution_id" id="institution_id" class="form-control select2" required>
                                                 <option>Select learning center</option>
                                                 @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}" {{$id == $staff[0]->institution_id ? 'selected' : ''}}>{{$center}}</option>
+                                                    <option value="{{$id}}" {{$id == $staff->institution_id ? 'selected' : ''}}>{{$center}}</option>
                                                 @endforeach
                                             </select>
                                             @error('institution_id')
@@ -55,7 +55,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="firstname" value="{{$staff[0]->firstname}}" required autofocus>
+                                            <input type="text" class="form-control" name="firstname" value="{{$staff->firstname}}" required autofocus>
                                             @error('firstname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -64,7 +64,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Middle Name:</label>
-                                            <input type="text" class="form-control" name="middlename" value="{{$staff[0]->middlename}}">
+                                            <input type="text" class="form-control" name="middlename" value="{{$staff->middlename}}">
                                             @error('middlename')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -73,7 +73,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Last Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="lastname" value="{{$staff[0]->lastname}}" required>
+                                            <input type="text" class="form-control" name="lastname" value="{{$staff->lastname}}" required>
                                             @error('lastname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -86,8 +86,8 @@ Edit Academic&Admin Staff Details Data collection
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
                                                 <option>Select Gender</option>
-                                                <option value="male" {{$staff[0]->gender == 'male' ? 'selected' : ''}}>Male</option>
-                                                <option value="female" {{$staff[0]->gender == 'female' ? 'selected' : ''}}>Female</option>
+                                                <option value="male" {{$staff->gender == 'male' ? 'selected' : ''}}>Male</option>
+                                                <option value="female" {{$staff->gender == 'female' ? 'selected' : ''}}>Female</option>
                                             </select>
                                             @error('gender')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -100,7 +100,7 @@ Edit Academic&Admin Staff Details Data collection
                                             <select name="nationality" id="nationality" class="form-control select2">
                                                 <option>Select nationality</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country->name}}" {{$staff[0]->nationality == $country->name ? 'selected' : ''}}>{{$country->name}}</option>
+                                                    <option value="{{$country->name}}" {{$staff->nationality == $country->name ? 'selected' : ''}}>{{$country->name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('nationality')
@@ -114,7 +114,7 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Date of Birth: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" value="{{$staff[0]->date_of_birth}}" data-target="#employment_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="date_of_birth" value="{{$staff->date_of_birth}}" data-target="#employment_date"/>
                                                 <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -127,7 +127,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Phone:</label>
-                                            <input type="text" class="form-control" name="phone" value="{{$staff[0]->phone}}" required>
+                                            <input type="text" class="form-control" name="phone" value="{{$staff->phone}}" required>
                                             @error('phone')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -136,7 +136,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" value="{{$staff[0]->email}}" required>
+                                            <input type="email" class="form-control" name="email" value="{{$staff->email}}" required>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -147,7 +147,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Job Title: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="job_title" value="{{$staff[0]->job_title}}" required>
+                                            <input type="text" class="form-control" name="job_title" value="{{$staff->job_title}}" required>
                                             @error('job_title')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -156,7 +156,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Salary Per Month:</label>
-                                            <input type="text" class="form-control" name="salary_per_month" value="{{$staff[0]->salary_per_month}}">
+                                            <input type="number" class="form-control" name="salary_per_month" value="{{$staff->salary_per_month}}" min="0" step="1">
                                             @error('salary_per_month')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -168,7 +168,7 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Employment Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="employment_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="employment_date" value="{{$staff[0]->employment_date}}" data-target="#employment_date"/>
+                                                <input type="text" class="form-control datetimepicker-input" name="employment_date" value="{{$staff->employment_date}}" data-target="#employment_date"/>
                                                 <div class="input-group-append" data-target="#employment_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -183,8 +183,8 @@ Edit Academic&Admin Staff Details Data collection
                                             <label>Employment Type:</label>
                                             <select name="employment_type" id="employment_type" class="form-control select2" required>
                                                 <option>Select employment type</option>
-                                                <option value="permanent" {{$staff[0]->highest_qualification == 'permanent' ? 'selected' : ''}}>Permanent</option>
-                                                <option value="temporary" {{$staff[0]->highest_qualification == 'temporary' ? 'selected' : ''}}>Temporary</option>
+                                                <option value="permanent" {{$staff->highest_qualification == 'permanent' ? 'selected' : ''}}>Permanent</option>
+                                                <option value="temporary" {{$staff->highest_qualification == 'temporary' ? 'selected' : ''}}>Temporary</option>
                                             </select>
                                             @error('employment_type')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -199,7 +199,7 @@ Edit Academic&Admin Staff Details Data collection
                                             <select name="highest_qualification" id="highest_qualification" class="form-control select2" required>
                                                 <option>Select highest qualification</option>
                                                 @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification}}" {{$qualification == $staff[0]->highest_qualification ? 'selected' : ''}}>{{$qualification}}</option>
+                                                    <option value="{{$qualification}}" {{$qualification == $staff->highest_qualification ? 'selected' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('highest_qualification'))
@@ -211,7 +211,7 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Other Qualifications:</label>
                                             <select name="other_qualifications[]" data-role="tagsinput" multiple  id="other_qualifications">
-                                                @foreach ($staff[0]->other_qualifications as $qualification)
+                                                @foreach ($staff->other_qualifications as $qualification)
                                                     <option value="{{$qualification}}">{{$qualification}}</option>
                                                 @endforeach
                                             </select>
@@ -225,7 +225,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Specialisation: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="specialisation" value="{{$staff[0]->specialisation}}" required>
+                                            <input type="text" class="form-control" name="specialisation" value="{{$staff->specialisation}}" required>
                                             @error('specialisation')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -236,13 +236,13 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Rank:</label>
-                                            <select name="rank_id" id="rank_id" class="form-control select2" required>
-                                                <option>Select rank</option>
+                                            <select name="rank" id="rank" class="form-control select2">
+                                                <option value="">Select rank</option>
                                                 @foreach ($ranks as $id => $rank)
-                                                    <option value="{{$id}}" {{$id == $staff[0]->rank_id ? 'selected' : ''}}>{{$rank}}</option>
+                                                    <option value="{{$rank}}" {{$rank == $staff->rank ? 'selected' : ''}}>{{$rank}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('rank_id')
+                                            @error('rank')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -250,13 +250,13 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Role:</label>
-                                            <select name="role_id" id="role_id" class="form-control select2" required>
-                                                <option>Select role</option>
+                                            <select name="role" id="role" class="form-control select2">
+                                                <option value="">Select role</option>
                                                 @foreach ($roles as $id => $role)
-                                                    <option value="{{$id}}" {{$id == $staff[0]->role_id ? 'selected' : ''}}>{{$role}}</option>
+                                                    <option value="{{$role}}" {{$role == $staff->role ? 'selected' : ''}}>{{$role}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('role_id')
+                                            @error('role')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -266,7 +266,7 @@ Edit Academic&Admin Staff Details Data collection
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Main Teaching Field of Study: <sup class="text-danger">*</sup></label>
-                                            <input type="text" name="main_teaching_field_of_study" value="{{$staff[0]->main_teaching_field_of_study}}" class="form-control" required>
+                                            <input type="text" name="main_teaching_field_of_study" value="{{$staff->main_teaching_field_of_study}}" class="form-control" required>
                                             @error('main_teaching_field_of_study')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -276,7 +276,7 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Secondary Teaching Field(s) of Study:</label>
                                             <select name="secondary_teaching_fields_of_study[]" data-role="tagsinput" multiple  id="secondary_teaching_fields_of_study">
-                                                @foreach ($staff[0]->secondary_teaching_fields_of_study as $field)
+                                                @foreach ($staff->secondary_teaching_fields_of_study as $field)
                                                     <option value="{{$field}}">{{$field}}</option>
                                                 @endforeach
                                             </select>

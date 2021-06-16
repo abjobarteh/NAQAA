@@ -16,11 +16,12 @@ class CreateRegistrationLicenceDetailsTable extends Migration
         Schema::create('registration_licence_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
-            $table->foreignId('trainer_id')->nullable()->constrained('training_providers');
+            $table->foreignId('trainer_id')->nullable()->constrained('trainers');
             $table->foreignId('application_id')->nullable()->constrained('application_details');
             $table->date('licence_start_date')->nullable();
             $table->date('licence_end_date')->nullable();
             $table->string('license_status')->nullable();
+            $table->longText('license_no')->nullable();
             $table->timestamps();
         });
     }
