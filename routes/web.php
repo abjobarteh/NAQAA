@@ -3,6 +3,7 @@
 use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsController;
 use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
 use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
+use App\Http\Controllers\Auth\MultipleRolesController;
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\Portal\Institution\AccreditationController;
 use App\Http\Controllers\Portal\Institution\CertificateEndorsementController;
@@ -163,7 +164,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('backup/manual', [BackupsController::class, 'manualDatabaseBackup'])->name('backup.manual');
   });
 
-  // Research and Development routes
+  // Research and Development module routes
   Route::group([
     'prefix' => 'researchdevelopment', 'as' => 'researchdevelopment.',
     'middleware' => 'role:research_and_development_manager|research_and_development_officer'
@@ -204,7 +205,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
   });
 
-  // Standard and Curriculum Unit Route
+  // Standard and Curriculum module Routes
   Route::group([
     'prefix' => 'standardscurriculum', 'as' => 'standardscurriculum.',
     'middleware' => 'role:standards_development_manager|standards_development_officer'
@@ -225,7 +226,7 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
 
-  // Registration and Accreditation Routes
+  // Registration and Accreditation Module Routes
   Route::group([
     'prefix' => 'registration-accreditation', 'as' => 'registration-accreditation.',
     'middleware' => ['role:registration_and_accreditation_manager|registration_and_accreditation_officer']
@@ -276,7 +277,7 @@ Route::group(['middleware' => 'auth'], function () {
   });
 
 
-  // Assessment and certification routes
+  // Assessment and certification Module routes
   Route::group([
     'prefix' => 'assessment-certification', 'as' => 'assessment-certification.',
     'middleware' => 'role:assessment_and_certification_manager|assessment_and_certification_officer'
@@ -313,6 +314,9 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
     ->name('settings.changepassword');
+
+  // Change to another module when user has multiple role
+  Route::get('multiple-roles/{role}', MultipleRolesController::class)->name('multiple-roles');
 
 
   // Portal module routes

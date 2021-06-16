@@ -160,7 +160,7 @@
     </p>
   </a>
 </li>
-@can('access_unit_standards')
+@can('access_qualifications')
 <li class="nav-item">
   <a href="{{route('standardscurriculum.qualifications.index')}}" class="nav-link 
   {{ request()->is('standardscurriculum/qualifications') || 

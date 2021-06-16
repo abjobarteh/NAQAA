@@ -17,7 +17,7 @@ class CreateEducationSubFieldsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->foreignId('education_field_id')->nullable()->constrained();
+            $table->foreignId('education_field_id')->nullable()->constrained('education_fields');
             $table->timestamps();
         });
     }

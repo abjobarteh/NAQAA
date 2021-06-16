@@ -45,7 +45,11 @@ class AuthenticatedSessionController extends Controller
             return back()->withWarning('Your Account is Deactivated. Please contact your administrator for further advice.');
         }
 
+        session(['active_role' => auth()->user()->roles[0]->slug]);
+
         if ($request->user()->default_password_status == 1) return $this->changeDefaultPassword();
+
+
 
         return $this->redirectToCorrectUserDashboard($request);
     }
@@ -97,32 +101,40 @@ class AuthenticatedSessionController extends Controller
 
     public function redirectToCorrectUserDashboard($request)
     {
-        if ($request->user()->hasRole(
-            ...['registration_and_accreditation_manager', 'registration_and_accreditation_officer']
-        )) {
-            return redirect(route('registration-accreditation.dashboard'));
-        } else if ($request->user()->hasRole(
-            ...['assessment_and_certification_manager', 'assessment_and_certification_officer']
-        )) {
-            return redirect(route('assessment-certification.registrations.index'));
-        } else if ($request->user()->hasRole(
-            ...['research_and_development_manager', 'research_and_development_officer']
-        )) {
-            return redirect(route('researchdevelopment.dashboard'));
-        } else if ($request->user()->hasRole(
-            ...['standards_development_manager', 'standards_development_officer']
-        )) {
-            return redirect(route('standardscurriculum.dashboard'));
-        } else if ($request->user()->hasRole(
-            ...['institution']
-        )) {
-            return redirect(route('portal.institution.dashboard'));
-        } else if ($request->user()->hasRole(
-            ...['trainer']
-        )) {
-            return redirect(route('portal.trainer.dashboard'));
+        if ($request->user()->user_type === 'system') {
+            if (in_array(
+                session('active_role'),
+                ['registration_and_accreditation_manager', 'registration_and_accreditation_officer']
+            )) {
+                return redirect(route('registration-accreditation.dashboard'));
+            } else if (in_array(
+                session('active_role'),
+                ['assessment_and_certification_manager', 'assessment_and_certification_officer']
+            )) {
+                return redirect(route('assessment-certification.registrations.index'));
+            } else if (in_array(
+                session('active_role'),
+                ['research_and_development_manager', 'research_and_development_officer']
+            )) {
+                return redirect(route('researchdevelopment.dashboard'));
+            } else if (in_array(
+                session('active_role'),
+                ['standards_development_manager', 'standards_development_officer']
+            )) {
+                return redirect(route('standardscurriculum.dashboard'));
+            } else {
+                return redirect(route('admin.dashboard'));
+            }
         } else {
-            return redirect(route('admin.dashboard'));
+            if ($request->user()->hasRole(
+                ...['institution']
+            )) {
+                return redirect(route('portal.institution.dashboard'));
+            } else if ($request->user()->hasRole(
+                ...['trainer']
+            )) {
+                return redirect(route('portal.trainer.dashboard'));
+            }
         }
     }
 }

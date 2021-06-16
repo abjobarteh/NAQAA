@@ -16,11 +16,11 @@ class CreateJobVacanciesTable extends Migration
         Schema::create('job_vacancies', function (Blueprint $table) {
             $table->id();
             $table->string('position_advertised');
-            $table->integer('minimum_required_job_experience');
-            $table->string('minimum_required_qualification');
+            $table->integer('minimum_required_job_experience')->nullable();
+            $table->string('minimum_required_qualification')->nullable();
             $table->longText('fields_of_study');
-            $table->string('job_status');
-            $table->string('institution');
+            $table->string('job_status')->nullable();
+            $table->string('institution')->nullable();
             $table->string('employer_type')->nullable();
             $table->date('date_advertised')->nullable();
             $table->string('programme')->nullable();

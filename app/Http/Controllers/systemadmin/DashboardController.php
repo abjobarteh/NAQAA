@@ -9,11 +9,11 @@ use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
-    
-    public function index()
+
+    public function index(Request $request)
     {
         //Todo: use real data for training providers and trainers tiles @Biran
-        
+
         $tiles = [
             [
                 'name' => 'Total Users',
@@ -36,7 +36,7 @@ class DashboardController extends Controller
         ];
 
         $activities = Activity::with(['causer'])->whereHas('causer')->latest()->take(10)->get();
-        
-        return view('systemadmin.dashboard', compact('activities','tiles'));
+
+        return view('systemadmin.dashboard', compact('activities', 'tiles'));
     }
 }

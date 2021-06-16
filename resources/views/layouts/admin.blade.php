@@ -52,6 +52,22 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+        @if(auth()->user()->roles->count() > 1)
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-user-circle"></i>
+              <span class="badge badge-danger navbar-badge">{{auth()->user()->roles->count()}}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                @foreach (auth()->user()->roles as $role)
+                  <a href="{{route('multiple-roles',$role->slug)}}" class="dropdown-item">{{$role->name}}</a>
+                  @if(!$loop->last)
+                    <div class="dropdown-divider"></div>
+                  @endif
+                @endforeach
+            </div> 
+          </li>
+        @endif
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="nav-link text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="nav-icon fas fa-power-off"></i>
