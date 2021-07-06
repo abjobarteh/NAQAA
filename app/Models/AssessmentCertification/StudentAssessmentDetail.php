@@ -16,6 +16,9 @@ class StudentAssessmentDetail extends Model
     protected $fillable = [
         'student_id',
         'assessor_id',
+        'verifier_id',
+        'comments',
+        'assessment_center',
         'application_id',
         'assessment_status',
         'qualification_type',

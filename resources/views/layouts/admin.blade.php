@@ -187,12 +187,12 @@
 <script src="/plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/js/adminlte.js"></script>
-<!-- custom js -->
-<script src="/js/custom.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="/js/pages/dashboard.js"></script> --}}
-@livewireScripts
 @include('sweetalert::alert')
+@livewireScripts
 @yield('scripts')
+<!-- custom js -->
+<script src="/js/custom.js"></script>
 </body>
 </html>

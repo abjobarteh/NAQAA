@@ -65,6 +65,7 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
+use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
@@ -309,7 +310,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', 'assessment-certification/registrations');
 
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
-      Route::get('candidates', [StudentAssessmentsController::class, 'candidates'])->name('candidates');
+      Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', [StudentAssessmentsController::class, 'studentAssessment'])->name('student-assessment');
       Route::post('generate-candidates', [StudentAssessmentsController::class, 'generateCandidates'])->name('generate-candidates');
       Route::post('generate-assessment-candidates', [StudentAssessmentsController::class, 'generateCandidatesForAssessment'])
