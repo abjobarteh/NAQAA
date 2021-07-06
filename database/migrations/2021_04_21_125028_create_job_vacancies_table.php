@@ -15,7 +15,7 @@ class CreateJobVacanciesTable extends Migration
     {
         Schema::create('job_vacancies', function (Blueprint $table) {
             $table->id();
-            $table->string('position_advertised');
+            $table->foreignId('position_advertised_id')->nullable()->constrained('position_advertiseds');
             $table->integer('minimum_required_job_experience')->nullable();
             $table->string('minimum_required_qualification')->nullable();
             $table->longText('fields_of_study');
@@ -30,6 +30,7 @@ class CreateJobVacanciesTable extends Migration
             $table->foreignId('region_id')->nullable()->constrained();
             $table->foreignId('district_id')->nullable()->constrained();
             $table->foreignId('localgoverment_area_id')->nullable()->constrained('local_goverment_areas');
+            $table->foreignId('jobvacancy_category_id')->nullable()->constrained('job_vacancy_categories');
             $table->timestamps();
         });
     }

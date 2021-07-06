@@ -7,7 +7,9 @@ use App\Http\Requests\ResearchDevelopment\StoreJobVacancyDataCollectionRequest;
 use App\Http\Requests\ResearchDevelopment\UpdateJobVacancyDataCollectionRequest;
 use App\Models\District;
 use App\Models\EducationField;
+use App\Models\JobVacancyCategory;
 use App\Models\LocalGovermentAreas;
+use App\Models\PositionAdvertised;
 use App\Models\QualificationLevel;
 use App\Models\Region;
 use App\Models\ResearchDevelopment\JobVacancy;
@@ -26,7 +28,7 @@ class JobVacanciesDataController extends Controller
     {
         abort_if(Gate::denies('access_job_vacancy'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $jobvacancies = JobVacancy::with('region')->latest()->get();
+        $jobvacancies = JobVacancy::with('region', 'position')->latest()->get();
         $qualifications = QualificationLevel::all()->pluck('name', 'id');
         $fields = EducationField::all()->pluck('name', 'id');
 
@@ -50,10 +52,12 @@ class JobVacanciesDataController extends Controller
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $lgas = LocalGovermentAreas::all()->pluck('name', 'id');
+        $job_categories = JobVacancyCategory::all()->pluck('name', 'id');
+        $job_positions = PositionAdvertised::all()->pluck('name', 'id');
 
         return view(
             'researchdevelopment.jobvacancies.create',
-            compact('qualifications', 'fields', 'regions', 'districts', 'lgas')
+            compact('qualifications', 'fields', 'regions', 'districts', 'lgas', 'job_categories', 'job_positions')
         );
     }
 

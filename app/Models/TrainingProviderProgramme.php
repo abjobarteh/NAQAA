@@ -47,6 +47,7 @@ class TrainingProviderProgramme extends Model
         'provided_safety_facilities',
         'field_of_education',
         'awarding_body',
+        'is_accredited'
     ];
 
     public function setAdmissionRequirementsAttribute($requirements)

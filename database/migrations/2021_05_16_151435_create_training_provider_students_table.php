@@ -24,6 +24,7 @@ class CreateTrainingProviderStudentsTable extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('nationality')->nullable();
+            $table->string('local_language')->nullable();
             $table->longText('address')->nullable();
             $table->string('attendance_status')->nullable();
             $table->date('admission_date')->nullable();

@@ -32,8 +32,8 @@ class CreateAcademicAdminStaffDataCollectionsTable extends Migration
             $table->string('specialisation')->nullable();
             $table->string('rank')->nullable();
             $table->string('role')->nullable();
-            $table->string('main_teaching_field_of_study')->nullable();
-            $table->longText('secondary_teaching_fields_of_study')->nullable();
+            $table->string('main_teaching_programme')->nullable();
+            $table->longText('secondary_teaching_programmes')->nullable();
             $table->foreignId('institution_id')->nullable()->constrained('training_providers');
             $table->timestamps();
         });

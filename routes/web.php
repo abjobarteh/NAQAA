@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AssessmentCertification\AssessorVerifiersController;
 use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsController;
 use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
 use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\MultipleRolesController;
 use App\Http\Controllers\Auth\ProfilesController;
 use App\Http\Controllers\Portal\Institution\AccreditationController;
@@ -47,7 +49,9 @@ use App\Http\Controllers\systemadmin\DirectoratesController;
 use App\Http\Controllers\systemadmin\DistrictsController;
 use App\Http\Controllers\systemadmin\EducationFieldsController;
 use App\Http\Controllers\systemadmin\EducationSubFieldsController;
+use App\Http\Controllers\systemadmin\JobVacanciesCategoryController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
+use App\Http\Controllers\systemadmin\LocalLanguageController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
 use App\Http\Controllers\systemadmin\QualificationLevelsController;
@@ -61,6 +65,10 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
+use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
+use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
+use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
+use App\Http\Livewire\ResearchDevelopment\EditJobvacancy;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -148,6 +156,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('training-provider-categories', TrainingProviderCategoryController::class);
 
+    // Job vacancies category
+    Route::resource('jobvacancies-category', JobVacanciesCategoryController::class);
+
+    // Local languages
+    Route::resource('local-languages', LocalLanguageController::class);
+
     // Application Fees Tariffs
     Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');
 
@@ -177,7 +191,14 @@ Route::group(['middleware' => 'auth'], function () {
     // data collection routes
     Route::group(['prefix' => 'datacollection', 'as' => 'datacollection.'], function () {
       Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
+
+      // // check if institution is registered & accredited
+      // Route::post('check-is-institution-registered', [ProgramOfferedController::class, 'checkIsInstitutionRegistered'])
+      //   ->name('check-is-institution-registered');
       Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
+      // route rendering a livewire component
+      Route::get('add-programme-details', AddProgrammesOffered::class)->name('add-programme-details');
+      Route::get('edit-programme-details/{id}', EditProgrammesOffered::class)->name('edit-programme-details');
       Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
       Route::get('add-graduate-details', [StudentDetailsController::class, 'addGraduateDetails'])->name('add-graduate-details');
       Route::get('get-admission-details', [StudentDetailsController::class, 'getAdmissionStudents'])->name('get-admission-details');
@@ -192,6 +213,8 @@ Route::group(['middleware' => 'auth'], function () {
     // Job vacancy
     Route::post('filter-vacancies', [JobVacanciesDataController::class, 'filterJobVacancy'])->name('filter-vacancies');
     Route::resource('job-vacancies', JobVacanciesDataController::class)->except('destroy');
+    Route::get('add-jobvacancy', CreateJobvacancy::class)->name('add-jobvacancy');
+    Route::get('edit-jobvacancy/{id}', EditJobvacancy::class)->name('edit-jobvacancy');
 
     // Imports
     Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
@@ -302,6 +325,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);
+
+    // Assessor/Verifiers
+    Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
   });
 
 
@@ -314,6 +340,12 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::put('settings/changepassword', [ProfilesController::class, 'changePassword'])
     ->name('settings.changepassword');
+
+  // change default sysadmin password
+  Route::get('/change-default-password', [AuthenticatedSessionController::class, 'changeDefaultPassword'])
+    ->name('change-default-password')
+    ->middleware('auth');
+  Route::put('/update-default-password', [AuthenticatedSessionController::class, 'updateDefaultPassword']);
 
   // Change to another module when user has multiple role
   Route::get('multiple-roles/{role}', MultipleRolesController::class)->name('multiple-roles');

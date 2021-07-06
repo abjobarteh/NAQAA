@@ -35,9 +35,9 @@
                             <form action="{{route('researchdevelopment.datacollection.program-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 training_provider_column">
                                         <div class="form-group">
-                                            <label>Learning center:</label>
+                                            <label>Education/Training Provider:</label>
                                             <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option>Select learning center</option>
                                                 @foreach ($learningcenters as $id => $center)
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group">
+                                        <div class="form-group is-institution-registered-details">
                                             <label>Program Name: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="program_name" value="{{ old('program_name') }}" required autofocus>
                                             @error('program_name')
@@ -140,4 +140,64 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#training_provider_id').change(function(e){
+                e.preventDefault()
+                let button = '<div class="col-sm-12">'+
+                                '<div class="form-group">'+
+                                    '<button class="btn btn-primary mr-1">Submit</button>'+
+                                    '<button href="" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Check</button>'+
+                                '</div>'+
+                            '</div>';
+                
+            })
+            $('#something').click(function(e){
+                e.preventDefault()
+                console.log('checking if institution is registered');
+
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+                $.ajax({  
+                            method:"POST",  
+                            url:"{{ route('researchdevelopment.datacollection.check-is-institution-registered') }}",  
+                            data: {training_provider_id:$('#training_provider_id')},
+                            type:'json',
+                            success:function(response)  
+                            {
+                                response = JSON.parse(response)
+                                console.log(response)
+                                // if(response.status == 404)
+                                // {
+                                //     Swal.fire({
+                                //         title: 'No Results',
+                                //         text: response.message,
+                                //         icon: 'success',
+                                //         confirmButtonText: 'Close'
+                                //     })
+                                // }
+                                // if(response.status == 200){
+                                    
+                                // }
+                            },
+                            error: function(err)
+                            {
+                                console.log(err)
+                                // Swal.fire({
+                                //     title: 'Error',
+                                //     text: err.responseJSON.message,
+                                //     icon: 'error',
+                                //     confirmButtonText: 'Close'
+                                // })
+                            }  
+                    });
+            })
+        })
+    </script>
 @endsection

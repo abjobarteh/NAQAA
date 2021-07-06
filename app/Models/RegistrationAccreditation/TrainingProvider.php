@@ -132,6 +132,14 @@ class TrainingProvider extends Model
         return $this->hasMany(ApplicationDetail::class, 'training_provider_id')->orderBy('id', 'desc');
     }
 
+    public function accreditedProgrammes()
+    {
+        return $this->applications()
+            ->whereNotNUll('training_provider_id')
+            ->whereNotNUll('programme_id')
+            ->where('status', 'accepted');
+    }
+
     public function recentRegistrationApplication()
     {
         return $this->hasOne(ApplicationDetail::class, 'training_provider_id')

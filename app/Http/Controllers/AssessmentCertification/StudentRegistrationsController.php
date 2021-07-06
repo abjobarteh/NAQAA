@@ -5,9 +5,10 @@ namespace App\Http\Controllers\AssessmentCertification;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AssessmentCertification\StoreStudentRegistrationRequest;
 use App\Http\Requests\AssessmentCertification\UpdateStudentRegistrationRequest;
-use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\AssessmentCertification\StudentRegistrationDetail;
+use App\Models\Country;
 use App\Models\District;
+use App\Models\LocalLanguage;
 use App\Models\Qualification;
 use App\Models\QualificationLevel;
 use App\Models\Region;
@@ -50,10 +51,21 @@ class StudentRegistrationsController extends Controller
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
+        $nationalities = Country::all()->pluck('name', 'id');
+        $local_languages = LocalLanguage::all()->pluck('name', 'id');
 
         return view(
             'assessmentcertification.registration.create',
-            compact('institutions', 'programmes', 'levels', 'regions', 'districts', 'townvillages')
+            compact(
+                'institutions',
+                'programmes',
+                'levels',
+                'regions',
+                'districts',
+                'townvillages',
+                'nationalities',
+                'local_languages'
+            )
         );
     }
 
@@ -81,6 +93,8 @@ class StudentRegistrationsController extends Controller
                     'lastname' => $data['lastname'],
                     'gender' => $data['gender'],
                     'date_of_birth' => $data['date_of_birth'],
+                    'nationality' => $data['nationality'],
+                    'local_language' => $data['local_language'],
                     'address' => $data['address'],
                     'email' => $data['email'],
                     'phone' => $data['phone'],
@@ -101,6 +115,8 @@ class StudentRegistrationsController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
+                'nationality' => $data['nationality'],
+                'local_language' => $data['local_language'],
                 'address' => $data['address'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
@@ -141,9 +157,22 @@ class StudentRegistrationsController extends Controller
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
+        $nationalities = Country::all()->pluck('name', 'id');
+        $local_languages = LocalLanguage::all()->pluck('name', 'id');
+
         return view(
             'assessmentcertification.registration.show',
-            compact('institutions', 'programmes', 'levels', 'regions', 'districts', 'townvillages', 'registeredstudent')
+            compact(
+                'institutions',
+                'programmes',
+                'levels',
+                'regions',
+                'districts',
+                'townvillages',
+                'registeredstudent',
+                'nationalities',
+                'local_languages'
+            )
         );
     }
 
@@ -165,9 +194,22 @@ class StudentRegistrationsController extends Controller
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
+        $nationalities = Country::all()->pluck('name', 'id');
+        $local_languages = LocalLanguage::all()->pluck('name', 'id');
+
         return view(
             'assessmentcertification.registration.edit',
-            compact('institutions', 'programmes', 'levels', 'regions', 'districts', 'townvillages', 'registeredstudent')
+            compact(
+                'institutions',
+                'programmes',
+                'levels',
+                'regions',
+                'districts',
+                'townvillages',
+                'registeredstudent',
+                'nationalities',
+                'local_languages'
+            )
         );
     }
 
@@ -196,6 +238,8 @@ class StudentRegistrationsController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
+                'nationality' => $data['nationality'],
+                'local_language' => $data['local_language'],
                 'address' => $data['address'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
@@ -217,6 +261,8 @@ class StudentRegistrationsController extends Controller
             'lastname' => $data['lastname'],
             'gender' => $data['gender'],
             'date_of_birth' => $data['date_of_birth'],
+            'nationality' => $data['nationality'],
+            'local_language' => $data['local_language'],
             'address' => $data['address'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -228,16 +274,5 @@ class StudentRegistrationsController extends Controller
         ]);
 
         return back()->withSuccess('Student registration details successfully updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

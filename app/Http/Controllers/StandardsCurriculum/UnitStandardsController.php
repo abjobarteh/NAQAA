@@ -24,10 +24,7 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('access_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandards = UnitStandard::with(
-            ['fieldOfEducation', 'subFieldOfEducation', 'levelOfQualification', 'qualification']
-        )
-            ->get();
+        $unitstandards = UnitStandard::with(['qualification'])->get();
 
         return view('standardscurriculum.unitstandards.index', compact('unitstandards'));
     }
@@ -41,12 +38,9 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('create_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fields = EducationField::all()->pluck('name', 'id');
-        $subfields = EducationSubField::all()->pluck('name', 'id');
-        $levels = QualificationLevel::all()->pluck('name', 'id');
         $qualifications = Qualification::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.unitstandards.create', compact('fields', 'subfields', 'levels', 'qualifications'));
+        return view('standardscurriculum.unitstandards.create', compact('qualifications'));
     }
 
     /**
@@ -73,8 +67,7 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('show_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandard = UnitStandard::with(['fieldOfEducation', 'subFieldOfEducation', 'levelOfQualification'])
-            ->where('id', $id)->get();
+        $unitstandard = UnitStandard::findOrFail($id)->load('qualification');
 
         return view('standardscurriculum.unitstandards.show', compact('unitstandard'));
     }
@@ -89,13 +82,10 @@ class UnitStandardsController extends Controller
     {
         abort_if(Gate::denies('edit_unit_standards'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $unitstandard = UnitStandard::where('id', $id)->get();
-        $fields = EducationField::all()->pluck('name', 'id');
-        $subfields = EducationSubField::all()->pluck('name', 'id');
-        $levels = QualificationLevel::all()->pluck('name', 'id');
+        $unitstandard = UnitStandard::findOrFail($id);
         $qualifications = Qualification::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.unitstandards.edit', compact('unitstandard', 'fields', 'subfields', 'levels', 'qualifications'));
+        return view('standardscurriculum.unitstandards.edit', compact('unitstandard', 'qualifications'));
     }
 
     /**

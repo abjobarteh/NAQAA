@@ -19,7 +19,7 @@ class Trainer extends Model
         'lastname',
         'date_of_birth',
         'gender',
-        'nationality',
+        'country_of_citizenship',
         'TIN',
         'NIN',
         'AIN',
@@ -67,7 +67,11 @@ class Trainer extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        if ($this->middlename != null) {
+
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
+        return "{$this->firstname} {$this->lastname}";
     }
 
     public function applications()

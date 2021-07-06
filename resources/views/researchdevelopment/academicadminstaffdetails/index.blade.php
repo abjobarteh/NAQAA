@@ -52,7 +52,7 @@
                                             <td>{{$staff->highest_qualification}}</td>
                                             <td>{{$staff->rank ?? 'N/A'}}</td>
                                             <td>{{$staff->role ?? 'N/A'}}</td>
-                                            <td>{{$staff->main_teaching_field_of_study}}</td>
+                                            <td>{{$staff->main_teaching_programme}}</td>
                                             <td>{{$staff->learningcenter->name ?? 'N/A'}}</td>
                                             <td>{{$staff->created_at}}</td>
                                             <td>

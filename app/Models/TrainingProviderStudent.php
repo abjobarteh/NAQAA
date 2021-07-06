@@ -22,6 +22,7 @@ class TrainingProviderStudent extends Model
         'email',
         'phone',
         'nationality',
+        'local_language',
         'address',
         'attendance_status',
         'admission_date',

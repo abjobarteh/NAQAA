@@ -2,10 +2,7 @@
 
 namespace App\Models\StandardsCurriculum;
 
-use App\Models\EducationField;
-use App\Models\EducationSubField;
 use App\Models\Qualification;
-use App\Models\QualificationLevel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,10 +21,8 @@ class UnitStandard extends Model
         'validated',
         'unit_standard_type',
         'validation_date',
-        'education_field_id',
-        'education_sub_field_id',
         'qualification_id',
-        'qualification_level_id',
+        'status'
     ];
 
     protected $dates = [
@@ -72,21 +67,6 @@ class UnitStandard extends Model
     public function getValidatedByStakeholdersAttribute($value)
     {
         return json_decode($value);
-    }
-
-    public function fieldOfEducation()
-    {
-        return $this->belongsTo(EducationField::class, 'education_field_id');
-    }
-
-    public function subFieldOfEducation()
-    {
-        return $this->belongsTo(EducationSubField::class, 'education_sub_field_id');
-    }
-
-    public function levelOfQualification()
-    {
-        return $this->belongsTo(QualificationLevel::class, 'qualification_level_id');
     }
 
     public function qualification()

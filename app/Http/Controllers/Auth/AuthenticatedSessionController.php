@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -86,12 +86,20 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::FindorFail(Auth::user()->id);
 
-        $user->update([
-            'password' => bcrypt($request->password),
-            'default_password_status' => 0
-        ]);
+        if (!Hash::check($request->password, $user->password)) {
+            $user->update([
+                'password' => bcrypt($request->password),
+                'default_password_status' => 0
+            ]);
 
-        return $this->redirectToCorrectUserDashboard($request);
+            return $this->redirectToCorrectUserDashboard($request);
+        } else {
+            return redirect(route('change-default-password'))
+                ->withWarning(
+                    'Password you entered cannot be the same as the one provided by the Syadmin. 
+                    Please enter a new and different password!'
+                );
+        }
     }
 
     public function skipDefaultPasswordUpdate(Request $request)

@@ -48,7 +48,7 @@
                                             <td>{{$registration->trainer->firstname}}. {{$registration->trainer->middlename ?? ''}} .{{$registration->trainer->lastname}}</td>
                                             <td>{{$registration->trainer->date_of_birth->toFormattedDateString()}}</td>
                                             <td>{{$registration->trainer->gender}}</td>
-                                            <td>{{$registration->trainer->nationality}}</td>
+                                            <td>{{$registration->trainer->country_of_citizenship}}</td>
                                             <td>{{$registration->trainer->email}}</td>
                                             <td>{{$registration->trainer->type}}</td>
                                             <td>

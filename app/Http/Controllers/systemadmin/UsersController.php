@@ -75,6 +75,7 @@ class UsersController extends Controller
             'unit_id' => $request->unit,
             'designation_id' => $request->designation,
             'user_status' => $request->user_status == 'on' ? 1 : 0,
+            'user_type' => 'system',
             'default_password_status' => 1,
         ]);
 
@@ -131,7 +132,6 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user_status = $request->user_status == 'on' ? 1 : 0;
         if ($request->filled('password')) {
             $user->update([
                 'username' => $request->username,
@@ -146,7 +146,7 @@ class UsersController extends Controller
                 'directorate_id' => $request->directorate,
                 'unit_id' => $request->unit,
                 'designation_id' => $request->designation,
-                'user_status' => $user_status,
+                'user_status' => $request->user_status == 'on' ? 1 : 0,
             ]);
         } else {
             $user->update([
@@ -161,7 +161,7 @@ class UsersController extends Controller
                 'directorate_id' => $request->directorate,
                 'unit_id' => $request->unit,
                 'designation_id' => $request->designation,
-                'user_status' => $user_status,
+                'user_status' => $request->user_status == 'on' ? 1 : 0,
             ]);
         }
 

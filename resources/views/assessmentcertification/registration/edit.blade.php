@@ -128,6 +128,36 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Country of Origin: <sup class="text-danger">*</sup></label>
+                                            <select name="nationality" id="nationality" class="form-control select2" required>
+                                                <option value="">--- select country of origin ---</option>
+                                                @foreach ($nationalities as $id => $nationality)
+                                                    <option value="{{$nationality}}" {{$registeredstudent->nationality === $nationality ? 'selected' : ''}}>{{$nationality}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('nationality')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Local language Spoken:</label>
+                                            <select name="local_language" id="local_language" class="form-control select2">
+                                                <option value="">--- select local language spoken ---</option>
+                                                @foreach ($local_languages as $id => $local_language)
+                                                    <option value="{{$local_language}}" {{$registeredstudent->local_language === $local_language ? 'selected' : ''}}>{{$local_language}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('local_language')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Address: <sup class="text-danger">*</sup></label>

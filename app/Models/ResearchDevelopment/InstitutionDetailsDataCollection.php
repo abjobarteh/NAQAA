@@ -14,11 +14,12 @@ class InstitutionDetailsDataCollection extends Model
     protected $fillable = [
         'institution_id',
         'financial_source',
-        'estimated_yearly_turnover',
+        'yearly_turnover',
         'enrollment_capacity',
         'no_of_lecture_rooms',
         'no_of_computer_labs',
         'total_no_of_computers_in_labs',
+        'academic_year'
     ];
 
     protected static $logFillable = true;
@@ -31,11 +32,11 @@ class InstitutionDetailsDataCollection extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Institution details data collection added by " . auth()->user()->username;
+                return "New Institution details data collection for the academic year {$this->academic_year} added by" . auth()->user()->username;
             case 'updated':
-                return "Institution details data collection updated by " . auth()->user()->username;
+                return "Institution details data collection or the academic year {$this->academic_year} updated by " . auth()->user()->username;
             case 'deleted':
-                return "Institution details data collection deleted by " . auth()->user()->username;
+                return "Institution details data collection or the academic year {$this->academic_year} deleted by " . auth()->user()->username;
         };
     }
 

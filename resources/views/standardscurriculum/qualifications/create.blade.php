@@ -61,8 +61,8 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Tuition Fee: <sup class="text-danger">*</sup></label>
-                                            <input type="number" class="form-control" name="tuition_fee" value="{{ old('tuition_fee') }}" min="0" step="1" required>
+                                            <label>Tuition Fee:</label>
+                                            <input type="number" class="form-control" name="tuition_fee" value="{{ old('tuition_fee') }}" min="0" step="1">
                                             @error('tuition_fee')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

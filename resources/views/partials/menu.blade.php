@@ -36,7 +36,9 @@
     <li class="nav-item">
       <a href="{{route('researchdevelopment.datacollection.program-details.index')}}" class="nav-link 
       {{ request()->is('researchdevelopment/datacollection/program-details') || 
-         request()->is('researchdevelopment/datacollection/program-details/*') ? 'active' : '' }}">
+         request()->is('researchdevelopment/datacollection/program-details/*') ||
+         request()->is('researchdevelopment/datacollection/add-programme-details') ||
+         request()->is('researchdevelopment/datacollection/edit-programme-details/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tasks"></i>
         <p>
           Programs Offered
@@ -83,7 +85,9 @@
 <li class="nav-item">
     <a href="{{route('researchdevelopment.job-vacancies.index')}}" class="nav-link {{
        request()->is('researchdevelopment/job-vacancies') ||
-       request()->is('researchdevelopment/job-vacancies/*') ? 'active' : '' }}"
+       request()->is('researchdevelopment/job-vacancies/*') ||
+       request()->is('researchdevelopment/add-jobvacancy') ||
+       request()->is('researchdevelopment/edit-jobvacancy/*') ? 'active' : '' }}"
        >
       <i class="nav-icon fas fa-briefcase"></i>
       <p>
@@ -352,6 +356,7 @@
 </li>
 @endrole
 
+{{-- Assessment & Certification --}}
 @role('assessment_and_certification_manager|assessment_and_certification_officer')
 <li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
@@ -368,7 +373,7 @@
   <a href="#" class="nav-link 
   {{ request()->is('assessment-certification/assessment/*') ? 'active' : '' }}"
     >
-    <i class="nav-icon fas fa-stamp"></i>
+    <i class="nav-icon fas fa-stream"></i>
     <p>
       Assessmeent
       <i class="right fas fa-angle-left"></i>
@@ -402,9 +407,20 @@
      request()->is('assessment-certification/certificate-endorsements') ||
      request()->is('assessment-certification/certificate-endorsements/*') ? 'active' : '' }}"
      >
-    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <i class="nav-icon fas fa-stamp"></i>
     <p>
       Endorsements
+    </p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{route('assessment-certification.assessor-verifiers')}}" class="nav-link {{
+     request()->is('assessment-certification/assessor-verifiers') ||
+     request()->is('assessment-certification/assessor-verifiers/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-chalkboard-teacher"></i>
+    <p>
+      Assessor/Verifiers
     </p>
   </a>
 </li>

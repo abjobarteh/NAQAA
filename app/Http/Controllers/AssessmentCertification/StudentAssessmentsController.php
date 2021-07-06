@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers\AssessmentCertification;
 
-use App\Exports\AssessmentCertification\CandidatesExport;
 use App\Http\Controllers\Controller;
-use App\Models\AssessmentCertification\RegisteredStudent;
 use App\Models\AssessmentCertification\StudentAssessmentDetail;
 use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\Qualification;
@@ -14,8 +12,6 @@ use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
 
 class StudentAssessmentsController extends Controller
 {

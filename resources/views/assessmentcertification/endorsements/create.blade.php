@@ -165,6 +165,7 @@
                                                                     <th>Midldle name</th>
                                                                     <th>Last name</th>
                                                                     <th>License No</th>
+                                                                    <th>Module</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -180,6 +181,9 @@
                                                                     </td>
                                                                     <td>
                                                                         <input type="text" name="license_nos[]" class="form-control" placeholder="Enter trainer license no" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" name="modules[]" class="form-control" placeholder="Enter module" />
                                                                     </td>
                                                                 </tr>
                                                                 <tr id="trainer1"></tr>

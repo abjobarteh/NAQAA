@@ -99,13 +99,13 @@
                                         <p class="col-sm-7 text-muted">{{$staffdetail->role ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-5 text-primary">Main Teaching Field of Study: </b>
-                                        <p class="col-sm-7 text-muted">{{$staffdetail->main_teaching_field_of_study ?? 'N/A'}}</p>
+                                        <b class="col-sm-5 text-primary">Main Teaching Programme: </b>
+                                        <p class="col-sm-7 text-muted">{{$staffdetail->main_teaching_programme ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-5 text-primary">Secondary Teaching Field of Study: </b>
-                                        @if (isset($staffdetail->secondary_teaching_fields_of_study))
-                                            @foreach($staffdetail->secondary_teaching_fields_of_study as $field)
+                                        <b class="col-sm-5 text-primary">Secondary Teaching Programme(s): </b>
+                                        @if (isset($staffdetail->secondary_teaching_programmes))
+                                            @foreach($staffdetail->secondary_teaching_programmes as $field)
                                                 <span class="btn btn-sm btn-info m-1">{{$field}}</span>    
                                             @endforeach  
                                         @else

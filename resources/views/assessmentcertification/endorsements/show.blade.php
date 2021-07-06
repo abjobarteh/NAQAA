@@ -19,7 +19,7 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h3 class="card-title text-primary"><i class="fas fa-edit text-danger"></i> Edit Certificate Endorsement</h3>
+                                    <h3 class="card-title text-primary"><i class="fas fa-eye text-primary"></i> Edit Certificate Endorsement</h3>
                                 </div>
                                 <div class="col-md-6 d-flex flex-direction-row justify-content-end">
                                     <a href="{{route('assessment-certification.certificate-endorsements.index')}}" class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Endorsed Certificates</a>
@@ -167,6 +167,7 @@
                                                                     <th>Midldle name</th>
                                                                     <th>Last name</th>
                                                                     <th>License No</th>
+                                                                    <th>Module</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -183,15 +184,14 @@
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" name="license_nos[]" class="form-control" value="{{$trainer->license_no}}" placeholder="Enter trainer license no" />
-                                                                        </td>  
+                                                                        </td>
+                                                                        <td>
+                                                                            <input type="text" name="modules[]" class="form-control" value="{{$trainer->module}}" placeholder="Enter module" />
+                                                                        </td>   
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>
                                                         </table>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <button id="add_row" class="btn btn-default pull-left">+ Add Row</button>
-                                                        <button id='delete_row' class="float-right btn btn-danger">- Delete Row</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,39 +222,6 @@
             });
             $('#programme_end_date').datetimepicker({
                 format: 'YYYY-MM-DD'
-            });
-
-            $("#add_row").click(function(e){
-                e.preventDefault();
-                let rowCount = $("#trainers_table tbody tr").length;
-                
-                row = `<tr id="trainer${rowCount+1}" class="empty-row">`+
-                        '<td>'+
-                            '<input type="text" name="firstnames[]" class="form-control" placeholder="Enter trainer firstname" />'+
-                        '</td>'+
-                        '<td>'+
-                            '<input type="text" name="middlenames[]" class="form-control" placeholder="Enter trainer middlename" />'+
-                        '</td>'+
-                        '<td>'+
-                            '<input type="text" name="lastnames[]" class="form-control" placeholder="Enter trainer lastname" />'+
-                        '</td>'+
-                        '<td>'+
-                            '<input type="text" name="license_nos[]" class="form-control" placeholder="Enter trainer license no" />'+
-                        '</td>'+  
-                    '</tr>';
-
-                $('#trainers_table tbody').append(row);
-
-            });
-
-            $("#delete_row").click(function(e){
-                e.preventDefault();
-                let rowCount = $("#trainers_table tbody tr").length;
-                let emptyrows = $("#trainers_table tbody .empty-row").length;
-
-                if(emptyrows > 0){
-                    $("#trainer" + rowCount).remove();
-                }
             });
         })
     </script>

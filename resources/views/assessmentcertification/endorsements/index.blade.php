@@ -54,13 +54,13 @@
                                         <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
                                         <td>
                                             <a href="{{route('assessment-certification.certificate-endorsements.edit',$endorsement->id)
-                                                }}" class="btn btn-sm btn-danger"
+                                                }}" class="btn btn-xs btn-danger"
                                                 title="edit certificate endorsement details"
                                                 >
                                                 <i class="fas fa-edit"></i>    
                                             </a>
                                             <a href="{{route('assessment-certification.certificate-endorsements.show',$endorsement->id)
-                                                }}" class="btn btn-sm btn-info"
+                                                }}" class="btn btn-xs btn-info"
                                                 title="view certificate endorsement registration details"
                                                 >
                                                 <i class="fas fa-eye"></i>    

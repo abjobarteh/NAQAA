@@ -83,7 +83,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Estimated Yearly Turnover: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->estimated_yearly_turnover}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->yearly_turnover}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Enrollment Capacity: </b>

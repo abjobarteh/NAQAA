@@ -2,6 +2,7 @@
 
 namespace App\Models\ResearchDevelopment;
 
+use App\Models\PositionAdvertised;
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -12,7 +13,7 @@ class JobVacancy extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'position_advertised',
+        'position_advertised_id',
         'date_advertised',
         'minimum_required_job_experience',
         'minimum_required_qualification',
@@ -27,6 +28,7 @@ class JobVacancy extends Model
         'region_id',
         'district_id',
         'localgoverment_area_id',
+        'jobvacancy_category_id',
     ];
 
     protected static $logFillable = true;
@@ -72,5 +74,10 @@ class JobVacancy extends Model
     public function localgovermentarea()
     {
         return $this->belongsTo(LocalGovermentAreas::class, 'localgoverment_area_id');
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(PositionAdvertised::class, 'position_advertised_id');
     }
 }

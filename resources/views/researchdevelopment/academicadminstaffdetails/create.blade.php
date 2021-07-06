@@ -95,14 +95,14 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Nationality:</label>
+                                            <label>Country of citizenship:</label>
                                             <select name="nationality" id="nationality" class="form-control select2">
-                                                <option>Select nationality</option>
+                                                <option>--- select country of citizenship ---</option>
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->name}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('phone')
+                                            @error('nationality')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -262,21 +262,21 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Main Teaching Field of Study: <sup class="text-danger">*</sup></label>
-                                            <input type="text" name="main_teaching_field_of_study" value="{{ old('main_teaching_field_of_study') }}" class="form-control" required>
-                                            @error('main_teaching_field_of_study')
+                                            <label>Main Teaching Programme: <sup class="text-danger">*</sup></label>
+                                            <input type="text" name="main_teaching_programme" value="{{ old('main_teaching_programme') }}" class="form-control" required>
+                                            @error('main_teaching_programme')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Secondary Teaching Field(s) of Study:</label>
-                                            <select name="secondary_teaching_fields_of_study[]" data-role="tagsinput" multiple  id="secondary_teaching_fields_of_study">
+                                            <label>Secondary Teaching Programme(s):</label>
+                                            <select name="secondary_teaching_programmes[]" data-role="tagsinput" multiple  id="secondary_teaching_programmes">
                                                 
                                             </select>
-                                            @if($errors->has('secondary_teaching_fields_of_study'))
-                                                <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_fields_of_study') }}</span>
+                                            @if($errors->has('secondary_teaching_programmes'))
+                                                <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_programmes') }}</span>
                                             @endif
                                         </div>
                                     </div>

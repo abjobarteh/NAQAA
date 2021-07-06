@@ -12,8 +12,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     @can('create_job_vacancy')
-                        <a href="{{route('researchdevelopment.job-vacancies.create')}}" 
-                            class="btn btn-primary float-right">
+                        <a href="{{route('researchdevelopment.add-jobvacancy')}}" 
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i> &nbsp;
                             New Job Vacancy Data collection
                         </a>
                     @endcan
@@ -105,7 +106,7 @@
                                 <tbody>
                                     @forelse ($jobvacancies as $vacancy)
                                         <tr>
-                                            <td>{{$vacancy->position_advertised}}</td>
+                                            <td>{{$vacancy->position->name ?? 'N/A'}}</td>
                                             <td>{{$vacancy->minimum_required_qualification}}</td>
                                             <td>
                                                 @foreach ($vacancy->fields_of_study as $field)
@@ -118,7 +119,7 @@
                                             <td>{{$vacancy->institution}}</td>
                                             <td>
                                                 @can('edit_job_vacancy')
-                                                    <a href="{{route('researchdevelopment.job-vacancies.edit',$vacancy->id)
+                                                    <a href="{{route('researchdevelopment.edit-jobvacancy',$vacancy->id)
                                                         }}" class="btn btn-sm btn-danger"
                                                         title="edit job vacancy details"
                                                         >

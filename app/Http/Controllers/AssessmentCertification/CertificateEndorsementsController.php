@@ -58,6 +58,7 @@ class CertificateEndorsementsController extends Controller
                     'middlename' => $request->middlenames[$trainerfirstname] ?? '',
                     'lastname' => $request->lastnames[$trainerfirstname],
                     'license_no' => $request->license_nos[$trainerfirstname],
+                    'module' => $request->modules[$trainerfirstname],
                 ];
                 array_push($trainerdetails, $trainerdetail);
             }
@@ -128,6 +129,7 @@ class CertificateEndorsementsController extends Controller
                     'middlename' => $request->middlenames[$trainerfirstname] ?? '',
                     'lastname' => $request->lastnames[$trainerfirstname],
                     'license_no' => $request->license_nos[$trainerfirstname],
+                    'module' => $request->modules[$trainerfirstname],
                 ];
                 array_push($trainerdetails, $trainerdetail);
             }
@@ -136,16 +138,5 @@ class CertificateEndorsementsController extends Controller
         $endorsement->update($request->validated() + ['trainer_details' => json_encode($trainerdetails)]);
 
         return back()->withSuccess('Certificate Endorsement details successfully updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

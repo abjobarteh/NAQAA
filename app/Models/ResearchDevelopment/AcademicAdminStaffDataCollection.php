@@ -32,8 +32,8 @@ class AcademicAdminStaffDataCollection extends Model
         'specialisation',
         'rank',
         'role',
-        'main_teaching_field_of_study',
-        'secondary_teaching_fields_of_study',
+        'main_teaching_programme',
+        'secondary_teaching_programmes',
         'institution_id',
     ];
 
@@ -55,9 +55,9 @@ class AcademicAdminStaffDataCollection extends Model
         };
     }
 
-    public function setSecondaryTeachingFieldsOfStudyAttribute($value)
+    public function setSecondaryTeachingProgrammesAttribute($value)
     {
-        $this->attributes['secondary_teaching_fields_of_study'] = json_encode($value);
+        $this->attributes['secondary_teaching_programmes'] = json_encode($value);
     }
 
     public function setOtherQualificationsAttribute($value)

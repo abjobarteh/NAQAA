@@ -47,9 +47,9 @@ class StoreAcademicAdminStaffDetailsDataCollectionRequest extends FormRequest
             'rank' => 'nullable|string',
             'role' => 'nullable|string',
             'institution_id' => 'required|numeric|integer',
-            'main_teaching_field_of_study' => 'required|string',
-            'secondary_teaching_fields_of_study' => ['nullable', 'array'],
-            'secondary_teaching_fields_of_study.*' => ['string'],
+            'main_teaching_programme' => 'required|string',
+            'secondary_teaching_programmes' => ['nullable', 'array'],
+            'secondary_teaching_programmes.*' => ['string'],
         ];
     }
 
@@ -75,7 +75,7 @@ class StoreAcademicAdminStaffDetailsDataCollectionRequest extends FormRequest
             'role.required' => 'Please select role',
             'institution_id.required' => 'Please select learning center',
             'institution_id.numeric' => 'Learning center cannot be empty',
-            'main_teaching_field_of_study' => 'Please enter main teaching field of study',
+            'main_teaching_programme' => 'Please enter main teaching programme',
         ];
     }
 }

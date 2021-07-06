@@ -60,7 +60,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
         DB::transaction(function () use ($data) {
             // Store Programme details
             $programme = TrainingProviderProgramme::create([
-                'trainingprovider_id' => $data['trainingprovider_id'],
+                'training_provider_id' => $data['trainingprovider_id'],
                 'programme_title' => $data['programme_title'],
                 'level' => $data['level'],
                 'studentship_duration' => $data['studentship_duration'],
@@ -82,9 +82,10 @@ class TrainingProviderProgramsAccreditationController extends Controller
                 'application_date' => $data['application_date'],
             ]);
 
-            // If application accepted, create a license record
+            // If application accepted, create a programme accreditation record
             if ($data['status'] === 'accepted') {
                 ProgrammeAccreditationDetails::create([
+                    'programme_id' => $programme->id,
                     'application_id' => $application->id,
                     'accreditation_start_date' => $data['accreditation_start_date'],
                     'accreditation_end_date' => $data['accreditation_end_date'],

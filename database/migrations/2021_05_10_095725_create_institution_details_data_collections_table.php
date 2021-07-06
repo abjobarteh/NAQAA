@@ -17,7 +17,7 @@ class CreateInstitutionDetailsDataCollectionsTable extends Migration
             $table->id();
             $table->foreignId('institution_id')->nullable()->constrained('training_providers');
             $table->string('financial_source')->nullable();
-            $table->string('estimated_yearly_turnover')->nullable();
+            $table->string('yearly_turnover')->nullable();
             $table->integer('enrollment_capacity')->nullable();
             $table->integer('no_of_lecture_rooms')->nullable();
             $table->integer('no_of_computer_labs')->nullable();

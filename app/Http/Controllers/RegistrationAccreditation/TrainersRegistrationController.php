@@ -21,7 +21,7 @@ class TrainersRegistrationController extends Controller
     public function index()
     {
         $trainer_regitrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
             'registrationLicence'
         ])->where('application_category', 'registration')
             ->where('applicant_type', 'trainer')
@@ -61,7 +61,7 @@ class TrainersRegistrationController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
-                'nationality' => $data['nationality'],
+                'country_of_citizenship' => $data['nationality'],
                 'TIN' => $data['TIN'],
                 'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
                 'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,
@@ -151,7 +151,7 @@ class TrainersRegistrationController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
-                'nationality' => $data['nationality'],
+                'country_of_citizenship' => $data['nationality'],
                 'TIN' => $data['TIN'],
                 'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
                 'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,

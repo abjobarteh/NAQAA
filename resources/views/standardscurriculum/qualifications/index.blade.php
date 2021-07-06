@@ -13,7 +13,8 @@
                 <div class="col-sm-6">
                     @can('create_qualifications')
                         <a href="{{route('standardscurriculum.qualifications.create')}}" 
-                            class="btn btn-primary float-right">
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i>&nbsp;
                             New Qualification
                         </a>
                     @endcan
@@ -34,7 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Tuition Fee</th>
+                                        <th>Tuition Fee (GMD)</th>
                                         <th>Entry requirements</th>
                                         <th>Mode of Delivery</th>
                                         <th>Duration (months)</th>
@@ -47,7 +48,7 @@
                                     @forelse ($qualifications as $qualification)
                                         <tr>
                                             <td>{{$qualification->name}}</td>
-                                            <td><b>GMD</b> {{$qualification->tuition_fee}}</td>
+                                            <td>{{$qualification->tuition_fee ?? 'N/A'}}</td>
                                             <td>
                                                 @forelse ($qualification->entry_requirements as $req)
                                                    <span class="badge badge-primary badge-rounded">{{$req}}</span> 
@@ -63,7 +64,7 @@
                                             <td>
                                                 @can('edit_qualifications')
                                                     <a href="{{route('standardscurriculum.qualifications.edit',$qualification->id)}}" 
-                                                        class="btn btn-sm btn-danger"
+                                                        class="btn btn-xs btn-danger"
                                                         title="edit qualification details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
@@ -71,14 +72,14 @@
                                                 @endcan
                                                 @can('show_qualifications')
                                                     <a href="{{route('standardscurriculum.qualifications.show',$qualification->id)}}" 
-                                                        class="btn btn-sm btn-info"
+                                                        class="btn btn-xs btn-info"
                                                         title="view qualification details"
                                                         >
                                                         <i class="fas fa-eye"></i>    
                                                     </a>
                                                 @endcan
                                                 @can('show_qualifications')
-                                                <button type="button" class="btn btn-sm btn-info" id="review-date-button"
+                                                <button type="button" class="btn btn-xs btn-info" id="review-date-button"
                                                     data-qualification-id={{$qualification->id}} data-qualification-name="{{$qualification->name}}" 
                                                     title="update qualification review date">
                                                     <i class="fas fa-calendar-check"></i> 
