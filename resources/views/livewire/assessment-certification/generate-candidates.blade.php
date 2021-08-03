@@ -109,7 +109,10 @@
                                 <div class="row">
                                     <div class="col-sm-12 d-flex justify-content-center">
                                         <div class="form-group justify-content-center">
-                                            <button type="submit" class="btn btn-info btn-flat btn-lg mr-1">Generate candidates</button>
+                                            <button type="submit" class="btn btn-info btn-flat btn-lg mr-1">
+                                                <i class="fab fa-get-pocket"></i>
+                                                Generate candidates
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

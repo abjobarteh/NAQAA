@@ -129,9 +129,7 @@ class StudentRegistrationsController extends Controller
 
             StudentRegistrationDetail::create([
                 'student_id' => $newstudent->id,
-                'registration_no' => 'auto-generated',
                 'registration_date' => now(),
-                'serial_no' => 'auto-generated'
             ]);
         });
 

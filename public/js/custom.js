@@ -3,12 +3,22 @@ $(document).ready(function(){
  
   window.addEventListener('alert', event => {
       Swal.fire({
-        title: 'No candidates',
+        title: event.detail.title,
         text: event.detail.message,
         icon: event.detail.type,
         confirmButtonText: 'Close'
     })
   })
+  
+    window.addEventListener('openAssessmentFormModal', event => {
+        $('#assessment-modal').modal('show')
+    })
+
+    window.addEventListener('closeAssessmentFormModal', event => {
+      console.log('something is working here')
+      $('#assessment-modal').modal('hide')
+  })
+  
 
   $('.modal').on('hidden.bs.modal', function(event){
       Livewire.emit('clearForm');

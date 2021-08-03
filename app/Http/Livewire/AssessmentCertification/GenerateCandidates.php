@@ -129,6 +129,7 @@ class GenerateCandidates extends Component
             return;
         }
 
+        // check if candidates has already assessed
         $assessmentExist = StudentAssessmentDetail::whereIn('student_id', $this->selectedCandidates)
             ->whereNull('assessment_status')
             ->orWhere('assessment_status', 'competent')
@@ -155,19 +156,33 @@ class GenerateCandidates extends Component
                 'message' => 'Assessor/Verifiers successfully assigned to selected students'
             ]);
         } else {
-            StudentAssessmentDetail::whereIn('student_id', $this->selectedCandidates)
-                ->update([
-                    'assessor_id' => $this->assessor_id,
-                    'verifier_id' => $this->verifier_id,
-                ]);
+            $sameAssessorAssignment = StudentAssessmentDetail::whereIn('student_id', $this->selectedCandidates)
+                ->whereNull('assessment_status')
+                ->where('assessor_id', $this->assessor_id)
+                ->where('verifier_id', $this->verifier_id)
+                ->whereYear('created_at', (Carbon::now())->format('Y'))
+                ->exists();
 
-            $this->dispatchBrowserEvent('alert', [
+            if (!$sameAssessorAssignment) {
+                StudentAssessmentDetail::whereIn('student_id', $this->selectedCandidates)
+                    ->update([
+                        'assessor_id' => $this->assessor_id,
+                        'verifier_id' => $this->verifier_id,
+                    ]);
+            } else {
+                return $this->dispatchBrowserEvent('alert', [
+                    'type' => 'error',
+                    'title' => 'Same Assessor/Verifier assignment',
+                    'message' => 'This/These student(s) has/have already been assigned to this assessor and verifier!'
+                ]);
+            }
+
+
+            return $this->dispatchBrowserEvent('alert', [
                 'type' => 'success',
-                'title' => 'Success',
+                'title' => 'Assessor/Verifier changed',
                 'message' => 'Assessor/Verifiers successfully changed for selected students'
             ]);
         }
-
-        // $students = TrainingProviderStudent::whereIn('id', $this->selectedCandidates)->get()->dd();
     }
 }

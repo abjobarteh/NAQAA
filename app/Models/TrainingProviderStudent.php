@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\AssessmentCertification\StudentAssessmentDetail;
 use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -45,7 +47,11 @@ class TrainingProviderStudent extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname}. {$this->middlename}. {$this->lastname}";
+        if ($this->middlename != null) {
+
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
+        return "{$this->firstname} {$this->lastname}";
     }
 
     public function region()
@@ -90,11 +96,21 @@ class TrainingProviderStudent extends Model
 
     public function registration()
     {
-        return $this->hasOne(StudentRegistrationDetail::class, 'student_id');
+        return $this->hasOne(StudentRegistrationDetail::class, 'student_id')->latest();
     }
 
     public function getTableColumns()
     {
         return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
+
+    public function assessments()
+    {
+        return $this->hasMany(StudentAssessmentDetail::class, 'student_id');
+    }
+
+    public function currentAssessment()
+    {
+        return $this->hasOne(StudentAssessmentDetail::class, 'student_id')->latest();
     }
 }
