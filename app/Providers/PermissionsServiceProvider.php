@@ -42,5 +42,10 @@ class PermissionsServiceProvider extends ServiceProvider
             $roles = explode('|', $roles);
             return auth()->check() && auth()->user()->hasRole(...$roles) && in_array(session('active_role'), $roles);  //return this if statement inside php tag
         });
+
+        Blade::if('portal', function ($roles) {
+            $roles = explode('|', $roles);
+            return auth()->check() && auth()->user()->hasRole(...$roles);  //return this if statement inside php tag
+        });
     }
 }

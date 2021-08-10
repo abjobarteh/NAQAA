@@ -186,7 +186,7 @@
                                                                             <input type="text" name="license_nos[]" class="form-control" value="{{$trainer->license_no}}" placeholder="Enter trainer license no" />
                                                                         </td>
                                                                         <td>
-                                                                            <input type="text" name="modules[]" class="form-control" value="{{$trainer->module}}" placeholder="Enter module" />
+                                                                            <input type="text" name="modules[]" class="form-control" value="{{$trainer->module ?? ''}}" placeholder="Enter module" />
                                                                         </td>   
                                                                     </tr>
                                                                 @endforeach

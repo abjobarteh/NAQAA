@@ -6,7 +6,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
 
  <!-- CoreUI CSS -->
- <link rel="stylesheet" href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css" crossorigin="anonymous">
+ <link rel="stylesheet" href="/css/coreui/styles.css" crossorigin="anonymous">
  <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/free.min.css">
  <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/brand.min.css">
  <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/flag.min.css">
@@ -105,6 +105,6 @@
 
  <!-- Optional JavaScript -->
  <!-- Popper.js first, then CoreUI JS -->
- <script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+ <script src="/js/coreui/coreui.bundle.min.js"></script>
  </body>
 </html>

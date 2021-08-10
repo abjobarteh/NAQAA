@@ -52,6 +52,13 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+        <!-- Notifications Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-info navbar-badge">{{auth()->user()->roles[0]->notifications->count()}}</span>
+        </a>
+      </li>
         @if(auth()->user()->roles->count() > 1)
           <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -113,7 +120,16 @@
               @include('partials.adminmenu')
             @else
               @include('partials.menu')
-            @endrole  
+            @endrole
+            <li class="nav-item">
+              <a href="{{route('settings')}}" class="nav-link {{ request()->is('notifications') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-bell"></i>
+                <p>
+                  Notifications
+                  <span class="badge badge-info right">{{auth()->user()->roles[0]->notifications->count()}}</span>
+                </p>
+              </a>
+            </li>  
               <li class="nav-item">
                 <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user-cog"></i>

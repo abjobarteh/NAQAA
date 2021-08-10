@@ -15,9 +15,9 @@ class CreateTrainingProvidersTable extends Migration
     {
         Schema::create('training_providers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->nullable();
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->string('po_box')->nullable();
             $table->string('fax')->nullable();
             $table->string('telephone_work')->nullable();

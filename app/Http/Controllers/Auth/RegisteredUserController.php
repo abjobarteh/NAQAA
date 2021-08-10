@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Events\RegistrationActivity;
 use App\Events\UserActivity;
 use App\Http\Controllers\Controller;
+use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\Role;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -58,8 +60,18 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         if ($request->user_type === 'institution') {
+            TrainingProvider::create([
+                'email' =>  $request->email,
+                'login_id' => $user->id
+            ]);
+
             return redirect(route('portal.institution.dashboard'));
         } else if ($request->user_type === 'trainer') {
+            Trainer::create([
+                'email' => $request->email,
+                'login_id' => $user->id,
+            ]);
+
             return redirect(route('portal.trainer.dashboard'));
         }
     }

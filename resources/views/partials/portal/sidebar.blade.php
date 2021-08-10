@@ -1,6 +1,6 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <ul class="c-sidebar-nav">
-    @role('institution')
+    @portal('institution')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{route('portal.institution.dashboard')}}">
             <svg class="c-sidebar-nav-icon">
@@ -74,15 +74,6 @@
             Certificate Endorsements
         </a>
     </li>
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="index.html">
-            <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> 
-            Notifications
-            <span class="badge badge-info">0</span>
-        </a>
-    </li>
     {{-- <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="index.html">
             <svg class="c-sidebar-nav-icon">
@@ -91,8 +82,8 @@
             Settings 
         </a>
     </li> --}}
-    @endrole
-    @role('trainer')
+    @endportal
+    @portal('trainer')
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{route('portal.trainer.dashboard')}}">
             <svg class="c-sidebar-nav-icon">
@@ -146,16 +137,16 @@
             </li>
         </ul>
     </li>
+    @endportal
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="index.html">
             <svg class="c-sidebar-nav-icon">
             <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-bell"></use>
             </svg> 
-            Notifications
-            <span class="badge badge-info">0</span>
+                Notifications
+            <span class="badge badge-info">{{auth()->user()->roles[0]->notifications->count()}}</span>
         </a>
     </li>
-    @endrole
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->is('settings') ? 'active' : '' }}" href="{{route('portal.settings')}}">
             <svg class="c-sidebar-nav-icon">

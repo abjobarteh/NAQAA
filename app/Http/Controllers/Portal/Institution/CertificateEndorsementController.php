@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\AssessmentCertification\EndorsedCertificateDetail;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\Role;
+use App\Models\User;
+use App\Notifications\AssessmentCertification\CertificateEndorsementRequestNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -74,11 +77,18 @@ class CertificateEndorsementController extends Controller
             'trainer_details' => json_encode($trainerdetails),
             'programme_start_date' => $request->programme_start_date,
             'programme_end_date' => $request->programme_end_date,
-            'request_status' => 'pending'
+            'request_status' => 'Pending'
         ]);
 
+        $role = Role::where('slug', 'assessment_and_certification_manager')->get();
+        // dd($role);
+
+        $role[0]->notify(new CertificateEndorsementRequestNotification(
+            User::findOrFail(auth()->user()->id)
+        ));
+
         return redirect()->route('portal.institution.certificate-endorsements.index')
-            ->withSuccess('Your Certificate Endorsement details has successfully been sent');
+            ->withSuccess('Your Certificate Endorsement details has successfully been submitted');
     }
 
     /**

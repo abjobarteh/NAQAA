@@ -33,7 +33,8 @@
                                     <th>Training Provider</th>
                                     <th>Programme</th>
                                     <th>Level</th>
-                                    <th>Total certificates</th>
+                                    <th>Certificates declared</th>
+                                    <th>Certificates received</th>
                                     <th>Total males</th>
                                     <th>Total females</th>
                                     <th>Total endorsed certificates</th>
@@ -47,7 +48,8 @@
                                         <td>{{$endorsement->trainingprovider->name ?? 'N/A'}}</td>
                                         <td>{{$endorsement->programme}}</td>
                                         <td>{{$endorsement->level}}</td>
-                                        <td>{{$endorsement->total_certificates_received}}</td>
+                                        <td>{{$endorsement->total_certificates_declared ?? 'N/A'}}</td>
+                                        <td>{{$endorsement->total_certificates_received ?? 'N/A'}}</td>
                                         <td>{{$endorsement->total_males ?? '0'}}</td>
                                         <td>{{$endorsement->total_females ?? '0'}}</td>
                                         <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>

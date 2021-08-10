@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="card-title">Endorsed Certificates lists</h4>
+                            <h4 class="card-title">Endorsed Certificates Requests</h4>
                         </div>
                         <div class="col-md-6 d-flex flex-direction-row justify-content-end">
                             <a href="{{route('portal.institution.certificate-endorsements.create')}}" class="btn btn-success btn-square"><i class="fas fa-plus"></i> Endorsed Certificates</a>
@@ -26,6 +26,7 @@
                                 <th>Total females</th>
                                 <th>Total endorsed certificates</th>
                                 <th>Total non-endorsed certificates</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -39,6 +40,7 @@
                                     <td>{{$endorsement->total_females ?? '0'}}</td>
                                     <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>
                                     <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
+                                    <td><span class="badge badge-info">{{$endorsement->request_status}}</span></td>
                                     <td>
                                         <a href="{{route('portal.institution.certificate-endorsements.edit',$endorsement->id)
                                             }}" class="btn btn-sm btn-danger"
