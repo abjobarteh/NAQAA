@@ -15,6 +15,7 @@ class CreateAcademicAdminStaffDataCollectionsTable extends Migration
     {
         Schema::create('academic_admin_staff_data_collections', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('institution_id')->nullable()->constrained('training_providers');
             $table->string('firstname');
             $table->string('middlename')->nullable();
             $table->string('lastname');
@@ -34,7 +35,6 @@ class CreateAcademicAdminStaffDataCollectionsTable extends Migration
             $table->string('role')->nullable();
             $table->string('main_teaching_programme')->nullable();
             $table->longText('secondary_teaching_programmes')->nullable();
-            $table->foreignId('institution_id')->nullable()->constrained('training_providers');
             $table->timestamps();
         });
     }

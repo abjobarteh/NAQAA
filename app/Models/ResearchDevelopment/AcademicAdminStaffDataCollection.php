@@ -75,7 +75,7 @@ class AcademicAdminStaffDataCollection extends Model
         $this->attributes['employment_date'] = new Carbon($value);
     }
 
-    public function getSecondaryTeachingFieldsOfStudyAttribute($value)
+    public function getSecondaryTeachingProgrammeAttribute($value)
     {
         return json_decode($value);
     }
@@ -87,7 +87,12 @@ class AcademicAdminStaffDataCollection extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        if ($this->middlename != '') {
+
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
+
+        return "{$this->firstname} {$this->lastname}";
     }
 
     public function learningcenter()

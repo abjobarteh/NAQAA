@@ -29,9 +29,8 @@
                                 <th>Highest Qualification</th>
                                 <th>Rank</th>
                                 <th>Role</th>
-                                <th>Main Teaching Field of Study</th>
-                                <th>Learning Center</th>
-                                <th>Date Collected</th>
+                                <th>Main Teaching Programme</th>
+                                <th>Submission Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -43,8 +42,7 @@
                                     <td>{{$staff->highest_qualification}}</td>
                                     <td>{{$staff->rank ?? 'N/A'}}</td>
                                     <td>{{$staff->role ?? 'N/A'}}</td>
-                                    <td>{{$staff->main_teaching_field_of_study}}</td>
-                                    <td>{{$staff->learningcenter->name ?? 'N/A'}}</td>
+                                    <td>{{$staff->main_teaching_programme}}</td>
                                     <td>{{$staff->created_at}}</td>
                                     <td>
                                         <a href="{{route('portal.institution.datacollection.trainers.edit',$staff->id)

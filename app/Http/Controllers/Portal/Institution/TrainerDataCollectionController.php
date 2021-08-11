@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Portal\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\QualificationLevel;
+use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\TrainingProviderStaffsRank;
 use App\Models\TrainingProviderStaffsRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrainerDataCollectionController extends Controller
 {
@@ -40,11 +42,9 @@ class TrainerDataCollectionController extends Controller
 
         $countries = Country::all('name');
 
-        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
-
         return view(
             'portal.institutions.datacollections.trainers.create',
-            compact('ranks', 'roles', 'qualifications', 'learningcenters', 'countries')
+            compact('ranks', 'roles', 'qualifications', 'countries')
         );
     }
 
@@ -56,10 +56,45 @@ class TrainerDataCollectionController extends Controller
      */
     public function store(Request $request)
     {
-        AcademicAdminStaffDataCollection::create($request->all());
+        $training_provider = TrainingProvider::where('login_id', auth()->user()->id)->get();
+
+        if ($request->role != 'Administrative') {
+            $trainer_exist = Trainer::where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('middlename', 'like', '%' . $request->middlename . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('date_of_birth', $request->date_of_birth)
+                ->where('gender', $request->gender)
+                ->where('country_of_citizenship', $request->nationality)
+                ->exists();
+            if (!$trainer_exist) {
+                DB::transaction(function () use ($request, $training_provider) {
+                    Trainer::create([
+                        'firstname' => $request->firstname,
+                        'middlename' => $request->middlename,
+                        'lastname' => $request->lastname,
+                        'gender' => $request->gender,
+                        'country_of_citizenship' => $request->nationality,
+                        'date_of_birth' => $request->date_of_birth,
+                        'email' => $request->email,
+                    ]);
+
+                    AcademicAdminStaffDataCollection::create(
+                        $request->all() + ['institution_id' => $training_provider[0]->id]
+                    );
+                });
+            } else {
+                AcademicAdminStaffDataCollection::create(
+                    $request->all() + ['institution_id' => $training_provider[0]->id]
+                );
+            }
+        } else {
+            AcademicAdminStaffDataCollection::create(
+                $request->all() + ['institution_id' => $training_provider[0]->id]
+            );
+        }
 
         return redirect()->route('portal.institution.datacollection.trainers.index')
-            ->withSuccess('Training provider staff details data collection record successfully added');
+            ->withSuccess('New Training provider staff details data collection record successfully added');
     }
 
     /**
@@ -93,11 +128,9 @@ class TrainerDataCollectionController extends Controller
 
         $countries = Country::all('name');
 
-        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
-
         return view(
             'portal.institutions.datacollections.trainers.edit',
-            compact('staff', 'ranks', 'roles', 'qualifications', 'learningcenters', 'countries')
+            compact('staff', 'ranks', 'roles', 'qualifications', 'countries')
         );
     }
 

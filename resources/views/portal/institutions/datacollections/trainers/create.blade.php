@@ -12,22 +12,6 @@
                     <form action="{{route('portal.institution.datacollection.trainers.store')}}" method="post" autocomplete="off">
                         @csrf
                         <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Learning Center: <sup class="text-danger">*</sup></label>
-                                    <select name="institution_id" id="institution_id" class="form-control select2" required>
-                                        <option>Select learning center</option>
-                                        @foreach ($learningcenters as $id => $center)
-                                            <option value="{{$id}}">{{$center}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('institution_id')
-                                        <span class="text-danger mt-1">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label>First Name: <sup class="text-danger">*</sup></label>
@@ -72,7 +56,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Nationality:</label>
+                                    <label>Country of Origin:</label>
                                     <select name="nationality" id="nationality" class="form-control select2">
                                         <option>Select nationality</option>
                                         @foreach ($countries as $country)
@@ -229,21 +213,21 @@
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Main Teaching Field of Study: <sup class="text-danger">*</sup></label>
-                                    <input type="text" name="main_teaching_field_of_study" value="{{ old('main_teaching_field_of_study') }}" class="form-control" required>
-                                    @error('main_teaching_field_of_study')
+                                    <label>Main Teaching Programme: <sup class="text-danger">*</sup></label>
+                                    <input type="text" name="main_teaching_programme" value="{{ old('main_teaching_programme') }}" class="form-control" required>
+                                    @error('main_teaching_programme')
                                         <span class="text-danger mt-1">{{$message}}</span>
                                     @enderror
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Secondary Teaching Field(s) of Study:</label>
-                                    <select name="secondary_teaching_fields_of_study[]" data-role="tagsinput" multiple  id="secondary_teaching_fields_of_study">
+                                    <label>Secondary Teaching Programmes:</label>
+                                    <select name="secondary_teaching_programmes[]" data-role="tagsinput" multiple  id="secondary_teaching_programmes">
                                         
                                     </select>
-                                    @if($errors->has('secondary_teaching_fields_of_study'))
-                                        <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_fields_of_study') }}</span>
+                                    @if($errors->has('secondary_teaching_programmes'))
+                                        <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_programmes') }}</span>
                                     @endif
                                 </div>
                             </div>
