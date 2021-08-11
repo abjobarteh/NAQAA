@@ -30,8 +30,7 @@
                                 <th>Tuition fee per year</th>
                                 <th>Entry requirements</th>
                                 <th>Awarding Body</th>
-                                <th>Learning Center</th>
-                                <th>Date collected</th>
+                                <th>Submission Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -48,7 +47,6 @@
                                         @endforeach
                                     </td>
                                     <td>{{$program->awarding_body}}</td>
-                                    <td>{{$program->programme->trainingprovider->name ?? 'N/A'}}</td>
                                     <td>{{$program->created_at->toFormattedDateString()}}</td>
                                     <td>
                                         <a href="{{route('portal.institution.datacollection.programmes.edit',$program->id)

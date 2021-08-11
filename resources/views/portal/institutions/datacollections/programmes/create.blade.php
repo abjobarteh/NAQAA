@@ -6,27 +6,11 @@
         <div class="fade-in">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Programmes Offered Datacollection details</h3>
+                    <h3 class="card-title">Programmes Datacollection details</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{route('portal.institution.datacollection.programmes.store')}}" method="post" autocomplete="off">
                         @csrf
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Learning center:</label>
-                                    <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
-                                        <option>Select learning center</option>
-                                        @foreach ($learningcenters as $id => $center)
-                                            <option value="{{$id}}">{{$center}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('training_provider_id')
-                                        <span class="text-danger mt-1">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">

@@ -13,22 +13,6 @@
                         @csrf
                         @method('PUT')
                         <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <label>Learning center:</label>
-                                    <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
-                                        <option>Select learning center</option>
-                                        @foreach ($learningcenters as $id => $center)
-                                            <option value="{{$id}}" {{$id == $programdetail->programme->training_provider_id ? 'selected' : ''}}>{{$center}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('training_provider_id')
-                                        <span class="text-danger mt-1">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Program Name: <sup class="text-danger">*</sup></label>
