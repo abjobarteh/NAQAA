@@ -67,6 +67,7 @@ use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
+use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
@@ -368,6 +369,7 @@ Route::group(['middleware' => 'auth'], function () {
       Route::group(['prefix' => 'datacollection', 'as' => 'datacollection.'], function () {
         Route::resource('learningcenter', LearningCenterDataCollectionController::class);
         Route::resource('students', StudentsDataCollectionController::class);
+        Route::get('import-students', StudentDatacollection::class)->name('import-students');
         Route::resource('trainers', TrainerDataCollectionController::class);
         Route::resource('programmes', ProgrammeDataCollectionController::class);
       });

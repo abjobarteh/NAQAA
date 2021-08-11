@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
- <head>
- <!-- Required meta tags -->
- <meta charset="utf-8">
- <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
+<title>@yield('title')</title>
  <!-- CoreUI CSS -->
  <link rel="stylesheet" href="/css/coreui/styles.css" crossorigin="anonymous">
  <link rel="stylesheet" href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/free.min.css">
@@ -19,9 +20,8 @@
 <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
  @yield('styles')
-
-
- <title>@yield('title')</title>
+ @livewireStyles
+ 
  </head>
  <body class="c-app">
     @include('partials.portal.sidebar')
@@ -58,5 +58,6 @@
 <script src="/js/custom.js"></script>
  @include('sweetalert::alert')
  @yield('scripts')
+ @livewireScripts
  </body>
 </html>

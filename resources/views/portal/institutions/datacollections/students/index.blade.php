@@ -11,7 +11,7 @@
                              <h4 class="card-title mb-0">Student Details Datacollection</h4>
                         </div>
                         <div class="col-sm-6 d-flex justify-content-end">
-                             <a href="{{route('portal.institution.datacollection.students.create')}}" class="btn btn-success btn-square">
+                             <a href="{{route('portal.institution.datacollection.import-students')}}" class="btn btn-success btn-square">
                                  <svg class="c-icon mr-2">
                                      <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-plus"></use>
                                  </svg>
@@ -28,10 +28,10 @@
                                 <th>Gender</th>
                                 <th>Phone</th>
                                 <th>Admission Date</th>
+                                <th>Completion Date</th>
                                 <th>Programme</th>
                                 <th>Award</th>
-                                <th>Learning Center</th>
-                                <th>Date Collected</th>
+                                <th>Submission Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -42,9 +42,9 @@
                                     <td>{{$student->gender}}</td>
                                     <td>{{$student->phone ?? 'N/A'}}</td>
                                     <td>{{$student->admission_date ?? 'N/A'}}</td>
+                                    <td>{{$student->completion_date ?? 'N/A'}}</td>
                                     <td>{{$student->programme_name}}</td>
                                     <td>{{$student->awardName->name ?? 'N/A'}}</td>
-                                    <td>{{$student->trainingprovider->name ?? 'N/A'}}</td>
                                     <td>{{$student->created_at}}</td>
                                     <td>
                                         <a href="{{route('portal.institution.datacollection.students.edit',$student->id)
