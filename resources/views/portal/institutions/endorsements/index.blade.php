@@ -42,12 +42,14 @@
                                     <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
                                     <td><span class="badge badge-info">{{$endorsement->request_status}}</span></td>
                                     <td>
+                                        @if($endorsement->request_status === 'Pending')
                                         <a href="{{route('portal.institution.certificate-endorsements.edit',$endorsement->id)
                                             }}" class="btn btn-sm btn-danger"
                                             title="edit certificate endorsement details"
                                             >
                                             <i class="fas fa-edit"></i>    
                                         </a>
+                                        @endif
                                         <a href="{{route('portal.institution.certificate-endorsements.show',$endorsement->id)
                                             }}" class="btn btn-sm btn-info"
                                             title="view certificate endorsement registration details"

@@ -12,11 +12,17 @@
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
             <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-envelope-closed"></use>
             </svg>
             Manage Application
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link" href="{{route('portal.institution.registration.index')}}">
+                    <span class="c-sidebar-nav-icon"></span> 
+                    Interim Authorisation
+                </a>
+            </li>
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link" href="{{route('portal.institution.registration.index')}}">
                     <span class="c-sidebar-nav-icon"></span> 
@@ -35,17 +41,11 @@
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
         <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
             <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-book"></use>
             </svg>
             Manage Data collection
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
-            <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="{{route('portal.institution.datacollection.learningcenter.index')}}">
-                    <span class="c-sidebar-nav-icon"></span> 
-                    Learning center
-                </a>
-            </li>
             <li class="c-sidebar-nav-item">
                 <a class="c-sidebar-nav-link" href="{{route('portal.institution.datacollection.programmes.index')}}">
                     <span class="c-sidebar-nav-icon"></span> 
@@ -69,19 +69,11 @@
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{route('portal.institution.certificate-endorsements.index')}}">
             <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-spreadsheet"></use>
             </svg> 
             Certificate Endorsements
         </a>
     </li>
-    {{-- <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="index.html">
-            <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-            </svg> 
-            Settings 
-        </a>
-    </li> --}}
     @endportal
     @portal('trainer')
     <li class="c-sidebar-nav-item">
@@ -150,7 +142,7 @@
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->is('settings') ? 'active' : '' }}" href="{{route('portal.settings')}}">
             <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-speedometer"></use>
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
             </svg> 
             Settings 
         </a>

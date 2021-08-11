@@ -62,6 +62,7 @@ class CertificateEndorsementController extends Controller
                     'middlename' => $request->middlenames[$trainerfirstname] ?? '',
                     'lastname' => $request->lastnames[$trainerfirstname],
                     'license_no' => $request->license_nos[$trainerfirstname],
+                    'module' => $request->modules[$trainerfirstname],
                 ];
                 array_push($trainerdetails, $trainerdetail);
             }
@@ -81,14 +82,13 @@ class CertificateEndorsementController extends Controller
         ]);
 
         $role = Role::where('slug', 'assessment_and_certification_manager')->get();
-        // dd($role);
 
         $role[0]->notify(new CertificateEndorsementRequestNotification(
             User::findOrFail(auth()->user()->id)
         ));
 
         return redirect()->route('portal.institution.certificate-endorsements.index')
-            ->withSuccess('Your Certificate Endorsement details has successfully been submitted');
+            ->withSuccess('Your Certificate Endorsement Request has successfully been submitted');
     }
 
     /**
@@ -131,32 +131,39 @@ class CertificateEndorsementController extends Controller
     public function update(Request $request, $id)
     {
         $endorsement = EndorsedCertificateDetail::findOrFail($id);
-        $trainerfirstnames = $request->filled('firstnames') ?  $request->input('firstnames', []) : [];
-        $trainerdetails = [];
-        for ($trainerfirstname = 0; $trainerfirstname < count($trainerfirstnames); $trainerfirstname++) {
-            if ($trainerfirstnames[$trainerfirstname] != '') {
-                $trainerdetail = [
-                    'firstname' => $trainerfirstnames[$trainerfirstname],
-                    'middlename' => $request->middlenames[$trainerfirstname] ?? '',
-                    'lastname' => $request->lastnames[$trainerfirstname],
-                    'license_no' => $request->license_nos[$trainerfirstname],
-                ];
-                array_push($trainerdetails, $trainerdetail);
+        if ($endorsement->request_Status === 'Pending') {
+            $trainerfirstnames = $request->filled('firstnames') ?  $request->input('firstnames', []) : [];
+            $trainerdetails = [];
+            for ($trainerfirstname = 0; $trainerfirstname < count($trainerfirstnames); $trainerfirstname++) {
+                if ($trainerfirstnames[$trainerfirstname] != '') {
+                    $trainerdetail = [
+                        'firstname' => $trainerfirstnames[$trainerfirstname],
+                        'middlename' => $request->middlenames[$trainerfirstname] ?? '',
+                        'lastname' => $request->lastnames[$trainerfirstname],
+                        'license_no' => $request->license_nos[$trainerfirstname],
+                        'module' => $request->modules[$trainerfirstname],
+                    ];
+                    array_push($trainerdetails, $trainerdetail);
+                }
             }
+
+            $endorsement->update([
+                'programme' => $request->programme,
+                'level' => $request->level,
+                'total_certificates_declared' => $request->total_certificates_declared,
+                'total_males' => $request->total_males,
+                'total_females' => $request->total_females,
+                'trainer_details' => json_encode($trainerdetails),
+                'programme_start_date' => $request->programme_start_date,
+                'programme_end_date' => $request->programme_end_date,
+            ]);
+
+            return back()->withSuccess('Certificate Endorsement Request successfully updated');
         }
 
-        $endorsement->update([
-            'programme' => $request->programme,
-            'level' => $request->level,
-            'total_certificates_declared' => $request->total_certificates_declared,
-            'total_males' => $request->total_males,
-            'total_females' => $request->total_females,
-            'trainer_details' => json_encode($trainerdetails),
-            'programme_start_date' => $request->programme_start_date,
-            'programme_end_date' => $request->programme_end_date,
-        ]);
-
-        return back()->withSuccess('Certificate Endorsement Request successfully updated');
+        return back()->withInfo(
+            'Certificate Endorsement Request cannot be edited as it has already been processed'
+        );
     }
 
     /**

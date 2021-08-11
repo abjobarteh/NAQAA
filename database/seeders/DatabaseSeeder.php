@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             TrainingProviderStaffRankTableSeeder::class,
             TrainingProviderStaffRolesTableSeeder::class,
             TrainingProviderClassificationTableSeeder::class,
+            ApplicationStatusSeeder::class,
+            TrainerTypesSeeder::class
         ]);
     }
 }
