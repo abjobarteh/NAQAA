@@ -28,7 +28,7 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
             ->where('middlename', 'like', '%' . $row['middlename'] . '%')
             ->where('lastname', 'like', '%' . $row['lastname'] . '%')
             ->where('gender', 'like', '%' . $row['gender'] . '%')
-            ->where('date_of_birth', 'like', '%' . $row['dob'] . '%')
+            // ->where('date_of_birth', 'like', '%' . $row['dob'] . '%')
             ->where('training_provider_id', $training_provider[0]->id)
             ->exists();
 

@@ -15,19 +15,11 @@ class ApplicationDetail extends Model
     protected $fillable = [
         'training_provider_id',
         'trainer_id',
-        'programme_id',
-        'applicant_type',
         'application_no',
-        'application_category',
         'application_type',
         'status',
         'application_form_status',
-        'application_date',
         'submitted_through',
-        'submitted_by',
-        'received_by',
-        'date_received',
-        'application_checklists',
     ];
 
     protected static $logFillable = true;
@@ -83,8 +75,8 @@ class ApplicationDetail extends Model
         return $this->hasOne(ProgrammeAccreditationDetails::class, 'application_id');
     }
 
-    public function programmeDetail()
+    public function interimAuthorisation()
     {
-        return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
+        return $this->hasOne(InterimAuthorisationDetail::class, 'application_id');
     }
 }

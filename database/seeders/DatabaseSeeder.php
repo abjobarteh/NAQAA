@@ -34,7 +34,8 @@ class DatabaseSeeder extends Seeder
             TrainingProviderStaffRolesTableSeeder::class,
             TrainingProviderClassificationTableSeeder::class,
             ApplicationStatusSeeder::class,
-            TrainerTypesSeeder::class
+            TrainerTypesSeeder::class,
+            ApplicationTypesTableSeeder::class
         ]);
     }
 }

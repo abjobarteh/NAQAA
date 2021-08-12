@@ -34,7 +34,7 @@
                                         <th>Trainer Name</th>
                                         <th>Birth Date</th>
                                         <th>Gender</th>
-                                        <th>Nationality</th>
+                                        <th>Country of Citizenship</th>
                                         <th>Email</th>
                                         <th>Trainer type</th>
                                         <th>status</th>

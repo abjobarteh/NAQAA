@@ -135,7 +135,7 @@
                                                             <table class="table" id="accreditation_areas_table">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th>Programme</th>
+                                                                        <th>Area</th>
                                                                         <th>Level</th>
                                                                         <th class="license-registration">Accreditation status</th>
                                                                     </tr>

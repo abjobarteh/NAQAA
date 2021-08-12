@@ -29,10 +29,9 @@ class StudentDatacollection extends Component
         //     'excel_file' => 'required|mimes:xlsx,xls,csv'
         // ]);
 
-        // dd($this->excel_file);
         // dd((new HeadingRowImport())->toArray($this->excel_file));
 
-        Excel::import(new DatacollectionImport, $this->excel_file);
+        Excel::import(new DatacollectionImport(), $this->excel_file);
 
         alert('Import Successfully', 'Student details successfully', 'success');
 

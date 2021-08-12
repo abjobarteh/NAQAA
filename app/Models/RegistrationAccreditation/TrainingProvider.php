@@ -195,4 +195,9 @@ class TrainingProvider extends Model
     {
         return $this->hasMany(InstitutionDetailsDataCollection::class, 'institution_id');
     }
+
+    public function interimAuthorisations()
+    {
+        return $this->hasMany(InterimAuthorisationDetail::class, 'training_provider_id');
+    }
 }
