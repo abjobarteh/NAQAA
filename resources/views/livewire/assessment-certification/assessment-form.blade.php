@@ -1,5 +1,5 @@
 <div>
-    <div class="modal fade" id="assessment-modal" wire:ignore>
+    <div class="modal fade" id="assessment-modal" wire:ignore.self>
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
@@ -16,8 +16,8 @@
                           <select name="assessment_status" class="form-control custom-select" wire:model="assessment_status">
                             <option value="">-- select assessment status --</option>
                             <option value="competent">Competent</option>
-                            <option value="incompetent">Incompetent</option>
                             <option value="notcompetent">Not Competent</option>
+                            <option value="incomplete">Incomplete</option>
                         </select>
                       </div>
                   </div>
@@ -34,6 +34,21 @@
                       </div>
                   </div>
               </div>
+              @if($is_partial)
+              <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="assessment_status">Unit Standards Completed</label>
+                        <select name="assessment_status" class="form-control custom-select" multiple wire:model="assessment_status">
+                          <option value="">-- select unit standards completed --</option>
+                          @foreach ($unit_standards as $unit_standard)
+                              <option value="{{$unit_standard->id}}">{{$unit_standard->unit_standard_title}}</option>
+                          @endforeach
+                      </select>
+                    </div>
+                </div>
+              </div>
+              @endif
               <div class="row">
                   <div class="col-12">
                       <div class="form-group">

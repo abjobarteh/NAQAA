@@ -22,6 +22,7 @@ class ApplicationsController extends Controller
         $applications = ApplicationDetail::with(['trainingprovider', 'trainer', 'programmeDetail'])
             ->where('submitted_through', 'portal')
             ->where('application_form_status', 'submitted')
+            ->where('status', 'Pending')
             ->latest()
             ->get();
 

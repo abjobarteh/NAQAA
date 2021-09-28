@@ -28,9 +28,7 @@
                                         <th>Name</th>
                                         <th>Application No</th>
                                         <th>Application date</th>
-                                        <th>Application category</th>
                                         <th>Application type</th>
-                                        <th>Applicant type</th>
                                         <th>Applicant status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -39,7 +37,7 @@
                                     @forelse ($applications as $application)
                                         <tr>
                                             <td>
-                                                @if ($application->applicant_type === 'training_provider')
+                                                @if ($application->application_type === 'institution_registration')
                                                     {{$application->trainingprovider->name}}
                                                 @else     
                                                     {{$application->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
@@ -47,12 +45,10 @@
                                             </td>
                                             <td>{{$application->application_no ?? 'N/A'}}</td>
                                             <td>{{$application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                            <td><span class="badge badge-success badge-rounded">{{$application->application_category ?? 'N/A'}}</span></td>
                                             <td><span class="badge badge-info badge-rounded">{{$application->application_type ?? 'N/A'}}</span></td>
-                                            <td>{{Str::studly($application->applicant_type ?? 'N/A')}}</td>
                                             <td><span class="badge badge-danger badge-rounded">{{$application->status ?? 'N/A'}}</span></td>
                                             <td>
-                                                @if ($application->applicant_type === 'training_provider')
+                                                @if ($application->application_type === 'institution_accreditation')
                                                     <a href="{{route('registration-accreditation.applications.edit',$application->id)
                                                     }}" class="btn btn-xs btn-danger"
                                                     title="edit application details"
@@ -83,7 +79,7 @@
                                         </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="9"><span class="text-bold text-lg">No registered registration Licences</span></td>
+                                        <td colspan="6" class="text-center"><span class="text-bold text-lg">No new Applications received yet</span></td>
                                     </tr>
                                     @endforelse
                                 </tbody>

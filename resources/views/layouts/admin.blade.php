@@ -46,7 +46,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h3>{{auth()->user()->roles[0]->name}}</h3>
+          <h3>{{auth()->user()->designation->name ?? 'Sysadmin'}}</h3>
         </li>
       </ul>
 
@@ -122,11 +122,11 @@
               @include('partials.menu')
             @endrole
             <li class="nav-item">
-              <a href="{{route('settings')}}" class="nav-link {{ request()->is('notifications') ? 'active' : '' }}">
+              <a href="{{route('notifications')}}" class="nav-link {{ request()->is('notifications') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-bell"></i>
                 <p>
                   Notifications
-                  <span class="badge badge-info right">{{auth()->user()->roles[0]->notifications->count()}}</span>
+                  <span class="badge badge-info right">{{auth()->user()->roles[0]->unreadNotifications->count()}}</span>
                 </p>
               </a>
             </li>  

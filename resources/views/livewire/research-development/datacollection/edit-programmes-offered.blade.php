@@ -64,8 +64,8 @@
                                                 <label>Programmes:</label>
                                                 <select name="programme_id" id="programme_id" wire:model="programme_id" class="form-control custom-select" required>
                                                     <option value="">--- select programme ---</option>
-                                                    @foreach ($accredited_programmes as $id => $programme)
-                                                        <option value="{{$id}}">{{$programme}}</option>
+                                                    @foreach ($accredited_programmes as $id => $programmedetail)
+                                                        <option value="{{$programmedetail->id}}">{{$programmedetail->programme->name ?? 'N/A'}}</option>
                                                     @endforeach
                                                     <option value="not-specified">Not specified</option>
                                                 </select>

@@ -103,12 +103,8 @@
                                         <p class="col-sm-5 text-muted">{{$accreditation->application_date->toFormattedDateString() ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Application Category: </b>
-                                        <p class="col-sm-5 text-muted"><span class="badge badge-primary">{{$registration->application_category ?? 'N/A'}}</span></p>
-                                    </div>
-                                    <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Type: </b>
-                                        <p class="col-sm-5 text-muted"><span class="badge badge-info">{{$registration->application_type ?? 'N/A'}}</span></p>
+                                        <p class="col-sm-5 text-muted"><span class="badge badge-info">{{$accreditation->application_type ?? 'N/A'}}</span></p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application status: </b>
@@ -127,8 +123,6 @@
                                                         <th>Programme Area</th>
                                                         <th>Level</th>
                                                         <th>Status</th>
-                                                        <th>Accreditation Start Date</th>
-                                                        <th>Accreditation End Date</th>
                                                         <th>Accreditation Status</th>
                                                     </tr>
                                                 </thead>
@@ -138,8 +132,6 @@
                                                             <td>{{$programme->area}}</td>
                                                             <td>{{$programme->level}}</td>
                                                             <td>{{$programme->status}}</td>
-                                                            <td>{{$programme->accreditation_start_date ?? 'N/A'}}</td>
-                                                            <td>{{$programme->accreditation_end_date ?? 'N/A'}}</td>
                                                             <td>{{$programme->accreditation_status ?? 'N/A'}}</td>
                                                         </tr>
                                                     @endforeach

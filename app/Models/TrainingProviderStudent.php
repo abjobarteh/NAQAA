@@ -50,11 +50,6 @@ class TrainingProviderStudent extends Model
         $this->attributes['date_of_birth'] = new Carbon($value);
     }
 
-    public function getDateOfBirthAttribute($value)
-    {
-        return new Carbon($value);
-    }
-
     public function getFullNameAttribute()
     {
         if ($this->middlename != null) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RegistrationAccreditation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationAccreditation\StoreTrainingProviderRequest;
 use App\Http\Requests\RegistrationAccreditation\UpdateTrainingProviderRequest;
+use App\Models\ApplicationStatus;
 use App\Models\District;
 use App\Models\Region;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
@@ -30,8 +31,7 @@ class TrainingProvidersRegistrationController extends Controller
             'trainingprovider.district',
             'trainingprovider.classification',
             'registrationLicence'
-        ])->where('application_category', 'registration')
-            ->where('applicant_type', 'training_provider')
+        ])->where('application_type', 'institution_registration')
             ->latest()
             ->get();
 
@@ -58,10 +58,19 @@ class TrainingProvidersRegistrationController extends Controller
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
         $categories = TrainingProviderCategory::all()->pluck('name', 'id');
         $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
         return view(
             'registrationaccreditation.registration.trainingproviders.create',
-            compact('regions', 'districts', 'townvillages', 'classifications', 'categories', 'ownerships')
+            compact(
+                'regions',
+                'districts',
+                'townvillages',
+                'classifications',
+                'categories',
+                'ownerships',
+                'application_statuses'
+            )
         );
     }
 
@@ -100,14 +109,13 @@ class TrainingProvidersRegistrationController extends Controller
                 'training_provider_id' => $trainingprovider->id,
                 'applicant_type' => 'training_provider',
                 'application_no' => $data['application_no'],
-                'application_category' => 'registration',
-                'application_type' => 'new',
+                'application_type' => 'institution_registration',
                 'status' => $data['status'],
                 'application_date' => $data['application_date'],
             ]);
 
             // If application accepted, create a license record
-            if ($data['status'] === 'accepted') {
+            if ($data['status'] === 'Approved') {
                 RegistrationLicenceDetail::create([
                     'training_provider_id' => $trainingprovider->id,
                     'application_id' => $application->id,
@@ -151,10 +159,20 @@ class TrainingProvidersRegistrationController extends Controller
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
         $categories = TrainingProviderCategory::all()->pluck('name', 'id');
         $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
         return view(
             'registrationaccreditation.registration.trainingproviders.edit',
-            compact('registration', 'regions', 'districts', 'townvillages', 'categories', 'classifications', 'ownerships')
+            compact(
+                'registration',
+                'regions',
+                'districts',
+                'townvillages',
+                'categories',
+                'classifications',
+                'ownerships',
+                'application_statuses'
+            )
         );
     }
 
@@ -194,7 +212,7 @@ class TrainingProvidersRegistrationController extends Controller
                 'application_date' => $data['application_date'],
             ]);
 
-            if ($data['status'] === 'accepted') {
+            if ($data['status'] === 'Approved') {
                 if (!is_null($registration->registrationLicence)) {
 
                     $registration->registrationLicence->update([

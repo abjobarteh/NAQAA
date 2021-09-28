@@ -27,6 +27,17 @@ class InterimAuthorisationDetail extends Model
         'five_year_strategic_plan',
     ];
 
+
+    public function setSourcesOfFundingDetailsAttribute($value)
+    {
+        $this->attributes['sources_of_funding_details'] = json_encode($value);
+    }
+
+    public function getSourcesOfFundingDetailsAttribute($value)
+    {
+        return json_decode($value);
+    }
+
     public function promoters()
     {
         return $this->hasMany(InstitutionPromoter::class, 'interim_authorisation_id');

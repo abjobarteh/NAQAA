@@ -28,7 +28,7 @@
                                     <div class="col-12">
                                         <div class="form-group">
                                             <label>Candidate Type:</label>
-                                            <select name="candidate_type" id="candidate_type" class="form-control custom-select" wire:model="candidate_type">
+                                            <select class="form-control custom-select" wire:model="candidate_type">
                                                 <option value="">---select candidates type to assess---</option>
                                                 <option value="regular">Regular</option>
                                                 <option value="private">Private</option>
@@ -44,7 +44,7 @@
                                     <div class="col-sm-5">
                                         <div class="form-group">
                                             <label>Education/Training Provider:</label>
-                                            <select name="training_provider_id" id="training_provider_id" class="form-control custom-select" wire:model="training_provider_id">
+                                            <select class="form-control custom-select" wire:model="training_provider_id">
                                                 <option value="">---select education/training provider---</option>
                                                 @foreach ($institutions as $id => $institution)
                                                     <option value="{{$id}}">{{$institution}}</option>
@@ -58,7 +58,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Programme:</label>
-                                            <select name="programme_id" id="programme_id" class="form-control custom-select" wire:model="programme_id">
+                                            <select class="form-control custom-select" wire:model="programme_id">
                                                 <option value="">---select programme---</option>
                                                 @foreach ($programmes as $id => $programme)
                                                     <option value="{{$id}}">{{$programme}}</option>
@@ -72,7 +72,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Level:</label>
-                                            <select name="programme_level_id" id="programme_level_id" class="form-control custom-select" wire:model="programme_level_id">
+                                            <select class="form-control custom-select" wire:model="programme_level_id">
                                                 <option value="">---select programme level---</option>
                                                 @foreach ($levels as $id => $level)
                                                     <option value="{{$id}}">{{$level}}</option>
@@ -89,7 +89,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Registration No:</label>
-                                            <input type="text" name="registration_no" id="registration_no" class="form-control" placeholder="Enter registration no" wire:model="registration_no">
+                                            <input type="text" class="form-control" placeholder="Enter registration no" wire:model="registration_no">
                                             @error('registration_no')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -98,7 +98,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Date of Birth:</label>
-                                            <input type="date" name="date_of_birth" id="date_of_birth" class="form-control" wire:model="date_of_birth">
+                                            <input type="date" class="form-control" wire:model="date_of_birth">
                                             @error('date_of_birth')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -134,6 +134,9 @@
                                                             <option value="{{$assessor->id}}">{{$assessor->full_name}}</option>
                                                         @endforeach
                                                     </select>
+                                                    @error('assessor_id')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-5">
@@ -145,6 +148,9 @@
                                                             <option value="{{$verifier->id}}">{{$verifier->full_name}}</option>
                                                         @endforeach
                                                     </select>
+                                                    @error('verifier_id')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 col-md-2 d-flex align-self-end">

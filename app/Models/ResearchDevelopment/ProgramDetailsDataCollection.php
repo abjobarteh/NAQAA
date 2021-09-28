@@ -49,7 +49,7 @@ class ProgramDetailsDataCollection extends Model
         return json_decode($requirements);
     }
 
-    public function programme()
+    public function programmeDetails()
     {
         return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }

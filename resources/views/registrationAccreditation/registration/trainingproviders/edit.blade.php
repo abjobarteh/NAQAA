@@ -244,9 +244,9 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>Select application status</option>
-                                                        <option value="accepted" {{ ($registration->status ?? '') == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                                        <option value="rejected" {{ ($registration->status ?? '') == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                                        <option value="pending" {{ ($registration->status ?? '') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{ ($registration->status ?? '') == $status ? 'selected' : '' }}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -307,7 +307,7 @@
     <script>
         $(document).ready(function(){
 
-            if($('#application_status').val() == 'accepted'){
+            if($('#application_status').val() == 'Approved'){
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
@@ -328,7 +328,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

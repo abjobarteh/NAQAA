@@ -75,7 +75,7 @@ class UsersController extends Controller
             'unit_id' => $request->unit,
             'designation_id' => $request->designation,
             'user_status' => $request->user_status == 'on' ? 1 : 0,
-            'user_type' => 'system',
+            'user_category' => 'system',
             'default_password_status' => 1,
         ]);
 

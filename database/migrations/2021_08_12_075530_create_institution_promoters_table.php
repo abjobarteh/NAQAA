@@ -16,13 +16,11 @@ class CreateInstitutionPromotersTable extends Migration
         Schema::create('institution_promoters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('interim_authorisation_id')->nullable()->constrained('interim_authorisation_details');
-            $table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('lastname');
+            $table->string('fullname');
             $table->date('date_of_birth');
-            $table->string('occupation');
-            $table->string('address');
-            $table->string('passport_copy');
+            $table->string('occupation')->nullable();
+            $table->string('address')->nullable();
+            $table->string('passport_copy')->nullable();
             $table->timestamps();
         });
     }

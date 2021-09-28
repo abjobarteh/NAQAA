@@ -19,6 +19,7 @@ class CreateJobVacanciesTable extends Migration
             $table->integer('minimum_required_job_experience')->nullable();
             $table->string('minimum_required_qualification')->nullable();
             $table->longText('fields_of_study');
+            $table->string('occupational_group')->nullable();
             $table->string('job_status')->nullable();
             $table->string('institution')->nullable();
             $table->string('employer_type')->nullable();

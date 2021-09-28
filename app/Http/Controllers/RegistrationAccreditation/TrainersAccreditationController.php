@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RegistrationAccreditation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationAccreditation\StoreTrainerAccreditationRequest;
 use App\Http\Requests\RegistrationAccreditation\UpdateTrainerAccreditationRequest;
+use App\Models\ApplicationStatus;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\Trainer;
@@ -22,12 +23,13 @@ class TrainersAccreditationController extends Controller
      */
     public function index()
     {
-        $accreditations = ApplicationDetail::with(['trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
-        'trainerAccreditations'])->where('application_category','accreditation')
-        ->where('applicant_type','trainer')
-        ->latest()
-        ->get();
-        
+        $accreditations = ApplicationDetail::with([
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
+            'trainerAccreditations'
+        ])->where('application_type', 'trainer_accreditation')
+            ->latest()
+            ->get();
+
         return view('registrationaccreditation.accreditation.trainers.index', compact('accreditations'));
     }
 
@@ -42,9 +44,13 @@ class TrainersAccreditationController extends Controller
             $query->where('license_status', 'valid');
         })->get();
 
-        $levels = QualificationLevel::all()->pluck('name','id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.accreditation.trainers.create', compact('trainers','levels'));
+        return view(
+            'registrationaccreditation.accreditation.trainers.create',
+            compact('trainers', 'levels', 'application_statuses')
+        );
     }
 
     /**
@@ -55,40 +61,37 @@ class TrainersAccreditationController extends Controller
      */
     public function store(StoreTrainerAccreditationRequest $request)
     {
-        $areas = $request->filled('areas') ?  $request->input('areas',[]) : [];
-        $levels = $request->filled('levels') ?  $request->input('levels',[]) : [];
-        $accred_statuses = $request->filled('statuses') ?  $request->input('statuses',[]) : [];
-        DB::transaction(function()use($request, $areas, $levels, $accred_statuses){
+        $areas = $request->filled('areas') ?  $request->input('areas', []) : [];
+        $levels = $request->filled('levels') ?  $request->input('levels', []) : [];
+        $accred_statuses = $request->filled('statuses') ?  $request->input('statuses', []) : [];
+        DB::transaction(function () use ($request, $areas, $levels, $accred_statuses) {
             // store training provider application details
-                $application = ApplicationDetail::create([
-                    'trainer_id' => $request->trainer_id,
-                    'applicant_type' => 'trainer',
-                    'application_no' => $request->application_no,
-                    'application_category' => 'accreditation',
-                    'application_type' => 'new',
-                    'status' => $request->status,
-                    'application_date' => $request->application_date,
-                ]);
+            $application = ApplicationDetail::create([
+                'trainer_id' => $request->trainer_id,
+                'applicant_type' => 'trainer',
+                'application_no' => $request->application_no,
+                'application_type' => 'trainer_accreditation',
+                'status' => $request->status,
+                'application_date' => $request->application_date,
+            ]);
 
-                for ($area=0; $area < count($areas); $area++) {
-                    if ($areas[$area] != '') {
-                        
-                        TrainerAccreditationDetail::create([
-                                'trainer_id' => $request->trainer_id,
-                                'area' => $areas[$area],
-                                'level' => $levels[$area],
-                                'application_id' => $application->id,
-                                'status' => $request->status === 'accepted' ? $accred_statuses[$area] : null,
-                                'accreditation_start_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_start_date : null,
-                                'accreditation_end_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_end_date : null,
-                                'accreditation_status' => $request->status === 'accepted' ? 'valid' : null,
-                        ]); 
-                    }
+            for ($area = 0; $area < count($areas); $area++) {
+                if ($areas[$area] != '') {
+
+                    TrainerAccreditationDetail::create([
+                        'trainer_id' => $request->trainer_id,
+                        'area' => $areas[$area],
+                        'level' => $levels[$area],
+                        'application_id' => $application->id,
+                        'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
+                        'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                    ]);
                 }
+            }
         });
 
         return redirect()->route('registration-accreditation.accreditation.trainers.index')
-                ->withSuccess('Trainer accreditation details Successfully added in the system');
+            ->withSuccess('Trainer accreditation details Successfully added in the system');
     }
 
     /**
@@ -101,9 +104,13 @@ class TrainersAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id);
 
-        $accreditation->load(['trainerAccreditations','trainer']);
+        $accreditation->load(['trainerAccreditations', 'trainer']);
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.accreditation.trainers.show', compact('accreditation'));
+        return view(
+            'registrationaccreditation.accreditation.trainers.show',
+            compact('accreditation', 'application_statuses')
+        );
     }
 
     /**
@@ -119,11 +126,15 @@ class TrainersAccreditationController extends Controller
             $query->where('license_status', 'valid');
         })->get();
 
-        $levels = QualificationLevel::all()->pluck('name','id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        $accreditation->load(['trainerAccreditations','trainer:id,firstname,middlename,lastname']);
+        $accreditation->load(['trainerAccreditations', 'trainer:id,firstname,middlename,lastname']);
 
-        return view('registrationaccreditation.accreditation.trainers.edit', compact('accreditation','levels','trainers'));
+        return view(
+            'registrationaccreditation.accreditation.trainers.edit',
+            compact('accreditation', 'levels', 'trainers', 'application_statuses')
+        );
     }
 
     /**
@@ -137,48 +148,41 @@ class TrainersAccreditationController extends Controller
     {
         $application = ApplicationDetail::findOrFail($id);
 
-        DB::transaction(function()use($request,$application){
-            $areas = $request->filled('areas') ?  $request->input('areas',[]) : [];
-            $levels = $request->filled('levels') ?  $request->input('levels',[]) : [];
-            $accred_statuses = $request->filled('statuses') ?  $request->input('statuses',[]) : [];
-            $programmedIDs = $request->filled('accreditation_ids') ?  $request->input('accreditation_ids',[]) : [];
+        DB::transaction(function () use ($request, $application) {
+            $areas = $request->filled('areas') ?  $request->input('areas', []) : [];
+            $levels = $request->filled('levels') ?  $request->input('levels', []) : [];
+            $accred_statuses = $request->filled('statuses') ?  $request->input('statuses', []) : [];
+            $programmedIDs = $request->filled('accreditation_ids') ?  $request->input('accreditation_ids', []) : [];
             // Update training provider application details
-                $application->update([
-                    'status' => $request->status,
-                    'application_date' => $request->application_date,
-                ]);
+            $application->update([
+                'status' => $request->status,
+                'application_date' => $request->application_date,
+            ]);
 
-                for ($area=0; $area < count($areas); $area++) {
-                    if ($areas[$area] != ''){
-                        if($programmedIDs[$area] != null || $programmedIDs[$area] != '')
-                        {
-                            $programmeAccreditation = TrainerAccreditationDetail::findOrFail($programmedIDs[$area]);
+            for ($area = 0; $area < count($areas); $area++) {
+                if ($areas[$area] != '') {
+                    if ($programmedIDs[$area] != null || $programmedIDs[$area] != '') {
+                        $programmeAccreditation = TrainerAccreditationDetail::findOrFail($programmedIDs[$area]);
 
-                            $programmeAccreditation->update([
-                                'area' => $areas[$area],
-                                'level' => $levels[$area],
-                                'application_id' => $application->id,
-                                'status' => $request->status === 'accepted' ? $accred_statuses[$area] : null,
-                                'accreditation_start_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_start_date : null,
-                                'accreditation_end_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_end_date : null,
-                                'accreditation_status' => $request->status === 'accepted' ? 'valid' : null,
-                            ]);
-                            
-                        }
-                        else{
-                            TrainerAccreditationDetail::create([
-                                'trainer_id' => $application->trainer_id,
-                                'area' => $areas[$area],
-                                'level' => $levels[$area],
-                                'application_id' => $application->id,
-                                'status' => $request->status === 'accepted' ? $accred_statuses[$area] : null,
-                                'accreditation_start_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_start_date : null,
-                                'accreditation_end_date' => $request->status === 'accepted' && $accred_statuses[$area] === 'accepted' ? $request->accreditation_end_date : null,
-                                'accreditation_status' => $request->status === 'accepted' ? 'valid' : null,
-                            ]); 
-                        }
+                        $programmeAccreditation->update([
+                            'area' => $areas[$area],
+                            'level' => $levels[$area],
+                            'application_id' => $application->id,
+                            'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
+                            'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                        ]);
+                    } else {
+                        TrainerAccreditationDetail::create([
+                            'trainer_id' => $application->trainer_id,
+                            'area' => $areas[$area],
+                            'level' => $levels[$area],
+                            'application_id' => $application->id,
+                            'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
+                            'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                        ]);
                     }
                 }
+            }
         });
 
         return back()->withSuccess('Trainer accreditation details Successfully updated in the system');

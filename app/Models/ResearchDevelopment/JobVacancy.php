@@ -2,6 +2,8 @@
 
 namespace App\Models\ResearchDevelopment;
 
+use App\Models\District;
+use App\Models\LocalGovermentAreas;
 use App\Models\PositionAdvertised;
 use App\Models\Region;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,6 +31,7 @@ class JobVacancy extends Model
         'district_id',
         'localgoverment_area_id',
         'jobvacancy_category_id',
+        'occupational_group',
     ];
 
     protected static $logFillable = true;

@@ -24,12 +24,10 @@ class StoreTrainerAccreditationRequest extends FormRequest
     public function rules()
     {
         return [
-            'trainer_id' => ['required','numeric'],
-            'application_no' => ['required','string'],
-            'application_date' => ['required','date'],
-            'status' => ['required','string','in:accepted,rejected,pending'],
-            'accreditation_start_date' => ['required_if:status,accepted','date'],
-            'accreditation_end_date' => ['required_if:status,accepted','date'],
+            'trainer_id' => ['required', 'numeric'],
+            'application_no' => ['required', 'string'],
+            'application_date' => ['required', 'date'],
+            'status' => ['required', 'string'],
         ];
     }
 

@@ -19,7 +19,7 @@ class EditJobvacancy extends Component
 {
     public $position_exist = true, $position_advertised, $position_name, $date_advertised, $minimum_required_job_experience,
         $minimum_required_qualification, $fields_of_study, $job_status, $institution, $region_id,
-        $district_id, $localgoverment_area_id, $jobvacancy, $jobvacancy_category_id;
+        $district_id, $localgoverment_area_id, $jobvacancy, $jobvacancy_category_id, $occupational_group;
 
     protected $listeners = ['refreshComponent' => '$refresh'];
 
@@ -33,9 +33,9 @@ class EditJobvacancy extends Component
         'fields_of_study.*' => ['string'],
         'job_status' => ['required', 'string'],
         'institution' => ['required', 'string'],
-        'region_id' => ['numeric', 'string'],
-        'district_id' => ['numeric', 'string'],
-        'localgoverment_area_id' => ['numeric', 'string'],
+        'region_id' => ['nullable', 'numeric'],
+        'district_id' => ['nullable', 'numeric'],
+        'localgoverment_area_id' => ['nullable', 'numeric'],
         'jobvacancy_category_id' => ['required', 'numeric'],
     ];
 
@@ -52,6 +52,7 @@ class EditJobvacancy extends Component
             'minimum_required_qualification' => $this->jobvacancy->minimum_required_qualification,
             'fields_of_study' => $this->jobvacancy->fields_of_study,
             'job_status' => $this->jobvacancy->job_status,
+            'occupational_group' => $this->jobvacancy->occupational_group,
             'institution' => $this->jobvacancy->institution,
             'region_id' => $this->jobvacancy->region_id,
             'district_id' => $this->jobvacancy->district_id,
@@ -102,6 +103,7 @@ class EditJobvacancy extends Component
                 'minimum_required_qualification' => $this->minimum_required_qualification,
                 'fields_of_study' => $this->fields_of_study,
                 'job_status' => $this->job_status,
+                'occupational_group' => $this->occupational_group,
                 'institution' => $this->institution,
                 'region_id' => $this->region_id,
                 'district_id' => $this->district_id,
@@ -119,6 +121,7 @@ class EditJobvacancy extends Component
                     'minimum_required_qualification' => $this->minimum_required_qualification,
                     'fields_of_study' => $this->fields_of_study,
                     'job_status' => $this->job_status,
+                    'occupational_group' => $this->occupational_group,
                     'institution' => $this->institution,
                     'region_id' => $this->region_id,
                     'district_id' => $this->district_id,

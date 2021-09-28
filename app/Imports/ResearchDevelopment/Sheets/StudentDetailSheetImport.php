@@ -49,10 +49,10 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
                 'attendance_status' => $row['attendance_status'],
                 // 'admission_date' => $row['admission_date'],
                 // 'completion_date' => $row['completion_date'],
-                'qualification_at_entry' => $qualification_at_entry[0]->id ?? '',
-                'award' => $award[0]->id ?? '',
-                'education_field_id' => $field_of_education[0]->id ?? '',
-                'training_provider_id' => $training_provider[0]->id ?? '',
+                'qualification_at_entry' => $qualification_at_entry[0]->id ?? null,
+                'award' => $award[0]->id ?? null,
+                'education_field_id' => $field_of_education[0]->id ?? null,
+                'training_provider_id' => $training_provider[0]->id ?? null,
             ]);
         } else {
             return null;

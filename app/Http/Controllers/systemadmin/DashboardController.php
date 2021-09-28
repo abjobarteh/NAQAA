@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Activitylog\Models\Activity;
@@ -19,19 +20,31 @@ class DashboardController extends Controller
                 'name' => 'Total Users',
                 'data' => User::all()->count(),
                 'background' => 'bg-info',
-                'icon' => 'ion ion-android-contacts'
+                'icon' => 'fas fa-users'
+            ],
+            [
+                'name' => 'Total System Users',
+                'data' => User::where('user_category', 'system')->count(),
+                'background' => 'bg-secondary',
+                'icon' => 'fas fa-user-friends'
+            ],
+            [
+                'name' => 'Total Portal Users',
+                'data' => User::where('user_category', 'portal')->count(),
+                'background' => 'bg-teal',
+                'icon' => 'fas fa-user'
             ],
             [
                 'name' => 'Total Training Providers',
-                'data' => 0,
-                'background' => 'bg-success',
-                'icon' => 'ion ion-ios-albums'
+                'data' => Role::whereHas('users')->where('slug', 'institution')->count(),
+                'background' => 'bg-primary',
+                'icon' => 'fas fa-university'
             ],
             [
                 'name' => 'Total Trainers',
-                'data' => 0,
+                'data' => Role::whereHas('users')->where('slug', 'trainer')->count(),
                 'background' => 'bg-warning',
-                'icon' => 'ion ion-man'
+                'icon' => 'fas fa-user-tie'
             ]
         ];
 

@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group" wire:ignore>
                                             <label>Jobvacancy category:</label>
                                             <select name="jobvacancy_category_id" id="jobvacancy_category_id" class="form-control select2" wire:model="jobvacancy_category_id" required>
@@ -82,7 +82,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Occupational group:</label>
+                                            <input type="text" class="form-control" wire:model="occupational_group">
+                                            @error('occupational_group')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Minimum Required Relevant Job Experience (Years):</label>
                                             <input type="number" class="form-control" name="minimum_required_job_experience" wire:model="minimum_required_job_experience" value="{{ old('minimum_required_job_experience') }}" min="0" step="1">
@@ -110,7 +119,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group" wire:ignore>
                                             <label>Field(s) of Study:</label>
-                                            <select name="fields_of_study[]" id="fields_of_study" class="form-control select2" wire:model="fields_of_study" multiple="multiple" required>
+                                            <select id="fields_of_study" class="form-control select2" wire:model="fields_of_study" multiple="multiple" required>
                                                 <option>Select field of study</option>
                                                 @foreach ($fields as $id => $field)
                                                     <option value="{{$field}}">{{$field}}</option>
@@ -126,7 +135,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group" wire:ignore>
                                             <label>Job Status: <sup class="text-danger">*</sup></label>
-                                            <select name="job_status" id="job_status" class="form-control select2" wire:model="job_status" required>
+                                            <select id="job_status" class="form-control select2" wire:model="job_status" required>
                                                 <option>Select job status</option>
                                                 <option value="permanent">Permanent</option>
                                                 <option value="temporary">Temporary</option>

@@ -25,7 +25,7 @@ class AccreditationController extends Controller
     {
         $applications = ApplicationDetail::whereHas('trainingprovider', function (Builder $query) {
             $query->where('login_id', auth()->user()->id);
-        })->where('application_category', 'programme_accreditation')
+        })->where('application_type', 'institution_accreditation')
             ->with('programmeDetail.departmentHeads')
             ->latest()->get();
 

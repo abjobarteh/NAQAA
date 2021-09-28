@@ -3,13 +3,15 @@
 namespace App\Http\Livewire\AssessmentCertification;
 
 use App\Models\AssessmentCertification\StudentAssessmentDetail;
+use App\Models\StandardsCurriculum\UnitStandard;
 use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
 use Livewire\Component;
 
 class AssessmentForm extends Component
 {
-    public $assessment_status, $qualification_type, $last_assessment_date, $assessment_center, $student_detail;
+    public $assessment_status, $qualification_type, $last_assessment_date, $assessment_center,
+        $student_detail, $is_partial = false, $unit_standards = null;
 
     protected $listeners = ['openAssessmentForm' => 'showFormModal'];
 
@@ -47,10 +49,20 @@ class AssessmentForm extends Component
         $this->dispatchBrowserEvent('closeAssessmentFormModal');
     }
 
+    public function updatedQualificationType($type)
+    {
+        if ($type == 'partial') {
+            $this->is_partial = true;
+            $this->unit_standards = UnitStandard::where('qualification_id', $this->student_detail->programme_id)->get();
+        } else {
+            $this->is_partial = false;
+        }
+    }
+
     public function saveStudentAssessment()
     {
         $this->validate([
-            'assessment_status' => ['required', 'in:competent,incompetent,notcompetent'],
+            'assessment_status' => ['required', 'in:competent,notcompetent,incomplete'],
             'qualification_type' => ['required', 'in:full,partial'],
             'last_assessment_date' => ['required', 'date'],
             'assessment_center' => ['nullable', 'string'],

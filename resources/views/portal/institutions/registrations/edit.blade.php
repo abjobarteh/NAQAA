@@ -21,14 +21,7 @@
                     @method('PUT')
                     <h4 class="card-title">Institutional Data</h4>
                     <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label for="name">Name of Training Provider: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="name" name="name" class="form-control" value="{{$application->trainingprovider->name}}" required>
-                            @error('name')
-                                <span class="text-danger mt-1">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group col-sm-6">
+                        <div class="form-group col-sm-12">
                             <label for="classification_id">Category of Institution: <sup class="text-danger">*</sup></label>
                             <select name="classification_id" id="classification_id" class="form-control custom-select">
                                 <option value="">--- select category</option>

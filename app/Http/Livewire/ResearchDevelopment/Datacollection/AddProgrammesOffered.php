@@ -4,6 +4,7 @@ namespace App\Http\Livewire\ResearchDevelopment\Datacollection;
 
 use App\Models\AwardBody;
 use App\Models\EducationField;
+use App\Models\Program;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
@@ -13,9 +14,9 @@ use Livewire\Component;
 
 class AddProgrammesOffered extends Component
 {
-    public $isRegistered = false, $training_provider_id, $program_name, $duration, $tuition_fee_per_year, $entry_requirements,
-        $field_of_education, $awarding_body, $accredited_programmes, $programme_id, $specify_programme = false,
-        $academic_year;
+    public $programmesExist = false, $training_provider_id, $program_name, $duration, $tuition_fee_per_year,
+        $entry_requirements, $field_of_education, $awarding_body, $accredited_programmes, $programme_id,
+        $specify_programme = false, $new_programme = false, $academic_year;
 
 
     protected $listeners = ['refreshComponent' => '$refresh'];
@@ -62,20 +63,20 @@ class AddProgrammesOffered extends Component
 
     public function updatedTrainingProviderId($training_provider_id)
     {
-        if (TrainingProvider::where('is_registered', 1)->where('id', $training_provider_id)->exists()) {
+        $programmes = null;
+        if (TrainingProvider::where('id', $training_provider_id)->exists()) {
             $programmes = TrainingProviderProgramme::where('training_provider_id', $training_provider_id)
-                ->pluck('programme_title', 'id');
+                ->with('programme')->get();
+            if (!$programmes->isEmpty()) {
+                $this->programmesExist = true;
+                $this->accredited_programmes = $programmes;
+            } else {
+                $this->programmesExist = false;
+            }
         } else {
-            $programmes = TrainingProviderProgramme::where('training_provider_id', $training_provider_id)
-                ->pluck('programme_title', 'id');
+            $this->programmesExist = false;
         }
 
-        if (!$programmes->isEmpty()) {
-            $this->isRegistered = true;
-            $this->accredited_programmes = $programmes;
-        } else {
-            $this->isRegistered = false;
-        }
         $this->reset('specify_programme');
     }
 
@@ -93,11 +94,20 @@ class AddProgrammesOffered extends Component
         $this->validate();
 
         DB::transaction(function () {
-            if ($this->isRegistered) {
+            if ($this->programmesExist) {
                 if ($this->programme_id === 'not-specified') {
+
+                    if (Program::where('name', 'like', '%' . $this->program_name . '%')->exists()) {
+                        $program_catalogue = Program::where('name', 'like', '%' . $this->program_name . '%')->pluck('name', 'id');
+                    } else {
+                        $program_catalogue = Program::create([
+                            'name' => $this->program_name
+                        ]);
+                    }
+                    // dd($program_catalogue);
                     $programme =  TrainingProviderProgramme::create([
                         'training_provider_id' => $this->training_provider_id,
-                        'programme_title' => $this->program_name,
+                        'programme_id' => $program_catalogue->id,
                         'admission_requirements' => $this->entry_requirements,
                         'level_of_fees' => $this->tuition_fee_per_year,
                         'field_of_education' => $this->field_of_education,

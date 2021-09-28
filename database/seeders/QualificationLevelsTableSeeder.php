@@ -38,6 +38,11 @@ class QualificationLevelsTableSeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
+                'name' => 'WASSCE',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
                 'name' => 'Certificate',
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),

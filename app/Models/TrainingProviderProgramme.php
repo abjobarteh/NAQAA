@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\ProgrammeAccreditationDetails;
 use App\Models\RegistrationAccreditation\ProgrammeDepartmentHead;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -19,7 +21,7 @@ class TrainingProviderProgramme extends Model
 
     protected $fillable = [
         'training_provider_id',
-        'programme_title',
+        'programme_id',
         'level',
         'mentoring_institution',
         'mentoring_institution_address',
@@ -66,6 +68,16 @@ class TrainingProviderProgramme extends Model
         return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
+    public function programme()
+    {
+        return $this->belongsTo(Program::class, 'programme_id');
+    }
+
+    public function programmeDatacollection()
+    {
+        return $this->hasMany(ProgramDetailsDataCollection::class, 'programme_id');
+    }
+
     public function fieldOfEducation()
     {
         return $this->belongsTo(EducationField::class, 'field_of_education');
@@ -74,5 +86,10 @@ class TrainingProviderProgramme extends Model
     public function departmentHeads()
     {
         return $this->hasMany(ProgrammeDepartmentHead::class, 'programme_id');
+    }
+
+    public function accreditations()
+    {
+        return $this->hasMany(ProgrammeAccreditationDetails::class, 'programme_id');
     }
 }

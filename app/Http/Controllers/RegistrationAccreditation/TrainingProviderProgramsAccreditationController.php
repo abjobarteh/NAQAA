@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RegistrationAccreditation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationAccreditation\StoreProgrammeAccreditationRequest;
 use App\Http\Requests\RegistrationAccreditation\UpdateProgrammeAccreditationRequest;
+use App\Models\ApplicationStatus;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\AccreditedProgramme;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
@@ -24,10 +25,8 @@ class TrainingProviderProgramsAccreditationController extends Controller
     public function index()
     {
         $accreditations = ApplicationDetail::with([
-            'programmeDetail:id,programme_title,level,admission_requirements,studentship_duration,total_qualification_time,level_of_fees',
-            'programmeAccreditations', 'trainingprovider'
-        ])->where('application_category', 'programme_accreditation')
-            ->where('applicant_type', 'training_provider')
+            'programmeAccreditations', 'trainingprovider', 'programmeAccreditations.programme'
+        ])->where('application_type', 'institution_accreditation')
             ->latest()
             ->get();
 
@@ -43,8 +42,12 @@ class TrainingProviderProgramsAccreditationController extends Controller
     {
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.accreditation.programmes.create', compact('trainingproviders', 'levels'));
+        return view(
+            'registrationaccreditation.accreditation.programmes.create',
+            compact('trainingproviders', 'levels', 'application_statuses')
+        );
     }
 
     /**
@@ -67,23 +70,21 @@ class TrainingProviderProgramsAccreditationController extends Controller
                 'total_qualification_time' => $data['total_qualification_time'],
                 'level_of_fees' => $data['level_of_fees'],
                 'admission_requirements' => $data['admission_requirements'],
-                'is_accredited' => $data['status'] === 'accepted' ? 1 : 0,
+                'is_accredited' => $data['status'] === 'Approved' ? 1 : 0,
             ]);
 
             // store training provider application details
             $application = ApplicationDetail::create([
                 'training_provider_id' => $data['trainingprovider_id'],
-                'programme_id' => $programme->id,
                 'applicant_type' => 'training_provider',
                 'application_no' => $data['application_no'],
-                'application_category' => 'programme_accreditation',
-                'application_type' => 'new',
+                'application_type' => 'institution_accreditation',
                 'status' => $data['status'],
                 'application_date' => $data['application_date'],
             ]);
 
             // If application accepted, create a programme accreditation record
-            if ($data['status'] === 'accepted') {
+            if ($data['status'] === 'Approved') {
                 ProgrammeAccreditationDetails::create([
                     'programme_id' => $programme->id,
                     'application_id' => $application->id,
@@ -108,13 +109,17 @@ class TrainingProviderProgramsAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
-                'programmeDetail:id,programme_title,level,admission_requirements,studentship_duration,total_qualification_time,level_of_fees',
                 'programmeAccreditations',
+                'programmeAccreditations.programme'
             ]);
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.accreditation.programmes.show', compact('accreditation', 'trainingproviders', 'levels'));
+        return view(
+            'registrationaccreditation.accreditation.programmes.show',
+            compact('accreditation', 'trainingproviders', 'levels', 'application_statuses')
+        );
     }
 
     /**
@@ -127,13 +132,16 @@ class TrainingProviderProgramsAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
-                'programmeDetail:id,programme_title,level,admission_requirements,studentship_duration,total_qualification_time,level_of_fees',
-                'programmeAccreditations',
+                'programmeAccreditations', 'programmeAccreditations.programme'
             ]);
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.accreditation.programmes.edit', compact('accreditation', 'trainingproviders', 'levels'));
+        return view(
+            'registrationaccreditation.accreditation.programmes.edit',
+            compact('accreditation', 'trainingproviders', 'levels', 'application_statuses')
+        );
     }
 
     /**
@@ -173,7 +181,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
                     'accreditation_end_date' => $data['accreditation_end_date'],
                 ]);
             } else {
-                if ($data['status'] === 'accepted') {
+                if ($data['status'] === 'Approved') {
                     ProgrammeAccreditationDetails::create([
                         'application_id' => $accreditation->id,
                         'accreditation_start_date' => $data['accreditation_start_date'],

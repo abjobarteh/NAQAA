@@ -52,7 +52,7 @@
                                             <td>{{$registration->trainer->email}}</td>
                                             <td>{{$registration->trainer->type}}</td>
                                             <td>
-                                                <span class="badge {{$registration->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
                                                     {{$registration->status}}
                                                  </span>
                                             </td>

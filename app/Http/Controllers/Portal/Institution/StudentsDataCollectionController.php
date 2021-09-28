@@ -19,7 +19,10 @@ class StudentsDataCollectionController extends Controller
      */
     public function index()
     {
-        $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])->get();
+        $training_provider = TrainingProvider::where('login_id', auth()->user()->id)->get();
+        $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])
+            ->where('training_provider_id', $training_provider[0]->id)
+            ->get();
 
         return view('portal.institutions.datacollections.students.index', compact('students'));
     }

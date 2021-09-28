@@ -31,6 +31,8 @@
                                         <th>Nationality</th>
                                         <th>Email</th>
                                         <th>Phone number</th>
+                                        <th>Programme</th>
+                                        <th>Level</th>
                                         <th>Type</th>
                                     </tr>
                                 </thead>
@@ -43,6 +45,8 @@
                                             <td>{{$assessor_verifier->country_of_citizenship}}</td>
                                             <td>{{$assessor_verifier->email}}</td>
                                             <td>{{$assessor_verifier->phone_mobile}}</td>
+                                            <td>{{$assessor_verifier->programme_name}}</td>
+                                            <td>{{$assessor_verifier->programme_level}}</td>
                                             <td><span class="badge badge-rounded badge-primary">{{$assessor_verifier->type}}</span></td>
                                         </tr>
                                     @empty

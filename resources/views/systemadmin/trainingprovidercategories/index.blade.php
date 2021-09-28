@@ -11,7 +11,10 @@ Training Provider Categories
                 <h1 class="m-0">Training Provider Categories</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 d-flex justify-content-end">
-                    <a href="{{route('admin.configurations')}}" class="btn btn-success btn-flat mr-1">Configurations</a>
+                    <a href="{{route('admin.configurations')}}" class="btn btn-success btn-flat mr-1"> 
+                        <i class="fas fa-list"></i>
+                        Configurations
+                    </a>
                     @can('create_general_configurations')
                     <a href="{{route('admin.training-provider-categories.create')}}" class="btn btn-primary btn-flat float-right">Add Category</a>
                     @endcan

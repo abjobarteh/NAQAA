@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Portal\Institution;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Portal\StoreTrainingProviderRegistrationRequest;
+use App\Models\Bank;
 use App\Models\Country;
 use App\Models\District;
 use App\Models\QualificationLevel;
@@ -32,9 +33,9 @@ class RegistrationController extends Controller
     {
         $applications = ApplicationDetail::whereHas('trainingprovider', function (Builder $query) {
             $query->where('login_id', auth()->user()->id);
-        })->where('application_category', 'registration')
+        })->where('application_type', 'institution_registration')
             ->latest()->get();
-        // dd($applications);
+
         return view('portal.institutions.registrations.index', compact('applications'));
     }
 
@@ -51,10 +52,19 @@ class RegistrationController extends Controller
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
         $countries = Country::all()->pluck('name');
         $qualification_levels = QualificationLevel::all()->pluck('name', 'id');
+        $banks = Bank::all()->pluck('name', 'id');
 
         return view(
             'portal.institutions.registrations.create',
-            compact('regions', 'districts', 'townvillages', 'classifications', 'countries', 'qualification_levels')
+            compact(
+                'regions',
+                'districts',
+                'townvillages',
+                'classifications',
+                'countries',
+                'qualification_levels',
+                'banks'
+            )
         );
     }
 

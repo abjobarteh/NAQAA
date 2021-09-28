@@ -26,7 +26,6 @@ class CreateUsersTable extends Migration
             $table->string('address')->nullable();
             $table->string('user_status')->nullable();
             $table->string('user_category')->nullable();
-            $table->string('user_type')->nullable();
             $table->string('default_password_status')->nullable();
             $table->foreignId('directorate_id')->nullable()->constrained();
             $table->foreignId('unit_id')->nullable()->constrained();

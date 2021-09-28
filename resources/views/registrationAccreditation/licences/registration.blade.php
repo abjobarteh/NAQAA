@@ -36,9 +36,7 @@
                                             <th>Licence End Date</th>
                                             <th>Licence status</th>
                                             <th>Application date</th>
-                                            <th>Application category</th>
                                             <th>Application type</th>
-                                            <th>Applicant Type</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -46,7 +44,7 @@
                                         @forelse ($all_licences as $licence)
                                             <tr>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
@@ -56,11 +54,9 @@
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-rounded @if($licence->license_status === 'valid') badge-success @else badge-danger @endif">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
-                                                <td>{{Str::studly($licence->application->applicant_type ?? 'N/A')}}</td>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->applicant_type === 'application_type')
                                                         <a href="{{route('registration-accreditation.registration.trainingproviders.edit',$licence->application->id)
                                                         }}" class="btn btn-xs btn-danger"
                                                         title="edit training provider licence registration details"
@@ -120,9 +116,7 @@
                                             <th>Licence End Date</th>
                                             <th>Licence status</th>
                                             <th>Application date</th>
-                                            <th>Application category</th>
                                             <th>Application type</th>
-                                            <th>Type</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -130,7 +124,7 @@
                                         @forelse ($valid_licences as $licence)
                                             <tr>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
@@ -140,11 +134,9 @@
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-success badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
-                                                <td>{{Str::studly($licence->application->applicant_type ?? 'N/A')}}</td>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->application_type === 'institution_registration')
                                                         <a href="{{route('registration-accreditation.registration.trainingproviders.edit',$licence->application->id)
                                                         }}" class="btn btn-xs btn-danger"
                                                         title="edit training provider licence registration details"
@@ -186,9 +178,7 @@
                                             <th>Licence End Date</th>
                                             <th>Licence status</th>
                                             <th>Application date</th>
-                                            <th>Application category</th>
                                             <th>Application type</th>
-                                            <th>Type</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -196,7 +186,7 @@
                                         @forelse ($expired_licences as $licence)
                                             <tr>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->applicant_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
@@ -206,9 +196,7 @@
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
-                                                <td>{{Str::studly($licence->application->applicant_type ?? 'N/A')}}</td>
                                                 <td>
                                                     <a href="{{route('registration-accreditation.licence.licence-renewal',$licence->id)
                                                         }}" class="btn btn-xs btn-success"
@@ -235,9 +223,7 @@
                                             <th>Licence End Date</th>
                                             <th>Licence status</th>
                                             <th>Application date</th>
-                                            <th>Application category</th>
                                             <th>Application type</th>
-                                            <th>Type</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -245,7 +231,7 @@
                                         @forelse ($revoked_licences as $licence)
                                             <tr>
                                                 <td>
-                                                    @if ($licence->application->applicant_type === 'training_provider')
+                                                    @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
                                                         {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
@@ -255,9 +241,7 @@
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
                                                 <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-info badge-rounded">{{$licence->application->application_category ?? 'N/A'}}</span></td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
-                                                <td>{{Str::studly($licence->application->applicant_type ?? 'N/A')}}</td>
                                                 <td>
                                                     <button 
                                                         data-licence-id="{{$licence->id}}"

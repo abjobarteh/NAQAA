@@ -84,41 +84,11 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>-- select application status --</option>
-                                                        <option value="accepted">Accepted</option>
-                                                        <option value="rejected">Rejected</option>
-                                                        <option value="pending">Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                        <option value="{{$status}}" {{old('status') === $status ? 'selected' : ''}}>{{$status}}</option>
+                                                         @endforeach
                                                     </select>
                                                     @error('status')
-                                                        <span class="text-danger mt-1">{{$message}}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row license-registration-details">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Accreditation Start Date: <sup class="text-danger">*</sup></label>
-                                                    <div class="input-group date" id="accreditation_start_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="accreditation_start_date" value="{{ old('accreditation_start_date') }}" data-target="#accreditation_start_date"/>
-                                                        <div class="input-group-append" data-target="#accreditation_start_date" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    @error('accreditation_start_date')
-                                                        <span class="text-danger mt-1">{{$message}}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Accreditation End Date: <sup class="text-danger">*</sup></label>
-                                                    <div class="input-group date" id="accreditation_end_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input license-registration" name="accreditation_end_date" value="{{ old('accreditation_end_date') }}" data-target="#accreditation_end_date"/>
-                                                        <div class="input-group-append" data-target="#accreditation_end_date" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    @error('accreditation_end_date')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>
@@ -159,9 +129,9 @@
                                                                         <td>
                                                                             <select name="statuses[]" class="form-control custom-select license-registration" name="accreditation_status">
                                                                                     <option value="">-- select status --</option>
-                                                                                    <option value="accepted">Accepted</option>
-                                                                                    <option value="rejected">Rejected</option>
-                                                                                    <option value="pending">Pending</option>
+                                                                                    @foreach ($application_statuses as $status)
+                                                                                    <option value="{{$status}}" {{old('status') === $status ? 'selected' : ''}}>{{$status}}</option>
+                                                                                    @endforeach
                                                                                 @error('statuses')
                                                                                     <span class="text-danger mt-1">{{$message}}</span>
                                                                                 @enderror
@@ -204,7 +174,7 @@
         $(document).ready(function(){
             $('.license-registration-details').hide();
 
-            if($('#application_status').val() == 'accepted'){
+            if($('#application_status').val() == 'Approved'){
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
@@ -226,7 +196,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

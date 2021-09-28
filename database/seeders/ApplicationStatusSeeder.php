@@ -45,6 +45,9 @@ class ApplicationStatusSeeder extends Seeder
             [
                 'name' => 'Expired Licence'
             ],
+            [
+                'name' => 'Ongoing'
+            ],
         ];
 
         ApplicationStatus::insert($statuses);

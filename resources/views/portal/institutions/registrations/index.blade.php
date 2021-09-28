@@ -15,13 +15,13 @@
                             <svg class="c-icon mr-2">
                                 <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-plus"></use>
                             </svg>
-                            New Application
+                            New Registration Application
                         </a>
                    </div>
                </div>
            </div>
            <div class="card-body">
-            <table class="table table-responsive-sm">
+            <table id="example2" class="table datatable table-responsive-sm">
                 <thead>
                   <tr>
                     <th>Application No.</th>

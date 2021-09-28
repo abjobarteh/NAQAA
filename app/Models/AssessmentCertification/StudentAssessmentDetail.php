@@ -30,10 +30,10 @@ class StudentAssessmentDetail extends Model
         $this->attributes['last_assessment_date'] = new Carbon($value);
     }
 
-    public function getLastAssessmentDateAttribute($value)
-    {
-        return (new Carbon($value))->toFormattedDateString();
-    }
+    // public function getLastAssessmentDateAttribute($value)
+    // {
+    //     return (new Carbon($value))->toFormattedDateString();
+    // }
 
     public function student()
     {

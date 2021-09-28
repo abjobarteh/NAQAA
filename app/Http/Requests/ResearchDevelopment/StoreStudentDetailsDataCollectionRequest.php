@@ -30,9 +30,9 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
         return [
             'student_id' => 'nullable|string',
             'firstname' => 'required|string',
-            'middlename' => 'required|string',
+            'middlename' => 'nullable|string',
             'lastname' => 'required|string',
-            'gender' => 'required|string|in:male,female',
+            'gender' => 'required|string|in:M,F',
             'phone' => 'required|string',
             'nationality' => 'required|string',
             'date_of_birth' => 'required|date',

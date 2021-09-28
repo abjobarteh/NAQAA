@@ -1,5 +1,5 @@
 {{-- Research and Development --}}
-@role('research_and_development_manager|research_and_development_officer')
+@role('research_and_development_module')
 <li class="nav-item">
   <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
      request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
@@ -122,11 +122,20 @@
     </a>
     <ul class="nav nav-treeview">
       <li class="nav-item">
-        <a href="{{route('researchdevelopment.reports.learners')}}" class="nav-link 
-        {{ request()->is('researchdevelopment/reports/learners') ? 'active' : '' }}">
+        <a href="{{route('researchdevelopment.reports.enrollments')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/enrollments') ? 'active' : '' }}">
           <i class="nav-icon fas fa-user-graduate"></i>
           <p>
-            Learners
+            Enrollments
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.graduates')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/graduates') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Graduates
           </p>
         </a>
       </li>
@@ -153,7 +162,7 @@
   @endcan
 @endrole
 {{-- Standards and curriculum --}}
-@role('standards_development_manager|standards_development_officer')
+@role('standards_development_module')
 <li class="nav-item">
   <a href="{{route('standardscurriculum.dashboard')}}" class="nav-link {{
      request()->is('standardscurriculum/dashboard') ? 'active' : '' }}"
@@ -218,7 +227,7 @@
 @endrole
 
 {{-- Registration Accreditation --}}
-@role('registration_and_accreditation_manager|registration_and_accreditation_officer')
+@role('registration_and_accreditation_module')
 <li class="nav-item">
   <a href="{{route('registration-accreditation.dashboard')}}" class="nav-link {{
      request()->is('registration-accreditation/dashboard') ? 'active' : '' }}"
@@ -339,25 +348,49 @@
       <span class="badge badge-info right">@php
           echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_through', 'portal')
             ->where('application_form_status', 'submitted')
+            ->where('status', 'Pending')
             ->latest()
             ->count();
       @endphp</span>
     </p>
   </a>
 </li>
-<li class="nav-item">
-  <a href="#" class="nav-link"
-     >
-    <i class="nav-icon fas fa-chart-bar"></i>
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
+  {{ request()->is('registration-accreditation/reports/*') || 
+     request()->is('registration-accreditation/reports/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-chart-area"></i>
     <p>
       Reports
+      <i class="right fas fa-angle-left"></i>
     </p>
   </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.reports.learning-centers')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/reports/learning-centers') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-university"></i>
+        <p>
+          Learning Centers
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.reports.trainers')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/reports/trainers') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-id-card"></i>
+        <p>
+          Trainers
+        </p>
+      </a>
+    </li>
+  </ul>
 </li>
 @endrole
 
 {{-- Assessment & Certification --}}
-@role('assessment_and_certification_manager|assessment_and_certification_officer')
+@role('assessment_and_certification_module')
 <li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
      request()->is('assessment-certification/registrations') || 

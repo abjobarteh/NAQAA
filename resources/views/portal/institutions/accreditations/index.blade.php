@@ -21,7 +21,7 @@
                </div>
            </div>
            <div class="card-body">
-            <table class="table table-responsive-sm">
+            <table id="example2" class="table datatable table-responsive-sm">
                 <thead>
                   <tr>
                     <th>Application No.</th>

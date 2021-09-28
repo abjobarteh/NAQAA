@@ -58,7 +58,6 @@ class RegisteredUserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'user_type' => $request->user_type,
                 'user_category' => 'portal',
                 'user_status' => 1,
                 'default_password_status' => 0,

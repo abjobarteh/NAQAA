@@ -47,27 +47,27 @@
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
                                             <td>{{$accreditation->trainingprovider->name}}</td>
-                                            <td>{{$accreditation->programmeDetail->programme_title ?? 'N/A'}}</td>
-                                            <td>{{$accreditation->programmeDetail->level ?? 'N/A'}}</td>
-                                            <td>{{$accreditation->programmeDetail->studentship_duration ?? '0'}}</td>
-                                            <td>{{$accreditation->programmeDetail->total_qualification_time ?? '0'}} Hours</td>
-                                            <td><b>GMD</b>{{$accreditation->programmeDetail->level_of_fees ?? '0'}}</td>
+                                            <td>{{$accreditation->programmeAccreditations->programme->programme_title ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->programmeAccreditations->programme->level ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->programmeAccreditations->programme->studentship_duration ?? '0'}}</td>
+                                            <td>{{$accreditation->programmeAccreditations->programme->total_qualification_time ?? '0'}} Hours</td>
+                                            <td><b>GMD</b>{{$accreditation->programmeAccreditations->programme->level_of_fees ?? '0'}}</td>
                                             <td><span class="badge badge-primary">{{$accreditation->application_type}}</span></td>
                                             <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
                                             <td>
-                                                <span class="badge {{$accreditation->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
                                                     {{$accreditation->status}}
                                                 </span>
                                             </td>
                                             <td>
                                                 <a href="{{route('registration-accreditation.accreditation.programmes.edit',$accreditation->id)
-                                                    }}" class="btn btn-sm btn-danger"
+                                                    }}" class="btn btn-xs btn-danger"
                                                     title="edit trainer registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
                                                 <a href="{{route('registration-accreditation.accreditation.programmes.show',$accreditation->id)
-                                                    }}" class="btn btn-sm btn-info"
+                                                    }}" class="btn btn-xs btn-info"
                                                     title="view trainer registration details"
                                                     >
                                                     <i class="fas fa-eye"></i>    

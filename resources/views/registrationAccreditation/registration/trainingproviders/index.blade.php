@@ -96,7 +96,6 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Physical Address</th>
                                         <th>Location</th>
                                         <th>Contact Numbers</th>
                                         <th>Classification</th>
@@ -112,8 +111,7 @@
                                         <tr>
                                             <td>{{$registration->trainingprovider->name}}</td>
                                             <td>{{$registration->trainingprovider->email}}</td>
-                                            <td>{{$registration->trainingprovider->address}}</td>
-                                            <td>{{$registration->trainingprovider->district->name ?? 'N/A'}},  {{$registration->trainingprovider->physical_address}}</td>
+                                            <td>{{$registration->trainingprovider->district->name ?? 'N/A'}},  {{$registration->trainingprovider->address}}</td>
                                             <td>{{$registration->trainingprovider->telephone_work}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
                                             <td>{{$registration->trainingprovider->classification->name}}</td>
                                             <td>{{$registration->application_no}}</td>
@@ -123,7 +121,7 @@
                                                  </span>
                                             </td>
                                             <td>
-                                                <span class="badge {{$registration->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
                                                     {{$registration->status}}
                                                  </span>
                                             </td>

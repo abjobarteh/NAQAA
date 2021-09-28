@@ -26,65 +26,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                    <h5 class="card-title">Job Vacancies Filter</h5>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="posistion_advertised" placeholder="Position advertised">
-                                    </div>
-                               </div>
-                               <div class="col-sm-12 col-md-6 col-lg-6">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="work_experience" placeholder="Years of work experience in range ex: 0-5">
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-4 col-lg-4">
-                                    <!-- Date range -->
-                                     <div class="form-group">
-                                         <div class="input-group">
-                                             <div class="input-group-prepend">
-                                                 <span class="input-group-text">
-                                                 <i class="far fa-calendar-alt"></i>
-                                                 </span>
-                                             </div>
-                                             <input type="text" class="form-control float-right" id="advertised_daterange" value="" placeholder="daterange">
-                                         </div>
-                                         <!-- /.input group -->
-                                     </div>
-                                     <!-- /.form group -->
-                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <select class="form-control select2" id="qualification" name="qualification">
-                                            <option value="">--- qualification ---</option>
-                                            @foreach ($qualifications as $id => $qualification)
-                                                <option value="{{ $qualification }}">{{ $qualification }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <select class="form-control select2" id="field_of_education" name="field_of_education">
-                                            <option value="">--- Field of education ---</option>
-                                            @foreach ($fields as $id => $field)
-                                                <option value="{{ $field }}">{{ $field }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 mt-2">
-                                    <button type="button" class="btn btn-info btn-block" id="filter-jobvacancy">Filter</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
                     <div class="card vacancy-card">
                         <div class="card-header">
                             <h3 class="card-title">Job Vacancy Data collection lists</h3>

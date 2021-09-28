@@ -40,9 +40,9 @@ class UpdateTrainingProviderRequest extends FormRequest
             'town_village_id' => ['nullable', 'string'],
             'application_no' => ['required', 'string'],
             'application_date' => ['required', 'date'],
-            'status' => ['required', 'string', 'in:accepted,rejected,pending'],
-            'license_start_date' => ['required_if:status,accepted', 'date'],
-            'license_end_date' => ['required_if:status,accepted', 'date'],
+            'status' => ['required', 'string'],
+            'license_start_date' => ['required_if:status,Approved', 'date'],
+            'license_end_date' => ['required_if:status,Approved', 'date'],
         ];
     }
 

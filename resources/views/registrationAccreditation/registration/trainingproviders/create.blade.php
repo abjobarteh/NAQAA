@@ -240,10 +240,10 @@
                                                 <div class="form-group">
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
-                                                        <option>Select application status</option>
-                                                        <option value="accepted">Accepted</option>
-                                                        <option value="rejected">Rejected</option>
-                                                        <option value="pending">Pending</option>
+                                                        <option>--- Select application status ---</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{old('status') === $status ? 'selected' : ''}}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -315,7 +315,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

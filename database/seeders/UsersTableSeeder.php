@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             'address' => 'Bundung Borehole',
             'default_password_status' => 0,
             'user_status' => 1,
-            'user_type' => 'system',
+            'user_category' => 'system',
         ];
 
         User::insert($systemadmin);

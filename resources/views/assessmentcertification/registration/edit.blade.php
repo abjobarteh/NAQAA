@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Local language Spoken:</label>
+                                            <label>Preferred Assessment Language:</label>
                                             <select name="local_language" id="local_language" class="form-control select2">
                                                 <option value="">--- select local language spoken ---</option>
                                                 @foreach ($local_languages as $id => $local_language)
@@ -152,6 +152,20 @@
                                                 @endforeach
                                             </select>
                                             @error('local_language')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Ethnicity:</label>
+                                            <select name="ethnicity" id="ethnicity" class="form-control select2">
+                                                <option value="">--- select local language spoken ---</option>
+                                                @foreach ($local_languages as $id => $local_language)
+                                                    <option value="{{$local_language}}" {{$registeredstudent->local_language === $local_language ? 'selected' : ''}}>{{$local_language}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('ethnicity')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

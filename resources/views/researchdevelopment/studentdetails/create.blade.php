@@ -54,7 +54,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label>Student ID: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="student_id" value="{{ old('student_id') }}" required autofocus>
+                                            <input type="text" class="form-control" name="student_id" value="{{ old('student_id') }}">
                                             @error('student_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -96,8 +96,8 @@
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
                                                 <option>Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
+                                                <option value="M">Male</option>
+                                                <option value="F">Female</option>
                                             </select>
                                             @error('gender')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -116,12 +116,7 @@
                                     <div class="col-sm-4 show-admission">
                                         <div class="form-group">
                                             <label>Date of birth: <sup class="text-danger">*</sup></label>
-                                            <div class="input-group date" id="date_of_birth" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input admission" name="date_of_birth" value="{{ old('date_of_birth') }}" data-target="#date_of_birth" required/>
-                                                <div class="input-group-append" data-target="#date_of_birth" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
+                                            <input type="date" class="form-control" name="date_of_birth" value="{{ old('date_of_birth') }}" required/>
                                             @error('date_of_birth')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -131,9 +126,9 @@
                                 <div class="row show-admission">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Nationality: <sup class="text-danger">*</sup></label>
+                                            <label>Country of Citizenship: <sup class="text-danger">*</sup></label>
                                             <select name="nationality" id="nationality" class="form-control select2 admission">
-                                                <option>Select nationality</option>
+                                                <option>Select country of citizenship</option>
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->name}}">{{$country->name}}</option>
                                                 @endforeach
@@ -186,12 +181,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Admission Date: <sup class="text-danger">*</sup></label>
-                                            <div class="input-group date" id="admission_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="admission_date" value="{{ old('admission_date') }}" data-target="#admission_date" required/>
-                                                <div class="input-group-append" data-target="#admission_date" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
+                                            <input type="date" class="form-control" name="admission_date" value="{{ old('admission_date') }}" required/>
                                             @error('admission_date')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -200,12 +190,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Completion Date: <sup class="text-danger">*</sup></label>
-                                            <div class="input-group date" id="completion_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input" name="completion_date" value="{{ old('completion_date') }}" data-target="#completion_date"/>
-                                                <div class="input-group-append" data-target="#completion_date" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                </div>
-                                            </div>
+                                            <input type="date" class="form-control" name="completion_date" value="{{ old('completion_date') }}"/>
                                             @error('completion_date')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -273,20 +258,6 @@
             format: 'YYYY-MM-DD'
             });
 
-            // $("#studentdetail_type").change(function() {
-            // if ($(this).val() == "admission") {
-            //     $('.show-graduate').hide();
-            //     $('.graduate').prop('disabled', true);
-            //     $('.admission').prop('disabled', false);
-            //     $('.show-admission').show();
-            // }
-            // if ($(this).val() == "graduate"){
-            //     $('.show-admission').hide();
-            //     $('.admission').prop('disabled', true);
-            //     $('.graduate').prop('disabled', false);
-            //     $('.show-graduate').show();
-            // }
-            // });
         })
     </script>
 @endsection

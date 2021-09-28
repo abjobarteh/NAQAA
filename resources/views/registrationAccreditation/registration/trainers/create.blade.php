@@ -44,10 +44,9 @@
                                                 <label>Trainer Type: <sup class="text-danger">*</sup></label>
                                                 <select name="type" id="type" class="form-control select2">
                                                     <option value="">Select type of trainer</option>
-                                                    <option value="trainer" {{ old('type') == 'trainer' ? 'selected': '' }}>Trainer</option>
-                                                    <option value="assessor" {{ old('type') == 'assessor' ? 'selected': '' }}>Assessor</option>
-                                                    <option value="verifier" {{ old('type') == 'verifier' ? 'selected': '' }}>Verifier</option>
-                                                    <option value="mastercraftperson" {{ old('type') == 'mastercraftperson' ? 'selected': '' }}>MasterCraft Person</option>
+                                                    @foreach ($trainer_types as $trainer)
+                                                    <option value="{{$trainer->name}}" {{ old('type') == $trainer->slug ? 'selected': '' }}>{{$trainer->name}}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('type')
                                                     <span class="text-danger mt-1">{{$message}}</span>
@@ -89,8 +88,8 @@
                                                     <label>Gender: <sup class="text-danger">*</sup></label>
                                                     <select name="gender" id="gender" class="form-control select2">
                                                         <option value="">Select gender</option>
-                                                        <option value="male" {{ old('gender') == 'male' ? 'selected': '' }}>Male</option>
-                                                        <option value="female" {{ old('gender') == 'female' ? 'selected': '' }}>Female</option>
+                                                        <option value="M" {{ old('gender') == 'M' ? 'selected': '' }}>Male</option>
+                                                        <option value="F" {{ old('gender') == 'F' ? 'selected': '' }}>Female</option>
                                                     </select>
                                                     @error('gender')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -242,9 +241,9 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>Select application status</option>
-                                                        <option value="accepted">Accepted</option>
-                                                        <option value="rejected">Rejected</option>
-                                                        <option value="pending">Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{old('status') === $status ? 'selected' : ''}}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -336,7 +335,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

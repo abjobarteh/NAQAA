@@ -16,7 +16,7 @@ class CreateTrainingProviderProgrammesTable extends Migration
         Schema::create('training_provider_programmes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
-            $table->string('programme_title');
+            $table->foreignId('programme_id')->nullable()->constrained('programs');
             $table->string('level')->nullable();
             $table->string('mentoring_institution')->nullable();
             $table->string('mentoring_institution_address')->nullable();

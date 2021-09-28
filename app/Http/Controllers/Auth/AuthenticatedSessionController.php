@@ -109,25 +109,25 @@ class AuthenticatedSessionController extends Controller
 
     public function redirectToCorrectUserDashboard($request)
     {
-        if ($request->user()->user_type === 'system') {
+        if ($request->user()->user_category === 'system') {
             if (in_array(
                 session('active_role'),
-                ['registration_and_accreditation_manager', 'registration_and_accreditation_officer']
+                ['registration_and_accreditation_module']
             )) {
                 return redirect(route('registration-accreditation.dashboard'));
             } else if (in_array(
                 session('active_role'),
-                ['assessment_and_certification_manager', 'assessment_and_certification_officer']
+                ['assessment_and_certification_module']
             )) {
                 return redirect(route('assessment-certification.registrations.index'));
             } else if (in_array(
                 session('active_role'),
-                ['research_and_development_manager', 'research_and_development_officer']
+                ['research_and_development_module']
             )) {
                 return redirect(route('researchdevelopment.dashboard'));
             } else if (in_array(
                 session('active_role'),
-                ['standards_development_manager', 'standards_development_officer']
+                ['standards_development_module']
             )) {
                 return redirect(route('standardscurriculum.dashboard'));
             } else {

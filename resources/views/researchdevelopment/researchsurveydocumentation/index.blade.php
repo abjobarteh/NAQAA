@@ -26,50 +26,6 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-12 mb-2 d-flex justify-content-center">
-                                    <h5 class="card-title">Research Survey Filter</h5>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="text" class="form-control" id="topic" placeholder="Research Topic">
-                                     </div>
-                                </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="text" class="form-control" id="purpose" placeholder="Research Purpose">
-                                     </div>
-                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="text" class="form-control" id="main_findings" placeholder="Main Findings">
-                                     </div>
-                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="text" class="form-control" id="authors" placeholder="Authors">
-                                     </div>
-                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="text" class="form-control" id="funding_body" placeholder="Funding Body">
-                                     </div>
-                                 </div>
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                     <div class="form-group">
-                                         <input type="date" class="form-control" id="publication_date" placeholder="Publication date">
-                                     </div>
-                                 </div>
-                                <div class="col-md-12 mt-2">
-                                    <button type="button" class="btn btn-info btn-block" id="filter-jobvacancy">Filter</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
                     <div class="card research-card">
                         <div class="card-header">
                             <h3 class="card-title">Research Surveys List</h3>

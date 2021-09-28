@@ -77,17 +77,6 @@
                                     @csrf
                                     @method('PUT')
                                             <div class="form-group row">
-                                                <label for="username" class="col-form-label col-sm-2">Username</label>
-                                                <div class="col-sm-10">
-                                                    <input type="text" class="form-control" placeholder="Enter Username" name="username" value="{{ auth()->user()->username }}" required>
-                                                </div>
-                                                <div class="mt-1 offset-sm-2 col-sm-10">
-                                                    @error('username')
-                                                        <span class="text-danger">{{$message}}</span>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
                                                 <label for="email" class="col-form-label col-sm-2">Email</label>
                                                 <div class="col-sm-10">
                                                     <input type="email" class="form-control" placeholder="Enter Email" name="email" value="{{ auth()->user()->email }}" required>

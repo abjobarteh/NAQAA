@@ -34,9 +34,9 @@ class UpdateProgrammeAccreditationRequest extends FormRequest
             'admission_requirements.*' => ['string'],
             'application_no' => ['required', 'string'],
             'application_date' => ['required', 'date'],
-            'status' => ['required', 'string', 'in:accepted,rejected,pending'],
-            'accreditation_start_date' => ['required_if:status,accepted', 'date'],
-            'accreditation_end_date' => ['required_if:status,accepted', 'date'],
+            'status' => ['required', 'string'],
+            'accreditation_start_date' => ['required_if:status,Approved', 'date'],
+            'accreditation_end_date' => ['required_if:status,Approved', 'date'],
         ];
     }
 

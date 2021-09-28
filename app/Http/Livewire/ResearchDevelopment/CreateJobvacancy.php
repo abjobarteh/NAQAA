@@ -19,7 +19,7 @@ class CreateJobvacancy extends Component
 {
     public $position_exist = true, $position_advertised, $position_name, $date_advertised, $minimum_required_job_experience,
         $minimum_required_qualification, $fields_of_study, $job_status, $institution, $region_id,
-        $district_id, $localgoverment_area_id, $jobvacancy_category_id;
+        $district_id, $localgoverment_area_id, $jobvacancy_category_id, $occupational_group;
 
     protected $rules = [
         'position_advertised' => ['nullable', 'string'],
@@ -70,7 +70,7 @@ class CreateJobvacancy extends Component
 
     public function addJobvacancy()
     {
-        $this->validate();
+        // $this->validate();
 
         if ($this->position_exist) {
             JobVacancy::create([
@@ -80,6 +80,7 @@ class CreateJobvacancy extends Component
                 'minimum_required_qualification' => $this->minimum_required_qualification,
                 'fields_of_study' => $this->fields_of_study,
                 'job_status' => $this->job_status,
+                'occupational_group' => $this->occupational_group,
                 'institution' => $this->institution,
                 'region_id' => $this->region_id,
                 'district_id' => $this->district_id,
@@ -98,6 +99,7 @@ class CreateJobvacancy extends Component
                     'minimum_required_qualification' => $this->minimum_required_qualification,
                     'fields_of_study' => $this->fields_of_study,
                     'job_status' => $this->job_status,
+                    'occupational_group' => $this->occupational_group,
                     'institution' => $this->institution,
                     'region_id' => $this->region_id,
                     'district_id' => $this->district_id,

@@ -67,11 +67,21 @@ use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
+use App\Http\Livewire\Notifications;
+use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
+use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
+use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\RegistrationAccreditation\Reports\LearningCentersReport;
+use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\EditJobvacancy;
+use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
+use App\Http\Livewire\ResearchDevelopment\Reports\GraduatesReports;
+use App\Http\Livewire\ResearchDevelopment\Reports\LabourMarketReports;
+use App\Http\Livewire\ResearchDevelopment\Reports\ResearchSurveyReports;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -184,7 +194,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Research and Development module routes
   Route::group([
     'prefix' => 'researchdevelopment', 'as' => 'researchdevelopment.',
-    'middleware' => 'role:research_and_development_manager|research_and_development_officer'
+    'middleware' => 'role:research_and_development_module'
   ], function () {
 
     Route::redirect('/', 'researchdevelopment/dashboard');
@@ -224,17 +234,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
-      Route::get('learners', [ReportsController::class, 'learnersReport'])->name('learners');
-      Route::get('labour-market', [ReportsController::class, 'labourMarketReport'])->name('labour-market');
-      Route::get('research-survey', [ReportsController::class, 'researchSurveyReport'])->name('research-survey');
-      Route::post('research-report-generation', [ReportsController::class, 'generateResearchReport'])->name('research-report-generation');
+      Route::get('enrollments', EnrollmentReports::class)->name('enrollments');
+      Route::get('graduates', GraduatesReports::class)->name('graduates');
+      Route::get('labour-market', LabourMarketReports::class)->name('labour-market');
+      Route::get('research-survey', ResearchSurveyReports::class)->name('research-survey');
     });
   });
 
   // Standard and Curriculum module Routes
   Route::group([
     'prefix' => 'standardscurriculum', 'as' => 'standardscurriculum.',
-    'middleware' => 'role:standards_development_manager|standards_development_officer'
+    'middleware' => 'role:standards_development_module'
   ], function () {
     Route::redirect('/', 'standardscurriculum/dashboard');
 
@@ -255,7 +265,7 @@ Route::group(['middleware' => 'auth'], function () {
   // Registration and Accreditation Module Routes
   Route::group([
     'prefix' => 'registration-accreditation', 'as' => 'registration-accreditation.',
-    'middleware' => ['role:registration_and_accreditation_manager|registration_and_accreditation_officer']
+    'middleware' => ['role:registration_and_accreditation_module']
   ], function () {
 
     Route::redirect('/', 'registration-accreditation/dashboard');
@@ -300,13 +310,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     // applications
     Route::resource('applications', ApplicationsController::class)->except('create');
+
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+      Route::get('learning-centers', LearningCentersReport::class)->name('learning-centers');
+      Route::get('trainers', TrainersReport::class)->name('trainers');
+    });
   });
 
 
   // Assessment and certification Module routes
   Route::group([
     'prefix' => 'assessment-certification', 'as' => 'assessment-certification.',
-    'middleware' => 'role:assessment_and_certification_manager|assessment_and_certification_officer'
+    'middleware' => 'role:assessment_and_certification_module'
   ], function () {
 
     Route::redirect('/', 'assessment-certification/registrations');
@@ -332,6 +347,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Assessor/Verifiers
     Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
   });
+
+  // Notifications
+  Route::get('notifications', Notifications::class)->name('notifications');
 
 
   // Profiles Settings
@@ -363,6 +381,9 @@ Route::group(['middleware' => 'auth'], function () {
       Route::redirect('/', 'institution/dashboard');
 
       Route::get('dashboard', InstitutionDashboardController::class)->name('dashboard');
+      Route::get('interim-authorisation', InterimAuthorisation::class)->name('interim-authorisation');
+      Route::get('new-interim-authorisation', NewInterimAuthorisation::class)->name('new-interim-authorisation');
+      Route::get('edit-interim-authorisation/{id}', EditInterimAuthorisation::class)->name('edit-interim-authorisation');
       Route::resource('registration', RegistrationController::class);
       Route::resource('accreditation', AccreditationController::class);
       Route::resource('certificate-endorsements', CertificateEndorsementController::class);

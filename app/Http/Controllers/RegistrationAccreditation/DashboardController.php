@@ -21,8 +21,7 @@ class DashboardController extends Controller
         $tiles = [
             [
                 'name' => 'Training Provider Applications',
-                'data' => ApplicationDetail::where('application_category', 'registration')
-                    ->where('applicant_type', 'training_provider')
+                'data' => ApplicationDetail::where('application_type', 'institution_registration')
                     ->whereYear('created_at', date('Y'))
                     ->count(),
                 'background' => 'bg-info',
@@ -30,8 +29,7 @@ class DashboardController extends Controller
             ],
             [
                 'name' => 'Trainer Registration Applications',
-                'data' => ApplicationDetail::where('application_category', 'registration')
-                    ->where('applicant_type', 'trainer')
+                'data' => ApplicationDetail::where('application_type', 'trainer_registration')
                     ->whereYear('created_at', date('Y'))
                     ->count(),
                 'background' => 'bg-success',
@@ -39,8 +37,7 @@ class DashboardController extends Controller
             ],
             [
                 'name' => 'Trainer Accreditations Applications',
-                'data' => ApplicationDetail::where('application_category', 'accreditation')
-                    ->where('applicant_type', 'trainer')
+                'data' => ApplicationDetail::where('application_type', 'trainer_accreditation')
                     ->whereYear('created_at', date('Y'))
                     ->count(),
                 'background' => 'bg-success',

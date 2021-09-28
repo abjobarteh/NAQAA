@@ -46,24 +46,24 @@ class EditProgrammesOffered extends Component
 
     public function mount($id)
     {
-        $this->program_details = ProgramDetailsDataCollection::findOrFail($id)->load('programme');
+        $this->program_details = ProgramDetailsDataCollection::findOrFail($id)->load('programmeDetails');
         $this->fill([
-            'training_provider_id' => $this->program_details->programme->training_provider_id,
+            'training_provider_id' => $this->program_details->programmeDetails->training_provider_id,
             'programme_id' => $this->program_details->programme_id,
             'tuition_fee_per_year' => $this->program_details->tuition_fee_per_year,
             'duration' => $this->program_details->duration,
             'entry_requirements' => $this->program_details->entry_requirements,
-            'field_of_education' => $this->program_details->field_of_education,
+            'field_of_education' => $this->program_details->programmeDetails->field_of_education,
             'awarding_body' => $this->program_details->awarding_body,
             'academic_year' => $this->program_details->academic_year,
-            'accredited_programmes' => TrainingProviderProgramme::where('training_provider_id', $this->program_details->programme->training_provider_id)
-                ->pluck('programme_title', 'id'),
+            'accredited_programmes' => TrainingProviderProgramme::where('training_provider_id', $this->program_details->programmeDetails->training_provider_id)
+                ->with('programme')->get(),
             'isAccredited' => true
         ]);
 
-        if ($this->program_details->programme->is_accredited == 0) {
+        if ($this->program_details->programmeDetails->is_accredited == 0) {
             $this->isAccredited = false;
-            $this->program_name = $this->program_details->programme->programme_title;
+            $this->program_name = $this->program_details->programmeDetails->programme->name;
         }
     }
 
@@ -87,10 +87,10 @@ class EditProgrammesOffered extends Component
     {
         if (TrainingProvider::where('is_registered', 1)->where('id', $training_provider_id)->exists()) {
             $programmes = TrainingProviderProgramme::where('training_provider_id', $training_provider_id)
-                ->pluck('programme_title', 'id');
+                ->with('programme')->get();
         } else {
             $programmes = TrainingProviderProgramme::where('training_provider_id', $training_provider_id)
-                ->pluck('programme_title', 'id');
+                ->with('programme')->get();
         }
 
         if (!$programmes->isEmpty()) {
@@ -143,9 +143,8 @@ class EditProgrammesOffered extends Component
                     ]);
                 }
             } else {
-                $this->program_details->programme->update([
+                $this->program_details->programmeDetails->update([
                     'training_provider_id' => $this->training_provider_id,
-                    'programme_title' => $this->program_name,
                     'admission_requirements' => $this->entry_requirements,
                     'level_of_fees' => $this->tuition_fee_per_year,
                     'field_of_education' => $this->field_of_education,

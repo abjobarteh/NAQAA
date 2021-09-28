@@ -28,7 +28,7 @@ class ProgramOfferedController extends Controller
     {
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $programs = ProgramDetailsDataCollection::with('programme')->get();
+        $programs = ProgramDetailsDataCollection::with('programmeDetails', 'programmeDetails.programme')->get();
 
         return view('researchdevelopment.programdetails.index', compact('programs'));
     }
