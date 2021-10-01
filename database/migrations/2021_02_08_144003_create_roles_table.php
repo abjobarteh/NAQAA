@@ -17,7 +17,6 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('name'); // edit posts
             $table->string('slug'); //edit-posts
-            $table->string('role_level')->nullable(); //officer or manager
             $table->timestamps();
         });
     }

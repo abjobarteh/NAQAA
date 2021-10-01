@@ -47,15 +47,28 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Tuition Fee: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="tuition_fee" value="{{ $qualification->tuition_fee }}" required>
-                                            @error('tuition_fee')
+                                            <label>Practical: <sup class="text-danger">*</sup></label>
+                                            <select name="practical" id="practical" class="form-control select2" required>
+                                                <option value="">--- select if qualification is practical</option>
+                                                <option value="yes" {{ $qualification->practical === 'yes' ? 'selected' : '' }}>Yes</option>
+                                                <option value="no" {{ $qualification->practical === 'no' ? 'selected' : '' }}>No</option>
+                                            </select>
+                                            @error('practical')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Tuition Fee:</label>
+                                            <input type="text" class="form-control" name="tuition_fee" value="{{ $qualification->tuition_fee }}">
+                                            @error('tuition_fee')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Minimum Duration (months): <sup class="text-danger">*</sup></label>
@@ -123,7 +136,7 @@
                                         <div class="form-group">
                                             <label>Sub-Field of Education:</label>
                                             <select name="education_sub_field_id" id="education_sub_field_id" class="form-control select2">
-                                                <option>Select sub-field of education</option>
+                                                <option value="">Select sub-field of education</option>
                                                 @foreach ($subfields as $id => $subfield)
                                                     <option value="{{$id}}" {{$qualification->education_sub_field_id == $id ? 'selected' : ''}}>{{$subfield}}</option>
                                                 @endforeach

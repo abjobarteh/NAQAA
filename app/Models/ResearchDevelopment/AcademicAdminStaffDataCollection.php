@@ -2,6 +2,7 @@
 
 namespace App\Models\ResearchDevelopment;
 
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderStaffsRank;
 use App\Models\TrainingProviderStaffsRole;
 use Carbon\Carbon;
@@ -29,11 +30,11 @@ class AcademicAdminStaffDataCollection extends Model
         'highest_qualification',
         'other_qualifications',
         'specialisation',
-        'main_teaching_field_of_study',
-        'secondary_teaching_fields_of_study',
-        'rank_id',
-        'role_id',
-        'institution_id'
+        'rank',
+        'role',
+        'main_teaching_programme',
+        'secondary_teaching_programmes',
+        'institution_id',
     ];
 
     protected static $logFillable = true;
@@ -44,20 +45,19 @@ class AcademicAdminStaffDataCollection extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Academic and Admin Staff details data collection record added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Academic and Admin Staff details data collection record updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Academic and Admin Staff details data collection record deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Academic and Admin Staff details data collection record added by " . auth()->user()->username;
+            case 'updated':
+                return "Academic and Admin Staff details data collection record updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Academic and Admin Staff details data collection record deleted by " . auth()->user()->username;
         };
-        
     }
 
-    public function setSecondaryTeachingFieldsOfStudyAttribute($value)
+    public function setSecondaryTeachingProgrammesAttribute($value)
     {
-        $this->attributes['secondary_teaching_fields_of_study'] = json_encode($value);
+        $this->attributes['secondary_teaching_programmes'] = json_encode($value);
     }
 
     public function setOtherQualificationsAttribute($value)
@@ -75,7 +75,7 @@ class AcademicAdminStaffDataCollection extends Model
         $this->attributes['employment_date'] = new Carbon($value);
     }
 
-    public function getSecondaryTeachingFieldsOfStudyAttribute($value)
+    public function getSecondaryTeachingProgrammeAttribute($value)
     {
         return json_decode($value);
     }
@@ -87,21 +87,16 @@ class AcademicAdminStaffDataCollection extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
-    }
+        if ($this->middlename != '') {
 
-    public function rank()
-    {
-        return $this->belongsTo(TrainingProviderStaffsRank::class,'rank_id');
-    }
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
 
-    public function role()
-    {
-        return $this->belongsTo(TrainingProviderStaffsRole::class,'role_id');
+        return "{$this->firstname} {$this->lastname}";
     }
 
     public function learningcenter()
     {
-        return $this->belongsTo(InstitutionDetailsDataCollection::class,'institution_id');
+        return $this->belongsTo(TrainingProvider::class, 'institution_id');
     }
 }

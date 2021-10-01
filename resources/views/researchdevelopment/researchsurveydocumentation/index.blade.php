@@ -26,7 +26,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card">
+                    <div class="card research-card">
                         <div class="card-header">
                             <h3 class="card-title">Research Surveys List</h3>
                         </div>
@@ -80,4 +80,110 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    $(document).ready(function(){
+
+        $('#filter-jobvacancy').click(function(e){
+            e.preventDefault()
+            let topic = $('#topic').val()
+            let purpose = $('#purpose').val()
+            let main_findings = $('#main_findings').val()
+            let authors = $('#authors').val()
+            let funding_body = $('#funding_body').val()
+            let publication_date = $('#publication_date').val()
+            
+            let data = {
+                topic:topic,
+                purpose:purpose,
+                main_findings:main_findings,
+                authors:authors,
+                funding_body:funding_body,
+                publication_date:publication_date,
+            }
+
+            // if(qualification == null || qualification == '' || qualification == undefined){
+            //     Swal.fire({
+            //         title: 'No selected Qualification',
+            //         text: 'Please select a qualification',
+            //         icon: 'error',
+            //         confirmButtonText: 'Close'
+            //     })
+            //     errors.push('qualification_error')
+            //     return;
+            // }
+
+            $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({  
+                            method:"POST",  
+                            url:"{{ route('researchdevelopment.filter-research-survey') }}",  
+                            data: data,
+                            type:'json',
+                            success:function(response)  
+                            {
+                                response = JSON.parse(response)
+                                // console.log(response)
+                                if(response.status == 404)
+                                {
+                                    Swal.fire({
+                                        title: 'No Results',
+                                        text: response.message,
+                                        icon: 'success',
+                                        confirmButtonText: 'Close'
+                                    })
+                                }
+                                if(response.status == 200){
+                                    let temp = '<table id="example1" class="table datatable table-bordered table-hover">'+
+                                                    '<thead>'+
+                                                        '<tr>'+
+                                                            '<th>Research Topic</th>'+
+                                                            '<th>Publisher</th>'+
+                                                            '<th>Publication Date</th>'+
+                                                            '<th>Funded by</th>'+
+                                                            '<th>Cost (GMD)</th>'+
+                                                        '</tr>'+
+                                                    '</thead>'+
+                                                    '<tbody>';
+                                                        $.each(response.data, function(index,val){
+                                                            temp+='<tr>'+
+                                                                        `<td>${index+1}</td>`+
+                                                                        '<td>'+val.research_topic+'</td>'+
+                                                                        '<td>'+val.publisher+'</td>'+
+                                                                        '<td>'+val.publication_date+'</td>'+
+                                                                        '<td>'+val.funded_by+'</td>'+
+                                                                        '<td>'+val.cost+'</td>'+
+                                                                    '</tr>';
+                                                        })
+                                                    temp+='</tbody>'+
+                                                '</table>';
+                                        $('.research-card .card-body').empty().append(temp)
+                                        $('.research-card .card-title').empty().append('Research Survey  filter results')
+                                        $("#example1").DataTable({
+                                            "responsive": true, "lengthChange": true, "autoWidth": false,"paging": true,
+                                            "lengthChange": true,"ordering": true,"info": true,
+                                            "searching": true,
+                                            "buttons": [ "csv", "excel", "pdf", "print"]
+                                        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+                                }
+                            },
+                            error: function(err)
+                            {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: err.responseJSON.message,
+                                    icon: 'error',
+                                    confirmButtonText: 'Close'
+                                })
+                            }  
+                    });
+        })
+    })
+</script>
 @endsection

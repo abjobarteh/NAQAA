@@ -29,6 +29,7 @@ class StoreQualificationLevelsRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
+            'type' => 'required|string',
             'description' => 'nullable|string'
         ];
     }
@@ -36,7 +37,8 @@ class StoreQualificationLevelsRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Please Enter Field of education name!'
+            'name.required' => 'Please Enter Qualification level name',
+            'type.required' => 'Please select Qualification level type',
         ];
     }
 }

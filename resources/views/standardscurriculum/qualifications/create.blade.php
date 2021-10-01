@@ -46,25 +46,38 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Tuition Fee: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="tuition_fee" value="{{ old('tuition_fee') }}" required>
-                                            @error('tuition_fee')
+                                            <label>Practical: <sup class="text-danger">*</sup></label>
+                                            <select name="practical" id="practical" class="form-control select2" required>
+                                                <option value="">--- select if qualification is practical</option>
+                                                <option value="yes">Yes</option>
+                                                <option value="no">No</option>
+                                            </select>
+                                            @error('practical')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Tuition Fee:</label>
+                                            <input type="number" class="form-control" name="tuition_fee" value="{{ old('tuition_fee') }}" min="0" step="1">
+                                            @error('tuition_fee')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Minimum Duration (months): <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="minimum_duration" value="{{ old('minimum_duration') }}" required>
+                                            <input type="number" class="form-control" name="minimum_duration" value="{{ old('minimum_duration') }}" min="0" step="1" required>
                                             @error('minimum_duration')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Mode of delivery: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="mode_of_delivery" value="{{ old('mode_of_delivery') }}" required>

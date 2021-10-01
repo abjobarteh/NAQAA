@@ -36,20 +36,20 @@
                                 <div class="col-12 col-md-12 col-lg-12">
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Position Advertised: </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy[0]->position_advertised}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->position_advertised}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Minimum Required Qualification: </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy[0]->minimum_required_qualification}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->minimum_required_qualification}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Minimum Required Job Experience (Years): </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy[0]->minimum_required_job_experience}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->minimum_required_job_experience}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Field(s) of Study: </b>
-                                        @if(!is_null($jobvacancy[0]->fields_of_study))
-                                        @foreach ($jobvacancy[0]->fields_of_study as $field)
+                                        @if(!is_null($jobvacancy->fields_of_study))
+                                        @foreach ($jobvacancy->fields_of_study as $field)
                                             <span class="badge badge-rounded badge-info m-1">{{$field}}</span>
                                         @endforeach
                                         @else
@@ -58,11 +58,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Region: </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy[0]->region->name}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->region->name}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Institution: </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy[0]->institution}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->institution}}</p>
                                     </div>
                                 </div>
                             </div>

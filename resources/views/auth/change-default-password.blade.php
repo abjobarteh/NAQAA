@@ -9,7 +9,7 @@
               <div class="login_wrapper">
                   <div class="row">
                       <div class="col-lg-12 col-md-6 col-xs-12 col-sm-6 mb-2">
-                          <b class="text-primary">For Security reasons you are adviced to please change your password</b>
+                          <b class="text-primary">For Security reasons you have to change your password</b>
                       </div>
                   </div>
                   <form action="/update-default-password" method="post">
@@ -33,14 +33,14 @@
                         <button type="submit" class="btn btn-primary btn-block login_btn"> Confirm </button>
                       </div>
                   </form>
-                    <div class="login_message">
+                    {{-- <div class="login_message">
                         <p>Don’t want to change password ?
                            <a href="{{ route('skip-default-password') }}" onclick="event.preventDefault(); document.getElementById('skipDefaultpassworUpdate-form').submit();"> Proceed </a>
                         </p>
                         <form id="skipDefaultpassworUpdate-form" action="{{ route('skip-default-password') }}" method="POST" style="display: none;">
                           {{ csrf_field() }}
                         </form>
-                    </div>
+                    </div> --}}
               </div> <!-- /.login_wrapper-->
           </div>
       </div>

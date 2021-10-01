@@ -15,8 +15,8 @@ class UpdateAcademicAdminStaffDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
-        
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 
@@ -40,16 +40,16 @@ class UpdateAcademicAdminStaffDetailsDataCollectionRequest extends FormRequest
             'salary_per_month' => 'required|string',
             'employment_date' => 'required|date',
             'employment_type' => 'required|string',
-            'highest_qualification' =>'required|string',
-            'other_qualifications' => ['nullable','array'],
+            'highest_qualification' => 'required|string',
+            'other_qualifications' => ['nullable', 'array'],
             'other_qualifications.*' => ['string'],
             'specialisation' => 'required|string',
-            'rank_id' => 'required|numeric|integer',
-            'role_id' => 'required|numeric|integer',
+            'rank' => 'nullable|string',
+            'role' => 'nullable|string',
             'institution_id' => 'required|numeric|integer',
-            'main_teaching_field_of_study' => 'required|string',
-            'secondary_teaching_fields_of_study' => ['nullable','array'],
-            'secondary_teaching_fields_of_study.*' => ['string'],
+            'main_teaching_programme' => 'required|string',
+            'secondary_teaching_programmes' => ['nullable', 'array'],
+            'secondary_teaching_programmes.*' => ['string'],
         ];
     }
 
@@ -70,14 +70,12 @@ class UpdateAcademicAdminStaffDetailsDataCollectionRequest extends FormRequest
             'salary_per_month.required' => 'Please Enter salary per month',
             'employment_date.required' => 'Please Enter employment date',
             'employment_type.required' => 'Please select the type of employment',
-            'highest_qualification' =>'Please Select highest qualification',
-            'rank_id.required' => 'Please select rank',
-            'rank_id.numeric' => 'Rank cannot be empty',
-            'role_id.required' => 'Please select role',
-            'role_id.numeric' => 'Role cannot be empty',
+            'highest_qualification' => 'Please Select highest qualification',
+            'rank.required' => 'Please select rank',
+            'role.required' => 'Please select role',
             'institution_id.required' => 'Please select learning center',
             'institution_id.numeric' => 'Learning center cannot be empty',
-            'main_teaching_field_of_study' => 'Please enter main teaching field of study',
+            'main_teaching_programme' => 'Please enter main teaching programme',
         ];
     }
 }

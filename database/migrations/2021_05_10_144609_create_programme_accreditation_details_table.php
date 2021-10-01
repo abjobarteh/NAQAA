@@ -16,6 +16,7 @@ class CreateProgrammeAccreditationDetailsTable extends Migration
         Schema::create('programme_accreditation_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('application_id')->nullable()->constrained('application_details');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('status')->nullable();
             $table->date('accreditation_start_date')->nullable();
             $table->date('accreditation_end_date')->nullable();

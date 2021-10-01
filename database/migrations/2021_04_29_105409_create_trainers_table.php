@@ -15,12 +15,12 @@ class CreateTrainersTable extends Migration
     {
         Schema::create('trainers', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
+            $table->string('firstname')->nullable();
             $table->string('middlename')->nullable();
-            $table->string('lastname');
+            $table->string('lastname')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->string('gender')->nullable();
-            $table->string('nationality')->nullable();
+            $table->string('country_of_citizenship')->nullable();
             $table->string('TIN')->nullable();
             $table->string('NIN')->nullable();
             $table->string('AIN')->nullable();
@@ -29,14 +29,14 @@ class CreateTrainersTable extends Migration
             $table->string('postal_address')->nullable();
             $table->string('phone_home')->nullable();
             $table->string('phone_mobile')->nullable();
-            $table->json('employment_history')->nullable();
-            $table->json('authentications')->nullable();
+            $table->longText('employment_history')->nullable();
+            $table->longText('authentications')->nullable();
             $table->string('type')->nullable();
-            $table->json('academic_qualifications')->nullable();
-            $table->json('relevant_experiences')->nullable();
+            $table->longText('academic_qualifications')->nullable();
+            $table->longText('relevant_experiences')->nullable();
+            $table->foreignId('login_id')->nullable()->constrained('users');
             $table->string('storage_path')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

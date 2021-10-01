@@ -1,5 +1,5 @@
 {{-- Research and Development --}}
-@role('research_and_development_manager|research_and_development_officer')
+@role('research_and_development_module')
 <li class="nav-item">
   <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
      request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
@@ -36,7 +36,9 @@
     <li class="nav-item">
       <a href="{{route('researchdevelopment.datacollection.program-details.index')}}" class="nav-link 
       {{ request()->is('researchdevelopment/datacollection/program-details') || 
-         request()->is('researchdevelopment/datacollection/program-details/*') ? 'active' : '' }}">
+         request()->is('researchdevelopment/datacollection/program-details/*') ||
+         request()->is('researchdevelopment/datacollection/add-programme-details') ||
+         request()->is('researchdevelopment/datacollection/edit-programme-details/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-tasks"></i>
         <p>
           Programs Offered
@@ -83,7 +85,9 @@
 <li class="nav-item">
     <a href="{{route('researchdevelopment.job-vacancies.index')}}" class="nav-link {{
        request()->is('researchdevelopment/job-vacancies') ||
-       request()->is('researchdevelopment/job-vacancies/*') ? 'active' : '' }}"
+       request()->is('researchdevelopment/job-vacancies/*') ||
+       request()->is('researchdevelopment/add-jobvacancy') ||
+       request()->is('researchdevelopment/edit-jobvacancy/*') ? 'active' : '' }}"
        >
       <i class="nav-icon fas fa-briefcase"></i>
       <p>
@@ -105,20 +109,60 @@
     </li>
     @endcan
   @can('access_research_development_reports')
-  <li class="nav-item">
-    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
-       >
-      <i class="nav-icon fas fa-chart-bar"></i>
+  <li class="nav-item menu-open">
+    <a href="#" class="nav-link 
+    {{ request()->is('researchdevelopment/reports/*') || 
+       request()->is('researchdevelopment/reports/*') ? 'active' : '' }}"
+      >
+      <i class="nav-icon fas fa-chart-area"></i>
       <p>
         Reports
+        <i class="right fas fa-angle-left"></i>
       </p>
     </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.enrollments')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/enrollments') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Enrollments
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.graduates')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/graduates') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Graduates
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.labour-market')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/labour-market') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-briefcase"></i>
+          <p>
+            Labour Market
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{{route('researchdevelopment.reports.research-survey')}}" class="nav-link 
+        {{ request()->is('researchdevelopment/reports/research-survey') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-search-dollar"></i>
+          <p>
+            Research or Survey
+          </p>
+        </a>
+      </li>
+    </ul>
   </li>
   @endcan
 @endrole
 {{-- Standards and curriculum --}}
-@role('standards_development_manager|standards_development_officer')
+@role('standards_development_module')
 <li class="nav-item">
   <a href="{{route('standardscurriculum.dashboard')}}" class="nav-link {{
      request()->is('standardscurriculum/dashboard') ? 'active' : '' }}"
@@ -129,7 +173,7 @@
     </p>
   </a>
 </li>
-@can('access_unit_standards')
+@can('access_qualifications')
 <li class="nav-item">
   <a href="{{route('standardscurriculum.qualifications.index')}}" class="nav-link 
   {{ request()->is('standardscurriculum/qualifications') || 
@@ -183,7 +227,7 @@
 @endrole
 
 {{-- Registration Accreditation --}}
-@role('registration_and_accreditation_manager|registration_and_accreditation_officer')
+@role('registration_and_accreditation_module')
 <li class="nav-item">
   <a href="{{route('registration-accreditation.dashboard')}}" class="nav-link {{
      request()->is('registration-accreditation/dashboard') ? 'active' : '' }}"
@@ -294,27 +338,59 @@
   </ul>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link"
+  <a href="{{route('registration-accreditation.applications.index')}}" class="nav-link 
+  {{ request()->is('registration-accreditation/applications') || 
+    request()->is('registration-accreditation/applications/*') ? 'active' : '' }}"
      >
     <i class="nav-icon fas fa-envelope"></i>
     <p>
       Applications
-      <span class="badge badge-info right">6</span>
+      <span class="badge badge-info right">@php
+          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_through', 'portal')
+            ->where('application_form_status', 'submitted')
+            ->where('status', 'Pending')
+            ->latest()
+            ->count();
+      @endphp</span>
     </p>
   </a>
 </li>
-<li class="nav-item">
-  <a href="#" class="nav-link"
-     >
-    <i class="nav-icon fas fa-chart-bar"></i>
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
+  {{ request()->is('registration-accreditation/reports/*') || 
+     request()->is('registration-accreditation/reports/*') ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-chart-area"></i>
     <p>
       Reports
+      <i class="right fas fa-angle-left"></i>
     </p>
   </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.reports.learning-centers')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/reports/learning-centers') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-university"></i>
+        <p>
+          Learning Centers
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.reports.trainers')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/reports/trainers') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-id-card"></i>
+        <p>
+          Trainers
+        </p>
+      </a>
+    </li>
+  </ul>
 </li>
 @endrole
 
-@role('assessment_and_certification_manager|assessment_and_certification_officer')
+{{-- Assessment & Certification --}}
+@role('assessment_and_certification_module')
 <li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
      request()->is('assessment-certification/registrations') || 
@@ -330,7 +406,7 @@
   <a href="#" class="nav-link 
   {{ request()->is('assessment-certification/assessment/*') ? 'active' : '' }}"
     >
-    <i class="nav-icon fas fa-stamp"></i>
+    <i class="nav-icon fas fa-stream"></i>
     <p>
       Assessmeent
       <i class="right fas fa-angle-left"></i>
@@ -364,9 +440,20 @@
      request()->is('assessment-certification/certificate-endorsements') ||
      request()->is('assessment-certification/certificate-endorsements/*') ? 'active' : '' }}"
      >
-    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <i class="nav-icon fas fa-stamp"></i>
     <p>
       Endorsements
+    </p>
+  </a>
+</li>
+<li class="nav-item">
+  <a href="{{route('assessment-certification.assessor-verifiers')}}" class="nav-link {{
+     request()->is('assessment-certification/assessor-verifiers') ||
+     request()->is('assessment-certification/assessor-verifiers/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-chalkboard-teacher"></i>
+    <p>
+      Assessor/Verifiers
     </p>
   </a>
 </li>

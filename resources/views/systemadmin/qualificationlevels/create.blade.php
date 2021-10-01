@@ -40,6 +40,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="name" class="col-form-label col-md-4">Qualification level type: <span class="text-danger"><sup>*</sup></span></label>
+                                    <div class="col-md-8">
+                                        <select name="type" id="type" class="form-control custom-select">
+                                            <option value="">--- select qualification level type ---</option>
+                                            <option value="regular" {{ old('type') === 'regular' ? 'selected'  : '' }}>Regular</option>
+                                            <option value="gsq" {{ old('type') === 'gsq' ? 'selected'  :'' }}>GSQ</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12 mt-1">
+                                       @error('type')
+                                           <span class="text-danger">{{$message}}</span>
+                                       @enderror
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="name" class="col-form-label col-md-4">Description:</label>
                                     <div class="col-md-8">
                                         <textarea name="description" id="description" value="{{ old('description') }}" class="form-control" cols="30" rows="10"></textarea>

@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Events\RegistrationActivity;
 use App\Events\UserActivity;
 use App\Http\Controllers\Controller;
+use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainerType;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\Role;
+use App\Models\TrainingProviderClassification;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Carbon\Carbon;
@@ -23,7 +27,10 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('auth.register');
+        $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
+        $trainer_types = TrainerType::all();
+
+        return view('auth.register', compact('classifications', 'trainer_types'));
     }
 
     /**
@@ -36,37 +43,75 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed|min:8',
-            'first_name' => 'required|string',
-            'middle_name' => 'nullable|string',
-            'last_name' => 'required|string',
-            'phone_number' => 'required|string|digits_between:7,15',
-            'address' => 'required|string',
-        ]);
-        
-        Auth::login($user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name ?? null,
-            'last_name' => $request->last_name,
-            'full_name' => $request->first_name.' '.$request->middle_name.' '.$request->last_name ?? $request->first_name.' '.$request->last_name,
-            'phone_number' => $request->phone_number,
-            'address' => $request->address,
-            'directorate_id' => null,
-            'unit_id' => null,
-            'designation_id' => null,
-            'user_status' => 1,
-            'default_password_status' => 1,
-        ]));
+        if ($request->user_type === 'institution') {
 
-        event(new Registered($user));
-        $user->roles()->attach(Role::where('slug','systemadmin')->first());
+            $request->validate([
+                'username' => ['required', 'string', 'unique:users'],
+                'email' => ['required', 'email', 'unique:users'],
+                'password' => ['required', 'string', 'confirmed', 'min:8'],
+                'institution_name' => ['required', 'string'],
+                'phone_number' => ['required', 'string'],
+                'classification' => ['required', 'integer'],
+            ]);
 
-        return redirect(route('systemadmin.index'));
+            Auth::login($user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_category' => 'portal',
+                'user_status' => 1,
+                'default_password_status' => 0,
+            ]));
+
+            $user->roles()->attach(Role::where('slug', $request->user_type)->first());
+
+            TrainingProvider::create([
+                'name' =>  $request->institution_name,
+                'mobile_phone' =>  $request->phone_number,
+                'classification_id' =>  $request->classification,
+                'login_id' => $user->id
+            ]);
+
+            event(new Registered($user));
+
+            return redirect(route('portal.institution.dashboard'));
+        } else {
+            $request->validate([
+                'username' => ['required', 'string', 'unique:users'],
+                'email' => ['required', 'email', 'unique:users'],
+                'trainerpassword' => ['required', 'string', 'confirmed', 'min:8'],
+                'firstname' => ['required', 'string'],
+                'middlename' => ['nullable', 'string'],
+                'lastname' => ['required', 'string'],
+                'trainer_phone_number' => ['required', 'string'],
+                'trainer_type' => ['required', 'string'],
+            ]);
+
+            Auth::login($user = User::create([
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => $request->user_type,
+                'user_category' => 'portal',
+                'user_status' => 1,
+                'default_password_status' => 0,
+            ]));
+
+            $user->roles()->attach(Role::where('slug', $request->user_type)->first());
+
+            Trainer::create([
+                'firstname' => $request->firstname,
+                'middlename' => $request->middlename,
+                'lastname' => $request->lastname,
+                'email' => $request->email,
+                'phone_mobile' => $request->trainer_phone_number,
+                'type' => $request->trainer_type,
+                'login_id' => $user->id,
+            ]);
+
+            event(new Registered($user));
+
+            return redirect(route('portal.trainer.dashboard'));
+        }
     }
 }

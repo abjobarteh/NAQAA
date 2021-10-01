@@ -12,9 +12,10 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     @can('create_data_collection')
-                        <a href="{{route('researchdevelopment.datacollection.program-details.create')}}" 
-                            class="btn btn-primary float-right">
-                            New Data collection
+                        <a href="{{route('researchdevelopment.datacollection.add-programme-details')}}" 
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i> &nbsp;
+                            New Programme Data collection
                         </a>
                     @endcan
                 </div><!-- /.col -->
@@ -23,7 +24,7 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="roe">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -33,35 +34,35 @@
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Program name</th>
+                                        <th>Training/Education Provider</th>
+                                        <th>Programme</th>
                                         <th>Field of Education</th>
                                         <th>Duration (months)</th>
                                         <th>Tuition fee per year</th>
                                         <th>Entry requirements</th>
                                         <th>Awarding Body</th>
-                                        <th>Learning Center</th>
-                                        <th>Date collected</th>
+                                        <th>Academic year</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($programs as $program)
                                         <tr>
-                                            <td>{{$program->program_name}}</td>
-                                            <td>{{$program->educationfield->name}}</td>
+                                            <td>{{$program->programmeDetails->trainingprovider->name ?? 'N/A'}}</td>
+                                            <td>{{$program->programmeDetails->programme->name ?? 'N/A'}}</td>
+                                            <td>{{$program->programmeDetails->fieldOfEducation->name ?? 'N/A'}}</td>
                                             <td>{{$program->duration}}</td>
                                             <td>{{$program->tuition_fee_per_year}}</td>
                                             <td>
                                                 @foreach($program->entry_requirements as $id => $req)
-                                                    <span class="btn btn-sm btn-success m-1">{{$req}}</span>    
+                                                    <span class="badge badge-rounded badge-success m-1">{{$req}}</span>    
                                                 @endforeach
                                             </td>
                                             <td>{{$program->awarding_body}}</td>
-                                            <td>{{$program->learningcenter->name}}</td>
-                                            <td>{{$program->created_at}}</td>
+                                            <td>{{$program->academic_year}}</td>
                                             <td>
                                                 @can('edit_data_collection')
-                                                    <a href="{{route('researchdevelopment.datacollection.program-details.edit',$program->id)
+                                                    <a href="{{route('researchdevelopment.datacollection.edit-programme-details',$program->id)
                                                         }}" class="btn btn-sm btn-danger"
                                                         title="edit program details"
                                                         >

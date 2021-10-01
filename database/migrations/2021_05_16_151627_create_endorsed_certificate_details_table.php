@@ -15,15 +15,19 @@ class CreateEndorsedCertificateDetailsTable extends Migration
     {
         Schema::create('endorsed_certificate_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('institution_id')->nullable()->constrained('training_providers');
+            $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
             $table->string('programme')->nullable();
             $table->string('level')->nullable();
-            $table->string('total_certificates')->nullable();
+            $table->string('total_certificates_declared')->nullable();
+            $table->string('total_certificates_received')->nullable();
             $table->string('total_males')->nullable();
             $table->string('total_females')->nullable();
             $table->longText('trainer_details')->nullable();
             $table->string('endorsed_certificates')->nullable();
             $table->string('non_endorsed_certificates')->nullable();
+            $table->date('programme_start_date')->nullable();
+            $table->date('programme_end_date')->nullable();
+            $table->string('request_status')->nullable();
             $table->timestamps();
         });
     }

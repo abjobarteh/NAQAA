@@ -12,7 +12,6 @@ class AccreditedProgramme extends Model
 
     protected $fillable = [
         'trainingprovider_id',
-        'application_id',
         'programme_title',
         'level',
         'mentoring_institution',
@@ -29,10 +28,6 @@ class AccreditedProgramme extends Model
         'level_of_fees',
         'department_name',
         'department_establishment_date',
-        'department_head_names',
-        'department_head_qualifications',
-        'department_head_other_qualifications',
-        'department_head_experience',
         'curriculum_design_process',
         'curriculum_update',
         'programme_structure',
@@ -42,11 +37,9 @@ class AccreditedProgramme extends Model
         'staff_recruitment_policy',
         'provisions_for_disability',
         'provided_safety_facilities',
-        'accreditation_status',
-        'accreditation_start_date',
-        'accreditation_end_date',
     ];
 
+    protected $with = ['departmentHeads'];
     protected static $logFillable = true;
 
     protected static $logName = 'Training Provider Programme';
@@ -81,12 +74,17 @@ class AccreditedProgramme extends Model
 
     public function application()
     {
-        return $this->hasOne(ApplicationDetail::class, 'programme_id');
+        return $this->belongsTo(ApplicationDetail::class, 'programme_id');
     }
 
     public function staffs()
     {
         return $this->hasMany(AccreditedProgrammeStaff::class, 'accredited_programme_id');
+    }
+
+    public function departmentHeads()
+    {
+        return $this->hasMany(ProgrammeDepartmentHead::class, 'accredited_programme_id');
     }
 
     public function studentsData()

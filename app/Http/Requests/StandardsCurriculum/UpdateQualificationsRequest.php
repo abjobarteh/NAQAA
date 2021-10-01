@@ -29,13 +29,14 @@ class UpdateQualificationsRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'tuition_fee' => ['required','numeric'],
-            'entry_requirements' => ['required','array'],
+            'practical' => ['required', 'in:yes,no'],
+            'tuition_fee' => ['bail', 'nullable', 'numeric'],
+            'entry_requirements' => ['required', 'array'],
             'entry_requirements.*' => ['string'],
-            'mode_of_delivery' => ['required','string'],
-            'minimum_duration' => ['required','numeric'],
-            'qualification_level_id' => ['required','numeric','integer'],
-            'education_field_id' => ['required','numeric','integer'],
+            'mode_of_delivery' => ['required', 'string'],
+            'minimum_duration' => ['required', 'numeric'],
+            'qualification_level_id' => ['required', 'numeric', 'integer'],
+            'education_field_id' => ['required', 'numeric', 'integer'],
             'education_sub_field_id' => ['nullable'],
         ];
     }
@@ -44,7 +45,6 @@ class UpdateQualificationsRequest extends FormRequest
     {
         return [
             'name.required' => 'Please Enter Qualification name',
-            'tuition_fee.required' => 'Please Enter the tuition fee',
             'tuition_fee.numeric' => 'Tuition fee must be a number',
             'entry_requirements.required' => 'Please Enter the Entry requirement(s)',
             'mode_of_delivery.required' => 'Please Enter the mode of delivery',

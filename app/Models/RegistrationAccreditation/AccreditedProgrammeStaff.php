@@ -11,7 +11,7 @@ class AccreditedProgrammeStaff extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'accredited_programme_id',
+        'programme_id',
         'name',
         'gender',
         'nationality',

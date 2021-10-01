@@ -9,7 +9,7 @@
         <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">DataCollection Imports</h1>
+            <h1 class="m-0">DataCollection Import Center</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -23,26 +23,33 @@
                 </div>
                 
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <form action="{{route('researchdevelopment.datacollection-imports.store')}}" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <label for="customFile">Datacollection Template:</label>
+                    <form action="{{route('researchdevelopment.datacollection-imports.store')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
                                 <div class="form-group">
-                                    <div class="custom-file">
-                                      <input type="file" class="custom-file-input" id="excelfile" name="excelfile">
-                                      <label class="custom-file-label" for="customFile">upload excel file</label>
-                                    </div>
-                                    @error('excelfile')
+                                    <label for="excelFile">upload excel file</label>
+                                    <input type="file" class="form-control" id="excelFile" name="excelFile">
+                                    @error('excelFile')
                                         <span class="text-danger">{{$message}}</span>
                                     @enderror
-                                  </div>
-                                  <div class="form-group">
-                                      <button class="btn btn-primary"><i class="fas fa-upload"></i> Upload</button>
-                                  </div>
-                            </form>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="table_type">Import for:</label>
+                                <select name="table_type" id="table_type" class="form-control select2">
+                                    <option value="">--- select table to import to ---</option>
+                                    <option value="job_vacancy">Job Vacancies information</option>
+                                    <option value="institution_datacollection">Institutions Datacollection</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mt-2">
+                                    <button class="btn btn-success btn-block btn-flat"><i class="fas fa-upload"></i> Import</button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

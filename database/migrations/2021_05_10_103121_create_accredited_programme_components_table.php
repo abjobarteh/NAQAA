@@ -15,7 +15,7 @@ class CreateAccreditedProgrammeComponentsTable extends Migration
     {
         Schema::create('accredited_programme_components', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('accredited_programme_id')->nullable()->constrained('accredited_programmes');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('course_level_no')->nullable();
             $table->string('course_title')->nullable();
             $table->string('pre_requisite')->nullable();

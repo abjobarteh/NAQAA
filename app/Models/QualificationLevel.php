@@ -13,6 +13,7 @@ class QualificationLevel extends Model
 
     protected $fillable = [
         'name',
+        'type',
         'description'
     ];
     protected static $logFillable = true;
@@ -21,27 +22,25 @@ class QualificationLevel extends Model
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch($eventName){
-    //         case 'created': 
-    //                  return "New Qualification Level added by ".auth()->user()->username;
-    //         case 'updated': 
-    //                  return "Qualification Level updated by ".auth()->user()->username;
-    //         case 'deleted': 
-    //                  return "Qualification Level deleted by ".auth()->user()->username;
-    //     };
-
-    // }
-
-    public function students()
+    public function getDescriptionForEvent(string $eventName): string
     {
-
-        return $this->hasMany(StudentDetailsDataCollection::class, 'qualification_at_entry');
+        switch ($eventName) {
+            case 'created':
+                return "New Qualification Level added by " . auth()->user()->username;
+            case 'updated':
+                return "Qualification Level updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Qualification Level deleted by " . auth()->user()->username;
+        };
     }
 
-    public function registeredStudents()
+    public function studentAwards()
     {
-        return $this->hasMany(RegisteredStudent::class, 'programme_level_id');
+        return $this->hasMany(TrainingProviderStudent::class, 'award');
+    }
+
+    public function studentEntryQualifications()
+    {
+        return $this->hasMany(TrainingProviderStudent::class, 'qualification_at_entry');
     }
 }

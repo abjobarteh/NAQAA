@@ -8,10 +8,12 @@ use App\Http\Requests\ResearchDevelopment\UpdateInstitutionDetailsDataCollection
 use App\Models\District;
 use App\Models\LocalGovermentAreas;
 use App\Models\Region;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderClassification;
 use App\Models\TrainingProviderOwnership;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,9 +26,9 @@ class InstitutionDetailsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $institutionsdata = InstitutionDetailsDataCollection::all();
+        $institutionsdata = InstitutionDetailsDataCollection::with('trainingprovider:id,name')->latest()->get();
 
         return view('researchdevelopment.institutiondetails.index', compact('institutionsdata'));
     }
@@ -38,16 +40,20 @@ class InstitutionDetailsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
-        $classifications = TrainingProviderClassification::all()->pluck('name','id');
-        $regions = Region::all()->pluck('name','id');
-        $districts = District::all()->pluck('name','id');
-        $lgas = LocalGovermentAreas::all()->pluck('name','id');
+        $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
+        $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
+        $regions = Region::all()->pluck('name', 'id');
+        $districts = District::all()->pluck('name', 'id');
+        $lgas = LocalGovermentAreas::all()->pluck('name', 'id');
+        $registered_institutions = TrainingProvider::whereHas('validLicence')->pluck('name', 'id');
+        $institutions = TrainingProvider::all()->pluck('name', 'id');
 
-        return view('researchdevelopment.institutiondetails.create',
-                    compact('ownerships','classifications','districts','lgas','regions'));
+        return view(
+            'researchdevelopment.institutiondetails.create',
+            compact('ownerships', 'classifications', 'districts', 'lgas', 'regions', 'registered_institutions', 'institutions')
+        );
     }
 
     /**
@@ -58,10 +64,62 @@ class InstitutionDetailsController extends Controller
      */
     public function store(StoreInstitutionDetailsDataCollectionRequest $request)
     {
-        InstitutionDetailsDataCollection::create($request->validated());
+        DB::transaction(function () use ($request) {
+            if ($request->datacollection_type === 'new') {
+                if ($request->registration_status != 'yes') {
+                    $trainingprovider = TrainingProvider::create([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'mobile_phone' => $request->phone,
+                        'address' => $request->address,
+                        'po_box' => $request->po_box,
+                        'webiste' => $request->webiste,
+                        'region_id' => $request->region_id,
+                        'district_id' => $request->district_id,
+                        'lga_id' => $request->lga_id,
+                        'ownership_id' => $request->ownership_id,
+                        'classification_id' => $request->classification_id,
+                        'is_registered' => 0,
+                    ]);
+
+                    InstitutionDetailsDataCollection::create([
+                        'institution_id' => $trainingprovider->id,
+                        'financial_source' => $request->financial_source,
+                        'yearly_turnover' => $request->yearly_turnover,
+                        'enrollment_capacity' => $request->enrollment_capacity,
+                        'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                        'no_of_computer_labs' => $request->no_of_computer_labs,
+                        'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                        'academic_year' => $request->academic_year,
+                    ]);
+                } else {
+                    InstitutionDetailsDataCollection::create([
+                        'institution_id' => $request->training_provider,
+                        'financial_source' => $request->financial_source,
+                        'yearly_turnover' => $request->yearly_turnover,
+                        'enrollment_capacity' => $request->enrollment_capacity,
+                        'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                        'no_of_computer_labs' => $request->no_of_computer_labs,
+                        'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                        'academic_year' => $request->academic_year,
+                    ]);
+                }
+            } else {
+                InstitutionDetailsDataCollection::create([
+                    'institution_id' => $request->training_provider,
+                    'financial_source' => $request->financial_source,
+                    'yearly_turnover' => $request->yearly_turnover,
+                    'enrollment_capacity' => $request->enrollment_capacity,
+                    'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                    'no_of_computer_labs' => $request->no_of_computer_labs,
+                    'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                    'academic_year' => $request->academic_year,
+                ]);
+            }
+        });
 
         return redirect()->route('researchdevelopment.datacollection.institution-details.index')
-                ->withSuccess('Institution details data collection record successfully added');
+            ->withSuccess('Institution details data collection record successfully added');
     }
 
     /**
@@ -72,10 +130,9 @@ class InstitutionDetailsController extends Controller
      */
     public function show($id)
     {
-        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $data = InstitutionDetailsDataCollection::with(['ownership','classification','district','localgovermentarea'])
-                ->where('id', $id)->get();
+        $data = InstitutionDetailsDataCollection::findOrFail($id)->load('trainingprovider');
 
         return view('researchdevelopment.institutiondetails.show', compact('data'));
     }
@@ -88,17 +145,20 @@ class InstitutionDetailsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $data = InstitutionDetailsDataCollection::where('id', $id)->get();
-        $ownerships = TrainingProviderOwnership::all()->pluck('name','id');
-        $classifications = TrainingProviderClassification::all()->pluck('name','id');
-        $regions = Region::all()->pluck('name','id');
-        $districts = District::all()->pluck('name','id');
-        $lgas = LocalGovermentAreas::all()->pluck('name','id');
+        $data = InstitutionDetailsDataCollection::findOrFail($id)->load('trainingprovider');
+        $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
+        $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
+        $regions = Region::all()->pluck('name', 'id');
+        $districts = District::all()->pluck('name', 'id');
+        $lgas = LocalGovermentAreas::all()->pluck('name', 'id');
+        $registered_institutions = TrainingProvider::whereHas('validLicence')->pluck('name', 'id');
 
-        return view('researchdevelopment.institutiondetails.edit',
-                    compact('ownerships','classifications','districts','lgas','data','regions'));
+        return view(
+            'researchdevelopment.institutiondetails.edit',
+            compact('ownerships', 'classifications', 'districts', 'lgas', 'data', 'regions', 'registered_institutions')
+        );
     }
 
     /**
@@ -109,14 +169,77 @@ class InstitutionDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateInstitutionDetailsDataCollectionRequest $request, 
+        UpdateInstitutionDetailsDataCollectionRequest $request,
         InstitutionDetailsDataCollection $institution_detail
-        )
-    {
-        $institution_detail->update($request->validated());
+    ) {
+        DB::transaction(function () use ($institution_detail, $request) {
+            if ($request->registration_status != 'yes') {
 
-        return redirect()->route('researchdevelopment.datacollection.institution-details.index')
-                ->withSuccess('Institution details data collection record successfully updated');
+                if ($institution_detail->trainingprovider->is_registered === '0') {
+                    $institution_detail->trainingprovider->update([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'mobile_phone' => $request->phone,
+                        'address' => $request->address,
+                        'po_box' => $request->po_box,
+                        'webiste' => $request->webiste,
+                        'region_id' => $request->region_id,
+                        'district_id' => $request->district_id,
+                        'lga_id' => $request->lga_id,
+                        'ownership_id' => $request->ownership_id,
+                        'classification_id' => $request->classification_id,
+                    ]);
+
+                    $institution_detail->update([
+                        'financial_source' => $request->financial_source,
+                        'yearly_turnover' => $request->yearly_turnover,
+                        'enrollment_capacity' => $request->enrollment_capacity,
+                        'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                        'no_of_computer_labs' => $request->no_of_computer_labs,
+                        'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                        'academic_year' => $request->academic_year,
+                    ]);
+                } else {
+                    $trainingprovider = TrainingProvider::create([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'mobile_phone' => $request->phone,
+                        'address' => $request->address,
+                        'po_box' => $request->po_box,
+                        'webiste' => $request->webiste,
+                        'region_id' => $request->region_id,
+                        'district_id' => $request->district_id,
+                        'lga_id' => $request->lga_id,
+                        'ownership_id' => $request->ownership_id,
+                        'classification_id' => $request->classification_id,
+                        'is_registered' => 0,
+                    ]);
+
+                    $institution_detail->update([
+                        'institution_id' => $trainingprovider->id,
+                        'financial_source' => $request->financial_source,
+                        'yearly_turnover' => $request->yearly_turnover,
+                        'enrollment_capacity' => $request->enrollment_capacity,
+                        'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                        'no_of_computer_labs' => $request->no_of_computer_labs,
+                        'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                        'academic_year' => $request->academic_year,
+                    ]);
+                }
+            } else {
+                $institution_detail->update([
+                    'institution_id' => $request->training_provider,
+                    'financial_source' => $request->financial_source,
+                    'yearly_turnover' => $request->yearly_turnover,
+                    'enrollment_capacity' => $request->enrollment_capacity,
+                    'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+                    'no_of_computer_labs' => $request->no_of_computer_labs,
+                    'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+                    'academic_year' => $request->academic_year,
+                ]);
+            }
+        });
+
+        return back()->withSuccess('Institution details data collection record successfully updated');
     }
-    
 }

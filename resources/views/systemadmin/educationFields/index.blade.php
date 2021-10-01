@@ -10,9 +10,10 @@
                 <div class="col-sm-12 col-md-6">
                 <h1 class="m-0">Fields of Education</h1>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-6 d-flex justify-content-end">
+                    <a href="{{route('admin.configurations')}}" class="btn btn-success btn-flat mr-1"><i class="fas fa-list"></i> Configurations</a>
                     @can('create_general_configurations')
-                    <a href="{{route('admin.education-fields.create')}}" class="btn btn-primary float-right">Add Field of Education</a>
+                    <a href="{{route('admin.education-fields.create')}}" class="btn btn-primary btn-flat float-right">Add Field of Education</a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->

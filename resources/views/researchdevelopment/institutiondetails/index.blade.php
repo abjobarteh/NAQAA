@@ -13,8 +13,9 @@
                 <div class="col-sm-6">
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.institution-details.create')}}" 
-                            class="btn btn-primary float-right">
-                            Add Institution
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i> &nbsp;
+                            New Institution Details collection
                         </a>
                     @endcan
                 </div><!-- /.col -->
@@ -23,7 +24,7 @@
     </div>
     <section class="content">
         <div class="container-fluid">
-            <div class="roe">
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -34,25 +35,25 @@
                                 <thead>
                                     <tr>
                                         <th>Learning Center name</th>
-                                        <th>Estimated yearly turnover</th>
+                                        <th>Yearly turnover</th>
                                         <th>Enrollment capacity</th>
                                         <th>No. of lecture rooms</th>
                                         <th>No. of computer labs</th>
                                         <th>Total No. of computers in labs</th>
-                                        <th>Date collected</th>
+                                        <th>Academic year</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($institutionsdata as $data)
                                         <tr>
-                                            <td>{{$data->name}}</td>
-                                            <td>{{$data->estimated_yearly_turnover}}</td>
+                                            <td>{{$data->trainingprovider->name ?? 'N/A'}}</td>
+                                            <td>{{$data->yearly_turnover ?? 'N/A'}}</td>
                                             <td>{{$data->enrollment_capacity}}</td>
                                             <td>{{$data->no_of_lecture_rooms}}</td>
                                             <td>{{$data->no_of_computer_labs}}</td>
                                             <td>{{$data->total_no_of_computers_in_labs}}</td>
-                                            <td>{{$data->created_at}}</td>
+                                            <td>{{$data->academic_year}}</td>
                                             <td>
                                                 @can('edit_data_collection')
                                                     <a href="{{route('researchdevelopment.datacollection.institution-details.edit',$data->id)

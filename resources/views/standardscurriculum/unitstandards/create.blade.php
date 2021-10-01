@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Title: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="unit_standard_title" value="{{ old('unit_standard_title') }}" required autofocus>
@@ -60,7 +60,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Code: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="unit_standard_code" value="{{ old('unit_standard_code') }}" required>
@@ -69,57 +69,39 @@
                                             @enderror
                                         </div>
                                     </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Unit Standard Type: <sup class="text-danger">*</sup></label>
+                                            <select name="unit_standard_type" id="unit_standard_type" class="form-control select2" required>
+                                                <option>--- select unit standard type ---</option>
+                                                <option value="key" {{@old('unit_standard_type') === 'key' ? 'selected'  : ''}}>Key Skill</option>
+                                                <option value="occupational" {{@old('unit_standard_type') === 'occupational' ? 'selected'  : ''}}>Occupational Skill</option>
+                                            </select>
+                                            @error('unit_standard_type')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Unit Standard status: <sup class="text-danger">*</sup></label>
+                                            <select name="status" id="status" class="form-control select2" required>
+                                                <option>--- select unit standard status ---</option>
+                                                <option value="active" {{@old('status') === 'active' ? 'selected'  : ''}}>Active</option>
+                                                <option value="inactive" {{@old('status') === 'inactive' ? 'selected'  : ''}}>Inactive</option>
+                                            </select>
+                                            @error('status')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Minimum Hours Required: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="minimum_required_hours" value="{{ old('minimum_required_hours') }}" required>
+                                            <input type="number" class="form-control" name="minimum_required_hours" value="{{ old('minimum_required_hours') }}" min="0" step="1" required>
                                             @error('unit_standard_code')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>NQF/GSQF Level: <sup class="text-danger">*</sup></label>
-                                            <select name="qualification_level_id" id="qualification_level_id" class="form-control select2" required>
-                                                <option>Select Level</option>
-                                                @foreach ($levels as $id => $level)
-                                                    <option value="{{$id}}">{{$level}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('qualification_level_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_field_id" id="education_field_id" class="form-control select2" required>
-                                                <option>Select field of education</option>
-                                                @foreach ($fields as $id => $field)
-                                                    <option value="{{$id}}">{{$field}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('education_field_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label>Sub-Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_sub_field_id" id="education_sub_field_id" class="form-control select2" required>
-                                                <option>Select sub-field</option>
-                                                @foreach ($subfields as $id => $subfield)
-                                                    <option value="{{$id}}">{{$subfield}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('education_sub_field_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

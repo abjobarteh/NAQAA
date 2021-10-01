@@ -16,6 +16,7 @@ class CreateQualificationLevelsTable extends Migration
         Schema::create('qualification_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('type')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

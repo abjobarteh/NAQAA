@@ -95,14 +95,14 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Nationality:</label>
+                                            <label>Country of citizenship:</label>
                                             <select name="nationality" id="nationality" class="form-control select2">
-                                                <option>Select nationality</option>
+                                                <option>--- select country of citizenship ---</option>
                                                 @foreach ($countries as $country)
                                                     <option value="{{$country->name}}">{{$country->name}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('phone')
+                                            @error('nationality')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -135,7 +135,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="email" value="{{ old('email') }}" required>
+                                            <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -155,7 +155,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Salary Per Month:</label>
-                                            <input type="text" class="form-control" name="salary_per_month" value="{{ old('salary_per_month') }}">
+                                            <input type="number" class="form-control" name="salary_per_month" value="{{ old('salary_per_month') }}" min="0" step="1">
                                             @error('salary_per_month')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -232,28 +232,28 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Rank: <sup class="text-danger">*</sup></label>
-                                            <select name="rank_id" id="rank_id" class="form-control select2" required>
-                                                <option>Select rank</option>
+                                            <label>Rank:</label>
+                                            <select name="rank" id="rank" class="form-control select2">
+                                                <option value="">Select rank</option>
                                                 @foreach ($ranks as $id => $rank)
-                                                    <option value="{{$id}}">{{$rank}}</option>
+                                                    <option value="{{$rank}}">{{$rank}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('rank_id')
+                                            @error('rank')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Role: <sup class="text-danger">*</sup></label>
-                                            <select name="role_id" id="role_id" class="form-control select2" required>
-                                                <option>Select role</option>
+                                            <label>Role:</label>
+                                            <select name="role" id="role" class="form-control select2">
+                                                <option value="">Select role</option>
                                                 @foreach ($roles as $id => $role)
-                                                    <option value="{{$id}}">{{$role}}</option>
+                                                    <option value="{{$role}}">{{$role}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('role_id')
+                                            @error('role')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -262,21 +262,21 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Main Teaching Field of Study: <sup class="text-danger">*</sup></label>
-                                            <input type="text" name="main_teaching_field_of_study" value="{{ old('main_teaching_field_of_study') }}" class="form-control" required>
-                                            @error('main_teaching_field_of_study')
+                                            <label>Main Teaching Programme: <sup class="text-danger">*</sup></label>
+                                            <input type="text" name="main_teaching_programme" value="{{ old('main_teaching_programme') }}" class="form-control" required>
+                                            @error('main_teaching_programme')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Secondary Teaching Field(s) of Study:</label>
-                                            <select name="secondary_teaching_fields_of_study[]" data-role="tagsinput" multiple  id="secondary_teaching_fields_of_study">
+                                            <label>Secondary Teaching Programme(s):</label>
+                                            <select name="secondary_teaching_programmes[]" data-role="tagsinput" multiple  id="secondary_teaching_programmes">
                                                 
                                             </select>
-                                            @if($errors->has('secondary_teaching_fields_of_study'))
-                                                <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_fields_of_study') }}</span>
+                                            @if($errors->has('secondary_teaching_programmes'))
+                                                <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_programmes') }}</span>
                                             @endif
                                         </div>
                                     </div>

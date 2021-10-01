@@ -15,7 +15,7 @@ class CreateStudentRegistrationDetailsTable extends Migration
     {
         Schema::create('student_registration_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->nullable()->constrained('registered_students');
+            $table->foreignId('student_id')->nullable()->constrained('training_provider_students');
             $table->longText('registration_no')->nullable();
             $table->dateTime('registration_date')->nullable();
             $table->string('serial_no')->nullable();

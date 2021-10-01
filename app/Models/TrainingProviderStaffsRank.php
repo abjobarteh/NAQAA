@@ -11,7 +11,7 @@ class TrainingProviderStaffsRank extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name', 'description'];
 
     protected static $logFillable = true;
 
@@ -19,21 +19,20 @@ class TrainingProviderStaffsRank extends Model
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch($eventName){
-    //         case 'created': 
-    //                  return "New Training Provider Staff Rank added by ".auth()->user()->username;
-    //         case 'updated': 
-    //                  return "Training Provider Staff Rank updated by ".auth()->user()->username;
-    //         case 'deleted': 
-    //                  return "Training Provider Staff Rank deleted by ".auth()->user()->username;
-    //     };
-        
-    // }
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider Staff Rank added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider Staff Rank updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider Staff Rank deleted by " . auth()->user()->username;
+        };
+    }
 
     public function staffs()
     {
-        return $this->hasMany(AcademicAdminStaffDataCollection::class,'rank_id');
+        return $this->hasMany(AcademicAdminStaffDataCollection::class, 'rank_id');
     }
 }

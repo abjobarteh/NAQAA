@@ -86,7 +86,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Duration of Studentship: <sup class="text-danger">*</sup></label>
                                                     <input type="number" class="form-control" name="studentship_duration" value="{{ old('studentship_duration') }}" min="0" step="1" required>
@@ -95,7 +95,16 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Total Qualification Time (Months): <sup class="text-danger">*</sup></label>
+                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ old('total_qualification_time') }}" min="0" step="1" required>
+                                                    @error('total_qualification_time')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Hours): <sup class="text-danger">*</sup></label>
                                                     <input type="number" class="form-control" name="total_qualification_time" value="{{ old('total_qualification_time') }}" min="0" step="1" required>
@@ -166,9 +175,9 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>Select application status</option>
-                                                        <option value="accepted">Accepted</option>
-                                                        <option value="rejected">Rejected</option>
-                                                        <option value="pending">Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{old('status') === $status ? 'selected' : ''}}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -229,7 +238,7 @@
         $(document).ready(function(){
             $('.license-registration-details').hide();
 
-            if($('#application_status').val() == 'accepted'){
+            if($('#application_status').val() == 'Approved'){
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
@@ -251,7 +260,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

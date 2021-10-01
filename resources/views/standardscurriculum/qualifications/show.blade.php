@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Tuition Fee: </b>
-                                        <p class="col-sm-6 text-muted">{{$qualification->tuition_fee}}</p>
+                                        <p class="col-sm-6 text-muted">{{$qualification->tuition_fee ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Minimum Duration (months): </b>

@@ -89,7 +89,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Unit</th>
                                     <th>Directorate</th>
                                     <th>Actions</th>
                                 </tr>

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Http\Traits\HasPermissionsTrait;
+use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +16,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasPermissionsTrait, LogsActivity, CausesActivity; //Import The Trait;
-    
+
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +33,8 @@ class User extends Authenticatable
         'phonenumber',
         'address',
         'user_status',
+        'user_type',
+        'user_category',
         'default_password_status',
         'directorate_id',
         'unit_id',
@@ -62,18 +67,17 @@ class User extends Authenticatable
 
     protected static $logOnlyDirty = true;
 
-    public function getDescriptionForEvent(string $eventName): string
-    {
-        switch($eventName){
-            case 'created': 
-                     return "New User created by ".auth()->user()->username;
-            case 'updated': 
-                     return "User updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "User deleted by ".auth()->user()->username;
-        };
-        
-    }
+    // public function getDescriptionForEvent(string $eventName): string
+    // {
+    //     switch ($eventName) {
+    //         case 'created':
+    //             return "New User created by " . auth()->user()->username;
+    //         case 'updated':
+    //             return "User updated by " . auth()->user()->username;
+    //         case 'deleted':
+    //             return "User deleted by " . auth()->user()->username;
+    //     };
+    // }
 
     public function directorate()
     {
@@ -88,5 +92,20 @@ class User extends Authenticatable
     public function unit()
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function trainingproviderdetail()
+    {
+        return $this->hasOne(TrainingProvider::class, 'login_id');
+    }
+
+    public function trainerdetail()
+    {
+        return $this->hasOne(Trainer::class, 'login_id');
+    }
+
+    public function institutionDataCollection()
+    {
+        return $this->hasOne(InstitutionDetailsDataCollection::class);
     }
 }

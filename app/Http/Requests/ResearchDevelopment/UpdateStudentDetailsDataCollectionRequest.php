@@ -15,7 +15,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -28,22 +28,22 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => 'required|string',
+            'student_id' => 'nullable|string',
             'firstname' => 'required|string',
-            'middlename' => 'required|string',
+            'middlename' => 'nullable|string',
             'lastname' => 'required|string',
-            'gender' => 'required|string|in:male,female',
+            'gender' => 'required|string|in:M,F',
             'phone' => 'required|string',
             'nationality' => 'required|string',
             'date_of_birth' => 'required|date',
-            'programme' => 'required|string',
+            'programme_name' => 'required|string',
             'attendance_status' => 'required|string',
             'admission_date' => 'required|date',
             'completion_date' => 'nullable|date',
             'qualification_at_entry' => 'required|numeric|integer',
             'award' => 'required|numeric|integer',
-            'education_field_id' => 'required|numeric|integer',
-            'institution_id' => 'required|numeric|integer',
+            'field_of_education' => 'required|string',
+            'training_provider_id' => 'required|numeric|integer',
         ];
     }
 
@@ -57,7 +57,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'nationality.required' => 'Please select nationality',
             'date_of_birth.required' => 'Please select date of birth',
             'date_of_birth.date' => 'Date of birth must be a valid date',
-            'programme.required' => 'Please Enter Programme name',
+            'programme_name.required' => 'Please Enter Programme name',
             'attendance_status.required' => 'Please select attendance status',
             'admission_date.date' => 'Admission Date must be a valid date entry',
             'completion_date.date' => 'Completion Date must be a valid date entry',
@@ -65,9 +65,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'qualification_at_entry.numeric' => 'Please select a valid qualification at entry',
             'award.required' => 'Please select Award',
             'award.numeric' => 'Please select a valid Award',
-            'education_field_id.numeric' => 'The selected filed of education value is not valid',
-            'institution_id.numeric' => 'The selected learning center value is not valid',
-            'studentdetail_type.required' => 'Please Select the type of student detail data collection type',
+            'training_provider_id.numeric' => 'Training provider selected is not valid',
             'date_of_birth.date' => 'Date of birth must be a valid date entry',
         ];
     }

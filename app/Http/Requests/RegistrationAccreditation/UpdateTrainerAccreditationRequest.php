@@ -24,17 +24,17 @@ class UpdateTrainerAccreditationRequest extends FormRequest
     public function rules()
     {
         return [
-            'application_no' => ['required','string'],
-            'application_date' => ['required','date'],
-            'status' => ['required','string','in:accepted,rejected,pending'],
-            'accreditation_start_date' => ['required_if:status,accepted','date'],
-            'accreditation_end_date' => ['required_if:status,accepted','date'],
+            'trainer_id' => ['required', 'numeric'],
+            'application_no' => ['required', 'string'],
+            'application_date' => ['required', 'date'],
+            'status' => ['required', 'string'],
         ];
     }
 
     public function messages()
     {
         return [
+            'trainer_id.required' => 'Please select trainer to accredit',
             'application_date.required' => 'Please enter the date of application',
             'accreditation_start_date.date.required' => 'Please enter a valid license start date',
             'accreditation_end_date.date.required' => 'Please enter a valid license end date',

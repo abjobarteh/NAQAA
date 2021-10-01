@@ -7,6 +7,7 @@ use App\Http\Requests\ResearchDevelopment\StoreAcademicAdminStaffDetailsDataColl
 use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCollectionRequest;
 use App\Models\Country;
 use App\Models\QualificationLevel;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\TrainingProviderStaffsRank;
@@ -23,9 +24,9 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $staffs = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->get();
+        $staffs = AcademicAdminStaffDataCollection::with('learningcenter')->get();
 
         return view('researchdevelopment.academicadminstaffdetails.index', compact('staffs'));
     }
@@ -38,22 +39,22 @@ class AcademicAdminStaffDetailsController extends Controller
     public function create()
     {
 
-        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $staffs = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->get();
+        $ranks = TrainingProviderStaffsRank::all()->pluck('name', 'id');
 
-        $ranks = TrainingProviderStaffsRank::all()->pluck('name','id');
+        $roles = TrainingProviderStaffsRole::all()->pluck('name', 'id');
 
-        $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
-
-        $qualifications = QualificationLevel::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all()->pluck('name', 'id');
 
         $countries = Country::all('name');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
-        
-        return view('researchdevelopment.academicadminstaffdetails.create', 
-                    compact('staffs','ranks','roles','qualifications','learningcenters','countries'));
+        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
+
+        return view(
+            'researchdevelopment.academicadminstaffdetails.create',
+            compact('ranks', 'roles', 'qualifications', 'learningcenters', 'countries')
+        );
     }
 
     /**
@@ -67,7 +68,7 @@ class AcademicAdminStaffDetailsController extends Controller
         AcademicAdminStaffDataCollection::create($request->validated());
 
         return redirect()->route('researchdevelopment.datacollection.academicadminstaff-details.index')
-                ->withSuccess('Training provider staff details data collection record successfully added');
+            ->withSuccess('Training provider staff details data collection record successfully added');
     }
 
     /**
@@ -78,9 +79,9 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function show($id)
     {
-        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $staffdetail = AcademicAdminStaffDataCollection::with(['rank','role','learningcenter'])->where('id',$id)->get();
+        $staffdetail = AcademicAdminStaffDataCollection::findOrFail($id)->load('learningcenter');
 
         return view('researchdevelopment.academicadminstaffdetails.show', compact('staffdetail'));
     }
@@ -93,22 +94,24 @@ class AcademicAdminStaffDetailsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $staff = AcademicAdminStaffDataCollection::where('id',$id)->get();
+        $staff = AcademicAdminStaffDataCollection::findOrFail($id)->load('learningcenter');
 
-        $ranks = TrainingProviderStaffsRank::all()->pluck('name','id');
+        $ranks = TrainingProviderStaffsRank::all()->pluck('name', 'id');
 
-        $roles = TrainingProviderStaffsRole::all()->pluck('name','id');
+        $roles = TrainingProviderStaffsRole::all()->pluck('name', 'id');
 
-        $qualifications = QualificationLevel::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all()->pluck('name', 'id');
 
         $countries = Country::all('name');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
-        
-        return view('researchdevelopment.academicadminstaffdetails.edit', 
-                compact('staff','ranks','roles','qualifications','learningcenters','countries'));
+        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
+
+        return view(
+            'researchdevelopment.academicadminstaffdetails.edit',
+            compact('staff', 'ranks', 'roles', 'qualifications', 'learningcenters', 'countries')
+        );
     }
 
     /**
@@ -119,15 +122,11 @@ class AcademicAdminStaffDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateAcademicAdminStaffDetailsDataCollectionRequest $request, 
+        UpdateAcademicAdminStaffDetailsDataCollectionRequest $request,
         AcademicAdminStaffDataCollection $academicadminstaff_detail
-        )
-    {
+    ) {
         $academicadminstaff_detail->update($request->validated());
 
-        return redirect()->route('researchdevelopment.datacollection.academicadminstaff-details.index')
-                ->withSuccess('Training provider staff details data collection record successfully updated');
-
+        return back()->withSuccess('Training provider staff details data collection record successfully updated');
     }
-
 }

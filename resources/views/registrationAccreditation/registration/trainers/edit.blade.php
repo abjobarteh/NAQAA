@@ -45,10 +45,9 @@
                                                 <label>Trainer Type: <sup class="text-danger">*</sup></label>
                                                 <select name="type" id="type" class="form-control select2">
                                                     <option value="">Select type of trainer</option>
-                                                    <option value="trainer" {{ $registration->trainer->type == 'trainer' ? 'selected': '' }}>Trainer</option>
-                                                    <option value="assessor" {{ $registration->trainer->type == 'assessor' ? 'selected': '' }}>Assessor</option>
-                                                    <option value="verifier" {{ $registration->trainer->type == 'verifier' ? 'selected': '' }}>Verifier</option>
-                                                    <option value="mastercraftperson" {{ $registration->trainer->type == 'mastercraftperson' ? 'selected': '' }}>MasterCraft Person</option>
+                                                    @foreach ($trainer_types as $trainer)
+                                                    <option value="{{$trainer->name}}" {{ $registration->trainer->type == $trainer->slug ? 'selected': '' }}>{{$trainer->name}}</option>
+                                                    @endforeach
                                                 </select>
                                                 @error('type')
                                                     <span class="text-danger mt-1">{{$message}}</span>
@@ -90,8 +89,8 @@
                                                     <label>Gender: <sup class="text-danger">*</sup></label>
                                                     <select name="gender" id="gender" class="form-control select2">
                                                         <option value="">Select gender</option>
-                                                        <option value="male" {{ $registration->trainer->gender == 'male' ? 'selected': '' }}>Male</option>
-                                                        <option value="female" {{ $registration->trainer->gender == 'female' ? 'selected': '' }}>Female</option>
+                                                        <option value="M" {{ $registration->trainer->gender == 'M' ? 'selected': '' }}>Male</option>
+                                                        <option value="F" {{ $registration->trainer->gender == 'F' ? 'selected': '' }}>Female</option>
                                                     </select>
                                                     @error('gender')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -116,7 +115,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label>Nationality:</label>
+                                                    <label>Country of Citizenship:</label>
                                                     <select name="nationality" id="nationality" class="form-control select2" required>
                                                         <option value="">Select nationaltiy</option>
                                                         @foreach ($countries as $country)
@@ -243,9 +242,9 @@
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
                                                         <option>Select application status</option>
-                                                        <option value="accepted" {{ $registration->status == 'accepted' ? 'selected' : '' }}>Accepted</option>
-                                                        <option value="rejected" {{ $registration->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
-                                                        <option value="pending" {{ $registration->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{ ($registration->status ?? '') == $status ? 'selected' : '' }}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -321,7 +320,7 @@
                     $('.nin-number').prop('hidden', true);
                     $('.nin-number').prop('disabled', true);
             }
-            if($('#application_status').val() == 'accepted'){
+            if($('#application_status').val() == 'Approved'){
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
@@ -345,7 +344,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);

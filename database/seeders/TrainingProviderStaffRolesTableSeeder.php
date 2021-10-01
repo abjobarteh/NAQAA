@@ -14,6 +14,6 @@ class TrainingProviderStaffRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        TrainingProviderStaffsRole::factory()->count(3)->create();
+        // TrainingProviderStaffsRole::factory()->count(3)->create();
     }
 }

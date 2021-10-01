@@ -13,7 +13,8 @@
                 <div class="col-sm-6">
                     @can('create_unit_standards')
                         <a href="{{route('standardscurriculum.unit-standards.create')}}" 
-                            class="btn btn-primary float-right">
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i>&nbsp;
                             New Unit Standard
                         </a>
                     @endcan
@@ -37,9 +38,8 @@
                                         <th>Unit Standard Code</th>
                                         <th>Minimum Required Hours</th>
                                         <th>Validated</th>
-                                        <th>Field of Education</th>
-                                        <th>Sub Field of Education</th>
-                                        <th>Qualification Level</th>
+                                        <th>Status</th>
+                                        <th>Qualification</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -49,14 +49,13 @@
                                             <td>{{$unitstandard->unit_standard_title}}</td>
                                             <td>{{$unitstandard->unit_standard_code}}</td>
                                             <td>{{$unitstandard->minimum_required_hours}}</td>
-                                            <td>{{$unitstandard->validated}}</td>
-                                            <td>{{$unitstandard->fieldOfEducation->name}}</td>
-                                            <td>{{$unitstandard->subFieldOfEducation->name}}</td>
-                                            <td>{{$unitstandard->levelOfQualification->name}}</td>
+                                            <td><span class="badge badge-info badge-rounded">{{$unitstandard->validated}}</span></td>
+                                            <td><span class="badge badge-primary badge-rounded">{{$unitstandard->status}}</span></td>
+                                            <td>{{$unitstandard->qualification->name ?? 'N/A'}}</td>
                                             <td>
                                                 @can('edit_unit_standards')
                                                     <a href="{{route('standardscurriculum.unit-standards.edit',$unitstandard->id)
-                                                        }}" class="btn btn-sm btn-danger"
+                                                        }}" class="btn btn-xs btn-danger"
                                                         title="edit unit standard details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
@@ -64,7 +63,7 @@
                                                 @endcan
                                                 @can('show_unit_standards')
                                                     <a href="{{route('standardscurriculum.unit-standards.show',$unitstandard->id)
-                                                        }}" class="btn btn-sm btn-info"
+                                                        }}" class="btn btn-xs btn-info"
                                                         title="view unit standard details"
                                                         >
                                                         <i class="fas fa-eye"></i>    

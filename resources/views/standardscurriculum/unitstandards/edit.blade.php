@@ -32,7 +32,7 @@
                             <h3 class="card-title">Edit Unit Standards</h3>
                         </div>
                         <div class="card-body">
-                            <form action="{{route('standardscurriculum.unit-standards.update', $unitstandard[0]->id)}}" method="post" autocomplete="off">
+                            <form action="{{route('standardscurriculum.unit-standards.update', $unitstandard->id)}}" method="post" autocomplete="off">
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
@@ -42,7 +42,7 @@
                                             <select name="qualification_id" id="qualification_id" class="form-control select2">
                                                 <option>Select Qualification</option>
                                                 @foreach ($qualifications as $id => $qualification)
-                                                    <option value="{{$id}}" {{$id == $unitstandard[0]->qualification_id ? 'selected' : ''}}>{{$qualification}}</option>
+                                                    <option value="{{$id}}" {{$id == $unitstandard->qualification_id ? 'selected' : ''}}>{{$qualification}}</option>
                                                 @endforeach
                                             </select>
                                             @error('qualification_id')
@@ -52,45 +52,33 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Title: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="unit_standard_title" value="{{$unitstandard[0]->unit_standard_title}}" required autofocus>
+                                            <input type="text" class="form-control" name="unit_standard_title" value="{{$unitstandard->unit_standard_title}}" required autofocus>
                                             @error('unit_standard_title')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Unit Standard Code: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="unit_standard_code" value="{{$unitstandard[0]->unit_standard_code}}" required>
+                                            <input type="text" class="form-control" name="unit_standard_code" value="{{$unitstandard->unit_standard_code}}" required>
                                             @error('unit_standard_code')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label>Minimum Hours Required: <sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" name="minimum_required_hours" value="{{$unitstandard[0]->minimum_required_hours}}" required>
-                                                @error('unit_standard_code')
-                                                    <span class="text-danger mt-1">{{$message}}</span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>NQF/GSQF Level: <sup class="text-danger">*</sup></label>
-                                            <select name="qualification_level_id" id="qualification_level_id" class="form-control select2" required>
-                                                <option>Select Level</option>
-                                                @foreach ($levels as $id => $level)
-                                                    <option value="{{$id}}" {{$id == $unitstandard[0]->qualification_level_id ? 'selected' : ''}}>{{$level}}</option>
-                                                @endforeach
+                                            <label>Unit Standard Type: <sup class="text-danger">*</sup></label>
+                                            <select name="unit_standard_type" id="unit_standard_type" class="form-control select2" required>
+                                                <option>--- select unit standard type ---</option>
+                                                <option value="key" {{$unitstandard->unit_standard_type === 'key' ? 'selected'  : ''}}>Key Skill</option>
+                                                <option value="occupational" {{$unitstandard->unit_standard_type === 'occupational' ? 'selected'  : ''}}>Occupational Skill</option>
                                             </select>
-                                            @error('qualification_level_id')
+                                            @error('unit_standard_type')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -99,28 +87,22 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_field_id" id="education_field_id" class="form-control select2" required>
-                                                <option>Select field of education</option>
-                                                @foreach ($fields as $id => $field)
-                                                    <option value="{{$id}}" {{$id == $unitstandard[0]->education_field_id ? 'selected' : ''}}>{{$field}}</option>
-                                                @endforeach
+                                            <label>Unit Standard status: <sup class="text-danger">*</sup></label>
+                                            <select name="status" id="status" class="form-control select2" required>
+                                                <option>--- select unit standard status ---</option>
+                                                <option value="active" {{$unitstandard->status === 'active' ? 'selected'  : ''}}>Active</option>
+                                                <option value="inactive" {{$unitstandard->status === 'inactive' ? 'selected'  : ''}}>Inactive</option>
                                             </select>
-                                            @error('education_field_id')
+                                            @error('status')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Sub-Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_sub_field_id" id="education_sub_field_id" class="form-control select2" required>
-                                                <option>Select sub-field</option>
-                                                @foreach ($subfields as $id => $subfield)
-                                                    <option value="{{$id}}" {{$id == $unitstandard[0]->education_sub_field_id ? 'selected' : ''}}>{{$subfield}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('education_sub_field_id')
+                                            <label>Minimum Hours Required: <sup class="text-danger">*</sup></label>
+                                            <input type="number" class="form-control" name="minimum_required_hours" value="{{$unitstandard->minimum_required_hours}}" min="0" step="1" required>
+                                            @error('unit_standard_code')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -132,8 +114,8 @@
                                             <label>Validated: <sup class="text-danger">*</sup></label>
                                             <select name="validated" id="validated" class="form-control select2" required>
                                                 <option>Select validation status</option>
-                                                <option value="yes" {{$unitstandard[0]->validated == 'yes' ? 'selected' : ''}}>Yes</option>
-                                                <option value="no" {{$unitstandard[0]->validated == 'no' ? 'selected' : ''}}>No</option>
+                                                <option value="yes" {{$unitstandard->validated == 'yes' ? 'selected' : ''}}>Yes</option>
+                                                <option value="no" {{$unitstandard->validated == 'no' ? 'selected' : ''}}>No</option>
                                             </select>
                                             @error('validated')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -144,7 +126,7 @@
                                         <div class="form-group">
                                             <label>Validation Date: <sup class="text-danger">*</sup></label>
                                             <div class="input-group date" id="validation_date" data-target-input="nearest">
-                                                <input type="text" class="form-control datetimepicker-input hide-validation-date" name="validation_date" value="{{$unitstandard[0]->validation_date}}" data-target="#validation_date" required/>
+                                                <input type="text" class="form-control datetimepicker-input hide-validation-date" name="validation_date" value="{{$unitstandard->validation_date}}" data-target="#validation_date" required/>
                                                 <div class="input-group-append" data-target="#validation_date" data-toggle="datetimepicker">
                                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                                 </div>
@@ -160,7 +142,7 @@
                                         <div class="form-group">
                                             <label>Developed By (Stakeholders Involved): <sup class="text-danger">*</sup></label>
                                             <select name="developed_by_stakeholders[]" data-role="tagsinput" multiple  id="developed_by_stakeholders">
-                                                @foreach ($unitstandard[0]->developed_by_stakeholders as $stakeholder)
+                                                @foreach ($unitstandard->developed_by_stakeholders as $stakeholder)
                                                     <option value="{{$stakeholder}}">{{$stakeholder}}</option>
                                                 @endforeach
                                             </select>
@@ -173,7 +155,7 @@
                                         <div class="form-group">
                                             <label>Stakeholders Involved in Validation: <sup class="text-danger">*</sup></label>
                                             <select name="validated_by_stakeholders[]" data-role="tagsinput" multiple  id="validated_by_stakeholders">
-                                                @foreach ($unitstandard[0]->validated_by_stakeholders as $stakeholder)
+                                                @foreach ($unitstandard->validated_by_stakeholders as $stakeholder)
                                                     <option value="{{$stakeholder}}">{{$stakeholder}}</option>
                                                 @endforeach
                                             </select>

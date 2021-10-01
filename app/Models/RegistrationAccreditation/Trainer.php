@@ -3,6 +3,7 @@
 namespace App\Models\RegistrationAccreditation;
 
 use App\Models\AssessmentCertification\StudentAssessmentDetail;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -18,7 +19,7 @@ class Trainer extends Model
         'lastname',
         'date_of_birth',
         'gender',
-        'nationality',
+        'country_of_citizenship',
         'TIN',
         'NIN',
         'AIN',
@@ -33,6 +34,7 @@ class Trainer extends Model
         'academic_qualifications',
         'relevant_experiences',
         'storage_path',
+        'login_id'
     ];
 
     protected static $logFillable = true;
@@ -65,7 +67,11 @@ class Trainer extends Model
 
     public function getFullNameAttribute()
     {
-        return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        if ($this->middlename != null) {
+
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
+        return "{$this->firstname} {$this->lastname}";
     }
 
     public function applications()
@@ -95,5 +101,10 @@ class Trainer extends Model
     public function assessments()
     {
         return $this->hasMany(StudentAssessmentDetail::class, 'assessor_id');
+    }
+
+    public function logindetail()
+    {
+        return $this->belongsTo(User::class, 'login_id');
     }
 }

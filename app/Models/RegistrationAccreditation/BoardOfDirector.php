@@ -11,7 +11,7 @@ class BoardOfDirector extends Model
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'name',
+        'fullname',
         'nationality',
         'work_experience',
         'position',
@@ -26,19 +26,18 @@ class BoardOfDirector extends Model
 
     public function getDescriptionForEvent(string $eventName): string
     {
-        switch($eventName){
-            case 'created': 
-                     return "New Board of director added by ".auth()->user()->username;
-            case 'updated': 
-                     return "Board of director updated by ".auth()->user()->username;
-            case 'deleted': 
-                     return "Board of director deleted by ".auth()->user()->username;
+        switch ($eventName) {
+            case 'created':
+                return "New Board of director added by " . auth()->user()->username;
+            case 'updated':
+                return "Board of director updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Board of director deleted by " . auth()->user()->username;
         };
-        
     }
 
     public function institution()
     {
-        return $this->belongsTo(TrainingProvider::class,'training_provider_id');
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 }

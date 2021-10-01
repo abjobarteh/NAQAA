@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\researchdevelopment;
 
 use App\Http\Controllers\Controller;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use App\Models\ResearchDevelopment\ResearchSurvey;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
+use App\Models\TrainingProviderProgramme;
+use App\Models\TrainingProviderStudent;
 
 class DashboardController extends Controller
 {
@@ -21,25 +24,25 @@ class DashboardController extends Controller
         $tiles = [
             [
                 'name' => 'Total Learning Centers',
-                'data' => InstitutionDetailsDataCollection::all()->count(),
+                'data' => TrainingProvider::all()->count(),
                 'background' => 'bg-info',
                 'icon' => 'fas fa-university fa-3x'
             ],
             [
                 'name' => 'Total Programs Offered',
-                'data' => ProgramDetailsDataCollection::distinct()->count(),
+                'data' => TrainingProviderProgramme::distinct()->count(),
                 'background' => 'bg-success',
                 'icon' => 'fas fa-tasks fa-3x'
             ],
             [
                 'name' => 'Total Graduates',
-                'data' => StudentDetailsDataCollection::whereYear('completion_date', date('Y'))->count(),
+                'data' => TrainingProviderStudent::whereYear('completion_date', date('Y'))->count(),
                 'background' => 'bg-warning',
                 'icon' => 'fas fa-graduation-cap'
             ],
             [
                 'name' => 'Total Admissions',
-                'data' => StudentDetailsDataCollection::whereYear('admission_date' ,date('Y'))->count(),
+                'data' => TrainingProviderStudent::whereYear('admission_date', date('Y'))->count(),
                 'background' => 'bg-warning',
                 'icon' => 'fas fa-user-graduate'
             ],
@@ -53,6 +56,6 @@ class DashboardController extends Controller
 
         $latestresearches = ResearchSurvey::all()->sortByDesc('created_at')->take(10);
 
-        return view('researchdevelopment.dashboard', compact('tiles','latestresearches'));
+        return view('researchdevelopment.dashboard', compact('tiles', 'latestresearches'));
     }
 }

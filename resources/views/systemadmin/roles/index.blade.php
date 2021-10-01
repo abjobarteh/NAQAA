@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@section('page-title','Roles')
 @section('content')
         <!-- Content Header (Page header) -->
         <div class="content-header">

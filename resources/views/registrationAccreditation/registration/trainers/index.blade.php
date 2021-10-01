@@ -34,7 +34,7 @@
                                         <th>Trainer Name</th>
                                         <th>Birth Date</th>
                                         <th>Gender</th>
-                                        <th>Nationality</th>
+                                        <th>Country of Citizenship</th>
                                         <th>Email</th>
                                         <th>Trainer type</th>
                                         <th>status</th>
@@ -48,11 +48,11 @@
                                             <td>{{$registration->trainer->firstname}}. {{$registration->trainer->middlename ?? ''}} .{{$registration->trainer->lastname}}</td>
                                             <td>{{$registration->trainer->date_of_birth->toFormattedDateString()}}</td>
                                             <td>{{$registration->trainer->gender}}</td>
-                                            <td>{{$registration->trainer->nationality}}</td>
+                                            <td>{{$registration->trainer->country_of_citizenship}}</td>
                                             <td>{{$registration->trainer->email}}</td>
                                             <td>{{$registration->trainer->type}}</td>
                                             <td>
-                                                <span class="badge {{$registration->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
                                                     {{$registration->status}}
                                                  </span>
                                             </td>

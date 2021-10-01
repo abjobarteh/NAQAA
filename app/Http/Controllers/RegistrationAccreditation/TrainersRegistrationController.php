@@ -5,10 +5,12 @@ namespace App\Http\Controllers\RegistrationAccreditation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationAccreditation\StoreTrainerRegistrationRequest;
 use App\Http\Requests\RegistrationAccreditation\UpdateTrainerRegistrationRequest;
+use App\Models\ApplicationStatus;
 use App\Models\Country;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainerType;
 use Illuminate\Support\Facades\DB;
 
 class TrainersRegistrationController extends Controller
@@ -21,10 +23,9 @@ class TrainersRegistrationController extends Controller
     public function index()
     {
         $trainer_regitrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
             'registrationLicence'
-        ])->where('application_category', 'registration')
-            ->where('applicant_type', 'trainer')
+        ])->where('application_type', 'trainer_registration')
             ->latest()
             ->get();
 
@@ -39,8 +40,13 @@ class TrainersRegistrationController extends Controller
     public function create()
     {
         $countries = Country::all()->pluck('name');
+        $trainer_types = TrainerType::all();
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
-        return view('registrationaccreditation.registration.trainers.create', compact('countries'));
+        return view(
+            'registrationaccreditation.registration.trainers.create',
+            compact('countries', 'trainer_types', 'application_statuses')
+        );
     }
 
     /**
@@ -52,7 +58,7 @@ class TrainersRegistrationController extends Controller
     public function store(StoreTrainerRegistrationRequest $request)
     {
         $data = $request->validated();
-
+        // dd($data);
         DB::transaction(function () use ($data, $request) {
             // store training provider details
             $trainer = Trainer::create([
@@ -61,7 +67,7 @@ class TrainersRegistrationController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
-                'nationality' => $data['nationality'],
+                'country_of_citizenship' => $data['nationality'],
                 'TIN' => $data['TIN'],
                 'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
                 'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,
@@ -72,26 +78,27 @@ class TrainersRegistrationController extends Controller
                 'phone_mobile' => $data['phone_mobile'],
                 'type' => $data['type'],
             ]);
+            // dd($trainer->id);
 
             // store training provider application details
             $application = ApplicationDetail::create([
                 'trainer_id' => $trainer->id,
                 'applicant_type' => 'trainer',
                 'application_no' => $data['application_no'],
-                'application_category' => 'registration',
-                'application_type' => 'new',
+                'application_type' => 'trainer_registration',
                 'status' => $data['status'],
                 'application_date' => $data['application_date'],
             ]);
 
             // If application is accepted, create a license record
-            if ($data['status'] === 'accepted') {
+            if ($data['status'] === 'Approved') {
                 RegistrationLicenceDetail::create([
-                    'trainer_id' => $trainer->id,
+                    'trainer_id' => $application->trainer_id,
                     'application_id' => $application->id,
                     'licence_start_date' => $data['license_start_date'],
                     'licence_end_date' => $data['license_end_date'],
                     'license_status' => 'valid',
+                    'license_no' => $application->application_no,
                 ]);
             }
         });
@@ -123,10 +130,15 @@ class TrainersRegistrationController extends Controller
     {
         $registration = ApplicationDetail::findOrFail($id);
         $countries = Country::all()->pluck('name');
+        $trainer_types = TrainerType::all();
+        $application_statuses = ApplicationStatus::all()->pluck('name');
 
         $registration->load(['registrationLicence', 'trainer']);
 
-        return view('registrationaccreditation.registration.trainers.edit', compact('registration', 'countries'));
+        return view(
+            'registrationaccreditation.registration.trainers.edit',
+            compact('registration', 'countries', 'trainer_types', 'application_statuses')
+        );
     }
 
     /**
@@ -149,7 +161,7 @@ class TrainersRegistrationController extends Controller
                 'lastname' => $data['lastname'],
                 'gender' => $data['gender'],
                 'date_of_birth' => $data['date_of_birth'],
-                'nationality' => $data['nationality'],
+                'country_of_citizenship' => $data['nationality'],
                 'TIN' => $data['TIN'],
                 'NIN' => $request->filled('NIN') && $data['nationality'] === 'Gambia' ? $data['NIN'] : null,
                 'AIN' => $request->filled('AIN') && $data['nationality'] != 'Gambia' ? $data['AIN'] : null,
@@ -166,7 +178,7 @@ class TrainersRegistrationController extends Controller
                 'application_date' => $data['application_date'],
             ]);
 
-            if ($data['status'] === 'accepted') {
+            if ($data['status'] === 'Approved') {
 
                 if (!is_null($registration->registrationLicence)) {
 

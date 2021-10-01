@@ -15,7 +15,7 @@ class StoreJobVacancyDataCollectionRequest extends FormRequest
      */
     public function authorize()
     {
-        abort_if(Gate::denies('create_job_vacancy'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_job_vacancy'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return true;
     }
@@ -29,12 +29,16 @@ class StoreJobVacancyDataCollectionRequest extends FormRequest
     {
         return [
             'position_advertised' => 'required|string',
+            'date_advertised' => 'required|date',
             'minimum_required_qualification' => 'required|string',
-            'fields_of_study' => ['required','array'],
+            'minimum_required_job_experience' => 'required|numeric',
+            'fields_of_study' => ['required', 'array'],
             'fields_of_study.*' => ['string'],
-            'job_status' => 'required|string|in:part_time,full_time',
-            'region_id' => 'required|numeric|integer',
-            'institution' => 'required|string'
+            'job_status' => 'required|in:permanent,contract,temporary',
+            'institution' => 'required|string',
+            'region_id' => 'required|integer',
+            'district_id' => 'required|integer',
+            'localgoverment_area_id' => 'required|integer',
         ];
     }
 
@@ -43,11 +47,16 @@ class StoreJobVacancyDataCollectionRequest extends FormRequest
         return [
             'position_advertised.required' => 'Please Enter Position advertised',
             'minimum_required_qualification.required' => 'Please select minimum required qualification',
+            'minimum_required_job_experience.required' => 'Please select minimum required job experience',
             'fields_of_study.required' => 'Please select field of study(s)',
             'job_status.required' => 'Please select Job Status',
-            'region_id.required' => 'Please select region of advertised position',
-            'region_id.numeric' => 'Please select a valid region',
-            'institution.required' => 'Please Enter institution name'
+            'institution.required' => 'Please Enter institution name',
+            'region_id.required' => 'Please select region',
+            'region_id.integer' => 'No region has been selected',
+            'district_id.required' => 'Please select district',
+            'district_id.integer' => 'No district has been selected',
+            'localgoverment_area_id.required' => 'Please select local goverment area',
+            'localgoverment_area_id.integer' => 'No local goverment area selected',
         ];
     }
 }

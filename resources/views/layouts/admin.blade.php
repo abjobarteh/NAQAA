@@ -46,12 +46,35 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <h3>{{auth()->user()->roles[0]->name}}</h3>
+          <h3>{{auth()->user()->designation->name ?? 'Sysadmin'}}</h3>
         </li>
       </ul>
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+        <!-- Notifications Dropdown Menu -->
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="far fa-bell"></i>
+          <span class="badge badge-info navbar-badge">{{auth()->user()->roles[0]->notifications->count()}}</span>
+        </a>
+      </li>
+        @if(auth()->user()->roles->count() > 1)
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-user-circle"></i>
+              <span class="badge badge-danger navbar-badge">{{auth()->user()->roles->count()}}</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                @foreach (auth()->user()->roles as $role)
+                  <a href="{{route('multiple-roles',$role->slug)}}" class="dropdown-item">{{$role->name}}</a>
+                  @if(!$loop->last)
+                    <div class="dropdown-divider"></div>
+                  @endif
+                @endforeach
+            </div> 
+          </li>
+        @endif
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="nav-link text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="nav-icon fas fa-power-off"></i>
@@ -97,7 +120,16 @@
               @include('partials.adminmenu')
             @else
               @include('partials.menu')
-            @endrole  
+            @endrole
+            <li class="nav-item">
+              <a href="{{route('notifications')}}" class="nav-link {{ request()->is('notifications') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-bell"></i>
+                <p>
+                  Notifications
+                  <span class="badge badge-info right">{{auth()->user()->roles[0]->unreadNotifications->count()}}</span>
+                </p>
+              </a>
+            </li>  
               <li class="nav-item">
                 <a href="{{route('settings')}}" class="nav-link {{ request()->is('settings') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-user-cog"></i>
@@ -171,12 +203,12 @@
 <script src="/plugins/toastr/toastr.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/js/adminlte.js"></script>
-<!-- custom js -->
-<script src="/js/custom.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 {{-- <script src="/js/pages/dashboard.js"></script> --}}
-@livewireScripts
 @include('sweetalert::alert')
+@livewireScripts
 @yield('scripts')
+<!-- custom js -->
+<script src="/js/custom.js"></script>
 </body>
 </html>

@@ -11,16 +11,20 @@ class TrainerAccreditationDetail extends Model
 {
     use HasFactory, LogsActivity;
 
-    protected $fillable =  [
-        'area',
-        'level',
-        'application_id',
-        'accreditation_status',
-        'accreditation_start_date',
-        'accreditation_end_date',
-        'status',
-        'field_of_education_id'
-    ];
+    // protected $fillable =  [
+    //     'area',
+    //     'programme_id',
+    //     'programme_level_id',
+    //     'application_id',
+    //     'trainer_id',
+    //     'status',
+    //     'accreditation_status',
+    //     'accreditation_start_date',
+    //     'accreditation_end_date',
+    //     'field_of_education_id',
+    // ];
+
+    protected $guarded = [];
 
     protected static $logFillable = true;
 
@@ -48,5 +52,10 @@ class TrainerAccreditationDetail extends Model
     public function fieldOfEducation()
     {
         return $this->belongsTo(EducationField::class, 'field_of_education_id');
+    }
+
+    public function trainer()
+    {
+        return $this->belongsTo(Trainer::class, 'trainer_id');
     }
 }

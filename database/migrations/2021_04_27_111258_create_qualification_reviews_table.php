@@ -16,6 +16,8 @@ class CreateQualificationReviewsTable extends Migration
         Schema::create('qualification_reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('qualification_id')->nullable()->constrained('qualifications');
+            $table->foreignId('unit_standard_id')->nullable()->constrained('unit_standards');
+            $table->string('review_status')->nullable();
             $table->date('review_date')->nullable();
             $table->timestamps();
         });

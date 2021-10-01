@@ -30,10 +30,11 @@
                         <table id="example2" class="table datatable table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th>Institution Name</th>
+                                    <th>Training Provider</th>
                                     <th>Programme</th>
                                     <th>Level</th>
-                                    <th>Total certificates</th>
+                                    <th>Certificates declared</th>
+                                    <th>Certificates received</th>
                                     <th>Total males</th>
                                     <th>Total females</th>
                                     <th>Total endorsed certificates</th>
@@ -44,23 +45,24 @@
                             <tbody>
                                 @forelse ($endorsements as $endorsement)
                                     <tr>
-                                        <td>{{$endorsement->institution->name}}</td>
+                                        <td>{{$endorsement->trainingprovider->name ?? 'N/A'}}</td>
                                         <td>{{$endorsement->programme}}</td>
                                         <td>{{$endorsement->level}}</td>
-                                        <td>{{$endorsement->total_certificates}}</td>
+                                        <td>{{$endorsement->total_certificates_declared ?? 'N/A'}}</td>
+                                        <td>{{$endorsement->total_certificates_received ?? 'N/A'}}</td>
                                         <td>{{$endorsement->total_males ?? '0'}}</td>
                                         <td>{{$endorsement->total_females ?? '0'}}</td>
                                         <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>
                                         <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
                                         <td>
                                             <a href="{{route('assessment-certification.certificate-endorsements.edit',$endorsement->id)
-                                                }}" class="btn btn-sm btn-danger"
+                                                }}" class="btn btn-xs btn-danger"
                                                 title="edit certificate endorsement details"
                                                 >
                                                 <i class="fas fa-edit"></i>    
                                             </a>
                                             <a href="{{route('assessment-certification.certificate-endorsements.show',$endorsement->id)
-                                                }}" class="btn btn-sm btn-info"
+                                                }}" class="btn btn-xs btn-info"
                                                 title="view certificate endorsement registration details"
                                                 >
                                                 <i class="fas fa-eye"></i>    

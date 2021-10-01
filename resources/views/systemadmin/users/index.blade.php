@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@section('page-title','Users')
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -47,7 +47,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->firstname.' '.$user->middlename.' '.$user->lastname ?? $user->firstname.' '.$user->lastname }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone_number }}</td>
+                                    <td>{{ $user->phonenumber }}</td>
                                     <td>{{ $user->address }}</td>
                                     <td>{{ $user->designation->name ?? 'N/A'}}</td>
                                     <td>

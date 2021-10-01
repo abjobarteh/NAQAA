@@ -8,8 +8,11 @@ use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequ
 use App\Models\Country;
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
+use App\Models\TrainingProviderStudent;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,9 +25,9 @@ class StudentDetailsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
-        
-        $students = StudentDetailsDataCollection::with(['learningcenter','educationField','awardName'])->get();
+        abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])->get();
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
     }
@@ -36,18 +39,20 @@ class StudentDetailsController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('create_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualifications = QualificationLevel::all()->pluck('name','id');
+        $levels = QualificationLevel::all()->pluck('name', 'id');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
+        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
 
-        $fields = EducationField::all()->pluck('name','id');
+        $fields = EducationField::all()->pluck('name', 'id');
 
         $countries = Country::all('name');
 
-        return view('researchdevelopment.studentdetails.create',
-                     compact('qualifications','learningcenters','fields', 'countries'));
+        return view(
+            'researchdevelopment.studentdetails.create',
+            compact('levels', 'learningcenters', 'fields', 'countries')
+        );
     }
 
     /**
@@ -58,11 +63,39 @@ class StudentDetailsController extends Controller
      */
     public function store(StoreStudentDetailsDataCollectionRequest $request)
     {
-        
-        StudentDetailsDataCollection::create($request->all());
+        if (!is_null($request->middlename)) {
+            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('gender', $request->gender)
+                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
+                ->where('nationality',  $request->nationality)
+                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
+                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+                ->exists();
+        } else {
+            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                // ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('gender', $request->gender)
+                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
+                ->where('nationality',  $request->nationality)
+                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
+                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+                ->exists();
+        }
+
+        // dd($student_exist);
+
+        if ($student_exist) {
+            return back()->withWarning('Student details datacollection details already exist!');
+        }
+        TrainingProviderStudent::create($request->validated());
 
         return redirect()->route('researchdevelopment.datacollection.student-details.index')
-                ->withSuccess('Student details data collection record successfully added');
+            ->withSuccess('Student details data collection record successfully added');
     }
 
     /**
@@ -73,9 +106,9 @@ class StudentDetailsController extends Controller
      */
     public function show($id)
     {
-        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('show_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $student = StudentDetailsDataCollection::where('id',$id)->get();
+        $student = TrainingProviderStudent::findOrFail($id)->load('trainingprovider', 'awardName');
 
         return view('researchdevelopment.studentdetails.show', compact('student'));
     }
@@ -88,20 +121,22 @@ class StudentDetailsController extends Controller
      */
     public function edit($id)
     {
-        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN,'403 Forbidden');
+        abort_if(Gate::denies('edit_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $student = StudentDetailsDataCollection::where('id',$id)->get();
+        $student = TrainingProviderStudent::findOrFail($id);
 
-        $qualifications = QualificationLevel::all()->pluck('name','id');
+        $qualifications = QualificationLevel::all()->pluck('name', 'id');
 
-        $learningcenters = InstitutionDetailsDataCollection::all()->pluck('name','id');
+        $learningcenters = TrainingProvider::all()->pluck('name', 'id');
 
-        $fields = EducationField::all()->pluck('name','id');
+        $fields = EducationField::all()->pluck('name', 'id');
 
         $countries = Country::all('name');
 
-        return view('researchdevelopment.studentdetails.edit', 
-                compact('qualifications','learningcenters','fields','student', 'countries'));
+        return view(
+            'researchdevelopment.studentdetails.edit',
+            compact('qualifications', 'learningcenters', 'fields', 'student', 'countries')
+        );
     }
 
     /**
@@ -112,50 +147,39 @@ class StudentDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(
-        UpdateStudentDetailsDataCollectionRequest $request, 
-        StudentDetailsDataCollection $student_detail
-        )
-    {
-        
-        $student_detail->update($request->all());
-        
-        return redirect()->route('researchdevelopment.datacollection.student-details.index')
-                ->withSuccess('Student details data collection record successfully updated');
+        UpdateStudentDetailsDataCollectionRequest $request,
+        TrainingProviderStudent $student_detail
+    ) {
+
+        if (!is_null($request->middlename)) {
+            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('gender', $request->gender)
+                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
+                ->where('nationality',  $request->nationality)
+                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
+                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+                ->exists();
+        } else {
+            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
+                ->where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('gender', $request->gender)
+                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
+                ->where('nationality',  $request->nationality)
+                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
+                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+                ->exists();
+        }
+
+        if ($student_exist) {
+            return back()->withWarning('Student details datacollection details already exist!');
+        }
+
+        $student_detail->update($request->validated());
+
+        return back()->withSuccess('Student details data collection record successfully updated');
     }
-
-    // public function addGraduateDetails()
-    // {
-    //     $qualifications = QualificationLevel::all('name');
-
-    //     $learningcenters = InstitutionDetailsDataCollection::all()->pluck('training_provider_name','id');
-
-    //     $fields = EducationField::all()->pluck('name','id');
-
-    //     $countries = Country::all('name');
-
-    //     return view('researchdevelopment.studentdetails.create-graduate',
-    //             compact('qualifications','learningcenters','fields', 'countries'));
-    // }
-
-    // public function getAdmissionStudents(Request $request)
-    // {
-    //     $students = StudentDetailsDataCollection::where('institution_id',$request->learningcenter)
-    //         ->where('studentdetail_type','admission')
-    //         ->whereYear('admission_date',$request->admission_year)->get();
-
-    //     return json_encode($students);
-    // }
-
-    // public function storeGraduationDetails(Request $request)
-    // {
-    //     foreach($request->students as $student){
-    //         GraduateStudentDataCollection::create([
-    //             'student_details_id' => $student,
-    //             'completion_date' => $request->graduationDate
-    //         ]);
-    //     }
-
-    //     return json_encode(['status' => 200]);
-    // }
-
 }

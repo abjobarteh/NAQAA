@@ -46,8 +46,19 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
+                                            <label>Date Advertised : <sup class="text-danger">*</sup></label>
+                                            <input type="date" class="form-control" name="date_advertised" value="{{ old('date_advertised') }}"/>
+                                            @error('date_advertised')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
                                             <label>Minimum Required Relevant Job Experience (Years):</label>
-                                            <input type="text" class="form-control" name="minimum_required_job_experience" value="{{ old('minimum_required_job_experience') }}">
+                                            <input type="number" class="form-control" name="minimum_required_job_experience" value="{{ old('minimum_required_job_experience') }}" min="0" step="1">
                                             @error('minimum_required_job_experience')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -90,8 +101,9 @@
                                             <label>Job Status: <sup class="text-danger">*</sup></label>
                                             <select name="job_status" id="job_status" class="form-control select2" required>
                                                 <option>Select job status</option>
-                                                <option value="full_time">Full Time</option>
-                                                <option value="part_time">Part Time</option>
+                                                <option value="permanent">Permanent</option>
+                                                <option value="temporary">Temporary</option>
+                                                <option value="contract">Contract</option>
                                             </select>
                                             @error('job_status')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -109,7 +121,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Region: <sup class="text-danger">*</sup></label>
                                             <select name="region_id" id="region_id" class="form-control select2" required>
@@ -119,6 +131,34 @@
                                                 @endforeach
                                             </select>
                                             @error('region_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>District: <sup class="text-danger">*</sup></label>
+                                            <select name="district_id" id="district_id" class="form-control select2" required>
+                                                <option>Select district</option>
+                                                @foreach ($districts as $id => $district)
+                                                    <option value="{{$id}}">{{$district}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('district_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Local goverment area: <sup class="text-danger">*</sup></label>
+                                            <select name="localgoverment_area_id" id="localgoverment_area_id" class="form-control select2" required>
+                                                <option>Select local goverment area</option>
+                                                @foreach ($lgas as $id => $lga)
+                                                    <option value="{{$id}}">{{$lga}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('localgoverment_area_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

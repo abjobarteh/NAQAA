@@ -13,11 +13,11 @@ class DatacollectionImport implements WithMultipleSheets
     public function sheets(): array
     {
         return [
-            'INSTITUTIONAL_DETAILS' => new InstitutiondetailsSheetImport(),
-            'PROGRAMMES_OFFERED' => new ProgramsOfferedSheetImport(),
-            'ACADEMIC&ADMIN_STAFF' => new AcademicAdminStaffSheetImport(),
-            'GRADUATES' => new StudentDetailSheetImport('graduate'),
-            'STUDENT_ADMISSIONS' => new StudentDetailSheetImport('admission'),
+            // 'INSTITUTIONAL_DETAILS' => new InstitutiondetailsSheetImport(),
+            // 'PROGRAMMES_OFFERED' => new ProgramsOfferedSheetImport(),
+            // 'ACADEMIC&ADMIN_STAFF' => new AcademicAdminStaffSheetImport(),
+            // 'GRADUATES' => new StudentDetailSheetImport('graduate'),
+            2 => new StudentDetailSheetImport(),
         ];
     }
 }

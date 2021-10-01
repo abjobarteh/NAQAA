@@ -30,13 +30,12 @@ class StoreUnitStandardsRequest extends FormRequest
         return [
             'unit_standard_title' => 'required|string',
             'unit_standard_code' => 'required|string',
+            'unit_standard_type' => 'required|in:key,occupational',
+            'status' => 'required|in:active,inactive',
             'minimum_required_hours' => 'required|string',
             'validated' => 'required|string|in:yes,no',
             'validation_date' => 'required|date',
-            'education_field_id' => 'required|numeric|integer',
-            'education_sub_field_id' => 'required|numeric|integer',
-            'qualification_id' => 'required|numeric|integer',
-            'qualification_level_id' => 'required|numeric|integer',
+            'qualification_id' => 'required|numeric',
             'developed_by_stakeholders' => ['required', 'array'],
             'developed_by_stakeholders.*' => ['string'],
             'validated_by_stakeholders' => ['required', 'array'],
@@ -55,14 +54,8 @@ class StoreUnitStandardsRequest extends FormRequest
             'validated.required' => 'Please Select validation status of the unit standard',
             'validated.in' => 'Selected validation status value is invalid',
             'validation_date.required' => 'Please Enter Unit Standard validation date',
-            'education_field_id.required' => 'Please select Unit Standard Field of Education',
-            'education_field_id.numeric' => 'Please select a valid Unit Standard Field of Education',
-            'education_sub_field_id.required' => 'Please select Unit Standard Sub Field of Education',
-            'education_sub_field_id.numeric' => 'Please select a valid Unit Standard Sub Field of Education',
             'qualification_id.required' => 'Please select Qualification',
             'qualification_id.numeric' => 'Please select a valid Qualification',
-            'qualification_level_id.required' => 'Please select Unit Standard NQF/GSQF Level',
-            'qualification_level_id.numeric' => 'Please select a valid Unit Standard NQF/GSQF Level',
         ];
     }
 }

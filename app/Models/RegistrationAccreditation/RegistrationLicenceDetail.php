@@ -17,7 +17,8 @@ class RegistrationLicenceDetail extends Model
         'application_id',
         'licence_start_date',
         'licence_end_date',
-        'license_status'
+        'license_status',
+        'license_no'
     ];
 
     protected static $logFillable = true;
@@ -50,12 +51,12 @@ class RegistrationLicenceDetail extends Model
 
     public function getLicenceStartDateAttribute($value)
     {
-        return new Carbon($value);
+        return (new Carbon($value))->toFormattedDateString();
     }
 
     public function getLicenceEndDateAttribute($value)
     {
-        return new Carbon($value);
+        return (new Carbon($value))->toFormattedDateString();
     }
 
     public function trainer()

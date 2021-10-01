@@ -35,16 +35,16 @@
                             <form action="{{route('researchdevelopment.datacollection.program-details.store')}}" method="post" autocomplete="off">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-12 training_provider_column">
                                         <div class="form-group">
-                                            <label>Learning center:</label>
-                                            <select name="institution_detail_id" id="institution_detail_id" class="form-control select2" required>
+                                            <label>Education/Training Provider:</label>
+                                            <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option>Select learning center</option>
                                                 @foreach ($learningcenters as $id => $center)
                                                     <option value="{{$id}}">{{$center}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('institution_detail_id')
+                                            @error('training_provider_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group">
+                                        <div class="form-group is-institution-registered-details">
                                             <label>Program Name: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="program_name" value="{{ old('program_name') }}" required autofocus>
                                             @error('program_name')
@@ -63,7 +63,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Duration: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="duration" value="{{ old('duration') }}" required>
+                                            <input type="number" class="form-control" name="duration" value="{{ old('duration') }}" min="0" step="1" required>
                                             @error('duration')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -74,7 +74,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Tuition Fee per year: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="tuition_fee_per_year" value="{{ old('tuition_fee_per_year') }}" required>
+                                            <input type="number" class="form-control" name="tuition_fee_per_year" value="{{ old('tuition_fee_per_year') }}" min="0" step="1" required>
                                             @error('tuition_fee_per_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -85,8 +85,8 @@
                                             <label>Entry requirements: <sup class="text-danger">*</sup></label>
                                             <select name="entry_requirements[]" id="entry_requirements" class="form-control select2" multiple="multiple" required>
                                                 <option>Select entry requirements</option>
-                                                @foreach ($qualifications as $qualification)
-                                                    <option value="{{$qualification}}">{{$qualification}}</option>
+                                                @foreach ($levels as $level)
+                                                    <option value="{{$level}}">{{$level}}</option>
                                                 @endforeach
                                             </select>
                                             @if($errors->has('entry_requirements'))
@@ -99,13 +99,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Field of Education: <sup class="text-danger">*</sup></label>
-                                            <select name="education_field_id" id="education_field_id" class="form-control select2" required>
+                                            <select name="field_of_education" id="field_of_education" class="form-control select2" required>
                                                 <option>Select field of education</option>
                                                 @foreach ($educationfields as $id => $field)
                                                     <option value="{{$id}}">{{$field}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('education_field_id')
+                                            @error('field_of_education')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -113,13 +113,13 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Awarding body:</label>
-                                            <select name="awarding_body_id" id="awarding_body_id" class="form-control select2" required>
+                                            <select name="awarding_body" id="awarding_body" class="form-control select2" required>
                                                 <option>Select awarding body</option>
                                                 @foreach ($awardbodies as $id => $body)
-                                                    <option value="{{$id}}">{{$body}}</option>
+                                                    <option value="{{$body}}">{{$body}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('awarding_body_id')
+                                            @error('awarding_body')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -140,4 +140,64 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#training_provider_id').change(function(e){
+                e.preventDefault()
+                let button = '<div class="col-sm-12">'+
+                                '<div class="form-group">'+
+                                    '<button class="btn btn-primary mr-1">Submit</button>'+
+                                    '<button href="" class="btn btn-warning"><i class="fas fa-arrow-left"></i> Check</button>'+
+                                '</div>'+
+                            '</div>';
+                
+            })
+            $('#something').click(function(e){
+                e.preventDefault()
+                console.log('checking if institution is registered');
+
+                $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                });
+                $.ajax({  
+                            method:"POST",  
+                            url:"{{ route('researchdevelopment.datacollection.check-is-institution-registered') }}",  
+                            data: {training_provider_id:$('#training_provider_id')},
+                            type:'json',
+                            success:function(response)  
+                            {
+                                response = JSON.parse(response)
+                                console.log(response)
+                                // if(response.status == 404)
+                                // {
+                                //     Swal.fire({
+                                //         title: 'No Results',
+                                //         text: response.message,
+                                //         icon: 'success',
+                                //         confirmButtonText: 'Close'
+                                //     })
+                                // }
+                                // if(response.status == 200){
+                                    
+                                // }
+                            },
+                            error: function(err)
+                            {
+                                console.log(err)
+                                // Swal.fire({
+                                //     title: 'Error',
+                                //     text: err.responseJSON.message,
+                                //     icon: 'error',
+                                //     confirmButtonText: 'Close'
+                                // })
+                            }  
+                    });
+            })
+        })
+    </script>
 @endsection

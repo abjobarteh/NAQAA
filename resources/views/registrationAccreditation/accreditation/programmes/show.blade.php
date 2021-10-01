@@ -34,7 +34,7 @@
                                     <h3 class="card-title"><i class="fas fa-eye"></i> Programme Accreditation</h3>
                                 </div>
                                 <div class="col-md-6 d-flex flex-direction-row justify-content-end">
-                                    <button class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Programmes</button>
+                                    <a href="{{route('registration-accreditation.accreditation.programmes.index')}}" class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Programmes</a>
                                     <a href="{{route('registration-accreditation.accreditation.programmes.edit',$accreditation->id)}}" class="btn btn-danger btn-flat"><i class="fas fa-edit"></i> Edit</a>
                                 </div>
                             </div>
@@ -54,7 +54,7 @@
                                                 <select name="trainingprovider_id" id="trainingprovider_id" class="form-control select2">
                                                     <option value="">-- select training provider --</option>
                                                    @foreach ($trainingproviders as $id => $trainingprovider)
-                                                       <option value="{{$id}}" {{$accreditation->training_provider_id === $id ? 'selected' : ''}}>{{$trainingprovider}}</option>
+                                                       <option value="{{$id}}" {{$accreditation->programmeAccreditations->programme->training_provider_id === $id ? 'selected' : ''}}>{{$trainingprovider}}</option>
                                                    @endforeach
                                                 </select>
                                                 @error('trainingprovider_id')
@@ -66,7 +66,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Programme Title: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="programme_title" value="{{ $accreditation->programmeDetail->programme_title ?? '' }}" required>
+                                                    <input type="text" class="form-control" name="programme_title" value="{{ $accreditation->programmeAccreditations->programme->programme_title ?? '' }}" required>
                                                     @error('programme_title')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -78,7 +78,7 @@
                                                     <select name="level" id="level" class="form-control select2" required>
                                                         <option value="">Select level</option>
                                                         @foreach ($levels as $id => $level)
-                                                            <option value="{{$level}}" {{$accreditation->programmeDetail->level ?? '' === $level ? 'selected' : ''}}>{{$level}}</option>
+                                                            <option value="{{$level}}" {{$accreditation->programmeAccreditations->programme->level ?? '' === $level ? 'selected' : ''}}>{{$level}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('level')
@@ -91,7 +91,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Duration of Studentship: <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="studentship_duration" value="{{ $accreditation->programmeDetail->studentship_duration ?? '' }}" min="0" step="1" required>
+                                                    <input type="number" class="form-control" name="studentship_duration" value="{{ $accreditation->programmeAccreditations->programme->studentship_duration ?? '' }}" min="0" step="1" required>
                                                     @error('studentship_duration')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -100,7 +100,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Hours): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time" value="{{ $accreditation->programmeDetail->total_qualification_time ?? '' }}" min="0" step="1" required>
+                                                    <input type="number" class="form-control" name="total_qualification_time" value="{{ $accreditation->programmeAccreditations->programme->total_qualification_time ?? '' }}" min="0" step="1" required>
                                                     @error('total_qualification_time')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -111,7 +111,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Level of Fees: <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="level_of_fees" value="{{ $accreditation->programmeDetail->level_of_fees ?? '' }}" min="0" step="1" required>
+                                                    <input type="number" class="form-control" name="level_of_fees" value="{{ $accreditation->programmeAccreditations->programme->level_of_fees ?? '' }}" min="0" step="1" required>
                                                     @error('level_of_fees')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -123,7 +123,7 @@
                                                     <select name="admission_requirements[]" id="admission_requirements" class="form-control select2" multiple="multiple" required>
                                                         <option>Select admission requirements</option>
                                                         @foreach ($levels as $id => $level)
-                                                            <option value="{{$level}}" {{in_array($level, $accreditation->programmeDetail->admission_requirements ?? []) ? 'selected' : ''}}>{{$level}}</option>
+                                                            <option value="{{$level}}" {{in_array($level, $accreditation->programmeAccreditations->programme->admission_requirements ?? []) ? 'selected' : ''}}>{{$level}}</option>
                                                         @endforeach
                                                     </select>
                                                     @if($errors->has('admission_requirements'))
@@ -167,10 +167,9 @@
                                                 <div class="form-group">
                                                     <label>Application status: <sup class="text-danger">*</sup></label>
                                                     <select name="status" id="application_status" class="form-control select2">
-                                                        <option>Select application status</option>
-                                                        <option value="accepted" {{$accreditation->status == 'accepted' ? 'selected' : ''}}>Accepted</option>
-                                                        <option value="rejected" {{$accreditation->status == 'rejected' ? 'selected' : ''}}>Rejected</option>
-                                                        <option value="pending" {{$accreditation->status == 'pending' ? 'selected' : ''}}>Pending</option>
+                                                        @foreach ($application_statuses as $status)
+                                                            <option value="{{$status}}" {{ ($accreditation->status ?? '') == $status ? 'selected' : '' }}>{{$status}}</option>
+                                                        @endforeach
                                                     </select>
                                                     @error('status')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -224,7 +223,7 @@
         $(document).ready(function(){
             $('.license-registration-details').hide();
 
-            if($('#application_status').val() == 'accepted'){
+            if($('#application_status').val() == 'Approved'){
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
@@ -246,7 +245,7 @@
             });
 
             $("#application_status").change(function() {
-                if ($(this).val() == "accepted") {
+                if ($(this).val() == "Approved") {
                     $('.license-registration-details').show();
                     $('.license-registration').prop('hidden', false);
                     $('.license-registration').prop('disabled', false);
