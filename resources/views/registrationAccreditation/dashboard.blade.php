@@ -1,4 +1,3 @@
-@@ -0,0 +1,79 @@
 @extends('layouts.admin')
 @section('page-title','Dashboard')
 @section('content')
