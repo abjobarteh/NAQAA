@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\systemadmin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\systemadmin\StoreApplicationFeeTariffsRequest;
-use App\Http\Requests\systemadmin\UpdateApplicationFeeTariffsRequest;
-use App\Models\ApplicationFeeTariff;
+use App\Models\ApplicationType;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -18,38 +17,13 @@ class ApplicationFeeTarrifsController extends Controller
      */
     public function index()
     {
-        abort_if(Gate::denies('access_application_fees'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fees = ApplicationFeeTariff::all();
+        $application_types = ApplicationType::all();
 
-        return  view('systemadmin.applicationfeestariffs.index', compact('fees'));
+        return  view('systemadmin.applicationfeestariffs.index', compact('application_types'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        abort_if(Gate::denies('create_application_fees'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return  view('systemadmin.applicationfeestariffs.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreApplicationFeeTariffsRequest $request)
-    {
-        ApplicationFeeTariff::create($request->validated()+['approved' => 0]);
-
-        return redirect(route('admin.application-fees-tariffs.index'))
-                ->withSuccess('Application Fee Tariff successfully added');
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,13 +31,13 @@ class ApplicationFeeTarrifsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ApplicationType $application_fees_tariff)
     {
-        abort_if(Gate::denies('edit_application_fees'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('edit_general_configurations'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $fee = ApplicationFeeTariff::where('id', $id)->get();
+        $application_type = $application_fees_tariff;
 
-        return  view('systemadmin.applicationfeestariffs.edit', compact('fee'));
+        return  view('systemadmin.applicationfeestariffs.edit', compact('application_type'));
     }
 
     /**
@@ -73,22 +47,15 @@ class ApplicationFeeTarrifsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateApplicationFeeTariffsRequest $request, ApplicationFeeTariff $application_fees_tariff)
+    public function update(Request $request, ApplicationType $application_fees_tariff)
     {
-        $application_fees_tariff->update($request->validated());
+        $data = $request->validate([
+            'fee' => 'required|numeric',
+            'description' => 'nullable|string'
+        ]);
+        $application_fees_tariff->update($data);
 
         return redirect(route('admin.application-fees-tariffs.index'))
-                ->withSuccess('Application Fee Tariff successfully updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+            ->withSuccess('Application Fee Tariff successfully updated');
     }
 }
