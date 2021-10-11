@@ -23,13 +23,7 @@ class ActivitiesController extends Controller
 
         $activities = Activity::with(['causer', 'subject'])->whereHas('causer')->orderBy('created_at', 'desc')->get();
 
-        $roles = Role::all()->pluck('name', 'id');
-
-        $users = User::all()->pluck('username', 'id');
-
-        // dd($roles);
-
-        return view('systemadmin.auditlogs.index', compact('activities', 'roles', 'users'));
+        return view('systemadmin.auditlogs.index', compact('activities'));
     }
 
     public function show($id)

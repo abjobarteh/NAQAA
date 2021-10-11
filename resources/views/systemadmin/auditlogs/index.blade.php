@@ -17,40 +17,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <select class="form-control select2" id="user" name="user">
-                                        <option value="">--- select user ---</option>
-                                        @foreach ($users as $id => $user)
-                                            <option value="{{ $id }}">{{ $user }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-4 col-lg-4">
-                                <!-- Date range -->
-                                 <div class="form-group">
-                                     <div class="input-group">
-                                         <div class="input-group-prepend">
-                                             <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                             </span>
-                                         </div>
-                                         <input type="text" class="form-control float-right" id="activity-daterange" value="">
-                                     </div>
-                                     <!-- /.input group -->
-                                 </div>
-                                 <!-- /.form group -->
-                             </div>
-                            <div class="col-md-3">
-                                    <button type="button" class="btn btn-info btn-block" id="filter-logs">Filter</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               @livewire('systemadmin.filter-logs')
             </div>
             <div class="col-12">
                 <div class="card logs-card">
