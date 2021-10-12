@@ -173,6 +173,14 @@
       </a>
     </li>
     @endcan
+    <li class="nav-item">
+      <a href="{{route('admin.application-tokens.index')}}" class="nav-link {{ request()->is('admin/application-tokens') || request()->is('admin/application-tokens/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-donate"></i>
+        <p>
+          Application Tokens
+        </p>
+      </a>
+    </li>
     @can('access_activity_logs')
     <li class="nav-item">
       <a href="{{route('admin.activities.index')}}" class="nav-link {{ request()->is('admin/activities') || request()->is('admin/activities/*') ? 'active' : '' }}">

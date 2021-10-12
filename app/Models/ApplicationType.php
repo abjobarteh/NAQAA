@@ -33,4 +33,9 @@ class ApplicationType extends Model
                 return "Application Fee deleted by " . auth()->user()->username;
         };
     }
+
+    public function tokens()
+    {
+        return $this->hasMany(ApplicationToken::class, 'application_type_id')->latest();
+    }
 }

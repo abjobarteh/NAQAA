@@ -41,6 +41,7 @@ use App\Http\Controllers\StandardsCurriculum\ReviewUnitStandardsController;
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
+use App\Http\Controllers\systemadmin\ApplicationTokensController;
 use App\Http\Controllers\systemadmin\AwardingBodiesController;
 use App\Http\Controllers\systemadmin\BackupsController;
 use App\Http\Controllers\systemadmin\DashboardController;
@@ -180,6 +181,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Awarding bodies 
     Route::resource('awarding-bodies', AwardingBodiesController::class);
+
+    // Manage Application Tokens
+    Route::resource('application-tokens', ApplicationTokensController::class)->except(['edit', 'destroy']);
 
     // Audit Logs index route
     Route::get('activities', [ActivitiesController::class, 'index'])->name('activities.index');
