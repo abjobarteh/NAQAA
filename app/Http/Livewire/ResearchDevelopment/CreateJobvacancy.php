@@ -22,7 +22,7 @@ class CreateJobvacancy extends Component
         $district_id, $localgoverment_area_id, $jobvacancy_category_id, $occupational_group;
 
     protected $rules = [
-        'position_advertised' => ['nullable', 'string'],
+        'position_advertised' => ['required', 'string'],
         'position_name' => ['required_if:position_advertised,not-specified', 'string'],
         'date_advertised' => ['nullable', 'date'],
         'minimum_required_job_experience' => ['numeric'],
@@ -70,7 +70,7 @@ class CreateJobvacancy extends Component
 
     public function addJobvacancy()
     {
-        // $this->validate();
+        $this->validate();
 
         if ($this->position_exist) {
             JobVacancy::create([
