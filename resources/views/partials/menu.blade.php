@@ -98,7 +98,7 @@
   @endcan
   @can('access_research_development_data_import')
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.datacollection-imports.index')}}" class="nav-link 
+      <a href="{{route('researchdevelopment.datacollection-imports')}}" class="nav-link 
       {{ request()->is('researchdevelopment/datacollection-imports') || 
          request()->is('researchdevelopment/datacollection-imports/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-file-import"></i>

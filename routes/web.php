@@ -78,6 +78,7 @@ use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
+use App\Http\Livewire\ResearchDevelopment\Datacollection\StudentDetailsImport;
 use App\Http\Livewire\ResearchDevelopment\EditJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\GraduatesReports;
@@ -234,7 +235,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit-jobvacancy/{id}', EditJobvacancy::class)->name('edit-jobvacancy');
 
     // Imports
-    Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+    Route::get('datacollection-imports', StudentDetailsImport::class)->name('datacollection-imports');
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {

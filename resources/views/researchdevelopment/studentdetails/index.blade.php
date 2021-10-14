@@ -72,7 +72,7 @@
                                             <td>
                                                 @can('edit_data_collection')
                                                     <a href="{{route('researchdevelopment.datacollection.student-details.edit',$student->id)
-                                                        }}" class="btn btn-sm btn-danger"
+                                                        }}" class="btn btn-xs btn-danger"
                                                         title="edit student details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
@@ -80,7 +80,7 @@
                                                 @endcan
                                                 @can('show_data_collection')
                                                     <a href="{{route('researchdevelopment.datacollection.student-details.show',$student->id)
-                                                        }}" class="btn btn-sm btn-info"
+                                                        }}" class="btn btn-xs btn-info"
                                                         title="view student details"
                                                         >
                                                         <i class="fas fa-eye"></i>    
