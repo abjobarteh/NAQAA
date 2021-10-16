@@ -35,6 +35,7 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Code</th>
                                         <th>Tuition Fee (GMD)</th>
                                         <th>Entry requirements</th>
                                         <th>Mode of Delivery</th>
@@ -48,6 +49,7 @@
                                     @forelse ($qualifications as $qualification)
                                         <tr>
                                             <td>{{$qualification->name}}</td>
+                                            <td>{{$qualification->qualification_code ?? 'N/A'}}</td>
                                             <td>{{$qualification->tuition_fee ?? 'N/A'}}</td>
                                             <td>
                                                 @forelse ($qualification->entry_requirements as $req)

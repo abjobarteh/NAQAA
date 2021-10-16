@@ -38,6 +38,7 @@ class StoreQualificationsRequest extends FormRequest
             'qualification_level_id' => ['required', 'numeric', 'integer'],
             'education_field_id' => ['required', 'numeric', 'integer'],
             'education_sub_field_id' => ['nullable'],
+            'qualification_code' => ['required', 'string'],
         ];
     }
 
@@ -54,6 +55,7 @@ class StoreQualificationsRequest extends FormRequest
             'qualification_level_id.numeric' => 'Please select a valid qualfication level',
             'education_field_id.required' => 'Please Select field of education',
             'education_field_id.numeric' => 'Please Select a valid field of education',
+            'qualification_code.required' => 'Please enter the Code for this Qualification',
         ];
     }
 }

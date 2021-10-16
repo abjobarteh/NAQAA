@@ -36,7 +36,7 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Qualification Name: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="name" value="{{ $qualification->name }}" required autofocus>
@@ -45,7 +45,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Qualification Code: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="qualification_code" value="{{ $qualification->qualification_code }}" required>
+                                            @error('qualification_code')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Practical: <sup class="text-danger">*</sup></label>
                                             <select name="practical" id="practical" class="form-control select2" required>
@@ -60,7 +69,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Tuition Fee:</label>
                                             <input type="text" class="form-control" name="tuition_fee" value="{{ $qualification->tuition_fee }}">
@@ -69,7 +78,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Minimum Duration (months): <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="minimum_duration" value="{{ $qualification->minimum_duration }}" required>
@@ -78,7 +87,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Mode of delivery: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="mode_of_delivery" value="{{ $qualification->mode_of_delivery }}" required>

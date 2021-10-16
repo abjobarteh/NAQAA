@@ -21,6 +21,7 @@ class Qualification extends Model
         'qualification_level_id',
         'education_field_id',
         'education_sub_field_id',
+        'qualification_code'
     ];
 
     protected static $logFillable = true;
@@ -33,11 +34,11 @@ class Qualification extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Qualification added by " . auth()->user()->username;
+                return "New Qualification of name {$this->attributes['name']} added by " . auth()->user()->username;
             case 'updated':
-                return "Qualification updated by " . auth()->user()->username;
+                return "Qualification of name {$this->attributes['name']} updated by " . auth()->user()->username;
             case 'deleted':
-                return "Qualification deleted by " . auth()->user()->username;
+                return "Qualification of name {$this->attributes['name']} deleted by " . auth()->user()->username;
         };
     }
 
