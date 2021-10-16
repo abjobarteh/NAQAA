@@ -39,6 +39,10 @@
                                         <p class="col-sm-6 text-muted">{{$qualification->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
+                                        <b class="col-sm-6 text-primary">Qualification Code: </b>
+                                        <p class="col-sm-6 text-muted">{{$qualification->qualification_code ?? 'N/A'}}</p>
+                                    </div>
+                                    <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Tuition Fee: </b>
                                         <p class="col-sm-6 text-muted">{{$qualification->tuition_fee ?? 'N/A'}}</p>
                                     </div>
