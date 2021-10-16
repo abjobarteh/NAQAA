@@ -242,7 +242,10 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('enrollments', EnrollmentReports::class)->name('enrollments');
       Route::get('graduates', GraduatesReports::class)->name('graduates');
       Route::get('labour-market', LabourMarketReports::class)->name('labour-market');
-      Route::get('research-survey', ResearchSurveyReports::class)->name('research-survey');
+      Route::get('research-survey', function () {
+        return view('researchdevelopment.reports.researchsurvey');
+      })->name('research-survey');
+      Route::get('research-survey-reports/{report_type}', ResearchSurveyReports::class)->name('research-survey-reports');
     });
   });
 

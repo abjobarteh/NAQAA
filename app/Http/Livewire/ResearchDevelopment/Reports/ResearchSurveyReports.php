@@ -9,7 +9,30 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class ResearchSurveyReports extends Component
 {
-    public $research_topic, $research_purpose, $main_findings, $authors, $publication_date, $funding_body;
+    public $research_topic, $research_purpose, $main_findings, $authors, $publication_date, $funding_body, $report_type;
+    public $is_research_topic = false, $is_research_purpose = false, $is_main_findings = false, $is_authors = false,
+        $is_publication_date = false, $is_funding_body = false;
+
+    public function mount($report_type)
+    {
+        $this->report_type = $report_type;
+        switch ($this->report_type) {
+            case "research_topic":
+                $this->is_research_topic = true;
+            case "research_purpose":
+                $this->is_research_purpose = true;
+            case "main_findings":
+                $this->is_main_findings = true;
+            case "authors":
+                $this->is_authors = true;
+            case "publication_date":
+                $this->is_publication_date = true;
+            case "funding_body":
+                $this->is_funding_body = true;
+            case "default":
+                return back();
+        }
+    }
 
     public function render()
     {
