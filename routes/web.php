@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssessmentCertification\AssessorVerifiersController;
 use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsController;
+use App\Http\Controllers\AssessmentCertification\DashboardController as AssessmentCertificationDashboardController;
 use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
 use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -332,7 +333,10 @@ Route::group(['middleware' => 'auth'], function () {
     'middleware' => 'role:assessment_and_certification_module'
   ], function () {
 
-    Route::redirect('/', 'assessment-certification/registrations');
+    Route::redirect('/', 'assessment-certification/dashboard');
+
+    // Dashboard route
+    Route::get('/dashboard', AssessmentCertificationDashboardController::class)->name('dashboard');
 
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');

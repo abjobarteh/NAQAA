@@ -392,11 +392,21 @@
 {{-- Assessment & Certification --}}
 @role('assessment_and_certification_module')
 <li class="nav-item">
+  <a href="{{route('assessment-certification.dashboard')}}" class="nav-link {{
+     request()->is('assessment-certification/dashboard') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Dashboard
+    </p>
+  </a>
+</li>
+<li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
      request()->is('assessment-certification/registrations') || 
      request()->is('assessment-certification/registrations/*') ? 'active' : '' }}"
      >
-    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <i class="nav-icon fas fa-user-graduate"></i>
     <p>
       Registrations
     </p>
