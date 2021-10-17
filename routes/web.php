@@ -338,6 +338,10 @@ Route::group(['middleware' => 'auth'], function () {
     // Dashboard route
     Route::get('/dashboard', AssessmentCertificationDashboardController::class)->name('dashboard');
 
+    // student registrations
+    Route::resource('registrations', StudentRegistrationsController::class);
+
+    // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', StudentAssessment::class)->name('student-assessment');
@@ -347,11 +351,6 @@ Route::group(['middleware' => 'auth'], function () {
       Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
       Route::post('store-assessment-details', [StudentAssessmentsController::class, 'storeAssessmentDetails'])->name('store-assessment-details');
     });
-
-    // student registrations
-    Route::resource('registrations', StudentRegistrationsController::class);
-
-    // student assessments
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);

@@ -30,6 +30,7 @@
                         <table id="example2" class="table datatable table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>Picture</th>
                                     <th>Student Name</th>
                                     <th>Birth Date</th>
                                     <th>Gender</th>
@@ -49,6 +50,7 @@
                             <tbody>
                                 @forelse ($registeredstudents as $student)
                                     <tr>
+                                        <td><img src="{{$student->picture ?? '/storage/uploads/no-image.png'}}" class="rounded-circle" alt="Student Profile Image" width="60"></td>
                                         <td>{{$student->full_name}}</td>
                                         <td>{{$student->date_of_birth}}</td>
                                         <td>{{$student->gender}}</td>
