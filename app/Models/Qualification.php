@@ -74,7 +74,12 @@ class Qualification extends Model
 
     public function reviews()
     {
-        return $this->hasMany(QualificationReview::class);
+        return $this->hasMany(QualificationReview::class)->latest();
+    }
+
+    public function lastreview()
+    {
+        return $this->hasOne(QualificationReview::class)->latest();
     }
 
     public function registeredStudents()

@@ -25,7 +25,7 @@ class QualificationsController extends Controller
     {
         abort_if(Gate::denies('access_qualifications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualifications = Qualification::with(['level', 'fieldOfEducation'])->get();
+        $qualifications = Qualification::with(['level', 'fieldOfEducation', 'lastreview'])->get();
 
         return view('standardscurriculum.qualifications.index', compact('qualifications'));
     }
@@ -114,6 +114,6 @@ class QualificationsController extends Controller
 
         $qualification->reviews()->save($review);
 
-        return json_encode(['status' => '200', 'message' => 'Qualification review Date Successfully added']);
+        return json_encode(['status' => '200', 'message' => 'Qualification review Date Successfully updated']);
     }
 }

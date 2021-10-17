@@ -42,6 +42,7 @@
                                         <th>Duration (months)</th>
                                         <th>Level</th>
                                         <th>Field of Education</th>
+                                        <th>Last Review Date</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -63,6 +64,7 @@
                                             <td>{{$qualification->minimum_duration}}</td>
                                             <td>{{$qualification->level->name ?? 'N/A'}}</td>
                                             <td>{{$qualification->fieldOfEducation->name ?? 'N/A'}}</td>
+                                            <td>{{$qualification->lastreview->review_date ?? 'N/A'}}</td>
                                             <td>
                                                 @can('edit_qualifications')
                                                     <a href="{{route('standardscurriculum.qualifications.edit',$qualification->id)}}" 
@@ -117,13 +119,8 @@
                             <input type="text" class="col-sm-12 form-control" id="qualification_name" disabled>
                         </div>
                         <div class="form-group row">
-                            <label>Validation Date:</label>
-                            <div class="input-group date" id="review_date" data-target-input="nearest">
-                                <input type="text" class="form-control datetimepicker-input" id="review-date" name="review_date" data-target="#review_date" required/>
-                                <div class="input-group-append" data-target="#review_date" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                            <label>Last Review Date:</label>
+                            <input type="date" class="form-control" id="review-date" name="review_date" max={{date('Y-m-d')}} required/>
                         </div>
                     </form>
                 </div>
@@ -143,10 +140,6 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            //initialise Date range picker
-            $('#review_date').datetimepicker({
-                format: 'YYYY-MM-DD'
-            });
 
             // when review button is clicked show modal
             $(document).on('click', '#review-date-button', function(e){  
@@ -197,7 +190,6 @@
                             type:'json',
                             success:function(response)  
                             {
-                                // console.log(response)
                                 let data = JSON.parse(response)
                                 if(data.status == 200){
                                     Swal.fire({
@@ -217,19 +209,13 @@
                 }
             });
 
-            // function submitReviewDate(id,name){
-
-            // }
-
             function showModal(id,name){
-                // console.log(e)
                 $('#update-review-date').modal('show')
                 $('#qualification_name').val(name)
                 $('#qualification_id').val(id)
             }
 
             function hideModal(){
-                // console.log(e)
                 $('#update-review-date').modal('hide')
                 $('#update-review-date form')[0].reset()
             }
