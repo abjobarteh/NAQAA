@@ -6,9 +6,7 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @can('create_role')
-                    <a href="{{ route('admin.roles.create') }}" class="btn btn-success">Add Role</a>
-                    @endcan
+                    <h1 class="m-0">Roles</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->
