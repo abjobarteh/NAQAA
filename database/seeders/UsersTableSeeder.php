@@ -15,13 +15,13 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         $systemadmin = [
-            'username' => 'techjobis',
-            'email' => 'techjobis@gmail.com',
+            'username' => 'sysadmin',
+            'email' => 'admin@gmail.com',
             'password' => bcrypt('Allah123'),
-            'firstname' => 'Biran',
-            'lastname' => 'Jobe',
-            'phonenumber' => '2952173',
-            'address' => 'Bundung Borehole',
+            'firstname' => 'John',
+            'lastname' => 'Doe',
+            'phonenumber' => '7777777',
+            'address' => 'Bakau',
             'default_password_status' => 0,
             'user_status' => 1,
             'user_category' => 'system',

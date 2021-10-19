@@ -18,11 +18,11 @@ class DesignationsController extends Controller
      */
     public function index()
     {
-      abort_if(Gate::denies('access_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('access_designation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-      $designations = Designation::all();
+        $designations = Designation::all();
 
-      return view('systemadmin.designations.index', compact('designations'));
+        return view('systemadmin.designations.index', compact('designations'));
     }
 
     /**
@@ -47,7 +47,7 @@ class DesignationsController extends Controller
     {
         Designation::create($request->validated());
 
-        return redirect()->route('systemadmin.designations.index')->withSuccess('designation successfully created');
+        return redirect()->route('admin.designations.index')->withSuccess('designation successfully created');
     }
 
     /**
@@ -85,7 +85,6 @@ class DesignationsController extends Controller
     {
         $designation->update($request->validated());
 
-        return redirect()->route('systemadmin.designations.index')->withSuccess('designation successfully updated');
+        return redirect()->route('admin.designations.index')->withSuccess('designation successfully updated');
     }
-
 }
