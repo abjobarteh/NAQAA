@@ -45,8 +45,8 @@
                                             <td>{{$assessor_verifier->country_of_citizenship}}</td>
                                             <td>{{$assessor_verifier->email}}</td>
                                             <td>{{$assessor_verifier->phone_mobile}}</td>
-                                            <td>{{$assessor_verifier->programme_name}}</td>
-                                            <td>{{$assessor_verifier->programme_level}}</td>
+                                            <td>{{$assessor_verifier->currentAccreditation->area ?? 'N/A'}}</td>
+                                            <td>{{$assessor_verifier->currentAccreditation->level ?? 'N/A'}}</td>
                                             <td><span class="badge badge-rounded badge-primary">{{$assessor_verifier->type}}</span></td>
                                         </tr>
                                     @empty

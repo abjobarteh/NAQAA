@@ -85,7 +85,8 @@ class Trainer extends Model
     }
     public function currentAccreditation()
     {
-        return $this->accreditaitons()->where('status', 'accepted')->where('accreditation_status', 'valid')->first();
+        return $this->hasOne(TrainerAccreditationDetail::class, 'trainer_id')
+            ->where('status', 'Approved')->where('accreditation_status', 'valid');
     }
 
     public function accreditedAreas()
