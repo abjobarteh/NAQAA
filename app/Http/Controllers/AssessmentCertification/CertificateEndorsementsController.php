@@ -143,7 +143,7 @@ class CertificateEndorsementsController extends Controller
             }
         }
 
-        if ($endorsement->request_Status == 'pending') {
+        if ($endorsement->request_status == 'pending') {
             $endorsement->update($request->validated() + [
                 'trainer_details' => json_encode($trainerdetails),
                 'request_status' => 'processed',
@@ -151,14 +151,9 @@ class CertificateEndorsementsController extends Controller
             ]);
 
             $message = "Your Certificate endorsement request has succesfully been processed";
-            // $user = User::findOrFail(auth()->user()->id);
             $endorsement->trainingprovider->user->notify(new CertificateEndorsementRequestNotification(
                 $message
             ));
-
-            // $user->notify(new CertificateEndorsementRequestNotification(
-            //     $message
-            // ));
         } else {
             $endorsement->update($request->validated() + [
                 'trainer_details' => json_encode($trainerdetails),

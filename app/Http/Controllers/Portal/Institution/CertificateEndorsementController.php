@@ -53,9 +53,9 @@ class CertificateEndorsementController extends Controller
     {
         $trainerfirstnames = $request->filled('firstnames') ?  $request->input('firstnames', []) : [];
         $trainerdetails = [];
-        $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->get();
+        $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
 
-        if (!$trainingprovider->has('validLicence')) {
+        if (!$trainingprovider->has('validLicence')->exists()) {
             return redirect()->route('portal.institution.certificate-endorsements.index')
                 ->withInfo('Your are not yet registered to submit a Certificate endorsement request');
         }
@@ -74,7 +74,7 @@ class CertificateEndorsementController extends Controller
         }
 
         EndorsedCertificateDetail::create([
-            'training_provider_id' => $trainingprovider[0]->id,
+            'training_provider_id' => $trainingprovider->id,
             'programme' => $request->programme,
             'level' => $request->level,
             'total_certificates_declared' => $request->total_certificates_declared,
