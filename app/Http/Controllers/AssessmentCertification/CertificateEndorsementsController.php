@@ -8,6 +8,9 @@ use App\Http\Requests\AssessmentCertification\UpdateCertificateEndorsementReques
 use App\Models\AssessmentCertification\EndorsedCertificateDetail;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\Role;
+use App\Models\User;
+use App\Notifications\AssessmentCertification\CertificateEndorsementRequestNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -64,7 +67,14 @@ class CertificateEndorsementsController extends Controller
             }
         }
 
-        EndorsedCertificateDetail::create($request->validated() + ['trainer_details' => json_encode($trainerdetails)]);
+        EndorsedCertificateDetail::create(
+            $request->validated()
+                + [
+                    'trainer_details' => json_encode($trainerdetails),
+                    'request_status' => 'processed',
+                    'total_certificates_declared' => $request->total_certificates_declared
+                ]
+        );
 
         return redirect()->route('assessment-certification.certificate-endorsements.index')
             ->withSuccess('Certificates Endorsement details successfully added');
@@ -78,8 +88,6 @@ class CertificateEndorsementsController extends Controller
      */
     public function show($id)
     {
-        $endorsement = EndorsedCertificateDetail::findOrFail($id);
-
         $endorsement = EndorsedCertificateDetail::findOrFail($id);
 
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
@@ -135,7 +143,28 @@ class CertificateEndorsementsController extends Controller
             }
         }
 
-        $endorsement->update($request->validated() + ['trainer_details' => json_encode($trainerdetails)]);
+        if ($endorsement->request_Status == 'pending') {
+            $endorsement->update($request->validated() + [
+                'trainer_details' => json_encode($trainerdetails),
+                'request_status' => 'processed',
+                'total_certificates_declared' => $request->total_certificates_declared
+            ]);
+
+            $message = "Your Certificate endorsement request has succesfully been processed";
+            // $user = User::findOrFail(auth()->user()->id);
+            $endorsement->trainingprovider->user->notify(new CertificateEndorsementRequestNotification(
+                $message
+            ));
+
+            // $user->notify(new CertificateEndorsementRequestNotification(
+            //     $message
+            // ));
+        } else {
+            $endorsement->update($request->validated() + [
+                'trainer_details' => json_encode($trainerdetails),
+                'total_certificates_declared' => $request->total_certificates_declared
+            ]);
+        }
 
         return back()->withSuccess('Certificate Endorsement details successfully updated');
     }

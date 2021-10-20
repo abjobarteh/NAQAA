@@ -55,6 +55,11 @@ class CertificateEndorsementController extends Controller
         $trainerdetails = [];
         $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->get();
 
+        if (!$trainingprovider->has('validLicence')) {
+            return redirect()->route('portal.institution.certificate-endorsements.index')
+                ->withInfo('Your are not yet registered to submit a Certificate endorsement request');
+        }
+
         for ($trainerfirstname = 0; $trainerfirstname < count($trainerfirstnames); $trainerfirstname++) {
             if ($trainerfirstnames[$trainerfirstname] != '') {
                 $trainerdetail = [
@@ -78,13 +83,14 @@ class CertificateEndorsementController extends Controller
             'trainer_details' => json_encode($trainerdetails),
             'programme_start_date' => $request->programme_start_date,
             'programme_end_date' => $request->programme_end_date,
-            'request_status' => 'Pending'
+            'request_status' => 'pending'
         ]);
 
-        $role = Role::where('slug', 'assessment_and_certification_manager')->get();
+        $role = Role::where('slug', 'assessment_and_certification_module')->get();
+        $message = "New Certificate endorsement request from " . auth()->user()->username;
 
         $role[0]->notify(new CertificateEndorsementRequestNotification(
-            User::findOrFail(auth()->user()->id)
+            $message
         ));
 
         return redirect()->route('portal.institution.certificate-endorsements.index')

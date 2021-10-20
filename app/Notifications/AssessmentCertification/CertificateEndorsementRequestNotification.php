@@ -12,16 +12,16 @@ class CertificateEndorsementRequestNotification extends Notification
 {
     use Queueable;
 
-    protected $user;
+    protected $message;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct($message)
     {
-        $this->user = $user;
+        $this->message = $message;
     }
 
     /**
@@ -58,7 +58,7 @@ class CertificateEndorsementRequestNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'New Certificate Endorsement request submitted by ' . $this->user->username,
+            'message' => $this->message,
         ];
     }
 }

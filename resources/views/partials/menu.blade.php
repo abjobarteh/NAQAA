@@ -453,6 +453,9 @@
     <i class="nav-icon fas fa-stamp"></i>
     <p>
       Endorsements
+      <span class="badge badge-info right">
+        <?php echo App\Models\AssessmentCertification\EndorsedCertificateDetail::where('request_status','pending')->get()->count() ?>
+      </span>
     </p>
   </a>
 </li>
