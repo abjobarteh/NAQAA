@@ -31,7 +31,7 @@ class StudentDatacollection extends Component
 
         // dd((new HeadingRowImport())->toArray($this->excel_file));
 
-        Excel::import(new DatacollectionImport(), $this->excel_file);
+        Excel::import(new DatacollectionImport(null), $this->excel_file);
 
         alert('Import Successfully', 'Student details successfully', 'success');
 

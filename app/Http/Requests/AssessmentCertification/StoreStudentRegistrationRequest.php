@@ -42,7 +42,7 @@ class StoreStudentRegistrationRequest extends FormRequest
             'programme_level_id' => ['required', 'numeric'],
             'training_provider_id' => ['required', 'numeric'],
             'academic_year' => ['required', 'string'],
-            'picture' => ['nullable', 'file', 'mimes:jpg,png'],
+            'picture' => ['nullable', 'file', 'mimes:jpg,png', 'max:2048'],
         ];
     }
 

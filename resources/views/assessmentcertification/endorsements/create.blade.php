@@ -101,7 +101,16 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Total certificates declared: <sup class="text-danger">*</sup></label>
+                                            <input type="number" class="form-control" name="total_certificates_declared" value="{{ old('total_certificates_declared') }}" min="0" step="1" required>
+                                            @error('total_certificates_declared')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Total certificates received: <sup class="text-danger">*</sup></label>
                                             <input type="number" class="form-control" name="total_certificates_received" value="{{ old('total_certificates_received') }}" min="0" step="1" required>
@@ -110,7 +119,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Total males:</label>
                                             <input type="number" class="form-control" name="total_males" value="{{ old('total_males') }}" min="0" step="1" required>
@@ -119,7 +128,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Total females: <sup class="text-danger">*</sup></label>
                                             <input type="number" class="form-control" name="total_females" value="{{ old('total_females') }}" min="0" step="1" required>

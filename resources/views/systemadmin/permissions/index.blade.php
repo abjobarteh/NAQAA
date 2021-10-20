@@ -6,9 +6,7 @@
             <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    @can('create_permission')
-                    <a href="{{ route('admin.permissions.create') }}" class="btn btn-success">Create Permission</a>
-                    @endcan
+                    <h1 class="m-0">Permissions</h1>
                 </div><!-- /.col -->
             </div><!-- /.row -->
             </div><!-- /.container-fluid -->

@@ -39,6 +39,7 @@
                                     <th>Total females</th>
                                     <th>Total endorsed certificates</th>
                                     <th>Total non-endorsed certificates</th>
+                                    <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,13 @@
                                         <td>{{$endorsement->total_females ?? '0'}}</td>
                                         <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>
                                         <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
+                                        <td>
+                                            @if($endorsement->request_status == 'processed')
+                                                <span class="badge badge-success">{{$endorsement->request_status ?? '0'}}</span>
+                                            @else
+                                                <span class="badge badge-danger">{{$endorsement->request_status ?? '0'}}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{route('assessment-certification.certificate-endorsements.edit',$endorsement->id)
                                                 }}" class="btn btn-xs btn-danger"

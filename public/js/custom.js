@@ -14,10 +14,18 @@ $(document).ready(function(){
         $('#assessment-modal').modal('show')
     })
 
+    window.addEventListener('openFilterlogsModal', event => {
+        $('#filter-logs-modal').modal('show')
+    })
+
     window.addEventListener('closeAssessmentFormModal', event => {
       console.log('something is working here')
       $('#assessment-modal').modal('hide')
-  })
+    })
+
+    window.addEventListener('closeFilterlogsModal', event => {
+      $('#filter-logs-modal').modal('hide')
+    })
   
 
   $('.modal').on('hidden.bs.modal', function(event){

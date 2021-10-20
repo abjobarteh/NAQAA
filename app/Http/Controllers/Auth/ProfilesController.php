@@ -13,18 +13,17 @@ class ProfilesController extends Controller
 {
     public function settings()
     {
-        $user = User::with('roles')->where('id',auth()->id())->get();
+        $user = User::with('roles')->where('id', auth()->id())->get();
 
         return view('auth.profile', compact('user'));
     }
 
     public function updateProfile(UpdateProfileRequest $request)
     {
-        $user  = User::where('id',Auth::user()->id);
+        $user  = User::where('id', Auth::user()->id);
 
 
         $user->update([
-            'username' => $request->username,
             'email' => $request->email,
             'firstname' => $request->firstname,
             'middlename' => $request->middlename,
@@ -40,8 +39,7 @@ class ProfilesController extends Controller
     {
         $user  = User::Findorfail(Auth::user()->id);
 
-        if($user->default_password_status == 1)
-        {
+        if ($user->default_password_status == 1) {
             $user->update([
                 'password' => bcrypt($request->password),
                 'default_password_status' => 0

@@ -71,7 +71,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required autofocus>
+                                            <input type="text" class="form-control" name="firstname" value="{{ old('firstname') }}" required>
                                             @error('firstname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

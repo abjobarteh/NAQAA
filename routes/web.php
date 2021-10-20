@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AssessmentCertification\AssessorVerifiersController;
 use App\Http\Controllers\AssessmentCertification\CertificateEndorsementsController;
+use App\Http\Controllers\AssessmentCertification\DashboardController as AssessmentCertificationDashboardController;
 use App\Http\Controllers\AssessmentCertification\StudentAssessmentsController;
 use App\Http\Controllers\AssessmentCertification\StudentRegistrationsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\StandardsCurriculum\ReviewUnitStandardsController;
 use App\Http\Controllers\StandardsCurriculum\UnitStandardsController;
 use App\Http\Controllers\systemadmin\ActivitiesController;
 use App\Http\Controllers\systemadmin\ApplicationFeeTarrifsController;
+use App\Http\Controllers\systemadmin\ApplicationTokensController;
 use App\Http\Controllers\systemadmin\AwardingBodiesController;
 use App\Http\Controllers\systemadmin\BackupsController;
 use App\Http\Controllers\systemadmin\DashboardController;
@@ -77,11 +79,13 @@ use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
+use App\Http\Livewire\ResearchDevelopment\Datacollection\StudentDetailsImport;
 use App\Http\Livewire\ResearchDevelopment\EditJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\GraduatesReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\LabourMarketReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\ResearchSurveyReports;
+use App\Http\Livewire\StandardsCurriculum\Reports\UnitStandardReports;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -181,6 +185,9 @@ Route::group(['middleware' => 'auth'], function () {
     // Awarding bodies 
     Route::resource('awarding-bodies', AwardingBodiesController::class);
 
+    // Manage Application Tokens
+    Route::resource('application-tokens', ApplicationTokensController::class)->except(['edit', 'destroy']);
+
     // Audit Logs index route
     Route::get('activities', [ActivitiesController::class, 'index'])->name('activities.index');
     Route::get('show-activity/{id}', [ActivitiesController::class, 'show'])->name('activities.show');
@@ -230,14 +237,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit-jobvacancy/{id}', EditJobvacancy::class)->name('edit-jobvacancy');
 
     // Imports
-    Route::get('datacollection-imports', [DataCollectionsImportsController::class, 'index'])->name('datacollection-imports.index');
+    Route::get('datacollection-imports', StudentDetailsImport::class)->name('datacollection-imports');
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
       Route::get('enrollments', EnrollmentReports::class)->name('enrollments');
       Route::get('graduates', GraduatesReports::class)->name('graduates');
       Route::get('labour-market', LabourMarketReports::class)->name('labour-market');
-      Route::get('research-survey', ResearchSurveyReports::class)->name('research-survey');
+      Route::get('research-survey', function () {
+        return view('researchdevelopment.reports.researchsurvey');
+      })->name('research-survey');
+      Route::get('research-survey-reports/{report_type}', ResearchSurveyReports::class)->name('research-survey-reports');
     });
   });
 
@@ -250,15 +260,23 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', StandardsCurriculumDashboardController::class)->name('dashboard');
 
-    // unit standards
-    Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
-    Route::get('review-standards', [ReviewUnitStandardsController::class, 'index'])->name('review-standards');
-    // Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
-    // Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
-
     // Qualifications
     Route::post('update-review-date', [QualificationsController::class, 'updateReviewDate'])->name('update-review-date');
     Route::resource('qualifications', QualificationsController::class);
+
+    // unit standards
+    Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
+
+    // Reports
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+      // Unit Standard reports view page
+      Route::get('unit-standards', function () {
+        return view('standardscurriculum.reports.unitstandards');
+      })->name('unit-standards');
+
+      // Unit standards reports livewire component
+      Route::get('unit-standard-reports/{report_type}', UnitStandardReports::class)->name('unit-standard-reports');
+    });
   });
 
 
@@ -324,8 +342,15 @@ Route::group(['middleware' => 'auth'], function () {
     'middleware' => 'role:assessment_and_certification_module'
   ], function () {
 
-    Route::redirect('/', 'assessment-certification/registrations');
+    Route::redirect('/', 'assessment-certification/dashboard');
 
+    // Dashboard route
+    Route::get('/dashboard', AssessmentCertificationDashboardController::class)->name('dashboard');
+
+    // student registrations
+    Route::resource('registrations', StudentRegistrationsController::class);
+
+    // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', StudentAssessment::class)->name('student-assessment');
@@ -335,11 +360,6 @@ Route::group(['middleware' => 'auth'], function () {
       Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
       Route::post('store-assessment-details', [StudentAssessmentsController::class, 'storeAssessmentDetails'])->name('store-assessment-details');
     });
-
-    // student registrations
-    Route::resource('registrations', StudentRegistrationsController::class);
-
-    // student assessments
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);

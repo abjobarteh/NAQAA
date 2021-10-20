@@ -6,7 +6,7 @@
         <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">Research or Survey Dcoumentation Report</h1>
+            <h1 class="m-0">Research or Survey Documentation Report</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -22,69 +22,56 @@
                 <div class="card-body">
                     <form wire:submit.prevent="getReport">
                         <div class="row">
-                            <div class="col-sm-6">
+                            @if($is_research_topic)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="research_topic">Research Topic</label>
-                                    <input type="text" class="form-control" id="research_topic" wire:model="research_topic" placeholder="Research topic">
-                                    @error('research_topic')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="research_topic">Research Topic:</label>
+                                    <input type="text" class="form-control" placeholder="Enter research topic">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            @elseif($is_research_purpose)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="research_purpose">Research Purpose</label>
-                                    <input type="text" class="form-control" id="research_purpose" wire:model="research_purpose" placeholder="Research purpose">
-                                    @error('research_purpose')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="research_purpose">Research Purpose:</label>
+                                    <input type="text" class="form-control" placeholder="Enter research purpose">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
+                            @elseif($is_main_findings)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="main_findings">Main Findings</label>
-                                    <input type="text" class="form-control" id="main_findings" wire:model="main_findings" placeholder="main findings">
-                                    @error('main_findings')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="main_findings">Main Findings:</label>
+                                    <input type="text" class="form-control" placeholder="Enter research main findings">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            @elseif($is_authors)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="authors">Research Authors</label>
-                                    <input type="text" class="form-control" id="Authors" wire:model="authors" placeholder="Research authors">
-                                    @error('authors')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="authors">Author:</label>
+                                    <input type="text" class="form-control" placeholder="Enter author full name">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
+                            @elseif($is_publication_date)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="publication_date">Publication Date</label>
-                                    <input type="text" class="form-control" id="publication_date" wire:model="publication_date" placeholder="Publication date">
-                                    @error('publication_date')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="publication_date">Publication Date:</label>
+                                    <input type="date" class="form-control">
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            @elseif($is_funding_body)
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="funding_body">Research Purpose</label>
-                                    <input type="text" class="form-control" id="funding_body" wire:model="funding_body" placeholder="Funding body">
-                                    @error('funding_body')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
+                                    <label for="funding_body">Funding body:</label>
+                                    <input type="text" class="form-control" placeholder="Enter funding body">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center">
+                            @endif
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <button class="btn btn-success btn-flat"><i class="fas fa-file-export"></i> Generate Report</button>
+                                    <button class="btn btn-primary btn-flat">Generate</button>
+                                    <a class="btn btn-warning btn-flat" href="{{route('researchdevelopment.reports.research-survey')}}">
+                                        <i class="fas fa-arrow-left"></i> 
+                                        Back
+                                    </a>
                                 </div>
                             </div>
                         </div>

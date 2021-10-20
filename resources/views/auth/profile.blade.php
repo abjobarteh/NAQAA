@@ -88,45 +88,45 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="first_name" class="col-form-label col-sm-2">First Name</label>
+                                                <label for="firstname" class="col-form-label col-sm-2">First Name</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" placeholder="First Name" name="firstname" value="{{ auth()->user()->firstname }}" required>
                                                 </div>
                                                 <div class="mt-1 offset-sm-2 col-sm-10">
-                                                    @error('first_name')
+                                                    @error('firstname')
                                                         <span class="text-danger">{{$message}}</span>
                                                     @enderror
                                                 </div>
                                               </div>
                                             <div class="form-group row">
-                                                <label for="middle_name" class="col-form-label col-sm-2">Middle Name</label>
+                                                <label for="middlename" class="col-form-label col-sm-2">Middle Name</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" placeholder="Middle Name" name="middlename" value="{{ auth()->user()->middlename }}">
                                                 </div>
                                                 <div class="mt-1 offset-sm-2 col-sm-10">
-                                                    @error('midle_name')
+                                                    @error('middlename')
                                                         <span class="text-danger">{{$message}}</span>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="last_name" class="col-form-label col-sm-2">Last Name</label>
+                                                <label for="lastname" class="col-form-label col-sm-2">Last Name</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" placeholder="Last Name" name="lastname" value="{{ auth()->user()->lastname }}" required>
                                                 </div>
                                                 <div class="mt-1 offset-sm-2 col-sm-10">
-                                                    @error('last_name')
+                                                    @error('lastname')
                                                         <span class="text-danger">{{$message}}</span>
                                                     @enderror
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label for="phone_number" class="col-form-label col-sm-2">Phone Number</label>
+                                                <label for="phonenumber" class="col-form-label col-sm-2">Phone Number</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" class="form-control" placeholder="Phone Number" name="phonenumber" value="{{ auth()->user()->phonenumber }}" required>
                                                 </div>
                                                 <div class="mt-1 offset-sm-2 col-sm-10">
-                                                    @error('phone_number')
+                                                    @error('phonenumber')
                                                         <span class="text-danger">{{$message}}</span>
                                                     @enderror
                                                 </div>
@@ -144,7 +144,7 @@
                                             </div>
                                             <div class="form-group row">
                                                 <div class="offset-sm-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-danger">Save Profile</button>
+                                                    <button type="submit" class="btn btn-warning">Update Profile</button>
                                                 </div>
                                             </div>
                                   </form>

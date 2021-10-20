@@ -119,7 +119,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group" wire:ignore>
                                             <label>Field(s) of Study:</label>
-                                            <select name="fields_of_study[]" id="fields_of_study" class="form-control select2" wire:model="fields_of_study" multiple="multiple" required>
+                                            <select name="fields_of_study" id="fields_of_study" class="form-control select2" wire:model="fields_of_study" multiple="multiple" required>
                                                 <option>Select field of study</option>
                                                 @foreach ($fields as $id => $field)
                                                     <option value="{{$field}}">{{$field}}</option>

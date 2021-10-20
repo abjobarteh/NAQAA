@@ -10,6 +10,12 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class DatacollectionImport implements WithMultipleSheets
 {
+    private $learning_center_id;
+
+    public function __construct($learning_center_id)
+    {
+        $this->learning_center_id = $learning_center_id;
+    }
     public function sheets(): array
     {
         return [
@@ -17,7 +23,7 @@ class DatacollectionImport implements WithMultipleSheets
             // 'PROGRAMMES_OFFERED' => new ProgramsOfferedSheetImport(),
             // 'ACADEMIC&ADMIN_STAFF' => new AcademicAdminStaffSheetImport(),
             // 'GRADUATES' => new StudentDetailSheetImport('graduate'),
-            2 => new StudentDetailSheetImport(),
+            2 => new StudentDetailSheetImport($this->learning_center_id),
         ];
     }
 }

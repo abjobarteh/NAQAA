@@ -12,6 +12,13 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class StudentDetailSheetImport implements ToModel, WithHeadingRow
 {
 
+    private $learning_center_id;
+
+    public function __construct($learning_center_id)
+    {
+        $this->learning_center_id = $learning_center_id;
+    }
+
     /**
      * @param array $row
      *
@@ -22,14 +29,14 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
         if (!isset($row['first_name'])) {
             return null;
         }
-        $training_provider = TrainingProvider::where('login_id', auth()->user()->id)->get();
+        $training_provider = $this->learning_center_id == null ?  (TrainingProvider::where('login_id', auth()->user()->id)->get())[0]->id : $this->learning_center_id;
 
         $student_exist = TrainingProviderStudent::where('firstname', 'like', '%' . $row['first_name'] . '%')
             ->where('middlename', 'like', '%' . $row['middlename'] . '%')
             ->where('lastname', 'like', '%' . $row['lastname'] . '%')
             ->where('gender', 'like', '%' . $row['gender'] . '%')
             // ->where('date_of_birth', 'like', '%' . $row['dob'] . '%')
-            ->where('training_provider_id', $training_provider[0]->id)
+            ->where('training_provider_id', $training_provider)
             ->exists();
 
         if (!$student_exist) {
@@ -52,7 +59,7 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
                 'qualification_at_entry' => $qualification_at_entry[0]->id ?? null,
                 'award' => $award[0]->id ?? null,
                 'education_field_id' => $field_of_education[0]->id ?? null,
-                'training_provider_id' => $training_provider[0]->id ?? null,
+                'training_provider_id' => $training_provider ?? null,
             ]);
         } else {
             return null;

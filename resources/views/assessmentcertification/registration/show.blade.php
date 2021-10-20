@@ -8,6 +8,9 @@
                 <div class="col-sm-12 col-md-6">
                 <h1 class="m-0">Student Details</h1>
                 </div><!-- /.col -->
+                <div class="col-sm-12 col-md-6">
+                    <img src="{{$registeredstudent->picture ?? '/storage/uploads/no-image.png'}}" class="rounded-circle float-right" alt="Student Image" width="100">
+                </div>
             </div><!-- /.row -->
         </div>
     </div>

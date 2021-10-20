@@ -119,7 +119,7 @@ class AuthenticatedSessionController extends Controller
                 session('active_role'),
                 ['assessment_and_certification_module']
             )) {
-                return redirect(route('assessment-certification.registrations.index'));
+                return redirect(route('assessment-certification.dashboard'));
             } else if (in_array(
                 session('active_role'),
                 ['research_and_development_module']

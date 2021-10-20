@@ -92,8 +92,7 @@ class EditJobvacancy extends Component
     {
         abort_if(Gate::denies('edit_job_vacancy'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        // @Bug: fix validation not working
-        // $this->validate();
+        $this->validate();
 
         if ($this->position_exist) {
             $this->jobvacancy->update([

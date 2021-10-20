@@ -61,7 +61,7 @@
                                             <td>
                                                 @can('edit_job_vacancy')
                                                     <a href="{{route('researchdevelopment.edit-jobvacancy',$vacancy->id)
-                                                        }}" class="btn btn-sm btn-danger"
+                                                        }}" class="btn btn-xs btn-danger"
                                                         title="edit job vacancy details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
@@ -69,7 +69,7 @@
                                                 @endcan
                                                 @can('show_job_vacancy')
                                                     <a href="{{route('researchdevelopment.job-vacancies.show',$vacancy->id)
-                                                        }}" class="btn btn-sm btn-info"
+                                                        }}" class="btn btn-xs btn-info"
                                                         title="view job vacancy details"
                                                         >
                                                         <i class="fas fa-eye"></i>    

@@ -98,7 +98,7 @@
   @endcan
   @can('access_research_development_data_import')
     <li class="nav-item">
-      <a href="{{route('researchdevelopment.datacollection-imports.index')}}" class="nav-link 
+      <a href="{{route('researchdevelopment.datacollection-imports')}}" class="nav-link 
       {{ request()->is('researchdevelopment/datacollection-imports') || 
          request()->is('researchdevelopment/datacollection-imports/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-file-import"></i>
@@ -199,29 +199,38 @@
   </a>
   </li>
   @endcan
-{{-- @can('access_unit_standard_reviews')
-<li class="nav-item">
-  <a href="{{route('standardscurriculum.review-standards')}}" class="nav-link 
-  {{ request()->is('standardscurriculum/review-standards') || 
-     request()->is('standardscurriculum/review-standards/*') ? 'active' : '' }}"
-    >
-    <i class="nav-icon fas fa-scroll"></i>
-    <p>
-      Review Unit Standards
-    </p>
-  </a>
-  </li>
-  @endcan --}}
   @can('access_unit_standard_reports')
-  <li class="nav-item">
-    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
-       >
-      <i class="nav-icon fas fa-chart-bar"></i>
+  <li class="nav-item menu-open">
+    <a href="#" class="nav-link 
+    {{ request()->is('standardscurriculum/reports/*') || 
+       request()->is('standardscurriculum/reports/*') ? 'active' : '' }}"
+      >
+      <i class="nav-icon fas fa-chart-area"></i>
       <p>
         Reports
+        <i class="right fas fa-angle-left"></i>
       </p>
     </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{route('standardscurriculum.reports.unit-standards')}}" class="nav-link 
+        {{ request()->is('standardscurriculum/reports/unit-standards') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-chart-line"></i>
+          <p>
+            Unit Standards
+          </p>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
+        <a href="{{route('standardscurriculum.reports.graduates')}}" class="nav-link 
+        {{ request()->is('standardscurriculum/reports/graduates') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Qualifications
+          </p>
+        </a>
+      </li> --}}
+    </ul>
   </li>
   @endcan
 @endrole
@@ -392,11 +401,21 @@
 {{-- Assessment & Certification --}}
 @role('assessment_and_certification_module')
 <li class="nav-item">
+  <a href="{{route('assessment-certification.dashboard')}}" class="nav-link {{
+     request()->is('assessment-certification/dashboard') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <p>
+      Dashboard
+    </p>
+  </a>
+</li>
+<li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
      request()->is('assessment-certification/registrations') || 
      request()->is('assessment-certification/registrations/*') ? 'active' : '' }}"
      >
-    <i class="nav-icon fas fa-tachometer-alt"></i>
+    <i class="nav-icon fas fa-user-graduate"></i>
     <p>
       Registrations
     </p>
@@ -443,6 +462,9 @@
     <i class="nav-icon fas fa-stamp"></i>
     <p>
       Endorsements
+      <span class="badge badge-info right">
+        <?php echo App\Models\AssessmentCertification\EndorsedCertificateDetail::where('request_status','pending')->get()->count() ?>
+      </span>
     </p>
   </a>
 </li>
