@@ -13,7 +13,7 @@ class CreateDirectoratesTable extends Migration
      */
     public function up()
     {
-        Schema::create('Directorates', function (Blueprint $table) {
+        Schema::create('directorates', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
@@ -28,6 +28,6 @@ class CreateDirectoratesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('directorates');
     }
 }
