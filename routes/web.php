@@ -85,6 +85,7 @@ use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\GraduatesReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\LabourMarketReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\ResearchSurveyReports;
+use App\Http\Livewire\StandardsCurriculum\Reports\UnitStandardReports;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -259,15 +260,23 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', StandardsCurriculumDashboardController::class)->name('dashboard');
 
-    // unit standards
-    Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
-    Route::get('review-standards', [ReviewUnitStandardsController::class, 'index'])->name('review-standards');
-    // Route::post('review-standards', [ReviewUnitStandardsController::class,'create'])->name('review-standards');
-    // Route::get('retrieve-unit-standards', [ReviewUnitStandardsController::class,'retrieveUnitStandards'])->name('retrieve-unit-standards');
-
     // Qualifications
     Route::post('update-review-date', [QualificationsController::class, 'updateReviewDate'])->name('update-review-date');
     Route::resource('qualifications', QualificationsController::class);
+
+    // unit standards
+    Route::resource('unit-standards', UnitStandardsController::class)->except('destroy');
+
+    // Reports
+    Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
+      // Unit Standard reports view page
+      Route::get('unit-standards', function () {
+        return view('standardscurriculum.reports.unitstandards');
+      })->name('unit-standards');
+
+      // Unit standards reports livewire component
+      Route::get('unit-standard-reports/{report_type}', UnitStandardReports::class)->name('unit-standard-reports');
+    });
   });
 
 

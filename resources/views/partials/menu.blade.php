@@ -199,29 +199,38 @@
   </a>
   </li>
   @endcan
-{{-- @can('access_unit_standard_reviews')
-<li class="nav-item">
-  <a href="{{route('standardscurriculum.review-standards')}}" class="nav-link 
-  {{ request()->is('standardscurriculum/review-standards') || 
-     request()->is('standardscurriculum/review-standards/*') ? 'active' : '' }}"
-    >
-    <i class="nav-icon fas fa-scroll"></i>
-    <p>
-      Review Unit Standards
-    </p>
-  </a>
-  </li>
-  @endcan --}}
   @can('access_unit_standard_reports')
-  <li class="nav-item">
-    <a href="{{route('researchdevelopment.dashboard')}}" class="nav-link {{
-       request()->is('researchdevelopment/dashboard') ? 'active' : '' }}"
-       >
-      <i class="nav-icon fas fa-chart-bar"></i>
+  <li class="nav-item menu-open">
+    <a href="#" class="nav-link 
+    {{ request()->is('standardscurriculum/reports/*') || 
+       request()->is('standardscurriculum/reports/*') ? 'active' : '' }}"
+      >
+      <i class="nav-icon fas fa-chart-area"></i>
       <p>
         Reports
+        <i class="right fas fa-angle-left"></i>
       </p>
     </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{{route('standardscurriculum.reports.unit-standards')}}" class="nav-link 
+        {{ request()->is('standardscurriculum/reports/unit-standards') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-chart-line"></i>
+          <p>
+            Unit Standards
+          </p>
+        </a>
+      </li>
+      {{-- <li class="nav-item">
+        <a href="{{route('standardscurriculum.reports.graduates')}}" class="nav-link 
+        {{ request()->is('standardscurriculum/reports/graduates') ? 'active' : '' }}">
+          <i class="nav-icon fas fa-user-graduate"></i>
+          <p>
+            Qualifications
+          </p>
+        </a>
+      </li> --}}
+    </ul>
   </li>
   @endcan
 @endrole
