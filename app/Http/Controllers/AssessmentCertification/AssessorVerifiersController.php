@@ -17,8 +17,10 @@ class AssessorVerifiersController extends Controller
     public function __invoke(Request $request)
     {
         $assessor_verifiers = Trainer::with('currentAccreditation')
-            ->where('type', 'assessor')
-            ->orWhere('type', 'verifier')
+            ->where(function ($query) {
+                $query->where('type', 'assessor')
+                    ->orWhere('type', 'verifier');
+            })
             ->whereHas('currentAccreditation')
             ->latest()
             ->get();
