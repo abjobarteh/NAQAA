@@ -68,6 +68,7 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
+use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
@@ -361,6 +362,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Assessor/Verifiers
     Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
+
+    // Reports
+    Route::get('learner-achievements', function () {
+      return view('assessmentcertification.reports.learner-achievements');
+    })->name('learner-achievements');
+
+    Route::get('learner-achievement-reports/{report_type}', LearnerAchievementReports::class)->name('learner-achievement-reports');
   });
 
   // Notifications

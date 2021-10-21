@@ -5,9 +5,10 @@ namespace App\Exports\AssessmentCertification\Sheets;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class CandidateExportSheet implements FromView, WithTitle
+class CandidateExportSheet implements FromView, WithTitle, ShouldAutoSize
 {
     private $competent_candidates;
     public function __construct($candidates)
