@@ -354,11 +354,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', StudentAssessment::class)->name('student-assessment');
-      Route::post('generate-candidates', [StudentAssessmentsController::class, 'generateCandidates'])->name('generate-candidates');
-      Route::post('generate-assessment-candidates', [StudentAssessmentsController::class, 'generateCandidatesForAssessment'])
-        ->name('generate-assessment-candidates');
-      Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
-      Route::post('store-assessment-details', [StudentAssessmentsController::class, 'storeAssessmentDetails'])->name('store-assessment-details');
     });
 
     // endorsement of certificates

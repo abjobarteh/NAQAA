@@ -24,7 +24,7 @@ class GenerateCandidateID implements ShouldQueue
      */
     public function __construct($candidate_id)
     {
-        $this->candidate = TrainingProviderStudent::findOrFail($candidate_id);
+        $this->candidate = TrainingProviderStudent::findOrFail($candidate_id)->load('programme');
     }
 
     /**
@@ -37,7 +37,7 @@ class GenerateCandidateID implements ShouldQueue
         $reg_no = $this->candidate->registration->registration_no;
         $gender = $this->candidate->gender === 'male' ? 1 : 0;
         $date_of_birth = str_replace('-', '', (string)$this->candidate->date_of_birth);
-        $program_code = 'p_code';
+        $program_code = $this->candidate->programme->qualification_code;
         $candidate_type = $this->candidate->candidate_type === 'regular' ? 'R' : 'P';
 
         if ($this->candidate->candidate_id === null) {

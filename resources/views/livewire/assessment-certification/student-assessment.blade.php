@@ -51,7 +51,7 @@
                                 @endif
                                 @if(!$isPrivate && !$isReassessment)
                                 <div class="row">
-                                    <div class="col-sm-5">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Education/Training Provider:</label>
                                             <select name="training_provider_id" id="training_provider_id" class="form-control custom-select" wire:model="training_provider_id">
@@ -65,7 +65,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="form-group">
                                             <label>Programme:</label>
                                             <select name="programme_id" id="programme_id" class="form-control custom-select" wire:model="programme_id">
@@ -89,6 +89,15 @@
                                                 @endforeach
                                             </select>
                                             @error('programme_level_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Academic Year:</label>
+                                            <input type="number" class="form-control" placeholder="Academic year" wire:model="academic_year" min="0" step="1">
+                                            @error('academic_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>

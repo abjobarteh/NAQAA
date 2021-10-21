@@ -16,7 +16,7 @@ use Throwable;
 
 class StudentAssessment extends Component
 {
-    public $assessment_type, $candidate_type, $training_provider_id, $programme_id, $programme_level_id,
+    public $assessment_type, $candidate_type, $training_provider_id, $programme_id, $programme_level_id, $academic_year,
         $registration_no, $date_of_birth, $isReassessment = false, $isPrivate = false,
         $candidatesExist = false, $candidates, $selectAll = false, $selectedCandidates = [];
 
@@ -26,6 +26,7 @@ class StudentAssessment extends Component
         'training_provider_id' => ['required_if:candidate_type,regular', 'numeric'],
         'programme_id' => ['required_if:candidate_type,regular', 'numeric'],
         'programme_level_id' => ['required_if:candidate_type,regular', 'numeric'],
+        'academic_year' => ['required_if:candidate_type,regular', 'numeric'],
         'registration_no' => ['string'],
         'date_of_birth' => ['date'],
     ];
@@ -86,7 +87,7 @@ class StudentAssessment extends Component
             $this->candidates = TrainingProviderStudent::where('training_provider_id', $this->training_provider_id)
                 ->where('programme_id', $this->programme_id)
                 ->where('programme_level_id', $this->programme_level_id)
-                ->where('academic_year', (Carbon::now())->format('Y'))
+                ->where('academic_year', $this->academic_year)
                 ->with([
                     'programme:id,name',
                     'level:id,name',
@@ -101,7 +102,7 @@ class StudentAssessment extends Component
                 $query->where('registration_no', $this->registration_no);
             })
                 ->where('date_of_birth', $this->date_of_birth)
-                ->where('academic_year', (Carbon::now())->format('Y'))
+                ->where('academic_year', $this->academic_year)
                 ->with([
                     'programme:id,name',
                     'level:id,name',
@@ -120,7 +121,6 @@ class StudentAssessment extends Component
                 'message' => 'No candidates/students exist under these parameters.'
             ]);
         } else {
-            // dd($this->candidates);
             $this->candidatesExist = true;
         }
     }
