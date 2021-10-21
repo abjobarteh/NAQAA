@@ -5,8 +5,9 @@ namespace App\Exports\ResearchDevelopment;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class LabourMarketReportExport implements FromView
+class LabourMarketReportExport implements FromView, ShouldAutoSize
 {
     private $results;
 

@@ -65,12 +65,24 @@ class RegisteredUserController extends Controller
 
             $user->roles()->attach(Role::where('slug', $request->user_type)->first());
 
-            TrainingProvider::create([
-                'name' =>  $request->institution_name,
-                'mobile_phone' =>  $request->phone_number,
-                'classification_id' =>  $request->classification,
-                'login_id' => $user->id
-            ]);
+            $training_provider_exist = TrainingProvider::where('name', 'like', '%' . $request->institution_name . '%')
+                ->where('classification_id', $request->classification)
+                ->exists();
+
+            if (!$training_provider_exist) {
+                TrainingProvider::create([
+                    'name' =>  $request->institution_name,
+                    'mobile_phone' =>  $request->phone_number,
+                    'classification_id' =>  $request->classification,
+                    'login_id' => $user->id
+                ]);
+            } else {
+                TrainingProvider::where('name', 'like', '%' . $request->institution_name . '%')
+                    ->where('classification_id', $request->classification)
+                    ->update([
+                        'login_id' => $user->id
+                    ]);
+            }
 
             event(new Registered($user));
 
@@ -99,15 +111,31 @@ class RegisteredUserController extends Controller
 
             $user->roles()->attach(Role::where('slug', $request->user_type)->first());
 
-            Trainer::create([
-                'firstname' => $request->firstname,
-                'middlename' => $request->middlename,
-                'lastname' => $request->lastname,
-                'email' => $request->email,
-                'phone_mobile' => $request->trainer_phone_number,
-                'type' => $request->trainer_type,
-                'login_id' => $user->id,
-            ]);
+            $trainer_exist = Trainer::where('firstname', 'like', '%' . $request->firstname . '%')
+                ->where('middlename', 'like', '%' . $request->middlename . '%')
+                ->where('lastname', 'like', '%' . $request->lastname . '%')
+                ->where('type', 'like', $request->trainer_type)
+                ->exists();
+
+            if (!$trainer_exist) {
+                Trainer::create([
+                    'firstname' => $request->firstname,
+                    'middlename' => $request->middlename,
+                    'lastname' => $request->lastname,
+                    'email' => $request->email,
+                    'phone_mobile' => $request->trainer_phone_number,
+                    'type' => $request->trainer_type,
+                    'login_id' => $user->id,
+                ]);
+            } else {
+                Trainer::where('firstname', 'like', '%' . $request->firstname . '%')
+                    ->where('middlename', 'like', '%' . $request->middlename . '%')
+                    ->where('lastname', 'like', '%' . $request->lastname . '%')
+                    ->where('type', 'like', $request->trainer_type)
+                    ->update([
+                        'login_id' => $user->id
+                    ]);
+            }
 
             event(new Registered($user));
 

@@ -68,6 +68,7 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
+use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
@@ -354,11 +355,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', StudentAssessment::class)->name('student-assessment');
-      Route::post('generate-candidates', [StudentAssessmentsController::class, 'generateCandidates'])->name('generate-candidates');
-      Route::post('generate-assessment-candidates', [StudentAssessmentsController::class, 'generateCandidatesForAssessment'])
-        ->name('generate-assessment-candidates');
-      Route::post('assign-assessor', [StudentAssessmentsController::class, 'assessorAssignment'])->name('assign-assessor');
-      Route::post('store-assessment-details', [StudentAssessmentsController::class, 'storeAssessmentDetails'])->name('store-assessment-details');
     });
 
     // endorsement of certificates
@@ -366,6 +362,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Assessor/Verifiers
     Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
+
+    // Reports
+    Route::get('learner-achievements', function () {
+      return view('assessmentcertification.reports.learner-achievements');
+    })->name('learner-achievements');
+
+    Route::get('learner-achievement-reports/{report_type}', LearnerAchievementReports::class)->name('learner-achievement-reports');
   });
 
   // Notifications

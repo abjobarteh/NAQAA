@@ -480,7 +480,10 @@
   </a>
 </li>
 <li class="nav-item">
-  <a href="#" class="nav-link"
+  <a href="{{route('assessment-certification.learner-achievements')}}" class="nav-link {{
+    request()->is('assessment-certification/learner-achievements') ||
+    request()->is('assessment-certification/learner-achievements/*') ||
+    request()->is('assessment-certification/learner-achievement-reports/*') ? 'active' : '' }}"
      >
     <i class="nav-icon fas fa-chart-bar"></i>
     <p>

@@ -15,7 +15,7 @@ use Livewire\Component;
 
 class GenerateCandidates extends Component
 {
-    public $candidate_type, $training_provider_id, $programme_id, $programme_level_id, $registration_no,
+    public $candidate_type, $training_provider_id, $programme_id, $programme_level_id, $registration_no, $academic_year,
         $date_of_birth, $isPrivate = false, $candidatesExist = false, $assessors, $verifiers,
         $assessor_id, $verifier_id, $candidates, $selectAll = false, $selectedCandidates = [];
 
@@ -26,6 +26,7 @@ class GenerateCandidates extends Component
         'programme_level_id' => ['required_if:candidate_type,regular', 'numeric'],
         'registration_no' => ['required_if:candidate_type,regular', 'string'],
         'date_of_birth' => ['required_if:candidate_type,regular', 'date'],
+        'academic_year' => ['required_if:candidate_type,regular', 'numeric'],
     ];
 
     public function mount()
@@ -64,16 +65,13 @@ class GenerateCandidates extends Component
 
     public function getCandidates()
     {
-        // dd('form submission.....');
-
-        // dd('is validation working');
         // $this->validate();
 
         if ($this->candidate_type === 'regular') {
             $this->candidates = TrainingProviderStudent::where('training_provider_id', $this->training_provider_id)
                 ->where('programme_id', $this->programme_id)
                 ->where('programme_level_id', $this->programme_level_id)
-                ->where('academic_year', (Carbon::now())->format('Y'))
+                ->where('academic_year', $this->academic_year)
                 ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
                 ->latest()
                 ->get();
@@ -82,7 +80,7 @@ class GenerateCandidates extends Component
                 $query->where('registration_no', $this->registration_no);
             })
                 ->where('date_of_birth', $this->date_of_birth)
-                ->where('academic_year', (Carbon::now())->format('Y'))
+                ->where('academic_year', $this->academic_year)
                 ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
                 ->latest()
                 ->get();
@@ -131,21 +129,24 @@ class GenerateCandidates extends Component
 
         // check if candidates has already assessed
         $assessmentExist = StudentAssessmentDetail::whereIn('student_id', $this->selectedCandidates)
-            ->whereNull('assessment_status')
-            ->orWhere('assessment_status', 'competent')
+            ->Where(function ($query) {
+                $query->whereNull('assessment_status')
+                    ->orWhere('assessment_status', 'competent');
+            })
+
             ->whereYear('last_assessment_date', (Carbon::now())->format('Y'))
             ->exists();
 
         if (!$assessmentExist) {
             for ($candidate = 0; $candidate < count($this->selectedCandidates); $candidate++) {
-                $application = StudentRegistrationDetail::where('student_id', $this->selectedCandidates[$candidate])->get();
+                $application = StudentRegistrationDetail::where('student_id', $this->selectedCandidates[$candidate])->first();
 
                 StudentAssessmentDetail::create(
                     [
                         'student_id' => $this->selectedCandidates[$candidate],
                         'assessor_id' => $this->assessor_id,
                         'verifier_id' => $this->verifier_id,
-                        'application_id' => $application[0]->id,
+                        'application_id' => $application->id,
                     ]
                 );
             }

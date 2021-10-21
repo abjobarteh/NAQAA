@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Exports\StandardsCurriculum;
+namespace App\Exports\AssessmentCertification;
 
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class UnitStandardsReportExport implements FromView, ShouldAutoSize
+class LearnerAchievementReportsExport implements FromView, ShouldAutoSize
 {
     private $data;
     public function __construct($data)
@@ -15,7 +15,7 @@ class UnitStandardsReportExport implements FromView, ShouldAutoSize
     }
     public function view(): View
     {
-        return view('standardscurriculum.reports.unitstandardreports', [
+        return view('assessmentcertification.reports.learner-achievement-reports', [
             'results' => $this->data
         ]);
     }
