@@ -14,6 +14,8 @@
                     <i class="fas fa-plus"></i> 
                     New Student Registration
                 </a>
+                
+                @livewire('assessment-certification.export-competent-students')
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div>
