@@ -8,16 +8,16 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Training Provider Registration</h1>
+                <h1 class="m-0">Education/Training Provider Registration</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 col-md-6">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a href="{{route('registration-accreditation.registration.trainingproviders.index')}}">
-                                Training Providers
+                                Education/Training Providers
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">Edit Training provider</li>
+                        <li class="breadcrumb-item active">Edit Education/Training provider</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Training provider</h3>
+                            <h3 class="card-title">Edit Education/Training provider</h3>
                         </div>
                         <div class="card-body">
                             <form action="{{route('registration-accreditation.registration.trainingproviders.update', $registration->id)}}" method="post" autocomplete="off">
@@ -38,12 +38,12 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
-                                            <div class="col-12"><h4 class="text-primary"><b>Training Provider Details</b></h4></div>
+                                            <div class="col-12"><h4 class="text-primary"><b>Education/Training Provider Details</b></h4></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Training Provider Name: <sup class="text-danger">*</sup></label>
+                                                    <label>Name: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="name" value="{{ $registration->trainingprovider->name }}" required autofocus>
                                                     @error('name')
                                                         <span class="text-danger mt-1">{{$message}}</span>
