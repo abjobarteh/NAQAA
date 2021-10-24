@@ -16,6 +16,7 @@ class ApplicationDetail extends Model
         'training_provider_id',
         'trainer_id',
         'application_no',
+        'serial_no',
         'application_type',
         'status',
         'application_form_status',

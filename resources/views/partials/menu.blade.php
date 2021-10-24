@@ -355,7 +355,7 @@
     <p>
       Applications
       <span class="badge badge-info right">@php
-          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_through', 'portal')
+          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_from', 'portal')
             ->where('application_form_status', 'submitted')
             ->where('status', 'Pending')
             ->latest()

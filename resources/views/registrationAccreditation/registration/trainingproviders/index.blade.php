@@ -113,7 +113,7 @@
                                             <td>{{$registration->trainingprovider->name}}</td>
                                             <td>{{$registration->trainingprovider->email}}</td>
                                             <td>{{$registration->trainingprovider->district->name ?? 'N/A'}},  {{$registration->trainingprovider->address}}</td>
-                                            <td>{{$registration->trainingprovider->telephone_work}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
+                                            <td>{{$registration->trainingprovider->telephone_work ?? $registration->trainingprovider->mobile_phone}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
                                             <td>{{$registration->trainingprovider->classification->name}}</td>
                                             <td>{{$registration->application_no}}</td>
                                             <td>

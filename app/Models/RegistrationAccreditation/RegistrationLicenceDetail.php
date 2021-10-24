@@ -51,12 +51,12 @@ class RegistrationLicenceDetail extends Model
 
     public function getLicenceStartDateAttribute($value)
     {
-        return (new Carbon($value))->toFormattedDateString();
+        return new Carbon($value);
     }
 
     public function getLicenceEndDateAttribute($value)
     {
-        return (new Carbon($value))->toFormattedDateString();
+        return new Carbon($value);
     }
 
     public function trainer()

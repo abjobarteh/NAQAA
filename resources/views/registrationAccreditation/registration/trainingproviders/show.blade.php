@@ -96,13 +96,21 @@
                                         <b class="col-sm-7 text-primary">Application status: </b>
                                         <p class="col-sm-5 text-muted"><span class="badge badge-primary">{{$registration->status ?? 'N/A'}}</span></p>
                                     </div>
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Center Manager: </b>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->manager ?? 'N/A'}}</p>
+                                    </div>
                                     @if($registration->status === 'Approved')
                                         <div class="form-group row">
-                                            <b class="col-sm-7 text-primary">Licence Start Date: </b>
+                                            <b class="col-sm-7 text-primary">License No: </b>
+                                            <p class="col-sm-5 text-muted">{{$registration->registrationLicence->license_no ?? 'N/A'}}</p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <b class="col-sm-7 text-primary">License Start Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</p>
                                         </div>
                                         <div class="form-group row">
-                                            <b class="col-sm-7 text-primary">Licence Ends Date: </b>
+                                            <b class="col-sm-7 text-primary">License Ends Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_end_date ?? 'N/A'}}</p>
                                         </div>
                                     @endif

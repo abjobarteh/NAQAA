@@ -43,6 +43,7 @@ class TrainingProvider extends Model
         'bank_signatories',
         'category_id',
         'is_registered',
+        'manager',
         'storage_path',
     ];
 
@@ -137,13 +138,13 @@ class TrainingProvider extends Model
         return $this->applications()
             ->whereNotNUll('training_provider_id')
             ->whereNotNUll('programme_id')
-            ->where('status', 'accepted');
+            ->where('status', 'Approved');
     }
 
     public function recentRegistrationApplication()
     {
         return $this->hasOne(ApplicationDetail::class, 'training_provider_id')
-            ->where('application_category', 'registration')->where('status', 'accepted')
+            ->where('application_category', 'registration')->where('status', 'Approved')
             ->orderBy('id', 'desc');
     }
 
@@ -154,7 +155,7 @@ class TrainingProvider extends Model
 
     public function submittedAndPendingApplications()
     {
-        return $this->submittedApplications()->where('status', 'pending');
+        return $this->submittedApplications()->where('status', 'Pending');
     }
 
     public function licences()
@@ -163,7 +164,7 @@ class TrainingProvider extends Model
     }
     public function validLicence()
     {
-        return $this->hasOne(RegistrationLicenceDetail::class, 'training_provider_id')->where('license_status', 'valid');
+        return $this->hasOne(RegistrationLicenceDetail::class, 'training_provider_id')->where('license_status', 'Approved');
     }
 
     public function programmes()

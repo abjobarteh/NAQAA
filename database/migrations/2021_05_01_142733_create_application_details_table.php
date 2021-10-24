@@ -21,7 +21,8 @@ class CreateApplicationDetailsTable extends Migration
             $table->string('application_no')->nullable();
             $table->string('status')->nullable();
             $table->string('application_form_status')->nullable();
-            $table->string('submitted_through')->nullable();
+            $table->string('submitted_from')->nullable();
+            $table->string('serial_no')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

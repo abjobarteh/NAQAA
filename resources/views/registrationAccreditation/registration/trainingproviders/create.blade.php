@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Email: <sup class="text-danger">*</sup></label>
                                                     <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -151,11 +151,20 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Webiste:</label>
                                                     <input type="text" class="form-control" name="website" value="{{ old('website') }}" required>
                                                     @error('website')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Center Manager:</label>
+                                                    <input type="text" class="form-control" name="manager" value="{{ old('manager') }}" required>
+                                                    @error('manager')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>
@@ -214,7 +223,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
+                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror {{$application_no}}" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -252,7 +261,16 @@
                                             </div>
                                         </div>
                                         <div class="row license-registration-details">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>License No: <sup class="text-danger">*</sup></label>
+                                                    <input type="text" class="form-control" name="license_no" value="@error('license_no'){{ old('license_no') }}@enderror">
+                                                    @error('license_no')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>License Start Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_start_date" data-target-input="nearest">
@@ -266,7 +284,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>License End Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_end_date" data-target-input="nearest">

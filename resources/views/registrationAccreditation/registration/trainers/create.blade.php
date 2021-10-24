@@ -139,7 +139,7 @@
                                             </div>
                                             <div class="col-sm-4 show-nin-number">
                                                 <div class="form-group">
-                                                    <label>National Identification Number (NIN): <sup class="text-danger">*</sup></label>
+                                                    <label>National Identification Number (NIN)/Passport: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control nin-number" name="NIN" value="{{ old('NIN') }}" required>
                                                     @error('NIN')
                                                         <span class="text-danger mt-1">{{$message}}</span>

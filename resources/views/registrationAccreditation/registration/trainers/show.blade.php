@@ -62,17 +62,14 @@
                                         <b class="col-sm-7 text-primary">Tax Identification Number: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->TIN}}</p>
                                     </div>
-                                    @if ($registration->trainer->nationality === 'Gambia')
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">National Identification Number: </b>
+                                        <b class="col-sm-7 text-primary">National Identification Number/Passport: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->NIN}}</p>
                                     </div> 
-                                    @else
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Alien Identification Number: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->AIN}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->AIN ?? 'N/A'}}</p>
                                     </div> 
-                                    @endif
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Email: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->email}}</p>

@@ -46,7 +46,7 @@
                                 <tbody>
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
-                                            <td>{{$accreditation->trainer->firstname}}. {{$accreditation->trainer->middlename ?? ''}} .{{$accreditation->trainer->lastname}}</td>
+                                            <td>{{$accreditation->trainer->full_name}}</td>
                                             <td>{{$accreditation->trainer->date_of_birth->toFormattedDateString()}}</td>
                                             <td>{{$accreditation->trainer->gender}}</td>
                                             <td>{{$accreditation->trainer->country_of_citizenship}}</td>

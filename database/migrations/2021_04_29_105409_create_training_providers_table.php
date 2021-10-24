@@ -33,6 +33,7 @@ class CreateTrainingProvidersTable extends Migration
             $table->foreignId('classification_id')->nullable()->constrained('training_provider_classifications');
             $table->foreignId('login_id')->nullable()->constrained('users');
             $table->string('is_registered')->nullable();
+            $table->string('manager')->nullable();
             $table->string('storage_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -40,7 +41,7 @@ class CreateTrainingProvidersTable extends Migration
 
         Schema::create('bank_signatories', function (Blueprint $table) {
             $table->id();
-            $table->string('Fullname');
+            $table->string('fullname');
             $table->string('position');
             $table->longText('signature')->nullable();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
