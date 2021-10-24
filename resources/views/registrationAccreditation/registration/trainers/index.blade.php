@@ -12,7 +12,8 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <a href="{{route('registration-accreditation.registration.trainers.create')}}" 
-                        class="btn btn-primary float-right">
+                        class="btn btn-primary btn-flat float-right">
+                        <i class="fas fa-plus"></i>
                         New Trainer Registration
                     </a>
                 </div><!-- /.col -->

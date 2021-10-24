@@ -55,7 +55,7 @@
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->gender}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Nationality: </b>
+                                        <b class="col-sm-7 text-primary">Country of Origin/Citizenship: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->nationality}}</p>
                                     </div>
                                     <div class="form-group row">
@@ -111,7 +111,7 @@
                                         <b class="col-sm-7 text-primary">Application status: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->status ?? 'N/A'}}</p>
                                     </div>
-                                    @if($registration->status === 'accepted')
+                                    @if($registration->status === 'Approved')
                                         <div class="form-group row">
                                             <b class="col-sm-7 text-primary">Licence Start Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</p>
