@@ -49,16 +49,6 @@ class RegistrationLicenceDetail extends Model
         $this->attributes['licence_end_date'] = new Carbon($value);
     }
 
-    public function getLicenceStartDateAttribute($value)
-    {
-        return new Carbon($value);
-    }
-
-    public function getLicenceEndDateAttribute($value)
-    {
-        return new Carbon($value);
-    }
-
     public function trainer()
     {
         return $this->belongsTo(Trainer::class, 'trainer_id');

@@ -271,6 +271,9 @@
     <li class="nav-item">
       <a href="{{route('registration-accreditation.registration.trainers.index')}}" class="nav-link 
       {{ request()->is('registration-accreditation/registration/trainers') || 
+         request()->is('registration-accreditation/registration/create-trainer-registration') || 
+         request()->is('registration-accreditation/registration/edit-trainer-registration') || 
+         request()->is('registration-accreditation/registration/edit-trainer-registration/*') || 
          request()->is('registration-accreditation/registration/trainers/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-id-card-alt"></i>
         <p>

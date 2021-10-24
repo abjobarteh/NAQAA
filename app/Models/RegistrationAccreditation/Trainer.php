@@ -30,7 +30,6 @@ class Trainer extends Model
         'phone_mobile',
         'employment_history',
         'authentications',
-        'type',
         'academic_qualifications',
         'relevant_experiences',
         'storage_path',
@@ -58,11 +57,6 @@ class Trainer extends Model
     public function setDateOfBirthAttribute($value)
     {
         $this->attributes['date_of_birth'] = new Carbon($value);
-    }
-
-    public function getDateOfBirthAttribute($value)
-    {
-        return new Carbon($value);
     }
 
     public function getFullNameAttribute()
@@ -97,6 +91,11 @@ class Trainer extends Model
     public function licences()
     {
         return $this->hasMany(RegistrationLicenceDetail::class, 'trainer_id');
+    }
+
+    public function validLicence()
+    {
+        return $this->hasOne(RegistrationLicenceDetail::class, 'trainer_id')->where('license_status', 'Approved');
     }
 
     public function assessments()

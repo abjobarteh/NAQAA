@@ -75,6 +75,8 @@ use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
+use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\Reports\LearningCentersReport;
 use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
@@ -301,7 +303,11 @@ Route::group(['middleware' => 'auth'], function () {
       Route::resource('trainingproviders', TrainingProvidersRegistrationController::class);
 
       // Trainers
+      // remove this route
       Route::resource('trainers', TrainersRegistrationController::class);
+      // new routes using livewire component
+      Route::get('create-trainer-registration', CreateTrainerRegistration::class)->name('create-trainer-registration');
+      Route::get('edit-trainer-registration/{id}', EditTrainerRegistration::class)->name('edit-trainer-registration');
     });
 
     //   Accreditation Routes
