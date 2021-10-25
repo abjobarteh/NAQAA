@@ -31,7 +31,7 @@ class CreateTrainersTable extends Migration
             $table->string('phone_mobile')->nullable();
             $table->longText('employment_history')->nullable();
             $table->longText('authentications')->nullable();
-            $table->string('type')->nullable();
+            // $table->string('type')->nullable();
             $table->longText('academic_qualifications')->nullable();
             $table->longText('relevant_experiences')->nullable();
             $table->foreignId('login_id')->nullable()->constrained('users');

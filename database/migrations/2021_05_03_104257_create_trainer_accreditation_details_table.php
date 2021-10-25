@@ -22,8 +22,6 @@ class CreateTrainerAccreditationDetailsTable extends Migration
             $table->foreignId('application_id')->nullable()->constrained('application_details');
             $table->foreignId('trainer_id')->nullable()->constrained('trainers');
             $table->string('status')->nullable();
-            $table->date('accreditation_start_date')->nullable();
-            $table->date('accreditation_end_date')->nullable();
             $table->string('accreditation_status')->nullable();
             $table->foreignId('field_of_education_id')->nullable()->constrained('education_fields');
             $table->timestamps();

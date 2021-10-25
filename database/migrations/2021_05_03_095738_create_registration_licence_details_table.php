@@ -22,6 +22,9 @@ class CreateRegistrationLicenceDetailsTable extends Migration
             $table->date('licence_end_date')->nullable();
             $table->string('license_status')->nullable();
             $table->longText('license_no')->nullable();
+            $table->longText('license_collected')->nullable();
+            $table->longText('collected_by')->nullable();
+            $table->longText('date_collected')->nullable();
             $table->timestamps();
         });
     }
