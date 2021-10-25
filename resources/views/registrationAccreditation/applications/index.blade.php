@@ -37,10 +37,10 @@
                                     @forelse ($applications as $application)
                                         <tr>
                                             <td>
-                                                @if ($application->application_type === 'institution_registration')
+                                                @if ($application->application_type === 'institution_registration' || $application->application_type === 'institution_letter_of_interim_authorisation')
                                                     {{$application->trainingprovider->name}}
                                                 @else     
-                                                    {{$application->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
+                                                    {{$application->trainer->full_name ?? ''}}
                                                 @endif
                                             </td>
                                             <td>{{$application->application_no ?? 'N/A'}}</td>

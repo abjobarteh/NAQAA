@@ -29,7 +29,7 @@ class EditInterimAuthorisation extends Component
     {
         $this->authorisation = ApplicationDetail::findOrFail($id)
             ->load('interimAuthorisation', 'interimAuthorisation.promoters');
-        // dd($this->authorisation->interimAuthorisation->promoters);
+
         $this->fill([
             'proposed_name' => $this->authorisation->interimAuthorisation->proposed_name,
             'address' => $this->authorisation->interimAuthorisation->street,
@@ -109,7 +109,7 @@ class EditInterimAuthorisation extends Component
             'promoter_dob.0' => 'required|date',
             'promoter_occupation.0' => 'required|string',
             'promoter_address.0' => 'required|string',
-            'promoter_passportcopy.0' => 'required|file|mimes:jpg,png,jpeg,pdf',
+            'promoter_passportcopy.0' => 'nullablle|file|mimes:jpg,png,jpeg,pdf',
             'promoter_fullname.*' => 'required|string',
             'promoter_dob.*' => 'required|date',
             'promoter_occupation.*' => 'required|string',
@@ -118,14 +118,14 @@ class EditInterimAuthorisation extends Component
             'funding_name.0' => 'required|string',
             'funding_evidence.0' => 'required|file|mimes:jpg,png,jpeg,pdf',
             'funding_name.*' => 'required|string',
-            'funding_evidence.*' => 'required|file|mimes:jpg,png,jpeg,pdf',
-            'organogramme' => 'required|file|mimes:jpg,png,jpeg,pdf',
-            'physical_structure_plan' => 'required|file|mimes:jpg,png,jpeg,pdf',
-            'five_year_strategic_plan' => 'required|file|mimes:jpg,png,jpeg,pdf',
+            'funding_evidence.*' => 'nullable|file|mimes:jpg,png,jpeg,pdf',
+            'organogramme' => 'nullable|file|mimes:jpg,png,jpeg,pdf',
+            'physical_structure_plan' => 'nullable|file|mimes:jpg,png,jpeg,pdf',
+            'five_year_strategic_plan' => 'nullable|file|mimes:jpg,png,jpeg,pdf',
         ]);
 
         DB::transaction(function () {
-            $directory = Storage::makeDirectory(auth()->user()->username);
+            Storage::makeDirectory(auth()->user()->username);
             $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->get();
             $funding_details = null;
 
@@ -166,11 +166,11 @@ class EditInterimAuthorisation extends Component
                 'town_village_id' => $this->town_village_id,
                 'mission' => $this->mission,
                 'vision' => $this->vision,
-                'organogramme' => $organogramme,
+                'organogramme' => '/storage/' . $organogramme,
                 'objectives' => $this->objectives,
                 'sources_of_funding_details' => $funding_details,
-                'physical_structure_plan' => $physical_plan,
-                'five_year_strategic_plan' => $five_year_plan,
+                'physical_structure_plan' => '/storage/' . $physical_plan,
+                'five_year_strategic_plan' => '/storage/' . $five_year_plan,
             ]);
 
             foreach ($this->promoter_fullname as $key => $value) {
@@ -181,7 +181,7 @@ class EditInterimAuthorisation extends Component
                     'date_of_birth' => $this->promoter_dob[$key],
                     'occupation' => $this->promoter_occupation[$key],
                     'address' => $this->promoter_address[$key],
-                    'passport_copy' => $passportcopy,
+                    'passport_copy' => '/storage/' . $passportcopy,
                 ]);
             }
         });

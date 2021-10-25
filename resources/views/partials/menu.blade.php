@@ -358,8 +358,12 @@
     <p>
       Applications
       <span class="badge badge-info right">@php
-          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_from', 'portal')
-            ->where('application_form_status', 'submitted')
+          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_from', 'Portal')
+          ->where('submitted_from', 'Portal')
+            ->where(function ($query) {
+                $query->where('application_form_status', 'submitted')
+                    ->orWhere('application_form_status', 'Saved');
+            })
             ->where('status', 'Pending')
             ->latest()
             ->count();

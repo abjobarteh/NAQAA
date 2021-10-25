@@ -20,7 +20,7 @@ class ApplicationDetail extends Model
         'application_type',
         'status',
         'application_form_status',
-        'submitted_through',
+        'submitted_from',
     ];
 
     protected static $logFillable = true;
