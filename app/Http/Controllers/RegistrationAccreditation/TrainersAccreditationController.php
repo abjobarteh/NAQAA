@@ -24,7 +24,7 @@ class TrainersAccreditationController extends Controller
     public function index()
     {
         $accreditations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'trainerAccreditations'
         ])->where('application_type', 'trainer_accreditation')
             ->latest()
@@ -41,15 +41,26 @@ class TrainersAccreditationController extends Controller
     public function create()
     {
         $trainers = Trainer::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->get();
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
         $application_statuses = ApplicationStatus::all()->pluck('name');
+        $application_no = null;
+
+        $records = ApplicationDetail::all();
+        if ($records->isEmpty()) {
+            $new_serial_no = '000001';
+            $application_no = 'APP-' . $new_serial_no;
+        } else {
+            $last_record = ApplicationDetail::latest()->limit(1)->first();
+            $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+            $application_no = 'APP-' . $new_serial_no;
+        }
 
         return view(
             'registrationaccreditation.accreditation.trainers.create',
-            compact('trainers', 'levels', 'application_statuses')
+            compact('trainers', 'levels', 'application_statuses', 'application_no')
         );
     }
 
@@ -64,12 +75,15 @@ class TrainersAccreditationController extends Controller
         $areas = $request->filled('areas') ?  $request->input('areas', []) : [];
         $levels = $request->filled('levels') ?  $request->input('levels', []) : [];
         $accred_statuses = $request->filled('statuses') ?  $request->input('statuses', []) : [];
-        DB::transaction(function () use ($request, $areas, $levels, $accred_statuses) {
+        $serial_no = explode('-', $request->application_no);
+
+        DB::transaction(function () use ($request, $areas, $levels, $accred_statuses, $serial_no) {
             // store training provider application details
             $application = ApplicationDetail::create([
                 'trainer_id' => $request->trainer_id,
                 'applicant_type' => 'trainer',
                 'application_no' => $request->application_no,
+                'serial_no' => $serial_no[1],
                 'application_type' => 'trainer_accreditation',
                 'status' => $request->status,
                 'application_date' => $request->application_date,
@@ -84,7 +98,7 @@ class TrainersAccreditationController extends Controller
                         'level' => $levels[$area],
                         'application_id' => $application->id,
                         'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
-                        'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                        'accreditation_status' => $request->status === 'Approved' ? 'Approved' : null,
                     ]);
                 }
             }
@@ -123,7 +137,7 @@ class TrainersAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id);
         $trainers = Trainer::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->get();
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
@@ -169,7 +183,7 @@ class TrainersAccreditationController extends Controller
                             'level' => $levels[$area],
                             'application_id' => $application->id,
                             'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
-                            'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                            'accreditation_status' => $request->status === 'Approved' ? 'Approved' : null,
                         ]);
                     } else {
                         TrainerAccreditationDetail::create([
@@ -178,7 +192,7 @@ class TrainersAccreditationController extends Controller
                             'level' => $levels[$area],
                             'application_id' => $application->id,
                             'status' => $request->status === 'Approved' ? $accred_statuses[$area] : null,
-                            'accreditation_status' => $request->status === 'Approved' ? 'valid' : null,
+                            'accreditation_status' => $request->status === 'Approved' ? 'Approved' : null,
                         ]);
                     }
                 }
