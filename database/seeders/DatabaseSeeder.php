@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             CountriesTableSeeder::class,
             AwardingBodyTableSeeder::class,
             QualificationLevelsTableSeeder::class,
-            EducationFieldsTableSeeder::class,
             RegionsTableSeeder::class,
             LocalGovermentAreaTableSeeder::class,
             DistrictsTableSeeder::class,
