@@ -23,7 +23,7 @@ class TrainersRegistrationController extends Controller
     public function index()
     {
         $trainer_regitrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'registrationLicence'
         ])->where('application_type', 'trainer_registration')
             ->latest()

@@ -66,7 +66,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Programme Title: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="programme_title" value="{{ $accreditation->programmeAccreditations->programme->programme_title ?? '' }}" required>
+                                                    <input type="text" class="form-control" name="programme_title" value="{{ $accreditation->programmeAccreditations->programme->programme->name ?? '' }}" required>
                                                     @error('programme_title')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

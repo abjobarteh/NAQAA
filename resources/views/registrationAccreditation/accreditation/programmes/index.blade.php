@@ -13,6 +13,7 @@
                 <div class="col-sm-6">
                     <a href="{{route('registration-accreditation.accreditation.programmes.create')}}" 
                         class="btn btn-primary btn-flat float-right">
+                        <i class="fas fa-plus"></i>
                         New Programme Accreditation
                     </a>
                 </div><!-- /.col -->
@@ -47,7 +48,7 @@
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
                                             <td>{{$accreditation->trainingprovider->name}}</td>
-                                            <td>{{$accreditation->programmeAccreditations->programme->programme_title ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->programmeAccreditations->programme->programme->name ?? 'N/A'}}</td>
                                             <td>{{$accreditation->programmeAccreditations->programme->level ?? 'N/A'}}</td>
                                             <td>{{$accreditation->programmeAccreditations->programme->studentship_duration ?? '0'}}</td>
                                             <td>{{$accreditation->programmeAccreditations->programme->total_qualification_time ?? '0'}} Hours</td>
