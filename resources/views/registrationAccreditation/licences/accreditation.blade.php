@@ -27,7 +27,6 @@
                                         <tr>
                                             <th>FullName</th>
                                             <th>Application No</th>
-                                            <th>Application category</th>
                                             <th>Application type</th>
                                             <th>Application date</th>
                                             <th>Application status</th>
@@ -38,12 +37,11 @@
                                     <tbody>
                                         @forelse ($traineraccreditations as $accreditation)
                                             <tr>
-                                                <td>{{$accreditation[0]->application->trainer->firstname ?? ''}}. {{$accreditation[0]->application->trainer->middlename ?? ''}}.{{$accreditation[0]->application->trainer->lastname ?? ''}}</td>
+                                                <td>{{$accreditation[0]->application->trainer->full_name ?? ''}}</td>
                                                 <td>{{$accreditation[0]->application->application_no ?? ''}}</td>
-                                                <td><span class="badge badge-info badge-rounded">{{$accreditation[0]->application->application_category ?? 'N/A'}}</span></td>
                                                 <td><span class="badge badge-info badge-rounded">{{$accreditation[0]->application->application_type ?? 'N/A'}}</span></td>
                                                 <td>{{$accreditation[0]->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-rounded @if($accreditation[0]->application->status === 'accepted') badge-success @else badge-danger @endif">{{$accreditation[0]->application->status}}</span></td>
+                                                <td><span class="badge badge-rounded @if($accreditation[0]->application->status === 'Approved') badge-success @else badge-danger @endif">{{$accreditation[0]->application->status}}</span></td>
                                                 <td>
                                                     @foreach ($accreditation as $field)
                                                         <span>{{$field->area}} -- {{$field->level}} -- <span class="badge badge-primary">{{$field->status ?? 'N/A'}}</span></span>

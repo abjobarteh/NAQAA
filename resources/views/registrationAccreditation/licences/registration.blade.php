@@ -47,13 +47,13 @@
                                                     @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
-                                                        {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
+                                                        {{$licence->trainer->full_name ?? ''}}
                                                     @endif
                                                 </td>
                                                 <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
-                                                <td><span class="badge badge-rounded @if($licence->license_status === 'valid') badge-success @else badge-danger @endif">{{$licence->license_status}}</span></td>
-                                                <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
+                                                <td><span class="badge badge-rounded @if($licence->license_status === 'Approved') badge-success @else badge-danger @endif">{{$licence->license_status}}</span></td>
+                                                <td>{{$licence->application->application_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
                                                 <td>
                                                     @if ($licence->application->applicant_type === 'application_type')
@@ -64,21 +64,21 @@
                                                         <i class="fas fa-edit"></i>    
                                                         </a>
                                                     @else     
-                                                        <a href="{{route('registration-accreditation.registration.trainers.edit',$licence->application->id)
+                                                        <a href="{{route('registration-accreditation.registration.edit-trainer-registration',$licence->application->id)
                                                         }}" class="btn btn-xs btn-danger"
                                                         title="edit trainer licence registration details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
                                                         </a>
                                                     @endif
-                                                    @if ($licence->license_status === 'expired')
+                                                    @if ($licence->license_status === 'Expired')
                                                         <a href="{{route('registration-accreditation.licence.licence-renewal',$licence->id)
                                                         }}" class="btn btn-xs btn-success"
                                                         title="renew registration licence"
                                                         >
                                                         <i class="fas fa-sync"></i>    
                                                         </a>
-                                                    @elseif($licence->license_status === 'valid')
+                                                    @elseif($licence->license_status === 'Approved')
                                                         <button 
                                                         data-licence-id="{{$licence->id}}"
                                                         data-status = "revoke"
@@ -127,13 +127,13 @@
                                                     @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
-                                                        {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
+                                                        {{$licence->trainer->full_name ?? ''}}
                                                     @endif
                                                 </td>
                                                 <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-success badge-rounded">{{$licence->license_status}}</span></td>
-                                                <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->application->application_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
                                                 <td>
                                                     @if ($licence->application->application_type === 'institution_registration')
@@ -189,13 +189,13 @@
                                                     @if ($licence->application->applicant_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
-                                                        {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
+                                                        {{$licence->trainer->full_name ?? ''}}
                                                     @endif
                                                 </td>
                                                 <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
-                                                <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->application->application_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
                                                 <td>
                                                     <a href="{{route('registration-accreditation.licence.licence-renewal',$licence->id)
@@ -214,7 +214,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="tab-pane fade" id="revoked-licences-tab" role="tabpanel" aria-labelledby="expired-licences-tab">
+                            <div class="tab-pane fade" id="revoked-licences-tab" role="tabpanel" aria-labelledby="revoked-licences-tab">
                                 <table class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
@@ -234,13 +234,13 @@
                                                     @if ($licence->application->application_type === 'institution_registration')
                                                         {{$licence->trainingprovider->name}}
                                                     @else     
-                                                        {{$licence->trainer->firstname ?? ''}}. {{$licence->trainer->middlename ?? ''}} .{{$licence->trainer->lastname ?? ''}}
+                                                        {{$licence->trainer->full_name ?? ''}}
                                                     @endif
                                                 </td>
                                                 <td>{{$licence->licence_start_date ?? 'N/A'}}</td>
                                                 <td>{{$licence->licence_end_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-danger badge-rounded">{{$licence->license_status}}</span></td>
-                                                <td>{{$licence->application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
+                                                <td>{{$licence->application->application_date ?? 'N/A'}}</td>
                                                 <td><span class="badge badge-info badge-rounded">{{$licence->application->application_type ?? 'N/A'}}</span></td>
                                                 <td>
                                                     <button 

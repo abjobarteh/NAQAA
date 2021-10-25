@@ -79,7 +79,7 @@
                                         </tr>
                                     @empty
                                     <tr>
-                                        <td colspan="6" class="text-center"><span class="text-bold text-lg">No new Applications received yet</span></td>
+                                        <td colspan="6" class="text-center"><span class="text-bold text-lg">No new Applications submitted yet</span></td>
                                     </tr>
                                     @endforelse
                                 </tbody>

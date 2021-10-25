@@ -27,13 +27,13 @@ class LicencesManagementController extends Controller
             ->latest()->get();
 
         $valid_licences = RegistrationLicenceDetail::with(['trainer', 'trainingprovider', 'application'])
-            ->where('license_status', 'valid')->latest()->get();
+            ->where('license_status', 'Approved')->latest()->get();
 
         $expired_licences = RegistrationLicenceDetail::with(['trainer', 'trainingprovider', 'application'])
-            ->where('license_status', 'expired')->latest()->get();
+            ->where('license_status', 'Expired')->latest()->get();
 
         $revoked_licences = RegistrationLicenceDetail::with(['trainer', 'trainingprovider', 'application'])
-            ->where('license_status', 'revoked')->latest()->get();
+            ->where('license_status', 'Revoked')->latest()->get();
 
         return view('registrationaccreditation.licences.registration', compact('all_licences', 'valid_licences', 'expired_licences', 'revoked_licences'));
     }
@@ -61,11 +61,11 @@ class LicencesManagementController extends Controller
 
         if ($request->status === 'revoke') {
             $licence->update([
-                'license_status' => 'revoked'
+                'license_status' => 'Revoked'
             ]);
         } else {
             $licence->update([
-                'license_status' => 'valid'
+                'license_status' => 'Approved'
             ]);
         }
 
@@ -101,7 +101,7 @@ class LicencesManagementController extends Controller
 
         if ($request->filled('training_provider_id')) {
             $validLicence = RegistrationLicenceDetail::where('id', $request->training_provider_id)
-                ->where('license_status', 'valid')->first();
+                ->where('license_status', 'Approved')->first();
 
             if (!$validLicence) {
                 $data = $request->validate([
@@ -134,7 +134,7 @@ class LicencesManagementController extends Controller
         } else if ($request->filled('trainer_id')) {
 
             $validLicence = RegistrationLicenceDetail::where('id', $request->trainer_id)
-                ->where('license_status', 'valid')->first();
+                ->where('license_status', 'Approved')->first();
             if (!$validLicence) {
                 $data = $request->validate([
                     'firstname' => ['required', 'string'],
