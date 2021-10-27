@@ -50,7 +50,7 @@ class TrainingProviderCategoryController extends Controller
 
         TrainingProviderCategory::create($request->all());
 
-        return redirect(route('admin.training-provider-categories.index'))->withSuccess('ownership successfully added');
+        return redirect(route('admin.training-provider-categories.index'))->withSuccess('Training Provider Category successfully added');
     }
 
     /**
@@ -100,7 +100,7 @@ class TrainingProviderCategoryController extends Controller
 
         $training_provider_category->update($request->all());
 
-        return back()->withSuccess('category successfully updated');
+        return back()->withSuccess('Training Provider Category successfully updated');
     }
 
     /**

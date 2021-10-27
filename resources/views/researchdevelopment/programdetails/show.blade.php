@@ -36,11 +36,11 @@
                                 <div class="col-12 col-md-12 col-lg-12">
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Program Name: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail->programme->programme_title}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetail->programmeDetails->programme->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Field of Education: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail->programme->fieldOfEducation->name}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetailprogrammeDetails->programme->fieldOfEducation->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Duration (in Months): </b>
@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Tuition Fee Per Year: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail->tuition_fee_per_year}}</p>
+                                        <p class="col-sm-7 text-muted">D{{$programdetail->tuition_fee_per_year}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Entry Requirements: </b>
@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Learning Center: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetail->programme->trainingprovider->name}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetail->programmeDetails->trainingprovider->name ?? 'N/A'}}</p>
                                     </div>
                                 </div>
                             </div>

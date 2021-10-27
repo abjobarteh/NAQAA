@@ -26,8 +26,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
     public function index()
     {
         $accreditations = ApplicationDetail::with([
-            'programmeAccreditations', 'trainingprovider', 'programmeAccreditations.programme',
-            'programmeAccreditations.programme.programme'
+            'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',
         ])->where('application_type', 'institution_accreditation')
             ->latest()
             ->get();
@@ -98,6 +97,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
             // store training provider application details
             $application = ApplicationDetail::create([
                 'training_provider_id' => $data['trainingprovider_id'],
+                'programme_id' => $programme->id,
                 'applicant_type' => 'training_provider',
                 'application_no' => $data['application_no'],
                 'serial_no' => $serial_no[1],
@@ -132,9 +132,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
-                'programmeAccreditations',
-                'programmeAccreditations.programme',
-                'programmeAccreditations.programme.programme'
+                'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',
             ]);
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
@@ -156,9 +154,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
     {
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
-                'programmeAccreditations',
-                'programmeAccreditations.programme',
-                'programmeAccreditations.programme.programme'
+                'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',
             ]);
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');

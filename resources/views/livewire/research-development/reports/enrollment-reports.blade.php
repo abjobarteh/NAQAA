@@ -20,74 +20,75 @@
                 </div>
                 
                 <div class="card-body">
+                    <form wire:submit.prevent="getReport">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-project-diagram fa-3x text-info mb-1"></i>
-                                    <h6>Classification Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @if($is_classification)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Classification:</label>
+                                <select id="classification" class="form-control custom-select" wire:model="classification">
+                                    <option value="">--- select classification ---</option>
+                                    @foreach ($classifications as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>Programmes Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @elseif($is_programme)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="programme">Programme:</label>
+                                <input type="text" class="form-control" placeholder="Enter programme name" wire:model="programme">
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>Field of Educations Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @elseif($is_education_field)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Field of Education:</label>
+                                <select id="education_field" class="form-control custom-select" wire:model="education_field">
+                                    <option value="">--- select field of education ---</option>
+                                    @foreach ($fields_of_education as $id => $name)
+                                        <option value="{{$name}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>Education Level Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @elseif($is_level)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Education Level:</label>
+                                <select id="level" class="form-control custom-select" wire:model="level">
+                                    <option value="">--- select education level ---</option>
+                                    @foreach ($levels as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>LGA/Region Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @elseif($is_lga_region)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Region:</label>
+                                <select id="region" class="form-control custom-select" wire:model="lga_region">
+                                    <option value="">--- select region ---</option>
+                                    @foreach ($regions as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>Sponsors Report</h6>
-                                </div>
-                                <button class="btn btn-primary btn-flat btn-block">
-                                    Generate
-                                </button>
+                        @endif
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-flat">Generate</button>
+                                <a class="btn btn-warning btn-flat" href="{{route('researchdevelopment.reports.enrollments')}}">
+                                    <i class="fas fa-arrow-left"></i> 
+                                    Back
+                                </a>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
             </div>
         </div>

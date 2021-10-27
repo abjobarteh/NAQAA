@@ -36,28 +36,28 @@
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Training Provider Name: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Email: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->email}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->email ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Phone Number: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->mobile_phone}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->mobile_phone ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Address: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->address}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->address ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">P.O Box: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->po_box}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->po_box ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Website: </b>
                                         @if (!is_null($data->trainingprovider->website))
-                                            <a href="{{$data->trainingprovider->website}}" target="_blank">{{$data->trainingprovider->website}} <i class="fas fa-external-link-alt"></i></a>   
+                                            <a href="https://{{$data->trainingprovider->website}}" target="_blank">{{$data->trainingprovider->website ?? 'N/A'}} <i class="fas fa-external-link-alt"></i></a>   
                                         @else
                                         <p class="col-sm-5 text-muted">N/A</p>
                                         @endif
@@ -65,15 +65,15 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Region: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->region->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->region->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">District: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->district->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->district->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Local Goverment Area: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->localgovermentarea->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->localgovermentarea->name ?? 'N/A'}}</p>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6">
@@ -103,11 +103,11 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Ownership: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->ownership->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->ownership->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Classification: </b>
-                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->classification->name}}</p>
+                                        <p class="col-sm-5 text-muted">{{$data->trainingprovider->classification->name ?? 'N/A'}}</p>
                                     </div>
                                 </div>
                             </div>

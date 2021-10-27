@@ -26,9 +26,9 @@
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
-                            <label for="classification_id">Category of Institution: <sup class="text-danger">*</sup></label>
+                            <label for="classification_id">Classification of Institution: <sup class="text-danger">*</sup></label>
                             <select name="classification_id" id="classification_id" class="form-control custom-select">
-                                <option value="">--- select category</option>
+                                <option value="">--- select classification ---</option>
                                 @foreach ($classifications as $id => $classification)
                                     <option value="{{$id}}" {{$application->trainingprovider->classification_id == $id ? 'selected' :''}}>{{$classification}}</option>
                                 @endforeach

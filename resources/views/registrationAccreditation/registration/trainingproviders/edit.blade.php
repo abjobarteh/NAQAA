@@ -265,7 +265,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>License No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="license_no" value="{{$registration->registrationLicence->license_no}}">
+                                                    <input type="text" class="form-control" name="license_no" value="{{$registration->registrationLicence->license_no ?? ''}}">
                                                     @error('license_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

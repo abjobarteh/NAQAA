@@ -1,12 +1,12 @@
 <div>
-    @section('page-title','Labour Market Related Data Report')
+    @section('page-title','Graduates Reports')
 
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container">
         <div class="row mb-2">
             <div class="col-sm-6">
-            <h1 class="m-0">Learner Achievement Graduates</h1>
+            <h1 class="m-0">Learner Achievements Graduates</h1>
             </div><!-- /.col -->
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -16,73 +16,78 @@
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Learner Achievement Graduates Reports</h3>
+                    <h3 class="card-title">Learner Achievements Enrollment Reports</h3>
                 </div>
                 
                 <div class="card-body">
                     <form wire:submit.prevent="getReport">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="research_topic">Programme</label>
-                                    <input type="text" class="form-control" id="position_advertised" wire:model="position_advertised" placeholder="Position advertised">
-                                    @error('position_advertised')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="field_of_education">Field of Education</label>
-                                    <select wire:model="field_of_education" class="form-control custom-select">
-                                        <option value="">--- field of education ---</option>
-                                        @foreach ($fields_of_education as $field)
-                                            <option value="{{$field}}">{{$field}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('field_of_education')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
+                    <div class="row">
+                        @if($is_classification)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Classification:</label>
+                                <select id="classification" class="form-control custom-select" wire:model="classification">
+                                    <option value="">--- select classification ---</option>
+                                    @foreach ($classifications as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="educational_level">Educational Level</label>
-                                    <select wire:model="educational_level" class="form-control custom-select">
-                                        <option value="">--- educational level ---</option>
-                                        @foreach ($levels as $level)
-                                            <option value="{{$level}}">{{$level}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('educational_level')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="job_status">Classifications</label>
-                                    <select wire:model="job_status" id="job_status" class="form-control custom-select">
-                                        <option>--- classifications ---</option>
-                                        <@foreach ($classifications as $classification)
-                                            <option value="{{$classification}}">{{$classification}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('job_status')
-                                        <span class="text-danger">{{$message}}</span>
-                                    @enderror
-                                </div>
+                        @elseif($is_programme)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="programme">Programme:</label>
+                                <input type="text" class="form-control" placeholder="Enter programme name" wire:model="programme">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="form-group">
-                                    <button class="btn btn-success btn-flat"><i class="fas fa-file-export"></i> Generate Report</button>
-                                </div>
+                        @elseif($is_education_field)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Field of Education:</label>
+                                <select id="education_field" class="form-control custom-select" wire:model="education_field">
+                                    <option value="">--- select field of education ---</option>
+                                    @foreach ($fields_of_education as $id => $name)
+                                        <option value="{{$name}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
+                        @elseif($is_level)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Education Level:</label>
+                                <select id="level" class="form-control custom-select" wire:model="level">
+                                    <option value="">--- select education level ---</option>
+                                    @foreach ($levels as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @elseif($is_lga_region)
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Region:</label>
+                                <select id="region" class="form-control custom-select" wire:model="lga_region">
+                                    <option value="">--- select region ---</option>
+                                    @foreach ($regions as $id => $name)
+                                        <option value="{{$id}}">{{$name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        @endif
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-flat">Generate</button>
+                                <a class="btn btn-warning btn-flat" href="{{route('researchdevelopment.reports.graduates')}}">
+                                    <i class="fas fa-arrow-left"></i> 
+                                    Back
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     </form>
                 </div>
             </div>

@@ -34,7 +34,9 @@ class DatabaseSeeder extends Seeder
             TrainingProviderClassificationTableSeeder::class,
             ApplicationStatusSeeder::class,
             TrainerTypesSeeder::class,
-            ApplicationTypesTableSeeder::class
+            ApplicationTypesTableSeeder::class,
+            TrainingProviderChecklistSeeder::class,
+            BankTableSeeder::class
         ]);
     }
 }

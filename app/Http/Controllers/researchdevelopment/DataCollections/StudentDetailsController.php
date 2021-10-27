@@ -63,31 +63,19 @@ class StudentDetailsController extends Controller
      */
     public function store(StoreStudentDetailsDataCollectionRequest $request)
     {
-        if (!is_null($request->middlename)) {
-            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
-                ->where('firstname', 'like', '%' . $request->firstname . '%')
-                ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
-                ->where('lastname', 'like', '%' . $request->lastname . '%')
-                ->where('gender', $request->gender)
-                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
-                ->where('nationality',  $request->nationality)
-                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
-                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
-                ->exists();
-        } else {
-            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
-                ->where('firstname', 'like', '%' . $request->firstname . '%')
-                // ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
-                ->where('lastname', 'like', '%' . $request->lastname . '%')
-                ->where('gender', $request->gender)
-                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
-                ->where('nationality',  $request->nationality)
-                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
-                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
-                ->exists();
-        }
-
-        // dd($student_exist);
+        $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
+            ->where('firstname', 'like', '%' . $request->firstname . '%')
+            ->where(function ($query) use ($request) {
+                $query->whereNull('middlename')
+                    ->orWhere('middlename', 'like', '%' . $request->middlename ?? '' . '%');
+            })
+            ->where('lastname', 'like', '%' . $request->lastname . '%')
+            ->where('gender', $request->gender)
+            ->whereDate('date_of_birth', $request->date_of_birth)
+            ->where('nationality',  $request->nationality)
+            ->whereDate('admission_date', $request->admission_date)
+            ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+            ->exists();
 
         if ($student_exist) {
             return back()->withWarning('Student details datacollection details already exist!');
@@ -150,33 +138,6 @@ class StudentDetailsController extends Controller
         UpdateStudentDetailsDataCollectionRequest $request,
         TrainingProviderStudent $student_detail
     ) {
-
-        if (!is_null($request->middlename)) {
-            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
-                ->where('firstname', 'like', '%' . $request->firstname . '%')
-                ->where('middlename', 'like', '%' . $request->middlename ?? '' . '%')
-                ->where('lastname', 'like', '%' . $request->lastname . '%')
-                ->where('gender', $request->gender)
-                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
-                ->where('nationality',  $request->nationality)
-                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
-                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
-                ->exists();
-        } else {
-            $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
-                ->where('firstname', 'like', '%' . $request->firstname . '%')
-                ->where('lastname', 'like', '%' . $request->lastname . '%')
-                ->where('gender', $request->gender)
-                ->whereDate('date_of_birth', (new Carbon($request->date_of_birth))->format('Y-m-d'))
-                ->where('nationality',  $request->nationality)
-                ->whereDate('admission_date', (new Carbon($request->admission_date))->format('Y-m-d'))
-                ->where('programme_name', 'like', '%' . $request->programme_name . '%')
-                ->exists();
-        }
-
-        if ($student_exist) {
-            return back()->withWarning('Student details datacollection details already exist!');
-        }
 
         $student_detail->update($request->validated());
 

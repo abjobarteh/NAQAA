@@ -58,20 +58,7 @@ class LearningCenterDataCollectionController extends Controller
     public function store(Request $request)
     {
         DB::transaction(function () use ($request) {
-            $trainingprovider = TrainingProvider::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile_phone' => $request->phone,
-                'address' => $request->address,
-                'po_box' => $request->po_box,
-                'webiste' => $request->webiste,
-                'region_id' => $request->region_id,
-                'district_id' => $request->district_id,
-                'lga_id' => $request->lga_id,
-                'ownership_id' => $request->ownership_id,
-                'classification_id' => $request->classification_id,
-                'is_registered' => 0,
-            ]);
+            $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
 
             InstitutionDetailsDataCollection::create([
                 'institution_id' => $trainingprovider->id,
@@ -132,42 +119,15 @@ class LearningCenterDataCollectionController extends Controller
      */
     public function update(Request $request, InstitutionDetailsDataCollection $institution_detail)
     {
-        DB::transaction(function () use ($institution_detail, $request) {
-            $institution_detail->trainingprovider->update([
-                'name' => $request->name,
-                'email' => $request->email,
-                'mobile_phone' => $request->phone,
-                'address' => $request->address,
-                'po_box' => $request->po_box,
-                'webiste' => $request->webiste,
-                'region_id' => $request->region_id,
-                'district_id' => $request->district_id,
-                'lga_id' => $request->lga_id,
-                'ownership_id' => $request->ownership_id,
-                'classification_id' => $request->classification_id,
-            ]);
-
-            $institution_detail->update([
-                'financial_source' => $request->financial_source,
-                'estimated_yearly_turnover' => $request->estimated_yearly_turnover,
-                'enrollment_capacity' => $request->enrollment_capacity,
-                'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
-                'no_of_computer_labs' => $request->no_of_computer_labs,
-                'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
-            ]);
-        });
+        $institution_detail->update([
+            'financial_source' => $request->financial_source,
+            'estimated_yearly_turnover' => $request->estimated_yearly_turnover,
+            'enrollment_capacity' => $request->enrollment_capacity,
+            'no_of_lecture_rooms' => $request->no_of_lecture_rooms,
+            'no_of_computer_labs' => $request->no_of_computer_labs,
+            'total_no_of_computers_in_labs' => $request->total_no_of_computers_in_labs,
+        ]);
 
         return back()->withSuccess('Institution details data collection record successfully updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

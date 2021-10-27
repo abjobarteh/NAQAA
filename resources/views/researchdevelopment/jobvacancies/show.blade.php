@@ -36,7 +36,7 @@
                                 <div class="col-12 col-md-12 col-lg-12">
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Position Advertised: </b>
-                                        <p class="col-sm-6 text-muted">{{$jobvacancy->position_advertised}}</p>
+                                        <p class="col-sm-6 text-muted">{{$jobvacancy->position->name}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Minimum Required Qualification: </b>

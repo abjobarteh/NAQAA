@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Date of Birth: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->date_of_birth->toFormattedDateString()}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->date_of_birth}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Gender: </b>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Country of Origin/Citizenship: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->nationality}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->country_of_citizenship}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Tax Identification Number: </b>
@@ -84,7 +84,7 @@
                                     </div> 
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Contact: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->phone_home }}<br>{{$registration->trainer->phone_mobile }}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->phone_home ?? ''  }}<br>{{$registration->trainer->phone_mobile }}</p>
                                     </div> 
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6">
@@ -95,10 +95,6 @@
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Date: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->application_date->toFormattedDateString() ?? 'N/A'}}</p>
-                                    </div>
-                                    <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Application Category: </b>
-                                        <p class="col-sm-5 text-muted"><span class="badge badge-primary">{{$registration->application_category ?? 'N/A'}}</span></p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Type: </b>

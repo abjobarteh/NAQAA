@@ -51,11 +51,20 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Student ID: <sup class="text-danger">*</sup></label>
+                                            <label>Student ID:</label>
                                             <input type="text" class="form-control" name="student_id" value="{{ old('student_id') }}">
                                             @error('student_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Aacademic Year: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="academic_year" value="{{ old('academic_year') }}">
+                                            @error('academic_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -126,7 +135,7 @@
                                 <div class="row show-admission">
                                     <div class="col-sm-12">
                                         <div class="form-group">
-                                            <label>Country of Citizenship: <sup class="text-danger">*</sup></label>
+                                            <label>Country of Origin/Citizenship: <sup class="text-danger">*</sup></label>
                                             <select name="nationality" id="nationality" class="form-control select2 admission">
                                                 <option>Select country of citizenship</option>
                                                 @foreach ($countries as $country)

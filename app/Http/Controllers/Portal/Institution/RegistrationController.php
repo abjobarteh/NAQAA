@@ -14,8 +14,11 @@ use App\Models\RegistrationAccreditation\BankSignatory;
 use App\Models\RegistrationAccreditation\BoardOfDirector;
 use App\Models\RegistrationAccreditation\CenterManager;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\RegistrationAccreditation\TrainingProviderChecklist;
+use App\Models\Role;
 use App\Models\TownVillage;
 use App\Models\TrainingProviderClassification;
+use App\Notifications\AssessmentCertification\CertificateEndorsementRequestNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,6 +56,7 @@ class RegistrationController extends Controller
         $countries = Country::all()->pluck('name');
         $qualification_levels = QualificationLevel::all()->pluck('name', 'id');
         $banks = Bank::all()->pluck('name', 'id');
+        $checklists = TrainingProviderChecklist::all()->pluck('name', 'id');
 
         return view(
             'portal.institutions.registrations.create',
@@ -63,7 +67,8 @@ class RegistrationController extends Controller
                 'classifications',
                 'countries',
                 'qualification_levels',
-                'banks'
+                'banks',
+                'checklists'
             )
         );
     }
@@ -79,27 +84,28 @@ class RegistrationController extends Controller
         // dd(collect($request->file()));
         $boardMembers = $request->filled('boardmember_names') ?  $request->input('boardmember_names', []) : [];
         $bankSignatories = $request->filled('signatories_names') ?  $request->input('signatories_names', []) : [];
+
         DB::transaction(function () use ($request, $boardMembers, $bankSignatories) {
-            $directory = 'uploads/' . $request->name . '/';
-            $storagePath = Storage::makeDirectory($directory);
+            $storagePath = Storage::makeDirectory(auth()->user()->username);
+            $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
             // store training provider details
-            $trainingprovider = TrainingProvider::create([
-                'name' => $request->name,
-                'address' => $request->address,
-                'po_box' => $request->po_box,
-                'region_id' => $request->region_id,
-                'district_id' => $request->district_id,
-                'town_village_id' => $request->town_village_id,
-                'telephone_work' => $request->telephone_work,
-                'mobile_phone' => $request->mobile_phone,
-                'fax' => $request->fax,
-                'website' => $request->website,
-                'email' => $request->email,
-                'classification_id' => $request->classification_id,
-                'login_id' => auth()->user()->id,
-                'bank_names' => $request->bank_names,
-                'storage_path' => $directory
-            ]);
+            $trainingprovider
+                ->update([
+                    'address' => $request->address,
+                    'po_box' => $request->po_box,
+                    'region_id' => $request->region_id,
+                    'district_id' => $request->district_id,
+                    'town_village_id' => $request->town_village_id,
+                    'telephone_work' => $request->telephone_work,
+                    'mobile_phone' => $request->mobile_phone,
+                    'fax' => $request->fax,
+                    'website' => $request->website,
+                    'email' => $request->email,
+                    'classification_id' => $request->classification_id,
+                    'login_id' => auth()->user()->id,
+                    // 'bank_names' => $request->bank_names,
+                    'storage_path' => '/storage/' . auth()->user()->username
+                ]);
 
             CenterManager::create([
                 'firstname' => $request->firstname,
@@ -138,25 +144,44 @@ class RegistrationController extends Controller
                 }
             }
             // dd($directory);
-            $uploadedFiles = $this->storeTrainingProviderFiles(collect($request->file()), $directory);
+            $uploadedFiles = $this->storeTrainingProviderFiles(collect($request->file()));
+            // dd($uploadedFiles);
 
             // store training provider application details
+            $application_no = null;
+
+            $records = ApplicationDetail::all();
+            if ($records->isEmpty()) {
+                $new_serial_no = '000001';
+                $application_no = 'APP-' . $new_serial_no;
+            } else {
+                $last_record = ApplicationDetail::latest()->limit(1)->first();
+                $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+                $application_no = 'APP-' . $new_serial_no;
+            }
+            $serial_no = explode('-', $application_no);
             ApplicationDetail::create([
                 'training_provider_id' => $trainingprovider->id,
-                'applicant_type' => 'training_provider',
-                'application_no' => 'auto-generated',
-                'application_category' => 'registration',
-                'application_type' => 'new',
-                'status' => 'pending',
-                'application_form_status' => 'submitted',
+                'application_no' => $application_no,
+                'serial_no' => $serial_no[1],
+                'application_type' => 'institution_registration',
+                'status' => 'Pending',
+                'application_form_status' => 'Saved',
                 'application_date' => now(),
-                'submitted_through' => 'portal',
-                'application_checklists' => json_encode($uploadedFiles),
+                'submitted_from' => 'Portal',
+                'checklists' => json_encode($uploadedFiles),
             ]);
         });
 
+        $role = Role::where('slug', 'registration_and_accreditation_module')->get();
+        $message = "New Insttution registration application from " . auth()->user()->username;
+
+        $role[0]->notify(new CertificateEndorsementRequestNotification(
+            $message
+        ));
+
         return redirect()->route('portal.institution.registration.index')
-            ->withSuccess('Your Application for registration is successfullu submitted');
+            ->withSuccess('Your Application for registration is successfully submitted');
     }
 
     /**
@@ -190,18 +215,27 @@ class RegistrationController extends Controller
      */
     public function edit($id)
     {
+        $application = ApplicationDetail::findOrFail($id)->load('trainingprovider');
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
         $countries = Country::all()->pluck('name');
         $qualification_levels = QualificationLevel::all()->pluck('name', 'id');
-
-        $application = ApplicationDetail::findOrFail($id)->load('trainingprovider');
+        $checklists = TrainingProviderChecklist::all()->pluck('name', 'id');
 
         return view(
             'portal.institutions.registrations.edit',
-            compact('regions', 'districts', 'townvillages', 'classifications', 'countries', 'qualification_levels', 'application')
+            compact(
+                'application',
+                'regions',
+                'districts',
+                'townvillages',
+                'classifications',
+                'countries',
+                'qualification_levels',
+                'checklists'
+            )
         );
     }
 
@@ -318,15 +352,21 @@ class RegistrationController extends Controller
         //
     }
 
-    protected function storeTrainingProviderFiles($files, $directory)
+    protected function storeTrainingProviderFiles($files)
     {
-        // $checklists = [];
-        $checklists = $files->map(function ($file, $key) use ($directory) {
+        $checklists = [];
+
+        foreach ($files as $key => $file) {
             $name = time() . '_' . $file->getClientOriginalName();
-            // $filename = "{$key}" . now()  . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('uploads/' . $directory, $name, 'public');
-            // Storage::putFileAs($storagepath, $file, $filename);
-        });
+            $path = $file->storeAs(auth()->user()->username, $name);
+            $checklists[] = '/storage/' . $path;
+        }
+        // $checklists = $files->map(function ($file, $key) {
+        //     $name = time() . '_' . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        //     // $filename = "{$key}" . now()  . '.' . $file->getClientOriginalExtension();
+        //     $file->storeAs(auth()->user()->username, $name);
+        //     // Storage::putFileAs($storagepath, $file, $filename);
+        // });
 
         return $checklists;
     }

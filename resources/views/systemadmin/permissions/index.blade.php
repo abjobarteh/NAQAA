@@ -27,13 +27,17 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Name</th>
+                                        <th>Slug</th>
+                                        <th>Permission Type</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @forelse ($permissions as $permission)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $permission->name }}</td>
                                         <td>{{ $permission->slug }}</td>
+                                        <td>{{ $permission->permission_type }}</td>
                                     </tr>
                                     @empty
                                         <tr>

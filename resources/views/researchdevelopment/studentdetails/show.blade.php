@@ -35,6 +35,10 @@
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
+                                        <b class="col-sm-6 text-primary">Aacademic Year: </b>
+                                        <p class="col-sm-6 text-muted">{{$student->academic_year}}</p>
+                                    </div>
+                                    <div class="form-group row">
                                         <b class="col-sm-6 text-primary">Full Name: </b>
                                         <p class="col-sm-6 text-muted">{{$student->full_name}}</p>
                                     </div>
@@ -52,7 +56,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <b class="col-sm-6 text-primary">Nationality: </b>
+                                        <b class="col-sm-6 text-primary">Country of Origin/Citizenship: </b>
                                         <p class="text-muted text-sm col-sm-6">{{$student->nationality}}</p>
                                     </div>
 

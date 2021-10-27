@@ -52,11 +52,20 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Student ID: <sup class="text-danger">*</sup></label>
+                                            <label>Student ID:</label>
                                             <input type="text" class="form-control" name="student_id" value="{{$student->student_id}}">
                                             @error('student_id')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>Aacademic Year: <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="academic_year" value="{{ $student->academic_year }}">
+                                            @error('academic_year')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
@@ -97,8 +106,8 @@
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
                                                 <option>Select Gender</option>
-                                                <option value="M" {{$student->gender == 'male' ? 'selected ' : ''}}>Male</option>
-                                                <option value="F" {{$student->gender == 'female' ? 'selected ' : ''}}>Female</option>
+                                                <option value="M" {{$student->gender == 'M' ? 'selected ' : ''}}>Male</option>
+                                                <option value="F" {{$student->gender == 'F' ? 'selected ' : ''}}>Female</option>
                                             </select>
                                             @error('gender')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -127,7 +136,7 @@
                                 <div class="row">
                                     <div class="col-sm-12 show-admission">
                                         <div class="form-group">
-                                            <label>Country of Citizenship: <sup class="text-danger">*</sup></label>
+                                            <label>Country of Origin/Citizenship: <sup class="text-danger">*</sup></label>
                                             <select name="nationality" id="nationality" class="form-control select2 admission" required>
                                                 <option>Select country of citizenship</option>
                                                 @foreach ($countries as $country)

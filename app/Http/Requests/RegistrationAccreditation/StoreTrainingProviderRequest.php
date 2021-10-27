@@ -42,9 +42,9 @@ class StoreTrainingProviderRequest extends FormRequest
             'application_date' => ['required', 'date'],
             'status' => ['required', 'string'],
             'manager' => ['nullable', 'string'],
-            'license_no' => ['required_if:status,Approved', 'string'],
-            'license_start_date' => ['required_if:status,Approved', 'date'],
-            'license_end_date' => ['required_if:status,Approved', 'date'],
+            'license_no' => ['required_if:status,Approved', 'nullable', 'string'],
+            'license_start_date' => ['required_if:status,Approved', 'nullable', 'date'],
+            'license_end_date' => ['required_if:status,Approved', 'nullable', 'date'],
         ];
     }
 

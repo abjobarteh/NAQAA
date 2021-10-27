@@ -17,6 +17,7 @@ class CreateApplicationDetailsTable extends Migration
             $table->id();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
             $table->foreignId('trainer_id')->nullable()->constrained('trainers');
+            $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
             $table->string('application_type')->nullable();
             $table->string('application_no')->nullable();
             $table->string('status')->nullable();

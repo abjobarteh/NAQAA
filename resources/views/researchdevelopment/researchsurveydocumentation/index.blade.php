@@ -13,7 +13,8 @@
                 <div class="col-sm-6">
                     @can('create_research_survey_documentation')
                         <a href="{{route('researchdevelopment.research-survey-documentation.create')}}" 
-                            class="btn btn-primary float-right">
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i>
                             New Research Survey
                         </a>
                     @endcan
@@ -53,7 +54,7 @@
                                             <td>
                                                 @can('edit_research_survey_documentation')
                                                     <a href="{{route('researchdevelopment.research-survey-documentation.edit',$survey->id)
-                                                        }}" class="btn btn-sm btn-danger"
+                                                        }}" class="btn btn-xs btn-danger"
                                                         title="edit research survey details"
                                                         >
                                                         <i class="fas fa-edit"></i>    
@@ -61,7 +62,7 @@
                                                 @endcan
                                                 @can('show_research_survey_documentation')
                                                     <a href="{{route('researchdevelopment.research-survey-documentation.show',$survey->id)
-                                                        }}" class="btn btn-sm btn-info"
+                                                        }}" class="btn btn-xs btn-info"
                                                         title="view research survey details"
                                                         >
                                                         <i class="fas fa-eye"></i>    

@@ -44,6 +44,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'award' => 'required|numeric|integer',
             'field_of_education' => 'required|string',
             'training_provider_id' => 'required|numeric|integer',
+            'academic_year' => 'required|string',
         ];
     }
 
@@ -66,6 +67,7 @@ class UpdateStudentDetailsDataCollectionRequest extends FormRequest
             'award.required' => 'Please select Award',
             'award.numeric' => 'Please select a valid Award',
             'training_provider_id.numeric' => 'Training provider selected is not valid',
+            'academic_year.required' => 'Please Enter the academic year',
             'date_of_birth.date' => 'Date of birth must be a valid date entry',
         ];
     }
