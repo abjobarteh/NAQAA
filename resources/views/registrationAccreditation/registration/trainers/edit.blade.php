@@ -115,7 +115,7 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="form-group">
-                                                    <label>Country of Citizenship:</label>
+                                                    <label>Country of Origin/Citizenship:</label>
                                                     <select name="nationality" id="nationality" class="form-control select2" required>
                                                         <option value="">Select nationaltiy</option>
                                                         @foreach ($countries as $country)
@@ -140,7 +140,7 @@
                                             </div>
                                             <div class="col-sm-4 show-nin-number">
                                                 <div class="form-group">
-                                                    <label>National Identification Number (NIN): <sup class="text-danger">*</sup></label>
+                                                    <label>National Identification Number (NIN)/Passport: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control nin-number" name="NIN" value="{{ $registration->trainer->NIN }}" required>
                                                     @error('NIN')
                                                         <span class="text-danger mt-1">{{$message}}</span>

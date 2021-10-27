@@ -5,8 +5,11 @@
             <th>Publisher</th>
             <th>Publication Date</th>
             <th>Name of Authors</th>
-            <th>Funded by</th>
             <th>Cost (GMD)</th>
+            <th>Funded by</th>
+            <th>Key Findings</th>
+            <th>Recommendation</th>
+            <th>Remarks</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +26,11 @@
                     </li>
                     @endforeach
                 </td>
-                <td>{{$result->funded_by}}</td>
                 <td>{{$result->cost}}</td>
+                <td>{{$result->funded_by}}</td>
+                <td>{{$result->key_findings}}</td>
+                <td>{{$result->recommendation}}</td>
+                <td>{{$result->remarks}}</td>
             </tr>
         @empty
             

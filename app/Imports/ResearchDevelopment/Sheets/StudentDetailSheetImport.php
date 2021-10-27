@@ -32,7 +32,10 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
         $training_provider = $this->learning_center_id == null ?  (TrainingProvider::where('login_id', auth()->user()->id)->get())[0]->id : $this->learning_center_id;
 
         $student_exist = TrainingProviderStudent::where('firstname', 'like', '%' . $row['first_name'] . '%')
-            ->where('middlename', 'like', '%' . $row['middlename'] . '%')
+            ->where(function ($query) use ($row) {
+                $query->where('middlename', 'like', '%' . $row['middlename'] . '%')
+                    ->orWhereNull('middlename');
+            })
             ->where('lastname', 'like', '%' . $row['lastname'] . '%')
             ->where('gender', 'like', '%' . $row['gender'] . '%')
             // ->where('date_of_birth', 'like', '%' . $row['dob'] . '%')

@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Country of citizenship:</label>
+                                            <label>Country of Origin/Citizenship:</label>
                                             <select name="nationality" id="nationality" class="form-control select2">
                                                 <option>--- select country of citizenship ---</option>
                                                 @foreach ($countries as $country)

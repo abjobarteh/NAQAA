@@ -13,6 +13,7 @@
                 <div class="col-sm-6">
                     <a href="{{route('registration-accreditation.accreditation.programmes.create')}}" 
                         class="btn btn-primary btn-flat float-right">
+                        <i class="fas fa-plus"></i>
                         New Programme Accreditation
                     </a>
                 </div><!-- /.col -->
@@ -47,11 +48,11 @@
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
                                             <td>{{$accreditation->trainingprovider->name}}</td>
-                                            <td>{{$accreditation->programmeAccreditations->programme->programme_title ?? 'N/A'}}</td>
-                                            <td>{{$accreditation->programmeAccreditations->programme->level ?? 'N/A'}}</td>
-                                            <td>{{$accreditation->programmeAccreditations->programme->studentship_duration ?? '0'}}</td>
-                                            <td>{{$accreditation->programmeAccreditations->programme->total_qualification_time ?? '0'}} Hours</td>
-                                            <td><b>GMD</b>{{$accreditation->programmeAccreditations->programme->level_of_fees ?? '0'}}</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->programme->name ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->level ?? 'N/A'}}</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->studentship_duration ?? '0'}}</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->total_qualification_time ?? '0'}} Hours</td>
+                                            <td><b>GMD</b>{{$accreditation->trainingproviderprogramme->level_of_fees ?? '0'}}</td>
                                             <td><span class="badge badge-primary">{{$accreditation->application_type}}</span></td>
                                             <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
                                             <td>

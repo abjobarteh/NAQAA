@@ -15,11 +15,14 @@ class ApplicationDetail extends Model
     protected $fillable = [
         'training_provider_id',
         'trainer_id',
+        'programme_id',
         'application_no',
+        'serial_no',
         'application_type',
         'status',
         'application_form_status',
-        'submitted_through',
+        'submitted_from',
+        'checklists'
     ];
 
     protected static $logFillable = true;
@@ -78,5 +81,10 @@ class ApplicationDetail extends Model
     public function interimAuthorisation()
     {
         return $this->hasOne(InterimAuthorisationDetail::class, 'application_id');
+    }
+
+    public function trainingproviderprogramme()
+    {
+        return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }
 }

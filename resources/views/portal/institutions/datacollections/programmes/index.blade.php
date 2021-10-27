@@ -37,8 +37,8 @@
                         <tbody>
                             @forelse ($programs as $program)
                                 <tr>
-                                    <td>{{$program->programme->programme_title}}</td>
-                                    <td>{{$program->programme->fieldOfEducation->name ?? 'N/A'}}</td>
+                                    <td>{{$program->programmeDetails->programme->name ?? 'N/A'}}</td>
+                                    <td>{{$program->programmeDetails->fieldOfEducation->name ?? 'N/A'}}</td>
                                     <td>{{$program->duration}}</td>
                                     <td>{{$program->tuition_fee_per_year}}</td>
                                     <td>

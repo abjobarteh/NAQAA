@@ -28,14 +28,6 @@ class TrainerTypesSeeder extends Seeder
                 'slug' => 'verifier',
             ],
             [
-                'name' => 'Mastercraftperson',
-                'slug' => 'mastercraftperson',
-            ],
-            [
-                'name' => 'Craftperson',
-                'slug' => 'craftperson',
-            ],
-            [
                 'name' => 'Practical Trainer',
                 'slug' => 'practical_trainer',
             ],

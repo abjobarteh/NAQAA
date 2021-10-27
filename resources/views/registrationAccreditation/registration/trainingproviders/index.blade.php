@@ -12,8 +12,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-12 col-md-6">
                     <a href="{{route('registration-accreditation.registration.trainingproviders.create')}}" 
-                        class="btn btn-primary float-right">
-                        New Training provider Registration
+                        class="btn btn-primary btn-flat float-right">
+                        <i class="fas fa-plus"></i>
+                        New Education/Training provider Registration
                     </a>
                 </div><!-- /.col -->
                 <div class="col-12">
@@ -112,7 +113,7 @@
                                             <td>{{$registration->trainingprovider->name}}</td>
                                             <td>{{$registration->trainingprovider->email}}</td>
                                             <td>{{$registration->trainingprovider->district->name ?? 'N/A'}},  {{$registration->trainingprovider->address}}</td>
-                                            <td>{{$registration->trainingprovider->telephone_work}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
+                                            <td>{{$registration->trainingprovider->telephone_work ?? $registration->trainingprovider->mobile_phone}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
                                             <td>{{$registration->trainingprovider->classification->name}}</td>
                                             <td>{{$registration->application_no}}</td>
                                             <td>

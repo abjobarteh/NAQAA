@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\ApplicationStatus;
+use App\Models\LicenseStatus;
 use Illuminate\Database\Seeder;
 
 class ApplicationStatusSeeder extends Seeder
@@ -14,12 +15,31 @@ class ApplicationStatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = [
+        $app_statuses = [
+            [
+                'name' => 'Approved'
+            ],
+            [
+                'name' => 'Rejected'
+            ],
+            [
+                'name' => 'Pending'
+            ],
+
+            [
+                'name' => 'Ongoing'
+            ],
+        ];
+
+        $license_statuses = [
             [
                 'name' => 'Yes'
             ],
             [
                 'name' => 'No'
+            ],
+            [
+                'name' => 'Approved'
             ],
             [
                 'name' => 'Not Approved'
@@ -34,22 +54,14 @@ class ApplicationStatusSeeder extends Seeder
                 'name' => 'Permanent Closure'
             ],
             [
-                'name' => 'Rejected'
+                'name' => 'Expired'
             ],
             [
-                'name' => 'Pending'
-            ],
-            [
-                'name' => 'Approved'
-            ],
-            [
-                'name' => 'Expired Licence'
-            ],
-            [
-                'name' => 'Ongoing'
+                'name' => 'Out of Country'
             ],
         ];
 
-        ApplicationStatus::insert($statuses);
+        ApplicationStatus::insert($app_statuses);
+        LicenseStatus::insert($license_statuses);
     }
 }

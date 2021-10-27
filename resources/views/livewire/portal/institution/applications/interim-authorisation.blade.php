@@ -1,5 +1,5 @@
 <div>
-    @section('title','Letter of INterim Authorisation')
+    @section('title','Letter of Interim Authorisation')
     @section('content') 
     <div class="container-fluid">
         <div class="fade-in">

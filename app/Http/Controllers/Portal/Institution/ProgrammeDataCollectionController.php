@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Portal\Institution;
 use App\Http\Controllers\Controller;
 use App\Models\AwardBody;
 use App\Models\EducationField;
+use App\Models\Program;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
@@ -22,7 +23,7 @@ class ProgrammeDataCollectionController extends Controller
      */
     public function index()
     {
-        $programs = ProgramDetailsDataCollection::with('programme')->get();
+        $programs = ProgramDetailsDataCollection::with('programmeDetails')->get();
 
         return view('portal.institutions.datacollections.programmes.index', compact('programs'));
     }
@@ -56,17 +57,24 @@ class ProgrammeDataCollectionController extends Controller
      */
     public function store(Request $request)
     {
-        $training_provider_id = TrainingProvider::where('login_id', auth()->user()->id)->get();
+        $training_provider_id = TrainingProvider::where('login_id', auth()->user()->id)->first();
+        if (Program::where('name', 'like', '%' . $request->program_name . '%')->exists()) {
+            $program_catalogue = Program::where('name', 'like', '%' . $request->program_name . '%')->first();
+        } else {
+            $program_catalogue = Program::create([
+                'name' => $request->program_name
+            ]);
+        }
 
-        $programme = TrainingProviderProgramme::where('training_provider_id', $training_provider_id[0]->id)
-            ->where('programme_title', 'like', '%' . $request->program_name . '%')
+        $programme = TrainingProviderProgramme::where('training_provider_id', $training_provider_id->id)
+            ->where('programme_id', $program_catalogue->id)
             ->exists();
 
         if (!$programme) {
-            DB::transaction(function () use ($request, $training_provider_id) {
+            DB::transaction(function () use ($request, $training_provider_id, $program_catalogue) {
                 $new_programme =  TrainingProviderProgramme::create([
-                    'training_provider_id' => $training_provider_id[0]->id,
-                    'programme_title' => $request->program_name,
+                    'training_provider_id' => $training_provider_id->id,
+                    'programme_id' => $program_catalogue->id,
                     'admission_requirements' => $request->entry_requirements,
                     'level_of_fees' => $request->tuition_fee_per_year,
                     'field_of_education' => $request->field_of_education,
@@ -83,8 +91,11 @@ class ProgrammeDataCollectionController extends Controller
                 ]);
             });
         } else {
+            $existing_programme = TrainingProviderProgramme::where('training_provider_id', $training_provider_id->id)
+                ->where('programme_id', $program_catalogue->id)
+                ->first();
             ProgramDetailsDataCollection::create([
-                'programme_id' => $programme->id,
+                'programme_id' => $existing_programme->id,
                 'duration' => $request->duration,
                 'tuition_fee_per_year' => $request->tuition_fee_per_year,
                 'entry_requirements' => $request->entry_requirements,
@@ -106,7 +117,7 @@ class ProgrammeDataCollectionController extends Controller
      */
     public function show($id)
     {
-        $programdetail = ProgramDetailsDataCollection::findOrFail($id)->load('programme');
+        $programdetail = ProgramDetailsDataCollection::findOrFail($id)->load('programmeDetails');
 
         return view('portal.institutions.datacollections.programmes.show', compact('programdetail'));
     }
@@ -119,7 +130,7 @@ class ProgrammeDataCollectionController extends Controller
      */
     public function edit($id)
     {
-        $programdetail = ProgramDetailsDataCollection::findOrFail($id)->load('programme');
+        $programdetail = ProgramDetailsDataCollection::findOrFail($id)->load('programmeDetails');
 
         $educationfields = EducationField::all()->pluck('name', 'id');
 
@@ -142,17 +153,12 @@ class ProgrammeDataCollectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProgramDetailsDataCollection $program_detail)
+    public function update(Request $request,  $id)
     {
-        if (!$program_detail->programme->is_accredited == 0) {
+        $program_detail = ProgramDetailsDataCollection::findOrFail($id)->load('programmeDetails');
+
+        if (!$program_detail->programmeDetails->is_accredited == 0) {
             DB::transaction(function () use ($request, $program_detail) {
-                $program_detail->programme->update([
-                    'programme_title' => $request->program_name,
-                    'admission_requirements' => $request->entry_requirements,
-                    'level_of_fees' => $request->tuition_fee_per_year,
-                    'field_of_education' => $request->field_of_education,
-                    'awarding_nody' => $request->awarding_body,
-                ]);
                 $program_detail->update([
                     'duration' => $request->duration,
                     'tuition_fee_per_year' => $request->tuition_fee_per_year,
@@ -171,16 +177,5 @@ class ProgrammeDataCollectionController extends Controller
 
 
         return back()->withSuccess('Program details data collection record successfully updated');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

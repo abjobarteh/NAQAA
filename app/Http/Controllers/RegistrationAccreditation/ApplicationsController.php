@@ -19,9 +19,12 @@ class ApplicationsController extends Controller
      */
     public function index()
     {
-        $applications = ApplicationDetail::with(['trainingprovider', 'trainer', 'programmeDetail'])
-            ->where('submitted_through', 'portal')
-            ->where('application_form_status', 'submitted')
+        $applications = ApplicationDetail::with(['trainingprovider', 'trainer'])
+            ->where('submitted_from', 'Portal')
+            ->where(function ($query) {
+                $query->where('application_form_status', 'submitted')
+                    ->orWhere('application_form_status', 'Saved');
+            })
             ->where('status', 'Pending')
             ->latest()
             ->get();

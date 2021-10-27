@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    View Training provider Registration Details
+    View Education/Training provider Registration Details
 @endsection
 
 @section('content')
@@ -8,13 +8,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Training Provider Registration Details</h1>
+                <h1 class="m-0">Education/Training Provider Registration Details</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 col-md-6">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a href="{{route('registration-accreditation.registration.trainingproviders.index')}}">
-                                Training provider registrations
+                                Education/Training provider registrations
                             </a>
                         </li>
                         <li class="breadcrumb-item active">Registration Application Details</li>
@@ -29,13 +29,13 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Training Provider Registration Application Details</h3>
+                            <h3 class="card-title">Education/Training Provider Registration Application Details</h3>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 col-md-12 col-lg-6">
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Training Provider Name: </b>
+                                        <b class="col-sm-7 text-primary">Education/Training Provider Name: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainingprovider->name}}</p>
                                     </div>
                                     <div class="form-group row">
@@ -94,15 +94,23 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application status: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->status ?? 'N/A'}}</p>
+                                        <p class="col-sm-5 text-muted"><span class="badge badge-primary">{{$registration->status ?? 'N/A'}}</span></p>
                                     </div>
-                                    @if($registration->status === 'accepted')
+                                    <div class="form-group row">
+                                        <b class="col-sm-7 text-primary">Center Manager: </b>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainingprovider->manager ?? 'N/A'}}</p>
+                                    </div>
+                                    @if($registration->status === 'Approved')
                                         <div class="form-group row">
-                                            <b class="col-sm-7 text-primary">Licence Start Date: </b>
+                                            <b class="col-sm-7 text-primary">License No: </b>
+                                            <p class="col-sm-5 text-muted">{{$registration->registrationLicence->license_no ?? 'N/A'}}</p>
+                                        </div>
+                                        <div class="form-group row">
+                                            <b class="col-sm-7 text-primary">License Start Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</p>
                                         </div>
                                         <div class="form-group row">
-                                            <b class="col-sm-7 text-primary">Licence Ends Date: </b>
+                                            <b class="col-sm-7 text-primary">License Ends Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_end_date ?? 'N/A'}}</p>
                                         </div>
                                     @endif

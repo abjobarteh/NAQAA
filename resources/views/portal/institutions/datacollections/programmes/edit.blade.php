@@ -16,7 +16,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>Program Name: <sup class="text-danger">*</sup></label>
-                                    <input type="text" class="form-control" name="program_name" value="{{$programdetail->programme->programme_title}}" required autofocus>
+                                    <input type="text" class="form-control" name="program_name" value="{{$programdetail->programmeDetails->programme->name ?? ''}}" required autofocus>
                                     @error('program_name')
                                         <span class="text-danger mt-1">{{$message}}</span>
                                     @enderror
@@ -79,7 +79,7 @@
                                     <select name="field_of_education" id="field_of_education" class="form-control select2" required>
                                         <option>Select field of education</option>
                                         @foreach ($educationfields as $id => $field)
-                                            <option value="{{$id}}" {{$id == $programdetail->programme->field_of_education ? 'selected' : ''}}>{{$field}}</option>
+                                            <option value="{{$id}}" {{$id == $programdetail->programmeDetails->field_of_education ? 'selected' : ''}}>{{$field}}</option>
                                         @endforeach
                                     </select>
                                     @error('field_of_education')

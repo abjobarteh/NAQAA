@@ -23,7 +23,7 @@ class TrainersRegistrationController extends Controller
     public function index()
     {
         $trainer_regitrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'registrationLicence'
         ])->where('application_type', 'trainer_registration')
             ->latest()
@@ -42,10 +42,21 @@ class TrainersRegistrationController extends Controller
         $countries = Country::all()->pluck('name');
         $trainer_types = TrainerType::all();
         $application_statuses = ApplicationStatus::all()->pluck('name');
+        $application_no = null;
+
+        $records = ApplicationDetail::all();
+        if ($records->isEmpty()) {
+            $new_serial_no = '000001';
+            $application_no = 'APP-' . $new_serial_no;
+        } else {
+            $last_record = ApplicationDetail::latest()->limit(1)->first();
+            $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+            $application_no = 'APP-' . $new_serial_no;
+        }
 
         return view(
             'registrationaccreditation.registration.trainers.create',
-            compact('countries', 'trainer_types', 'application_statuses')
+            compact('countries', 'trainer_types', 'application_statuses', 'application_no')
         );
     }
 
@@ -58,7 +69,7 @@ class TrainersRegistrationController extends Controller
     public function store(StoreTrainerRegistrationRequest $request)
     {
         $data = $request->validated();
-        // dd($data);
+
         DB::transaction(function () use ($data, $request) {
             // store training provider details
             $trainer = Trainer::create([

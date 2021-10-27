@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('page-title')
-    Acadmic&Admin Staff Details
+    Academic&Admin Staff Details
 @endsection
 
 @section('content')
@@ -58,7 +58,7 @@
                                             <td>
                                                 @can('edit_data_collection')
                                                 <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.edit',$staff->id)
-                                                    }}" class="btn btn-sm btn-danger"
+                                                    }}" class="btn btn-xs btn-danger"
                                                     title="edit staff details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
@@ -66,7 +66,7 @@
                                                 @endcan
                                                 @can('show_data_collection')
                                                 <a href="{{route('researchdevelopment.datacollection.academicadminstaff-details.show',$staff->id)
-                                                    }}" class="btn btn-sm btn-info"
+                                                    }}" class="btn btn-xs btn-info"
                                                     title="view staff details"
                                                     >
                                                     <i class="fas fa-eye"></i>    

@@ -8,7 +8,9 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\InstitutionPromoter;
 use App\Models\RegistrationAccreditation\InterimAuthorisationDetail;
 use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\Role;
 use App\Models\TownVillage;
+use App\Notifications\AssessmentCertification\CertificateEndorsementRequestNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -100,13 +102,26 @@ class NewInterimAuthorisation extends Component
             $directory = Storage::makeDirectory(auth()->user()->username);
             $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->get();
             $funding_details = [];
+            $application_no = null;
+
+            $records = ApplicationDetail::all();
+            if ($records->isEmpty()) {
+                $new_serial_no = '000001';
+                $application_no = 'APP-' . $new_serial_no;
+            } else {
+                $last_record = ApplicationDetail::latest()->limit(1)->first();
+                $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+                $application_no = 'APP-' . $new_serial_no;
+            }
 
             $application = ApplicationDetail::create([
                 'training_provider_id' => $trainingprovider[0]->id,
                 'application_type' => 'institution_letter_of_interim_authorisation',
+                'application_no' => $application_no,
+                'serial_no' => $new_serial_no,
                 'status' => 'Pending',
                 'application_form_status' => 'Saved',
-                'submitted_through' => 'Portal',
+                'submitted_from' => 'Portal',
             ]);
 
             foreach ($this->funding_name as $key => $value) {
@@ -138,11 +153,11 @@ class NewInterimAuthorisation extends Component
                 'town_village_id' => $this->town_village_id,
                 'mission' => $this->mission,
                 'vision' => $this->vision,
-                'organogramme' => $organogramme,
+                'organogramme' => '/storage/' . $organogramme,
                 'objectives' => $this->objectives,
                 'sources_of_funding_details' => $funding_details,
-                'physical_structure_plan' => $physical_plan,
-                'five_year_strategic_plan' => $five_year_plan,
+                'physical_structure_plan' => '/storage/' . $physical_plan,
+                'five_year_strategic_plan' => '/storage/' . $five_year_plan,
             ]);
 
             foreach ($this->promoter_fullname as $key => $value) {
@@ -153,16 +168,23 @@ class NewInterimAuthorisation extends Component
                     'date_of_birth' => $this->promoter_dob[$key],
                     'occupation' => $this->promoter_occupation[$key],
                     'address' => $this->promoter_address[$key],
-                    'passport_copy' => $passportcopy,
+                    'passport_copy' => '/storage/' . $passportcopy,
                 ]);
             }
         });
 
-        $this->dispatchBrowserEvent('alert', [
-            'type' => 'success',
-            'title' => 'Application Sent',
-            'message' => 'Your Application for Letter of Interim Authorisation has Successfully been sent.'
-        ]);
+        alert(
+            'Success',
+            'Your Application for Letter of Interim Authorisation has Successfully been created.',
+            'success'
+        );
+
+        $role = Role::where('slug', 'registration_and_accreditation_module')->get();
+        $message = "New Letter of Interim Authorisation Application from " . auth()->user()->username;
+
+        $role[0]->notify(new CertificateEndorsementRequestNotification(
+            $message
+        ));
 
         return redirect(route('portal.institution.interim-authorisation'));
     }

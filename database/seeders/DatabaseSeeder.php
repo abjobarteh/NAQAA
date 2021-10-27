@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             CountriesTableSeeder::class,
             AwardingBodyTableSeeder::class,
             QualificationLevelsTableSeeder::class,
-            EducationFieldsTableSeeder::class,
             RegionsTableSeeder::class,
             LocalGovermentAreaTableSeeder::class,
             DistrictsTableSeeder::class,
@@ -35,7 +34,9 @@ class DatabaseSeeder extends Seeder
             TrainingProviderClassificationTableSeeder::class,
             ApplicationStatusSeeder::class,
             TrainerTypesSeeder::class,
-            ApplicationTypesTableSeeder::class
+            ApplicationTypesTableSeeder::class,
+            TrainingProviderChecklistSeeder::class,
+            BankTableSeeder::class
         ]);
     }
 }

@@ -36,12 +36,12 @@
                   @forelse ($applications as $application)
                     <tr>
                       <td>{{$application->application_no ?? 'N/A'}}</td>
-                      <td><span class="badge badge-success">{{$application->application_type ?? 'N/A'}}</span></td>
-                      <td><span class="badge badge-success">{{$application->status ?? 'N/A'}}</span></td>
-                      <td><span class="badge badge-success">{{$application->application_form_status ?? 'N/A'}}</span></td>
+                      <td><span class="badge badge-primary">{{$application->application_type ?? 'N/A'}}</span></td>
+                      <td><span class="badge {{$application->status == 'Pending' ? 'badge-danger' :  'badge-success'}}">{{$application->status ?? 'N/A'}}</span></td>
+                      <td><span class="badge badge-info">{{$application->application_form_status ?? 'N/A'}}</span></td>
                       <td>{{$application->application_date ?? 'N/A'}}</td>
                       <td>
-                        @if($application->status == 'pending')
+                        @if($application->status == 'Pending' && $application->application_form_status == 'Saved')
                           <a href="{{route('portal.institution.registration.edit',$application->id)}}" class="btn btn-sm btn-danger">Edit</a>
                         @endif
                         <a href="{{route('portal.institution.registration.show',$application->id)}}" class="btn btn-sm btn-info">View</a>

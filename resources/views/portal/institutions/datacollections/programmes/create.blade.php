@@ -87,7 +87,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-12 d-flex justify-content-end">
+                            <div class="col-sm-12 d-flex">
                                 <div class="form-group">
                                     <button class="btn btn-success btn-square mr-1">Submit</button>
                                 </div>

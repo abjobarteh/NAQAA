@@ -56,12 +56,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Publication Date: <sup class="text-danger">*</sup></label>
-                                                    <div class="input-group date" id="publication_date" data-target-input="nearest">
-                                                        <input type="text" class="form-control datetimepicker-input" name="publication_date" value="{{ old('publication_date') }}" data-target="#completion_date"/>
-                                                        <div class="input-group-append" data-target="#publication_date" data-toggle="datetimepicker">
-                                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                        </div>
-                                                    </div>
+                                                    <input type="date" class="form-control" name="publication_date" value="{{ old('publication_date') }}"/>
                                                     @error('publication_date')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

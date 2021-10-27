@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\ProgrammeAccreditationDetails;
 use App\Models\RegistrationAccreditation\ProgrammeDepartmentHead;
 use App\Models\RegistrationAccreditation\TrainingProvider;
@@ -91,5 +92,10 @@ class TrainingProviderProgramme extends Model
     public function accreditations()
     {
         return $this->hasMany(ProgrammeAccreditationDetails::class, 'programme_id');
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(ApplicationDetail::class, 'programme_id');
     }
 }

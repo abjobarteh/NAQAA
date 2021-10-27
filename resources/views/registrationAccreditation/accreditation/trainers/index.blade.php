@@ -13,6 +13,7 @@
                 <div class="col-sm-6">
                     <a href="{{route('registration-accreditation.accreditation.trainers.create')}}" 
                         class="btn btn-primary btn-flat float-right">
+                        <i class="fas fa-plus"></i>
                         New Trainer Accreditation
                     </a>
                 </div><!-- /.col -->
@@ -46,8 +47,8 @@
                                 <tbody>
                                     @forelse ($accreditations as $accreditation)
                                         <tr>
-                                            <td>{{$accreditation->trainer->firstname}}. {{$accreditation->trainer->middlename ?? ''}} .{{$accreditation->trainer->lastname}}</td>
-                                            <td>{{$accreditation->trainer->date_of_birth->toFormattedDateString()}}</td>
+                                            <td>{{$accreditation->trainer->full_name}}</td>
+                                            <td>{{$accreditation->trainer->date_of_birth}}</td>
                                             <td>{{$accreditation->trainer->gender}}</td>
                                             <td>{{$accreditation->trainer->country_of_citizenship}}</td>
                                             <td>{{$accreditation->trainer->email}}</td>
@@ -57,7 +58,7 @@
                                                     {{$accreditation->status}}
                                                 </span>
                                             </td>
-                                            <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
+                                            <td>{{$accreditation->application_date}}</td>
                                             <td>
                                                 @foreach ($accreditation->trainerAccreditations as $area)
                                                     <p class="text-muted">{{$area->area}} - {{$area->level}},</p>

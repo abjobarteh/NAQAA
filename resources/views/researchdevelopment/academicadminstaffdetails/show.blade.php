@@ -43,7 +43,7 @@
                                         <p class="col-sm-7 text-muted">{{$staffdetail->gender}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-5 text-primary">Nationality: </b>
+                                        <b class="col-sm-5 text-primary">Country of Origin/Citizenship: </b>
                                         <p class="col-sm-7 text-muted">{{$staffdetail->nationality}}</p>
                                     </div>
                                     <div class="form-group row">
@@ -80,7 +80,7 @@
                                         <b class="col-sm-5 text-primary">Other Qualifications: </b>
                                         @if (isset($staffdetail->other_qualifications))
                                         @foreach($staffdetail->other_qualifications as $qualification)
-                                            <span class="btn btn-sm btn-success m-1">{{$qualification}}</span>    
+                                            <span class="badge badge-primary m-1">{{$qualification}}</span>    
                                         @endforeach  
                                         @else
                                             <p class="col-sm-7 text-muted">N/A</p> 
@@ -106,7 +106,7 @@
                                         <b class="col-sm-5 text-primary">Secondary Teaching Programme(s): </b>
                                         @if (isset($staffdetail->secondary_teaching_programmes))
                                             @foreach($staffdetail->secondary_teaching_programmes as $field)
-                                                <span class="btn btn-sm btn-info m-1">{{$field}}</span>    
+                                                <span class="badge badge-info m-1">{{$field}}</span>    
                                             @endforeach  
                                         @else
                                             <p class="col-sm-7 text-muted">N/A</p> 

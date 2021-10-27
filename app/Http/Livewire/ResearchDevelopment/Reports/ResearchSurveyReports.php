@@ -42,38 +42,51 @@ class ResearchSurveyReports extends Component
 
     public function getReport()
     {
-        $this->validate([
-            'research_topic' => 'required|string',
-        ]);
 
         $research = ResearchSurvey::query();
 
-        if (
-            !is_null($this->research_topic) &&
-            is_null($this->research_purpose) &&
-            is_null($this->main_findings) &&
-            is_null($this->authors) &&
-            is_null($this->publication_date) &&
-            is_null($this->funding_body)
-        ) {
+        if ($this->is_research_topic) {
             $research->where('research_topic', 'like', '%' . $this->research_topic . '%');
-        }
-        if (
-            !is_null($this->research_purpose) &&
-            is_null($this->research_topic) &&
-            is_null($this->main_findings) &&
-            is_null($this->authors) &&
-            is_null($this->publication_date) &&
-            is_null($this->funding_body)
-        ) {
-            $research->where('purpose', 'like', '%' . $this->research_topic . '%');
-        }
 
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_topic.xlsx'
+            );
+        } else if ($this->is_research_purpose) {
+            $research->where('purpose', 'like', '%' . $this->research_purpose . '%');
 
-        if ($research->get()->isEmpty()) {
-            dd('No data exist');
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_purpose.xlsx'
+            );
+        } else if ($this->is_main_findings) {
+            $research->where('key_findings', 'like', '%' . $this->main_findings . '%');
+
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_findings.xlsx'
+            );
+        } else if ($this->is_authors) {
+            $research->where('name_of_authors', 'like', '%' . $this->authors . '%');
+
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_authors.xlsx'
+            );
+        } else if ($this->is_publication_date) {
+            $research->whereDate('publication_date', $this->publication_date);
+
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_publicatin_date.xlsx'
+            );
+        } else if ($this->is_funding_body) {
+            $research->where('funded_by', 'like', '%' . $this->funding_body . '%');
+
+            return Excel::download(
+                new ResearchSurveyReportExport($research->get()),
+                'research_survey_reports_by_funding_body.xlsx'
+            );
         }
-
-        return Excel::download(new ResearchSurveyReportExport($research->get()), 'research_survey_reports.xlsx');
     }
 }

@@ -23,7 +23,7 @@ class CreateJobvacancy extends Component
 
     protected $rules = [
         'position_advertised' => ['required', 'string'],
-        'position_name' => ['required_if:position_advertised,not-specified', 'string'],
+        'position_name' => ['required_if:position_advertised,not-specified', 'nullable', 'string'],
         'date_advertised' => ['nullable', 'date'],
         'minimum_required_job_experience' => ['numeric'],
         'minimum_required_qualification' => ['required', 'string'],

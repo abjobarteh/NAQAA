@@ -271,6 +271,9 @@
     <li class="nav-item">
       <a href="{{route('registration-accreditation.registration.trainers.index')}}" class="nav-link 
       {{ request()->is('registration-accreditation/registration/trainers') || 
+         request()->is('registration-accreditation/registration/create-trainer-registration') || 
+         request()->is('registration-accreditation/registration/edit-trainer-registration') || 
+         request()->is('registration-accreditation/registration/edit-trainer-registration/*') || 
          request()->is('registration-accreditation/registration/trainers/*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-id-card-alt"></i>
         <p>
@@ -355,8 +358,12 @@
     <p>
       Applications
       <span class="badge badge-info right">@php
-          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_through', 'portal')
-            ->where('application_form_status', 'submitted')
+          echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_from', 'Portal')
+          ->where('submitted_from', 'Portal')
+            ->where(function ($query) {
+                $query->where('application_form_status', 'submitted')
+                    ->orWhere('application_form_status', 'Saved');
+            })
             ->where('status', 'Pending')
             ->latest()
             ->count();

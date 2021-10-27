@@ -13,26 +13,13 @@
                 <div class="col-sm-6">
                     @can('create_data_collection')
                         <a href="{{route('researchdevelopment.datacollection.student-details.create')}}" 
-                            class="btn btn-primary float-right">
+                            class="btn btn-primary btn-flat float-right">
+                            <i class="fas fa-plus"></i>
                             New Student Data collection
                         </a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
-            {{-- <div class="row mt-2 mb-2">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <select name="filter_by_gender" id="filter_by_gender" class="form-control col-sm-3 select2">
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
     <section class="content">
@@ -51,9 +38,11 @@
                                         <th>Gender</th>
                                         <th>Phone</th>
                                         <th>Admission Date</th>
+                                        <th>Completion Date</th>
                                         <th>Programme</th>
                                         <th>Award</th>
                                         <th>Learning Center</th>
+                                        <th>Academic Year</th>
                                         <th>Date Collected</th>
                                         <th>Actions</th>
                                     </tr>
@@ -65,9 +54,11 @@
                                             <td>{{$student->gender}}</td>
                                             <td>{{$student->phone ?? 'N/A'}}</td>
                                             <td>{{$student->admission_date ?? 'N/A'}}</td>
+                                            <td>{{$student->completion_date ?? 'N/A'}}</td>
                                             <td>{{$student->programme_name}}</td>
                                             <td>{{$student->awardName->name ?? 'N/A'}}</td>
                                             <td>{{$student->trainingprovider->name ?? 'N/A'}}</td>
+                                            <td>{{$student->academic_year ?? 'N/A'}}</td>
                                             <td>{{$student->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

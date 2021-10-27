@@ -96,7 +96,7 @@ Edit Academic&Admin Staff Details Data collection
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Country of citizenship:</label>
+                                            <label>Country of Origin/Citizenship:</label>
                                             <select name="nationality" id="nationality" class="form-control select2">
                                                 <option>--- select country of citizenship ---</option>
                                                 @foreach ($countries as $country)
@@ -276,9 +276,10 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Secondary Teaching Programme(s):</label>
                                             <select name="secondary_teaching_programmes[]" data-role="tagsinput" multiple  id="secondary_teaching_programmes">
-                                                @foreach ($staff->secondary_teaching_programmes as $field)
+                                                @forelse ($staff->secondary_teaching_programmes as $field)
                                                     <option value="{{$field}}">{{$field}}</option>
-                                                @endforeach
+                                                @empty
+                                                @endforelse
                                             </select>
                                             @if($errors->has('secondary_teaching_programmes'))
                                                 <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_programmes') }}</span>

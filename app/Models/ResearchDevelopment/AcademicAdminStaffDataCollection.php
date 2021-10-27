@@ -75,7 +75,7 @@ class AcademicAdminStaffDataCollection extends Model
         $this->attributes['employment_date'] = new Carbon($value);
     }
 
-    public function getSecondaryTeachingProgrammeAttribute($value)
+    public function getSecondaryTeachingProgrammesAttribute($value)
     {
         return json_decode($value);
     }

@@ -75,6 +75,8 @@ use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
+use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\Reports\LearningCentersReport;
 use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
@@ -213,17 +215,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'datacollection', 'as' => 'datacollection.'], function () {
       Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
 
-      // // check if institution is registered & accredited
-      // Route::post('check-is-institution-registered', [ProgramOfferedController::class, 'checkIsInstitutionRegistered'])
-      //   ->name('check-is-institution-registered');
       Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
       // route rendering a livewire component
       Route::get('add-programme-details', AddProgrammesOffered::class)->name('add-programme-details');
       Route::get('edit-programme-details/{id}', EditProgrammesOffered::class)->name('edit-programme-details');
+
+      // Academic & Admin Staff
       Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
-      Route::get('add-graduate-details', [StudentDetailsController::class, 'addGraduateDetails'])->name('add-graduate-details');
-      Route::get('get-admission-details', [StudentDetailsController::class, 'getAdmissionStudents'])->name('get-admission-details');
-      Route::post('store-graduation-details', [StudentDetailsController::class, 'storeGraduationDetails'])->name('store-graduation-details');
+
+      // Student details
       Route::resource('student-details', StudentDetailsController::class)->except('destroy');
     });
 
@@ -242,9 +242,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
-      Route::get('enrollments', EnrollmentReports::class)->name('enrollments');
-      Route::get('graduates', GraduatesReports::class)->name('graduates');
+      // Enrollment reports
+      Route::get('enrollments', function () {
+        return view('researchdevelopment.reports.enrollment');
+      })->name('enrollments');
+      Route::get('enrollment-reports/{report_type}', EnrollmentReports::class)->name('enrollment-reports');
+
+      // Graduate reports
+      Route::get('graduates', function () {
+        return view('researchdevelopment.reports.graduates');
+      })->name('graduates');
+      Route::get('graduate-reports/{report_type}', GraduatesReports::class)->name('graduate-reports');
+
       Route::get('labour-market', LabourMarketReports::class)->name('labour-market');
+
+      // Labour market reports
       Route::get('research-survey', function () {
         return view('researchdevelopment.reports.researchsurvey');
       })->name('research-survey');
@@ -301,7 +313,11 @@ Route::group(['middleware' => 'auth'], function () {
       Route::resource('trainingproviders', TrainingProvidersRegistrationController::class);
 
       // Trainers
+      // remove this route
       Route::resource('trainers', TrainersRegistrationController::class);
+      // new routes using livewire component
+      Route::get('create-trainer-registration', CreateTrainerRegistration::class)->name('create-trainer-registration');
+      Route::get('edit-trainer-registration/{id}', EditTrainerRegistration::class)->name('edit-trainer-registration');
     });
 
     //   Accreditation Routes

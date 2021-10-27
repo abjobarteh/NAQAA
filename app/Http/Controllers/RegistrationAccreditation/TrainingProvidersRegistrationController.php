@@ -15,6 +15,7 @@ use App\Models\TownVillage;
 use App\Models\TrainingProviderCategory;
 use App\Models\TrainingProviderClassification;
 use App\Models\TrainingProviderOwnership;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,6 +60,17 @@ class TrainingProvidersRegistrationController extends Controller
         $categories = TrainingProviderCategory::all()->pluck('name', 'id');
         $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
         $application_statuses = ApplicationStatus::all()->pluck('name');
+        $application_no = null;
+
+        $records = ApplicationDetail::all();
+        if ($records->isEmpty()) {
+            $new_serial_no = '000001';
+            $application_no = 'APP-' . $new_serial_no;
+        } else {
+            $last_record = ApplicationDetail::latest()->limit(1)->first();
+            $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+            $application_no = 'APP-' . $new_serial_no;
+        }
 
         return view(
             'registrationaccreditation.registration.trainingproviders.create',
@@ -69,7 +81,8 @@ class TrainingProvidersRegistrationController extends Controller
                 'classifications',
                 'categories',
                 'ownerships',
-                'application_statuses'
+                'application_statuses',
+                'application_no'
             )
         );
     }
@@ -84,47 +97,118 @@ class TrainingProvidersRegistrationController extends Controller
     {
         $data = $request->validated();
 
-        DB::transaction(function () use ($data) {
-            // store training provider details
-            $trainingprovider = TrainingProvider::create([
-                'name' => $data['name'],
-                'address' => $data['address'],
-                'po_box' => $data['po_box'],
-                'region_id' => $data['region_id'],
-                'district_id' => $data['district_id'],
-                'town_village_id' => $data['town_village_id'],
-                'telephone_work' => $data['telephone_work'],
-                'mobile_phone' => $data['mobile_phone'],
-                'fax' => $data['fax'],
-                'website' => $data['website'],
-                'email' => $data['email'],
-                'classification_id' => $data['classification_id'],
-                'category_id' => $data['category_id'],
-                'ownership_id' => $data['ownership_id'],
-                'is_registered' => $data['status'] === 'accepted' ? 1 : 0,
-            ]);
+        $training_provider_query = TrainingProvider::query();
+        $serial_no = explode('-', $data['application_no']);
 
-            // store training provider application details
-            $application = ApplicationDetail::create([
-                'training_provider_id' => $trainingprovider->id,
-                'applicant_type' => 'training_provider',
-                'application_no' => $data['application_no'],
-                'application_type' => 'institution_registration',
-                'status' => $data['status'],
-                'application_date' => $data['application_date'],
-            ]);
+        // check if training provider exist in the database
+        if (
+            $training_provider_query->where('name', 'like', '%' . $request->name . '%')
+            ->where('email', 'like', '%' . $request->email . '%')
+            ->where('region_id', $request->region_id)
+            ->where('district_id', $request->district_id)
+            ->where('classification_id', $request->classification_id)
+            ->where('category_id', $request->category_id)
+            ->where('ownership_id', $request->ownership_id)
+            ->exists()
+        ) {
+            // check if institution has a valid licence
+            if (
+                $training_provider_query->where('name', 'like', '%' . $request->name . '%')
+                ->where('email', 'like', '%' . $request->email . '%')
+                ->where('region_id', $request->region_id)
+                ->where('district_id', $request->district_id)
+                ->where('classification_id', $request->classification_id)
+                ->where('category_id', $request->category_id)
+                ->where('ownership_id', $request->ownership_id)
+                ->whereHas('validLicence')
+                ->exists()
+            ) {
+                return back()
+                    ->withInfo('Registration not possible as Training Provider already has an Active Licence');
+            } else {
+                DB::transaction(function () use ($data, $training_provider_query, $request, $serial_no) {
 
-            // If application accepted, create a license record
-            if ($data['status'] === 'Approved') {
-                RegistrationLicenceDetail::create([
-                    'training_provider_id' => $trainingprovider->id,
-                    'application_id' => $application->id,
-                    'licence_start_date' => $data['license_start_date'],
-                    'licence_end_date' => $data['license_end_date'],
-                    'license_status' => 'valid',
-                ]);
+                    // get training provider details
+                    $trainingprovider = $training_provider_query->where('name', 'like', '%' . $request->name . '%')
+                        ->where('email', 'like', '%' . $request->email . '%')
+                        ->where('region_id', $request->region_id)
+                        ->where('district_id', $request->district_id)
+                        ->where('classification_id', $request->classification_id)
+                        ->where('category_id', $request->category_id)
+                        ->where('ownership_id', $request->ownership_id)
+                        ->first();
+
+                    // store training provider application details
+                    $application = ApplicationDetail::create([
+                        'training_provider_id' => $trainingprovider->id,
+                        'applicant_type' => 'training_provider',
+                        'application_no' => $data['application_no'],
+                        'serial_no' => $serial_no[1],
+                        'application_type' => 'institution_registration',
+                        'status' => $data['status'],
+                        'application_date' => $data['application_date'],
+                    ]);
+
+                    // If application is approved, create a license record
+                    if ($data['status'] === 'Approved') {
+                        RegistrationLicenceDetail::create([
+                            'training_provider_id' => $trainingprovider->id,
+                            'application_id' => $application->id,
+                            'license_no' => $data['license_no'],
+                            'licence_start_date' => $data['license_start_date'],
+                            'licence_end_date' => $data['license_end_date'],
+                            'license_status' => 'Approved',
+                        ]);
+                    }
+                });
             }
-        });
+        } else {
+            DB::transaction(function () use ($data, $serial_no) {
+                // store training provider details
+                $trainingprovider = TrainingProvider::create([
+                    'name' => $data['name'],
+                    'address' => $data['address'],
+                    'po_box' => $data['po_box'],
+                    'region_id' => $data['region_id'],
+                    'district_id' => $data['district_id'],
+                    'town_village_id' => $data['town_village_id'],
+                    'telephone_work' => $data['telephone_work'] ?? $data['mobile_phone'],
+                    'mobile_phone' => $data['mobile_phone'],
+                    'fax' => $data['fax'],
+                    'website' => $data['website'],
+                    'email' => $data['email'],
+                    'classification_id' => $data['classification_id'],
+                    'category_id' => $data['category_id'],
+                    'ownership_id' => $data['ownership_id'],
+                    'is_registered' => $data['status'] === 'Approved' ? 1 : 0,
+                ]);
+
+                // store training provider application details
+                $application = ApplicationDetail::create([
+                    'training_provider_id' => $trainingprovider->id,
+                    'applicant_type' => 'training_provider',
+                    'application_no' => $data['application_no'],
+                    'serial_no' => $serial_no[1],
+                    'application_type' => 'institution_registration',
+                    'status' => $data['status'],
+                    'application_date' => $data['application_date'],
+                ]);
+
+                // If application is approved, create a license record
+                if ($data['status'] === 'Approved') {
+                    RegistrationLicenceDetail::create([
+                        'training_provider_id' => $trainingprovider->id,
+                        'application_id' => $application->id,
+                        'license_no' => $data['license_no'],
+                        'licence_start_date' => $data['license_start_date'],
+                        'licence_end_date' => $data['license_end_date'],
+                        'license_status' => 'Approved',
+                    ]);
+                }
+            });
+        }
+
+
 
         return redirect()->route('registration-accreditation.registration.trainingproviders.index')
             ->withSuccess('Training provider registration Successfully added in the system');
@@ -224,6 +308,7 @@ class TrainingProvidersRegistrationController extends Controller
                     RegistrationLicenceDetail::create([
                         'training_provider_id' => $registration->training_provider_id,
                         'application_id' => $registration->id,
+                        'license_no' => $data['license_no'],
                         'licence_start_date' => $data['license_start_date'],
                         'licence_end_date' => $data['license_end_date'],
                         'license_status' => 'valid',
@@ -238,17 +323,6 @@ class TrainingProvidersRegistrationController extends Controller
         });
 
         return back()->withSuccess('Training provider registration Successfully updated in the system');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 
     public function filterTrainingProviders(Request $request)

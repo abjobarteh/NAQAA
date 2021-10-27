@@ -30,7 +30,7 @@ class StoreTrainingProviderRequest extends FormRequest
             'ownership_id' => ['required', 'numeric'],
             'address' => ['required', 'string'],
             'po_box' => ['nullable', 'string'],
-            'telephone_work' => ['required', 'string'],
+            'telephone_work' => ['nullable', 'string'],
             'mobile_phone' => ['required', 'string'],
             'fax' => ['nullable', 'string'],
             'email' => ['required', 'string'],
@@ -41,8 +41,10 @@ class StoreTrainingProviderRequest extends FormRequest
             'application_no' => ['required', 'string'],
             'application_date' => ['required', 'date'],
             'status' => ['required', 'string'],
-            'license_start_date' => ['required_if:status,Approved', 'date'],
-            'license_end_date' => ['required_if:status,Approved', 'date'],
+            'manager' => ['nullable', 'string'],
+            'license_no' => ['required_if:status,Approved', 'nullable', 'string'],
+            'license_start_date' => ['required_if:status,Approved', 'nullable', 'date'],
+            'license_end_date' => ['required_if:status,Approved', 'nullable', 'date'],
         ];
     }
 
@@ -65,8 +67,9 @@ class StoreTrainingProviderRequest extends FormRequest
             'town_village_id.numeric' => 'Town/Village selected is not valid',
             'status.required' => 'Please select the status of the application',
             'application_date.required' => 'Please enter the date of application',
-            'license_start_date.date.required' => 'Please enter a valid license start date',
-            'license_end_date.date.required' => 'Please enter a valid license end date',
+            'license_no.required' => 'Please enter License no',
+            'license_start_date.required' => 'Please enter a valid license start date',
+            'license_end_date.required' => 'Please enter a valid license end date',
         ];
     }
 }

@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Date of Birth: </b>
-                                        <p class="col-sm-5 text-muted">{{$accreditation->trainer->date_of_birth->toFormattedDateString()}}</p>
+                                        <p class="col-sm-5 text-muted">{{$accreditation->trainer->date_of_birth}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Gender: </b>
@@ -100,7 +100,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Date: </b>
-                                        <p class="col-sm-5 text-muted">{{$accreditation->application_date->toFormattedDateString() ?? 'N/A'}}</p>
+                                        <p class="col-sm-5 text-muted">{{$accreditation->application_date ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Type: </b>

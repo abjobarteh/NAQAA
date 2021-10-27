@@ -8,16 +8,16 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Training Provider Registration</h1>
+                <h1 class="m-0">Edhucation/Training Provider Registration</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6 col-md-6">
                     <ol class="breadcrumb float-right">
                         <li class="breadcrumb-item">
                             <a href="{{route('registration-accreditation.registration.trainingproviders.index')}}">
-                                Training Providers
+                                Education/Training Providers
                             </a>
                         </li>
-                        <li class="breadcrumb-item active">Add Training provider</li>
+                        <li class="breadcrumb-item active">Add Education/Training provider</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -29,7 +29,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Add Training provider</h3>
+                            <h3 class="card-title">Add Education/Training provider</h3>
                         </div>
                         <div class="card-body">
                             <form action="{{route('registration-accreditation.registration.trainingproviders.store')}}" method="post" autocomplete="off">
@@ -37,12 +37,12 @@
                                 <div class="row">
                                     <div class="col-sm-12 col-md-12 col-lg-12">
                                         <div class="row">
-                                            <div class="col-12"><h4 class="text-primary"><b>Training Provider Details</b></h4></div>
+                                            <div class="col-12"><h4 class="text-primary"><b>Education/Training Provider Details</b></h4></div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Training Provider Name: <sup class="text-danger">*</sup></label>
+                                                    <label>Name: <sup class="text-danger">*</sup></label>
                                                     <input type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
                                                     @error('name')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Email: <sup class="text-danger">*</sup></label>
                                                     <input type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -151,11 +151,20 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Webiste:</label>
                                                     <input type="text" class="form-control" name="website" value="{{ old('website') }}" required>
                                                     @error('website')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Center Manager:</label>
+                                                    <input type="text" class="form-control" name="manager" value="{{ old('manager') }}" required>
+                                                    @error('manager')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>
@@ -214,7 +223,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
+                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror {{$application_no}}" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -252,7 +261,16 @@
                                             </div>
                                         </div>
                                         <div class="row license-registration-details">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>License No: <sup class="text-danger">*</sup></label>
+                                                    <input type="text" class="form-control" name="license_no" value="@error('license_no'){{ old('license_no') }}@enderror">
+                                                    @error('license_no')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>License Start Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_start_date" data-target-input="nearest">
@@ -266,7 +284,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>License End Date: <sup class="text-danger">*</sup></label>
                                                     <div class="input-group date" id="license_end_date" data-target-input="nearest">

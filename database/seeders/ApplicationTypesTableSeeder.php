@@ -43,6 +43,10 @@ class ApplicationTypesTableSeeder extends Seeder
                 'name' => 'trainer_programme_accreditation',
                 'fee' => 100
             ],
+            [
+                'name' => 'student_registration',
+                'fee' => 100
+            ],
         ];
 
         ApplicationType::insert($application_types);

@@ -48,31 +48,28 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Date of Birth: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->date_of_birth->toFormattedDateString()}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->date_of_birth}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Gender: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->gender}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Nationality: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->nationality}}</p>
+                                        <b class="col-sm-7 text-primary">Country of Origin/Citizenship: </b>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->country_of_citizenship}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Tax Identification Number: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->TIN}}</p>
                                     </div>
-                                    @if ($registration->trainer->nationality === 'Gambia')
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">National Identification Number: </b>
+                                        <b class="col-sm-7 text-primary">National Identification Number/Passport: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->NIN}}</p>
                                     </div> 
-                                    @else
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Alien Identification Number: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->AIN}}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->AIN ?? 'N/A'}}</p>
                                     </div> 
-                                    @endif
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Email: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->trainer->email}}</p>
@@ -87,7 +84,7 @@
                                     </div> 
                                     <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Contact: </b>
-                                        <p class="col-sm-5 text-muted">{{$registration->trainer->phone_home }}<br>{{$registration->trainer->phone_mobile }}</p>
+                                        <p class="col-sm-5 text-muted">{{$registration->trainer->phone_home ?? ''  }}<br>{{$registration->trainer->phone_mobile }}</p>
                                     </div> 
                                 </div>
                                 <div class="col-12 col-md-12 col-lg-6">
@@ -100,10 +97,6 @@
                                         <p class="col-sm-5 text-muted">{{$registration->application_date->toFormattedDateString() ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
-                                        <b class="col-sm-7 text-primary">Application Category: </b>
-                                        <p class="col-sm-5 text-muted"><span class="badge badge-primary">{{$registration->application_category ?? 'N/A'}}</span></p>
-                                    </div>
-                                    <div class="form-group row">
                                         <b class="col-sm-7 text-primary">Application Type: </b>
                                         <p class="col-sm-5 text-muted"><span class="badge badge-info">{{$registration->application_type ?? 'N/A'}}</span></p>
                                     </div>
@@ -111,7 +104,7 @@
                                         <b class="col-sm-7 text-primary">Application status: </b>
                                         <p class="col-sm-5 text-muted">{{$registration->status ?? 'N/A'}}</p>
                                     </div>
-                                    @if($registration->status === 'accepted')
+                                    @if($registration->status === 'Approved')
                                         <div class="form-group row">
                                             <b class="col-sm-7 text-primary">Licence Start Date: </b>
                                             <p class="col-sm-5 text-muted">{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</p>

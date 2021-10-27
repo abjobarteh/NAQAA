@@ -148,7 +148,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Application No: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror auto generated" required readonly>
+                                                    <input type="text" class="form-control" name="application_no" value="@error('application_no'){{ old('application_no') }}@enderror {{$application_no}}" required readonly>
                                                     @error('application_no')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
