@@ -24,37 +24,37 @@ To be able to run this application, you must have:
 
 To install and run the application, **PLEASE FOLLOW THE FOLLOWING PROCEDURES CAREFULLY**.
 
-**Clone the github repo**
+**Clone the github repo**.
 
 > git clone https://github.com/NiftyICTSolutions/NAQAA-webApp-project.git
 
 Once cloning is done, move to the folder where you clone the repository and open command prompt from that folder
 or open a command prompt and navigate to the folder where you clone the repository and run the following commands:
 
-**Install the project dependencies**
+**Install the project dependencies**.
 Type the following command:
 
 > composer install
 
-**create .env file**
+**create .env file**.
 After installing the project dependencies, make a copy of the .env.example file and rename it to .env.
 The .env.example file is located in the root folder of your application.
 
-**Generate Application key**
+**Generate Application key**.
 Type the following command:
 
 > php artisan key:generate
 
-**Create a database**
+**Create a database**.
 Create database and fill the connection details of the database in the .env file
 
-**Run migrations and seeds**
+**Run migrations and seeds**.
 After filling the database credential details in the .env file, type the following command
 in your command prompt to run the migrations and seeders
 
 > php artisan migrate:fresh --seed
 
-**Run your Application**
+**Run your Application**.
 After migration and seeding of the database, test the application by running.
 
 > php artisan serve
