@@ -86,6 +86,6 @@ The following are one of the key technologiess used in the application:
 
 ## Credits
 
-[Laravel](https://laravel.com)
-[Laravel-livewire](https://laravel-livewire.com)
+[Laravel](https://laravel.com)  
+[Laravel-livewire](https://laravel-livewire.com)  
 [Admin Lte](https://adminlte.io)
