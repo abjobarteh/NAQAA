@@ -60,3 +60,32 @@ After migration and seeding of the database, test the application by running.
 > php artisan serve
 
 or you can set up localhost to serve your application from your folder without typing the **artisan serve** command.
+
+## Project Structure
+
+The structure of the folder is important to understand. All the files are structured based on modules in folders.  
+You can reference files about a specific module by accecssing the respective folder of that module named according to the module.
+
+## Routes files
+
+All the routes about the application and its module is stored in the web.php file in the routes folder.  
+Authentication routes are stored in the the auth.php file in the routes folder.
+
+## Technologies
+
+The core technology of the application is built with [PHP](https://php.net) and [Laravel](https://laravel.com) Framework.  
+However, there are also other technologies, that are couple with the core ones to extend the functionalities of the application and provide a very good user experience.  
+The following are one of the key technologiess used in the application:
+
+1. [Laravel-livewire](https://laravel-livewire.com)
+2. [Laravel-excel](https://laravel-excel.com)
+3. [Laravel-breeze](https://laravel.com/docs/8.x/starter-kits)
+4. [Laravel Sweet Alert](https://realrashid.github.io/sweet-alert/)
+5. [Laravel activity log](https://spatie.be/docs/laravel-activitylog/v4/introduction)
+6. [Laravel debugbar](https://github.com/barryvdh/laravel-debugbar)
+
+## Credits
+
+[Laravel](https://laravel.com)
+[Laravel-livewire](https://laravel-livewire.com)
+[Admin Lte](https://adminlte.io)
