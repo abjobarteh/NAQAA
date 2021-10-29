@@ -36,7 +36,7 @@ class GenerateCandidates extends Component
     public function render()
     {
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->pluck('name', 'id');
 
         $programmes = Qualification::all()->pluck('name', 'id');
@@ -94,8 +94,12 @@ class GenerateCandidates extends Component
             ]);
         } else {
             $this->candidatesExist = true;
-            $this->assessors = Trainer::where('type', 'assessor')->get();
-            $this->verifiers = Trainer::where('type', 'verifier')->get();
+            $this->assessors = Trainer::whereHas('validLicence', function (Builder $query) {
+                $query->where('trainer_type', 'Assessor');
+            })->get();
+            $this->verifiers = Trainer::whereHas('validLicence', function (Builder $query) {
+                $query->where('trainer_type', 'Verifier');
+            })->get();
         }
     }
 

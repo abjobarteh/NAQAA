@@ -211,9 +211,11 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Other Qualifications:</label>
                                             <select name="other_qualifications[]" data-role="tagsinput" multiple  id="other_qualifications">
-                                                @foreach ($staff->other_qualifications as $qualification)
-                                                    <option value="{{$qualification}}">{{$qualification}}</option>
-                                                @endforeach
+                                                @if (isset($staff->other_qualifications))
+                                                @foreach($staff->other_qualifications as $qualification)
+                                                <option value="{{$qualification}}">{{$qualification}}</option>    
+                                                @endforeach  
+                                                @endif
                                             </select>
                                             @error('other_qualifications')
                                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -276,10 +278,11 @@ Edit Academic&Admin Staff Details Data collection
                                         <div class="form-group">
                                             <label>Secondary Teaching Programme(s):</label>
                                             <select name="secondary_teaching_programmes[]" data-role="tagsinput" multiple  id="secondary_teaching_programmes">
-                                                @forelse ($staff->secondary_teaching_programmes as $field)
-                                                    <option value="{{$field}}">{{$field}}</option>
-                                                @empty
-                                                @endforelse
+                                                @if (isset($staff->secondary_teaching_programmes))
+                                                    @foreach($staff->secondary_teaching_programmes as $field)
+                                                    <option value="{{$field}}">{{$field}}</option>    
+                                                    @endforeach  
+                                                @endif
                                             </select>
                                             @if($errors->has('secondary_teaching_programmes'))
                                                 <span class="text-danger mt-1">{{ $errors->first('secondary_teaching_programmes') }}</span>

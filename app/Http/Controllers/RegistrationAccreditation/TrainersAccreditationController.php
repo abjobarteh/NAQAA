@@ -25,7 +25,7 @@ class TrainersAccreditationController extends Controller
     {
         $accreditations = ApplicationDetail::with([
             'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
-            'trainerAccreditations'
+            'trainerAccreditations',
         ])->where('application_type', 'trainer_accreditation')
             ->latest()
             ->get();

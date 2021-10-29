@@ -13,7 +13,7 @@ class PaymentDetail extends Model
 
     protected $fillable = [
         'application_id',
-        'serial_code_id',
+        'token_id',
         'amount',
         'status',
     ];

@@ -22,7 +22,7 @@ class ApplicationsController extends Controller
         $applications = ApplicationDetail::with(['trainingprovider', 'trainer'])
             ->where('submitted_from', 'Portal')
             ->where(function ($query) {
-                $query->where('application_form_status', 'submitted')
+                $query->where('application_form_status', 'Submitted')
                     ->orWhere('application_form_status', 'Saved');
             })
             ->where('status', 'Pending')

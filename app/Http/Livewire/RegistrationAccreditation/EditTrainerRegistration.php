@@ -14,7 +14,8 @@ class EditTrainerRegistration extends Component
 {
     public $firstname, $middlename, $lastname, $gender, $dob, $country = 'Gambia',
         $tin, $nin_passport, $ain, $email, $address, $postal_address, $tel_home, $mobile, $application_no,
-        $application_date, $application_status, $license_start_date, $license_end_date, $license_no;
+        $application_date, $application_status, $license_start_date, $license_end_date, $license_no, $trainer_type,
+        $practical_trainer;
 
     public $is_gambian = true, $is_approved = false, $is_practical_trainer = false, $trainer_registration,
         $update_successfull = false;
@@ -67,6 +68,8 @@ class EditTrainerRegistration extends Component
             'application_status' => $registration->status,
             'license_start_date' => $registration->registrationLicence->licence_start_date ?? null,
             'license_end_date' => $registration->registrationLicence->licence_end_date ?? null,
+            'trainer_type' => $registration->registrationLicence->trainer_type ?? null,
+            'practical_trainer' => $registration->registrationLicence->practical_trainer_type ?? null,
             'license_no' => $registration->registrationLicence->license_no ?? null,
             'is_approved' => $registration->registrationLicence->license_status ?? null == 'Approved' ? true : false,
             'is_gambian' => $registration->trainer->country_of_citizenship == 'Gambia' ? true : false
@@ -84,6 +87,15 @@ class EditTrainerRegistration extends Component
             compact('countries', 'trainer_types', 'application_statuses')
         )
             ->extends('layouts.admin');
+    }
+
+    public function updatedTrainerType($value)
+    {
+        if ($value == 'Practical Trainer') {
+            $this->is_practical_trainer = true;
+        } else {
+            $this->is_practical_trainer = false;
+        }
     }
 
     public function updatedCountry($value)
@@ -146,6 +158,8 @@ class EditTrainerRegistration extends Component
                 } else {
                     RegistrationLicenceDetail::create([
                         'trainer_id' => $this->trainer_registration->trainer_id,
+                        'trainer_type' => $this->trainer_type,
+                        'practical_trainer_type' => $this->practical_trainer ?? null,
                         'application_id' => $this->trainer_registration->id,
                         'licence_start_date' => $this->license_start_date,
                         'licence_end_date' => $this->license_end_date,

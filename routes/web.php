@@ -71,9 +71,11 @@ use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
 use App\Http\Livewire\Notifications;
+use App\Http\Livewire\Portal\ApplicationPayment;
 use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
+use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
@@ -423,6 +425,7 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('interim-authorisation', InterimAuthorisation::class)->name('interim-authorisation');
       Route::get('new-interim-authorisation', NewInterimAuthorisation::class)->name('new-interim-authorisation');
       Route::get('edit-interim-authorisation/{id}', EditInterimAuthorisation::class)->name('edit-interim-authorisation');
+      Route::get('view-interim-authorisation/{id}', ViewInterimAuthorisation::class)->name('view-interim-authorisation');
       Route::resource('registration', RegistrationController::class);
       Route::resource('accreditation', AccreditationController::class);
       Route::resource('certificate-endorsements', CertificateEndorsementController::class);
@@ -447,6 +450,10 @@ Route::group(['middleware' => 'auth'], function () {
       // Trainer accreditations
       Route::resource('accreditations', AccreditationsController::class);
     });
+
+    // payments page
+    Route::get('application-payment/{id}', ApplicationPayment::class)->name('application-payment');
+
     // Portal Profiles Settings
     Route::get('settings', [InstitutionProfilesController::class, 'settings'])
       ->name('settings');

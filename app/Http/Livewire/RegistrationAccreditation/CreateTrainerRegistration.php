@@ -8,6 +8,7 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainerType;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -15,7 +16,8 @@ class CreateTrainerRegistration extends Component
 {
     public $firstname, $middlename, $lastname, $gender, $dob, $country = 'Gambia',
         $tin, $nin_passport, $ain, $email, $address, $postal_address, $tel_home, $mobile, $application_no,
-        $application_date, $application_status, $license_start_date, $license_end_date, $license_no;
+        $application_date, $application_status, $license_start_date, $license_end_date, $license_no, $trainer_type,
+        $practical_trainer;
 
     public $is_gambian = true, $is_approved = false, $is_practical_trainer = false;
 
@@ -64,14 +66,14 @@ class CreateTrainerRegistration extends Component
             ->extends('layouts.admin');
     }
 
-    // public function updatedTrainerType($value)
-    // {
-    //     if ($value == 'Practical Trainer') {
-    //         $this->is_practical_trainer = true;
-    //     } else {
-    //         $this->is_practical_trainer = false;
-    //     }
-    // }
+    public function updatedTrainerType($value)
+    {
+        if ($value == 'Practical Trainer') {
+            $this->is_practical_trainer = true;
+        } else {
+            $this->is_practical_trainer = false;
+        }
+    }
 
     public function updatedCountry($value)
     {
@@ -95,17 +97,16 @@ class CreateTrainerRegistration extends Component
     {
         $this->validate();
 
-        $trainer_query = Trainer::query();
         $serial_no = explode('-', $this->application_no);
 
         // check if trainer exist in the database
         if (
-            $trainer_query->where('firstname', 'like', '%' . $this->firstname . '%')
+            Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')
             ->where(function ($query) {
-                $query->where('middlename', 'like', '%' . $this->middlename . '%')
+                $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($this->middlename) . '%')
                     ->orWhereNull('middlename');
             })
-            ->where('lastname', 'like', '%' . $this->lastname . '%')
+            ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
             ->whereDate('date_of_birth', $this->dob)
             ->where('gender', $this->gender)
             ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
@@ -116,19 +117,21 @@ class CreateTrainerRegistration extends Component
         ) {
             // check if trainer has a valid licence
             if (
-                $trainer_query->where('firstname', 'like', '%' . $this->firstname . '%')
+                Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')
                 ->where(function ($query) {
-                    $query->where('middlename', 'like', '%' . $this->middlename . '%')
+                    $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($this->middlename) . '%')
                         ->orWhereNull('middlename');
                 })
-                ->where('lastname', 'like', '%' . $this->lastname . '%')
+                ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
                 ->whereDate('date_of_birth', $this->dob)
                 ->where('gender', $this->gender)
                 ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
                 ->where('TIN', $this->tin)
                 ->where('NIN', $this->nin_passport)
                 ->where('AIN', $this->ain)
-                ->whereHas('validLicence')
+                ->whereHas('validLicence', function (Builder $query) {
+                    $query->where('trainer_type', $this->trainer_type);
+                })
                 ->exists()
             ) {
                 alert(
@@ -139,14 +142,14 @@ class CreateTrainerRegistration extends Component
 
                 return redirect()->route('registration-accreditation.registration.trainers.index');
             } else {
-                DB::transaction(function () use ($serial_no, $trainer_query) {
+                DB::transaction(function () use ($serial_no) {
                     // get trainer details
-                    $trainer = $trainer_query->where('firstname', 'like', '%' . $this->firstname . '%')
+                    $trainer = Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')
                         ->where(function ($query) {
-                            $query->where('middlename', 'like', '%' . $this->middlename . '%')
+                            $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($this->middlename) . '%')
                                 ->orWhereNull('middlename');
                         })
-                        ->where('lastname', 'like', '%' . $this->lastname . '%')
+                        ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
                         ->whereDate('date_of_birth', $this->dob)
                         ->where('gender', $this->gender)
                         ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
@@ -154,29 +157,42 @@ class CreateTrainerRegistration extends Component
                         ->where('NIN', $this->nin_passport)
                         ->where('AIN', $this->ain)
                         ->first();
-                    // dd($trainer->id);
 
-                    // store training provider application details
-                    $application = ApplicationDetail::create([
-                        'trainer_id' => $trainer->id,
-                        'applicant_type' => 'trainer',
-                        'application_no' => $this->application_no,
-                        'serial_no' => $serial_no[1],
-                        'application_type' => 'trainer_registration',
-                        'status' => $this->application_status,
-                        'application_date' => $this->application_date,
-                    ]);
-
-                    // If application is accepted, create a license record
-                    if ($this->application_status === 'Approved') {
-                        RegistrationLicenceDetail::create([
-                            'trainer_id' => $application->trainer_id,
-                            'application_id' => $application->id,
-                            'licence_start_date' => $this->license_start_date,
-                            'licence_end_date' => $this->license_end_date,
-                            'license_status' => 'Approved',
-                            'license_no' => $this->license_no,
+                    // check if trainer has any currently pending or ongoing registration applications
+                    $application = ApplicationDetail::where('trainer_id', $trainer->id)
+                        ->whereIn('status', ['Ongoing', 'Pending'])
+                        ->exists();
+                    if ($application) {
+                        return back()
+                            ->withWarning(
+                                'Cannot Proceed with registration as this Trainer already has a Pending or
+                                Ongoing Application. Please Process that first!.'
+                            );
+                    } else {
+                        // store training provider application details
+                        $application = ApplicationDetail::create([
+                            'trainer_id' => $trainer->id,
+                            'applicant_type' => 'trainer',
+                            'application_no' => $this->application_no,
+                            'serial_no' => $serial_no[1],
+                            'application_type' => 'trainer_registration',
+                            'status' => $this->application_status,
+                            'application_date' => $this->application_date,
                         ]);
+
+                        // If application is accepted, create a license record
+                        if ($this->application_status === 'Approved') {
+                            RegistrationLicenceDetail::create([
+                                'trainer_id' => $application->trainer_id,
+                                'trainer_type' => $this->trainer_type,
+                                'practical_trainer_type' => $this->practical_trainer ?? null,
+                                'application_id' => $application->id,
+                                'licence_start_date' => $this->license_start_date,
+                                'licence_end_date' => $this->license_end_date,
+                                'license_status' => 'Approved',
+                                'license_no' => $this->license_no,
+                            ]);
+                        }
                     }
                 });
             }
@@ -216,6 +232,8 @@ class CreateTrainerRegistration extends Component
                 if ($this->application_status === 'Approved') {
                     RegistrationLicenceDetail::create([
                         'trainer_id' => $application->trainer_id,
+                        'trainer_type' => $this->trainer_type,
+                        'practical_trainer_type' => $this->practical_trainer ?? null,
                         'application_id' => $application->id,
                         'licence_start_date' => $this->license_start_date,
                         'licence_end_date' => $this->license_end_date,

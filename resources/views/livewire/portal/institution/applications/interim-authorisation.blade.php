@@ -46,12 +46,12 @@
                                 Edit
                               </a>
                             @endif
-                            <a href="{{route('portal.institution.registration.show',$application->id)}}" class="btn btn-sm btn-warning">
+                            <a href="{{route('portal.institution.view-interim-authorisation',$application->id)}}" class="btn btn-sm btn-warning">
                               <i class="fas fa-eye"></i>
                               View
                             </a>
                             @if($application->application_form_status == 'Saved')
-                              <a href="{{route('portal.institution.edit-interim-authorisation',$application->id)}}" class="btn btn-sm btn-info">
+                              <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-info">
                                 <i class="fas fa-coins"></i>
                                 Pay
                               </a>

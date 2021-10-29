@@ -17,6 +17,8 @@ class CreateRegistrationLicenceDetailsTable extends Migration
             $table->id();
             $table->foreignId('training_provider_id')->nullable()->constrained('training_providers');
             $table->foreignId('trainer_id')->nullable()->constrained('trainers');
+            $table->string('trainer_type')->nullable();
+            $table->string('practical_trainer_type')->nullable();
             $table->foreignId('application_id')->nullable()->constrained('application_details');
             $table->date('licence_start_date')->nullable();
             $table->date('licence_end_date')->nullable();

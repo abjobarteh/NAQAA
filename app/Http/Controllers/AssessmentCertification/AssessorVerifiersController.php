@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AssessmentCertification;
 
 use App\Http\Controllers\Controller;
 use App\Models\RegistrationAccreditation\Trainer;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class AssessorVerifiersController extends Controller
@@ -16,12 +17,11 @@ class AssessorVerifiersController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $assessor_verifiers = Trainer::with('currentAccreditation')
-            ->where(function ($query) {
-                $query->where('type', 'assessor')
-                    ->orWhere('type', 'verifier');
+        $assessor_verifiers = Trainer::with('currentAccreditation', 'validLicence')
+            ->whereHas('validLicence', function (Builder $query) {
+                $query->where('trainer_type', 'Assessor')
+                    ->orWhere('trainer_type', 'Verifier');
             })
-            ->whereHas('currentAccreditation')
             ->latest()
             ->get();
 

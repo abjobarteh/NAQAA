@@ -43,7 +43,12 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label>Name: <sup class="text-danger">*</sup></label>
-                                                <input type="text" class="form-control" value="{{ $accreditation->trainer->firstname }} {{ $accreditation->trainer->middlename }} {{ $accreditation->trainer->lastname }}" required readonly />
+                                                <select name="trainer_id" id="trainer_id" class="form-control select2">
+                                                    <option value="">-- select trainer --</option>
+                                                   @foreach ($trainers as $trainer)
+                                                       <option value="{{$trainer->id}}" {{$accreditation->trainer->id === $trainer->id ? 'selected' : ''}}>{{$trainer->firstname}} {{$trainer->middlename}} {{$trainer->lastname}}</option>
+                                                   @endforeach
+                                                </select>
                                                 @error('trainer_id')
                                                     <span class="text-danger mt-1">{{$message}}</span>
                                                 @enderror
@@ -127,7 +132,7 @@
                                                                             <select name="statuses[]" class="form-control custom-select license-registration">
                                                                                     <option value="">-- select status --</option>
                                                                                     @foreach ($application_statuses as $status)
-                                                                                        <option value="{{$status}}" {{ ($accreditation->status ?? '') == $status ? 'selected' : '' }}>{{$status}}</option>
+                                                                                        <option value="{{$status}}" {{ ($programme->status ?? '') == $status ? 'selected' : '' }}>{{$status}}</option>
                                                                                     @endforeach
                                                                                 @error('statuses')
                                                                                     <span class="text-danger mt-1">{{$message}}</span>
