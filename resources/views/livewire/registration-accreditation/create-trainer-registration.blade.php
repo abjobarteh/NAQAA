@@ -72,7 +72,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>First Name: <sup class="text-danger">*</sup></label>
-                                                    <input type="text" class="form-control" name="firstname" wire:model="firstname" required>
+                                                    <input type="text" class="form-control" name="firstname" wire:model="firstname" required autofocus>
                                                     @error('firstname')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -260,6 +260,37 @@
                                             </div>
                                         </div>
                                         @if($is_approved)
+                                        <div class="row">
+                                            <div class="@if(!$is_practical_trainer)col-sm-12 @else col-sm-6 @endif">
+                                                <div class="form-group" wire:ignore>
+                                                    <label>Trainer Type: <sup class="text-danger">*</sup></label>
+                                                    <select id="trainer_type" class="form-control custom-select" wire:model="trainer_type">
+                                                        <option value="">Select type of trainer</option>
+                                                        @foreach ($trainer_types as $trainer)
+                                                        <option value="{{$trainer->name}}">{{$trainer->name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('type')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            @if($is_practical_trainer)
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Practical Trainer Type: <sup class="text-danger">*</sup></label>
+                                                    <select id="practical_trainer" class="form-control custom-select" wire:model="practical_trainer">
+                                                        <option value="">Select practical trainer type</option>
+                                                        <option value="CraftPerson">Craft Person</option>
+                                                        <option value="MasterCraftPerson">Master Craft Person</option>
+                                                    </select>
+                                                    @error('practical_trainer')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            @endif
+                                        </div>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group">

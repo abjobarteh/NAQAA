@@ -100,7 +100,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Months): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ old('total_qualification_time_months') }}" min="0" step="1" required>
+                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time_months ?? '' }}" min="0" step="1" required>
                                                     @error('total_qualification_time')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
@@ -109,7 +109,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Hours): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time ?? '' }}" min="0" step="1" required>
+                                                    <input type="number" class="form-control" name="total_qualification_time_hours" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time_hours ?? '' }}" min="0" step="1" required>
                                                     @error('total_qualification_time')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror

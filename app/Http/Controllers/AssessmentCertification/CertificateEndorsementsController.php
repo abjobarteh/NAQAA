@@ -36,7 +36,7 @@ class CertificateEndorsementsController extends Controller
     public function create()
     {
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->pluck('name', 'id');
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
@@ -91,7 +91,7 @@ class CertificateEndorsementsController extends Controller
         $endorsement = EndorsedCertificateDetail::findOrFail($id);
 
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->pluck('name', 'id');
 
         $levels = QualificationLevel::all()->pluck('name', 'id');
@@ -110,7 +110,7 @@ class CertificateEndorsementsController extends Controller
         $endorsement = EndorsedCertificateDetail::findOrFail($id);
 
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->pluck('name', 'id');
 
         $levels = QualificationLevel::all()->pluck('name', 'id');

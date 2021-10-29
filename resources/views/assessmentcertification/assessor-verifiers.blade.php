@@ -40,14 +40,14 @@
                                     @forelse ($assessor_verifiers as $assessor_verifier)
                                         <tr>
                                             <td>{{$assessor_verifier->full_name}}</td>
-                                            <td>{{$assessor_verifier->date_of_birth->toFormattedDateString()}}</td>
+                                            <td>{{$assessor_verifier->date_of_birth}}</td>
                                             <td>{{$assessor_verifier->gender}}</td>
                                             <td>{{$assessor_verifier->country_of_citizenship}}</td>
                                             <td>{{$assessor_verifier->email}}</td>
                                             <td>{{$assessor_verifier->phone_mobile}}</td>
                                             <td>{{$assessor_verifier->currentAccreditation->area ?? 'N/A'}}</td>
                                             <td>{{$assessor_verifier->currentAccreditation->level ?? 'N/A'}}</td>
-                                            <td><span class="badge badge-rounded badge-primary">{{$assessor_verifier->type}}</span></td>
+                                            <td><span class="badge badge-rounded badge-primary">{{$assessor_verifier->validLicence->trainer_type ?? 'N/A'}}</span></td>
                                         </tr>
                                     @empty
                                         

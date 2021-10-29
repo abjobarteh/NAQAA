@@ -111,32 +111,32 @@
                                     @forelse ($registrations as $registration)
                                         <tr>
                                             <td>{{$registration->trainingprovider->name}}</td>
-                                            <td>{{$registration->trainingprovider->email}}</td>
+                                            <td>{{$registration->trainingprovider->email ?? 'N/A'}}</td>
                                             <td>{{$registration->trainingprovider->district->name ?? 'N/A'}},  {{$registration->trainingprovider->address}}</td>
                                             <td>{{$registration->trainingprovider->telephone_work ?? $registration->trainingprovider->mobile_phone}} , <br> {{$registration->trainingprovider->mobile_phone}}</td>
-                                            <td>{{$registration->trainingprovider->classification->name}}</td>
+                                            <td>{{$registration->trainingprovider->classification->name ?? 'N/A'}}</td>
                                             <td>{{$registration->application_no}}</td>
                                             <td>
-                                                <span class="badge badge-info">
+                                                <span class="badge badge-primary">
                                                     {{$registration->application_type}}
                                                  </span>
                                             </td>
                                             <td>
-                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
                                                     {{$registration->status}}
                                                  </span>
                                             </td>
                                             <td>{{$registration->application_date->toFormattedDateString()}}</td>
                                             <td>
                                                 <a href="{{route('registration-accreditation.registration.trainingproviders.edit',$registration->id)
-                                                    }}" class="btn btn-sm btn-danger"
-                                                    title="edit training provider details"
+                                                    }}" class="btn btn-xs btn-danger"
+                                                    title="edit training provider registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
                                                 <a href="{{route('registration-accreditation.registration.trainingproviders.show',$registration->id)
-                                                    }}" class="btn btn-sm btn-info"
-                                                    title="view training provider details"
+                                                    }}" class="btn btn-xs btn-info"
+                                                    title="view training provider registration details"
                                                     >
                                                     <i class="fas fa-eye"></i>    
                                                 </a>

@@ -14,6 +14,8 @@ class RegistrationLicenceDetail extends Model
     protected $fillable = [
         'training_provider_id',
         'trainer_id',
+        'trainer_type',
+        'practical_trainer_type',
         'application_id',
         'licence_start_date',
         'licence_end_date',

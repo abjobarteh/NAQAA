@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class RegisteredUserController extends Controller
@@ -65,7 +66,7 @@ class RegisteredUserController extends Controller
 
             $user->roles()->attach(Role::where('slug', $request->user_type)->first());
 
-            $training_provider_exist = TrainingProvider::where('name', 'like', '%' . $request->institution_name . '%')
+            $training_provider_exist = TrainingProvider::where(DB::raw('lower(name)'), 'like', '%' . strtolower($request->institution_name) . '%')
                 ->where('classification_id', $request->classification)
                 ->exists();
 
@@ -111,9 +112,12 @@ class RegisteredUserController extends Controller
 
             $user->roles()->attach(Role::where('slug', $request->user_type)->first());
 
-            $trainer_exist = Trainer::where('firstname', 'like', '%' . $request->firstname . '%')
-                ->where('middlename', 'like', '%' . $request->middlename . '%')
-                ->where('lastname', 'like', '%' . $request->lastname . '%')
+            $trainer_exist = Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($request->firstname) . '%')
+                ->where(function ($query) use ($request) {
+                    $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($request->middlename) . '%')
+                        ->orWhereNull('middlename');
+                })
+                ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
                 ->where('type', 'like', $request->trainer_type)
                 ->exists();
 
@@ -128,9 +132,12 @@ class RegisteredUserController extends Controller
                     'login_id' => $user->id,
                 ]);
             } else {
-                Trainer::where('firstname', 'like', '%' . $request->firstname . '%')
-                    ->where('middlename', 'like', '%' . $request->middlename . '%')
-                    ->where('lastname', 'like', '%' . $request->lastname . '%')
+                Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($request->firstname) . '%')
+                    ->where(function ($query) use ($request) {
+                        $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($request->middlename) . '%')
+                            ->orWhereNull('middlename');
+                    })
+                    ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
                     ->where('type', 'like', $request->trainer_type)
                     ->update([
                         'login_id' => $user->id

@@ -88,7 +88,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Duration of Studentship: <sup class="text-danger">*</sup></label>
                                                     <input type="number" class="form-control" name="studentship_duration" value="{{ $accreditation->trainingproviderprogramme->studentship_duration ?? '' }}" min="0" step="1" required>
@@ -97,11 +97,20 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Total Qualification Time (Months): <sup class="text-danger">*</sup></label>
+                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time_months ?? '' }}" min="0" step="1" required>
+                                                    @error('total_qualification_time_months')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Hours): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time ?? '' }}" min="0" step="1" required>
-                                                    @error('total_qualification_time')
+                                                    <input type="number" class="form-control" name="total_qualification_time_hours" value="{{ $accreditation->trainingproviderprogramme->total_qualification_time_hours ?? '' }}" min="0" step="1" required>
+                                                    @error('total_qualification_time_hours')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>

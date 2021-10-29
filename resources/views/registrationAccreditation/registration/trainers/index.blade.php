@@ -40,11 +40,14 @@
                                         <th>Application No</th>
                                         <th>status</th>
                                         <th>Application date</th>
+                                        <th>Trainer Type</th>
+                                        <th>Licence start data</th>
+                                        <th>Licence end data</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse ($trainer_regitrations as $registration)
+                                    @forelse ($trainer_registrations as $registration)
                                         <tr>
                                             <td>{{$registration->trainer->full_name}}</td>
                                             <td>{{$registration->trainer->date_of_birth}}</td>
@@ -53,11 +56,14 @@
                                             <td>{{$registration->trainer->email}}</td>
                                             <td>{{$registration->application_no}}</td>
                                             <td>
-                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
                                                     {{$registration->status}}
                                                  </span>
                                             </td>
                                             <td>{{$registration->application_date}}</td>
+                                            <td>{{$registration->registrationLicence->trainer_type ?? 'N/A'}}</td>
+                                            <td>{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</td>
+                                            <td>{{$registration->registrationLicence->licence_end_date ?? 'N/A'}}</td>
                                             <td>
                                                 <a href="{{route('registration-accreditation.registration.edit-trainer-registration',$registration->id)
                                                     }}" class="btn btn-xs btn-danger"

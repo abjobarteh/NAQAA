@@ -37,7 +37,6 @@
                                         <th>Gender</th>
                                         <th>Nationality</th>
                                         <th>Email</th>
-                                        <th>Trainer type</th>
                                         <th>status</th>
                                         <th>Application date</th>
                                         <th>Accreditation areas</th>
@@ -52,9 +51,8 @@
                                             <td>{{$accreditation->trainer->gender}}</td>
                                             <td>{{$accreditation->trainer->country_of_citizenship}}</td>
                                             <td>{{$accreditation->trainer->email}}</td>
-                                            <td>{{$accreditation->trainer->type}}</td>
                                             <td>
-                                                <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
                                                     {{$accreditation->status}}
                                                 </span>
                                             </td>

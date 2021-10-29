@@ -42,7 +42,7 @@ class StudentAssessment extends Component
     public function render()
     {
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'valid');
+            $query->where('license_status', 'Approved');
         })->pluck('name', 'id');
 
         $programmes = Qualification::all()->pluck('name', 'id');

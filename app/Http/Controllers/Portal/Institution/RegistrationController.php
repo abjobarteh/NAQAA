@@ -361,12 +361,6 @@ class RegistrationController extends Controller
             $path = $file->storeAs(auth()->user()->username, $name);
             $checklists[] = '/storage/' . $path;
         }
-        // $checklists = $files->map(function ($file, $key) {
-        //     $name = time() . '_' . $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
-        //     // $filename = "{$key}" . now()  . '.' . $file->getClientOriginalExtension();
-        //     $file->storeAs(auth()->user()->username, $name);
-        //     // Storage::putFileAs($storagepath, $file, $filename);
-        // });
 
         return $checklists;
     }

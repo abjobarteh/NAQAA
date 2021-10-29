@@ -36,7 +36,8 @@
                                         <th>Programme Title</th>
                                         <th>Level</th>
                                         <th>Duration</th>
-                                        <th>Programme Qualification Time</th>
+                                        <th>Qualification Time Months</th>
+                                        <th>Qualification Time Hours</th>
                                         <th>Fees</th>
                                         <th>Application type</th>
                                         <th>Application date</th>
@@ -51,12 +52,13 @@
                                             <td>{{$accreditation->trainingproviderprogramme->programme->name ?? 'N/A'}}</td>
                                             <td>{{$accreditation->trainingproviderprogramme->level ?? 'N/A'}}</td>
                                             <td>{{$accreditation->trainingproviderprogramme->studentship_duration ?? '0'}}</td>
-                                            <td>{{$accreditation->trainingproviderprogramme->total_qualification_time ?? '0'}} Hours</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->total_qualification_time_months ?? '0'}}</td>
+                                            <td>{{$accreditation->trainingproviderprogramme->total_qualification_time_hours ?? '0'}}</td>
                                             <td><b>GMD</b>{{$accreditation->trainingproviderprogramme->level_of_fees ?? '0'}}</td>
                                             <td><span class="badge badge-primary">{{$accreditation->application_type}}</span></td>
                                             <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
                                             <td>
-                                                <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-warning'}}">
+                                                <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
                                                     {{$accreditation->status}}
                                                 </span>
                                             </td>

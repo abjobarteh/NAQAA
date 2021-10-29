@@ -13,6 +13,7 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\ProgrammeAccreditationDetails;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderProgramme;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -75,46 +76,101 @@ class TrainingProviderProgramsAccreditationController extends Controller
         $serial_no = explode('-', $data['application_no']);
 
         DB::transaction(function () use ($data, $serial_no) {
-            if (Program::where('name', 'like', '%' . $data['programme_title'] . '%')->exists()) {
-                $program_catalogue = Program::where('name', 'like', '%' . $data['programme_title'] . '%')->pluck('name', 'id');
+            if (Program::where(DB::raw('lower(name)'), 'like', '%' . strtolower($data['programme_title']) . '%')
+                ->exists()
+            ) {
+                $program_catalogue = Program::where(DB::raw('lower(name)'), 'like', '%' . strtolower($data['programme_title']) . '%')
+                    ->first();
             } else {
                 $program_catalogue = Program::create([
                     'name' => $data['programme_title']
                 ]);
             }
-            // Store Programme details
-            $programme = TrainingProviderProgramme::create([
-                'training_provider_id' => $data['trainingprovider_id'],
-                'programme_id' => $program_catalogue->id,
-                'level' => $data['level'],
-                'studentship_duration' => $data['studentship_duration'],
-                'total_qualification_time' => $data['total_qualification_time'],
-                'level_of_fees' => $data['level_of_fees'],
-                'admission_requirements' => $data['admission_requirements'],
-                'is_accredited' => $data['status'] === 'Approved' ? 1 : 0,
-            ]);
 
-            // store training provider application details
-            $application = ApplicationDetail::create([
-                'training_provider_id' => $data['trainingprovider_id'],
-                'programme_id' => $programme->id,
-                'applicant_type' => 'training_provider',
-                'application_no' => $data['application_no'],
-                'serial_no' => $serial_no[1],
-                'application_type' => 'institution_accreditation',
-                'status' => $data['status'],
-                'application_date' => $data['application_date'],
-            ]);
+            // check if programme exists for this institution
+            $programme_exist = TrainingProviderProgramme::where('training_provider_id', $data['trainingprovider_id'])
+                ->where('programme_id', $program_catalogue->id)
+                ->exists();
 
-            // If application approved, create a programme accreditation record
-            if ($data['status'] === 'Approved') {
-                ProgrammeAccreditationDetails::create([
-                    'programme_id' => $programme->id,
-                    'application_id' => $application->id,
-                    'accreditation_start_date' => $data['accreditation_start_date'],
-                    'accreditation_end_date' => $data['accreditation_end_date'],
-                    'accreditation_status' => 'Approved',
+            if ($programme_exist) {
+                $has_current_application = TrainingProviderProgramme::where('training_provider_id', $data['trainingprovider_id'])
+                    ->where('programme_id', $program_catalogue->id)
+                    ->whereHas('applications', function (Builder $query) {
+                        $query->whereIn('status', ['Pending', 'Ongoing']);
+                    })
+                    ->exists();
+
+                if ($has_current_application) {
+                    return back()
+                        ->withWarning(
+                            'You cannot enter accreditation details for this programme as 
+                        there is already a Pending or Ongoing Application for this programme.
+                         Please Process that Application first!'
+                        );
+                } else {
+                    $programme_detail = TrainingProviderProgramme::where('training_provider_id', $data['trainingprovider_id'])
+                        ->where('programme_id', $program_catalogue->id)
+                        ->first();
+
+                    // store training provider application details
+                    $application = ApplicationDetail::create([
+                        'training_provider_id' => $data['trainingprovider_id'],
+                        'programme_id' => $programme_detail->id,
+                        'applicant_type' => 'training_provider',
+                        'application_no' => $data['application_no'],
+                        'serial_no' => $serial_no[1],
+                        'application_type' => 'institution_accreditation',
+                        'status' => $data['status'],
+                        'application_date' => $data['application_date'],
+                    ]);
+
+                    // If application approved, create a programme accreditation record
+                    if ($data['status'] === 'Approved') {
+                        ProgrammeAccreditationDetails::create([
+                            'programme_id' => $programme_detail->id,
+                            'application_id' => $application->id,
+                            'accreditation_start_date' => $data['accreditation_start_date'],
+                            'accreditation_end_date' => $data['accreditation_end_date'],
+                            'accreditation_status' => 'Approved',
+                        ]);
+                    }
+                }
+            } else {
+                // Store Programme details
+                $programme = TrainingProviderProgramme::create([
+                    'training_provider_id' => $data['trainingprovider_id'],
+                    'programme_id' => $program_catalogue->id,
+                    'level' => $data['level'],
+                    'studentship_duration' => $data['studentship_duration'],
+                    'total_qualification_time_months' => $data['total_qualification_time_months'],
+                    'total_qualification_time_hours' => $data['total_qualification_time_hours'],
+                    'level_of_fees' => $data['level_of_fees'],
+                    'admission_requirements' => $data['admission_requirements'],
+                    'is_accredited' => $data['status'] === 'Approved' ? 1 : 0,
                 ]);
+
+                // store training provider application details
+                $application = ApplicationDetail::create([
+                    'training_provider_id' => $data['trainingprovider_id'],
+                    'programme_id' => $programme->id,
+                    'applicant_type' => 'training_provider',
+                    'application_no' => $data['application_no'],
+                    'serial_no' => $serial_no[1],
+                    'application_type' => 'institution_accreditation',
+                    'status' => $data['status'],
+                    'application_date' => $data['application_date'],
+                ]);
+
+                // If application approved, create a programme accreditation record
+                if ($data['status'] === 'Approved') {
+                    ProgrammeAccreditationDetails::create([
+                        'programme_id' => $programme->id,
+                        'application_id' => $application->id,
+                        'accreditation_start_date' => $data['accreditation_start_date'],
+                        'accreditation_end_date' => $data['accreditation_end_date'],
+                        'accreditation_status' => 'Approved',
+                    ]);
+                }
             }
         });
 
@@ -178,15 +234,16 @@ class TrainingProviderProgramsAccreditationController extends Controller
         $data = $request->validated();
 
         $accreditation = ApplicationDetail::findOrFail($id)->load([
-            'programmeAccreditations',
-            'programmeAccreditations.programme',
-            'programmeAccreditations.programme.programme'
-        ]);;
+            'trainingproviderprogramme',
+            'trainingproviderprogramme.programme',
+            'programmeAccreditations'
+        ]);
+
 
         DB::transaction(function () use ($data, $accreditation) {
 
-            if (Program::where('name', 'like', '%' . $data['programme_title'] . '%')->exists()) {
-                $program_catalogue = Program::where('name', 'like', '%' . $data['programme_title'] . '%')->pluck('name', 'id');
+            if (Program::where(DB::raw('lower(name)'), 'like', '%' . strtolower($data['programme_title']) . '%')->exists()) {
+                $program_catalogue = Program::where(DB::raw('lower(name)'), 'like', '%' . strtolower($data['programme_title']) . '%')->first();
             } else {
                 $program_catalogue = Program::create([
                     'name' => $data['programme_title']
@@ -198,12 +255,13 @@ class TrainingProviderProgramsAccreditationController extends Controller
                 'application_date' => $data['application_date'],
             ]);
 
-            $accreditation->programmeAccreditations->programme->update([
+            $accreditation->trainingproviderprogramme->update([
                 'trainingprovider_id' => $data['trainingprovider_id'],
                 'programme_id' => $program_catalogue->id,
                 'level' => $data['level'],
                 'studentship_duration' => $data['studentship_duration'],
-                'total_qualification_time' => $data['total_qualification_time'],
+                'total_qualification_time_months' => $data['total_qualification_time_months'],
+                'total_qualification_time_hours' => $data['total_qualification_time_hours'],
                 'level_of_fees' => $data['level_of_fees'],
                 'admission_requirements' => $data['admission_requirements'],
             ]);
@@ -227,16 +285,5 @@ class TrainingProviderProgramsAccreditationController extends Controller
         });
 
         return back()->withSuccess('Programme accreditation details Successfully updated in the system');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

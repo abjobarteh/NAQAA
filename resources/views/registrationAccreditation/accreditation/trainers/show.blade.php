@@ -132,7 +132,7 @@
                                                             <td>{{$programme->area}}</td>
                                                             <td>{{$programme->level}}</td>
                                                             <td>{{$programme->status}}</td>
-                                                            <td>{{$programme->accreditation_status ?? 'N/A'}}</td>
+                                                            <td>{{$programme->status ?? 'N/A'}}</td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>

@@ -98,8 +98,8 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Months): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ old('total_qualification_time') }}" min="0" step="1" required>
-                                                    @error('total_qualification_time')
+                                                    <input type="number" class="form-control" name="total_qualification_time_months" value="{{ old('total_qualification_time_months') }}" min="0" step="1" required>
+                                                    @error('total_qualification_time_months')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>
@@ -107,8 +107,8 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Total Qualification Time (Hours): <sup class="text-danger">*</sup></label>
-                                                    <input type="number" class="form-control" name="total_qualification_time" value="{{ old('total_qualification_time') }}" min="0" step="1" required>
-                                                    @error('total_qualification_time')
+                                                    <input type="number" class="form-control" name="total_qualification_time_hours" value="{{ old('total_qualification_time_hours') }}" min="0" step="1" required>
+                                                    @error('total_qualificattotal_qualification_time_hoursion_time')
                                                         <span class="text-danger mt-1">{{$message}}</span>
                                                     @enderror
                                                 </div>

@@ -28,7 +28,8 @@ class CreateTrainingProviderProgrammesTable extends Migration
             $table->longText('progression_requirements')->nullable();
             $table->longText('learning_outcomes')->nullable();
             $table->string('studentship_duration')->nullable();
-            $table->string('total_qualification_time')->nullable();
+            $table->string('total_qualification_time_months')->nullable();
+            $table->string('total_qualification_time_hours')->nullable();
             $table->string('level_of_fees')->nullable();
             $table->string('department_name')->nullable();
             $table->date('department_establishment_date')->nullable();
