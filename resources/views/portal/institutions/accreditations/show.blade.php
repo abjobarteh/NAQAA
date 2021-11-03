@@ -19,7 +19,7 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="name">Programme title: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="programme_title" name="programme_title" class="form-control" value="{{$application->programmeDetail->programme_title}}" required>
+                            <input type="text" id="programme_title" name="programme_title" class="form-control" value="{{$application->trainingproviderprogramme->programme->name}}" required>
                             @error('programme_title')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -29,7 +29,7 @@
                             <select name="level" id="level" class="form-control custom-select" required>
                                 <option value="">Select level</option>
                                 @foreach ($qualification_levels as $id => $level)
-                                    <option value="{{$level}}" {{$application->programmeDetail->level == $level ? 'selected' : ''}}>{{$level}}</option>
+                                    <option value="{{$level}}" {{$application->trainingproviderprogramme->level == $level ? 'selected' : ''}}>{{$level}}</option>
                                 @endforeach
                             </select>
                             @error('level')
@@ -40,14 +40,14 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="physical_address">Name of Mentoring Institution: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="mentoring_institution" name="mentoring_institution" class="form-control" value="{{$application->programmeDetail->mentoring_institution}}" required>
+                            <input type="text" id="mentoring_institution" name="mentoring_institution" class="form-control" value="{{$application->trainingproviderprogramme->mentoring_institution}}" required>
                             @error('mentoring_institution')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="postal_address">Mentoring Institution Address:</label>
-                            <input type="text" id="mentoring_institution_address" name="mentoring_institution_address" class="form-control" value="{{$application->programmeDetail->mentoring_institution_address}}">
+                            <input type="text" id="mentoring_institution_address" name="mentoring_institution_address" class="form-control" value="{{$application->trainingproviderprogramme->mentoring_institution_address}}">
                             @error('mentoring_institution_address')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -56,23 +56,20 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="physical_address">Proof of programme affiliation to mentoring institution: <sup class="text-danger">*</sup></label>
-                            <input type="file" id="programme_affiliation_proof" name="programme_affiliation_proof" class="form-control" required>
-                            @error('programme_affiliation_proof')
-                                <span class="text-danger mt-1">{{$message}}</span>
-                            @enderror
+                            <a href="{{$application->trainingproviderprogramme->programme_affiliation_proof}}" target="_blank" class="btn btn-info">View</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="programme_aims">Aims: <sup class="text-danger">*</sup></label>
-                            <textarea class="form-control" id="programme_aims" name="programme_aims" rows="4" placeholder="Programme Aims..">{{$application->programmeDetail->programme_aims}}</textarea>
+                            <textarea class="form-control" id="programme_aims" name="programme_aims" rows="4" placeholder="Programme Aims..">{{$application->trainingproviderprogramme->programme_aims}}</textarea>
                             @error('programme_aims')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="programme_objectives">Objectives: <sup class="text-danger">*</sup></label>
-                            <textarea class="form-control" id="programme_objectives" name="programme_objectives" rows="4" placeholder="Programme objectives..">{{$application->programmeDetail->programme_objectives}}</textarea>
+                            <textarea class="form-control" id="programme_objectives" name="programme_objectives" rows="4" placeholder="Programme objectives..">{{$application->trainingproviderprogramme->programme_objectives}}</textarea>
                             @error('programme_objectives')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -81,23 +78,20 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="physical_address">Proof of support of the programme: <sup class="text-danger">*</sup></label>
-                            <input type="file" id="programme_support_proof" name="programme_support_proof" class="form-control" required>
-                            @error('programme_support_proof')
-                                <span class="text-danger mt-1">{{$message}}</span>
-                            @enderror
+                            <a href="{{$application->trainingproviderprogramme->programme_support_proof}}" target="_blank" class="btn btn-info">View</a>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="physical_address">Student Admission Requirements: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="admission_requirements" name="admission_requirements" class="form-control" value="{{$application->programmeDetail->admission_requirements}}" required>
+                            <input type="text" id="admission_requirements" name="admission_requirements" class="form-control" value="{{$application->trainingproviderprogramme->admission_requirements}}" required>
                             @error('admission_requirements')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="postal_address">Requirements for progression:</label>
-                            <input type="text" id="progrssion_requirements" name="progrssion_requirements" class="form-control" value="{{$application->programmeDetail->progression_requirements}}">
+                            <input type="text" id="progrssion_requirements" name="progrssion_requirements" class="form-control" value="{{$application->trainingproviderprogramme->progression_requirements}}">
                             @error('progrssion_requirements')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -106,7 +100,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="learning_outcomes">Student Learning outcomes: <sup class="text-danger">*</sup></label>
-                            <textarea class="form-control" id="learning_outcomes" name="learning_outcomes" rows="4" placeholder="Briefly explain the student learning outcomes..">{{$application->programmeDetail->learning_outcomes}}</textarea>
+                            <textarea class="form-control" id="learning_outcomes" name="learning_outcomes" rows="4" placeholder="Briefly explain the student learning outcomes..">{{$application->trainingproviderprogramme->learning_outcomes}}</textarea>
                             @error('learning_outcomes')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -115,14 +109,14 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="studentship_duration">Duration of studentship for the programme: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="studentship_duration" name="studentship_duration" class="form-control" value="{{$application->programmeDetail->studentship_duration}}" required>
+                            <input type="text" id="studentship_duration" name="studentship_duration" class="form-control" value="{{$application->trainingproviderprogramme->studentship_duration}}" required>
                             @error('studentship_duration')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="total_qualification_time">Total Qualification time (in Hours):</label>
-                            <input type="text" id="total_qualification_time" name="total_qualification_time" class="form-control" value="{{$application->programmeDetail->total_qualification_time}}">
+                            <input type="text" id="total_qualification_time" name="total_qualification_time" class="form-control" value="{{$application->trainingproviderprogramme->total_qualification_time}}">
                             @error('total_qualification_time')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -131,7 +125,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="level_of_fees">Level of Fees (Dalasis): <sup class="text-danger">*</sup></label>
-                            <input type="number" id="level_of_fees" name="level_of_fees" class="form-control" value="{{$application->programmeDetail->level_of_fees}}" min="0" step="1" required>
+                            <input type="number" id="level_of_fees" name="level_of_fees" class="form-control" value="{{$application->trainingproviderprogramme->level_of_fees}}" min="0" step="1" required>
                             @error('level_of_fees')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -140,14 +134,14 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <label for="department_name">Name of Department: <sup class="text-danger">*</sup></label>
-                            <input type="text" id="department_name" name="department_name" class="form-control" value="{{$application->programmeDetail->department_name}}" required>
+                            <input type="text" id="department_name" name="department_name" class="form-control" value="{{$application->trainingproviderprogramme->department_name}}" required>
                             @error('department_name')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="department_establishment_date">Department Establishment Date: <sup class="text-danger">*</sup></label>
-                            <input class="form-control" id="date-input" type="date" name="department_establishment_date" value="{{$application->programmeDetail->department_establishment_date}}"><span class="help-block">Please enter a valid date</span>
+                            <input class="form-control" id="date-input" type="date" name="department_establishment_date" value="{{$application->trainingproviderprogramme->department_establishment_date}}"><span class="help-block">Please enter a valid date</span>
                             @error('department_establishment_date')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -169,7 +163,7 @@
                                           </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($application->programmeDetail->departmentHeads as $head)
+                                            @foreach ($application->trainingproviderprogramme->departmentHeads as $head)
                                             <tr id="departmentheads{{$loop->index}}">
                                                 <td>
                                                     <input type="text" name="department_head_names[]" value="{{$head->name}}" class="form-control" required>
@@ -232,7 +226,7 @@
                             <label for="curriculum_design_process">Process of Curriculum Design: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="curriculum_design_process" name="curriculum_design_process"
                              rows="4" placeholder="Briefly explain the curriculum design process..">
-                                {{$application->programmeDetail->curriculum_design_process}}
+                                {{$application->trainingproviderprogramme->curriculum_design_process}}
                             </textarea>
                             @error('curriculum_design_process')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -242,7 +236,7 @@
                             <label for="curriculum_update">Updating Curriculum: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="curriculum_update" name="curriculum_update" 
                             rows="4" placeholder="Briefly explain the provision of updating the curriculum of each programme offered..">
-                                {{$application->programmeDetail->curriculum_update}}
+                                {{$application->trainingproviderprogramme->curriculum_update}}
                             </textarea>
                             @error('curriculum_update')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -252,10 +246,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="programme_structure">Programme structure: <sup class="text-danger">*</sup></label>
-                            <input type="file" id="programme_structure" name="programme_structure" class="form-control" required>
-                            @error('programme_structure')
-                                <span class="text-danger mt-1">{{$message}}</span>
-                            @enderror
+                            <a href="{{$application->trainingproviderprogramme->programme_structure}}" target="_blank" class="btn btn-info">View</a>
                         </div>
                     </div>
                     <div class="row">
@@ -263,7 +254,7 @@
                             <label for="students_assessment_mode">Mode of Assessment of Students: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="students_assessment_mode" name="students_assessment_mode"
                              rows="4" placeholder="Briefly describe how students are assessed and the grading system used..">
-                                {{$application->programmeDetail->students_assessment_mode}}
+                                {{$application->trainingproviderprogramme->students_assessment_mode}}
                             </textarea>
                             @error('students_assessment_mode')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -274,7 +265,7 @@
                             <textarea class="form-control" id="certification_mode" name="certification_mode" rows="4" 
                             placeholder="Briefly describe the mode of certification and the requirements for graduation in the programme. Also explain how
                             repeats in final examination are handled..">
-                                {{$application->programmeDetail->certification_mode}}
+                                {{$application->trainingproviderprogramme->certification_mode}}
                             </textarea>
                             @error('certification_mode')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -286,7 +277,7 @@
                             <label for="external_examiners_appointment_evidence">Evidence of appointment of external examiners: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="external_examiners_appointment_evidence" name="external_examiners_appointment_evidence" rows="5" 
                              placeholder="Briefly describe the appointment process of external examiners..">
-                                {{$application->programmeDetail->external_examiners_appointment_evidence}}
+                                {{$application->trainingproviderprogramme->external_examiners_appointment_evidence}}
                             </textarea>
                             @error('external_examiners_appointment_evidence')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -298,7 +289,7 @@
                             <label for="staff_recruitment_policy">Staff recruitment,promotion,retention,termination,welfare and dismissal policy: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="staff_recruitment_policy" name="staff_recruitment_policy" rows="5" 
                              placeholder="Briefly describe the appointment process of external examiners..">
-                                {{$application->programmeDetail->staff_recruitment_policy}}
+                                {{$application->trainingproviderprogramme->staff_recruitment_policy}}
                             </textarea>
                             @error('staff_recruitment_policy')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -310,7 +301,7 @@
                             <label for="provisions_for_disability">Provisions made for physicall challenged staff/students: <sup class="text-danger">*</sup></label>
                             <textarea class="form-control" id="provisions_for_disability" name="provisions_for_disability"
                              rows="4" placeholder="Briefly describe how students are assessed and the grading system used..">
-                                {{$application->programmeDetail->provisions_for_disability}}
+                                {{$application->trainingproviderprogramme->provisions_for_disability}}
                             </textarea>
                             @error('provisions_for_disability')
                                 <span class="text-danger mt-1">{{$message}}</span>
@@ -321,7 +312,7 @@
                             <textarea class="form-control" id="provided_safety_facilities" name="provided_safety_facilities" rows="4" 
                             placeholder="Briefly describe the mode of certification and the requirements for graduation in the programme. Also explain how
                             repeats in final examination are handled..">
-                                {{$application->programmeDetail->provided_safety_facilities}}
+                                {{$application->trainingproviderprogramme->provided_safety_facilities}}
                             </textarea>
                             @error('provided_safety_facilities')
                                 <span class="text-danger mt-1">{{$message}}</span>

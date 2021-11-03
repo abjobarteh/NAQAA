@@ -42,9 +42,18 @@
                       <td>{{$application->application_date ?? 'N/A'}}</td>
                       <td>
                         @if($application->status == 'Pending' && $application->application_form_status == 'Saved')
-                          <a href="{{route('portal.institution.registration.edit',$application->id)}}" class="btn btn-sm btn-danger">Edit</a>
+                          <a href="{{route('portal.institution.registration.edit',$application->id)}}" class="btn btn-sm btn-danger">
+                          <i class="fas fa-edit"></i>
+                          </a>
                         @endif
-                        <a href="{{route('portal.institution.registration.show',$application->id)}}" class="btn btn-sm btn-info">View</a>
+                        <a href="{{route('portal.institution.registration.show',$application->id)}}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i>
+                        </a>
+                        @if($application->application_form_status === 'Saved')
+                        <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-primary">
+                          <i class="fas fa-coins"></i>
+                        </a>
+                        @endif
                       </td>
                     </tr>
                   @empty

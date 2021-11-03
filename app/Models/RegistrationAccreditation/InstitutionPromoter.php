@@ -29,10 +29,4 @@ class InstitutionPromoter extends Model
     {
         $this->attributes['date_of_birth'] = new Carbon($value);
     }
-
-    public function getDateOfbirthAttribute($value)
-    {
-        return Carbon::parse($value)->format('m/d/Y');
-        // return (new Carbon($value))->format('m/d/Y');
-    }
 }

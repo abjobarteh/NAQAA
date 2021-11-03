@@ -160,6 +160,7 @@ class CreateTrainerRegistration extends Component
 
                     // check if trainer has any currently pending or ongoing registration applications
                     $application = ApplicationDetail::where('trainer_id', $trainer->id)
+                        ->where('application_type', 'trainer_registration')
                         ->whereIn('status', ['Ongoing', 'Pending'])
                         ->exists();
                     if ($application) {

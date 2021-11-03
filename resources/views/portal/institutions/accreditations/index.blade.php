@@ -37,14 +37,23 @@
                     <tr>
                       <td>{{$application->application_no ?? 'N/A'}}</td>
                       <td><span class="badge badge-success">{{$application->application_type ?? 'N/A'}}</span></td>
-                      <td><span class="badge badge-success">{{$application->status ?? 'N/A'}}</span></td>
+                      <td><span class="badge {{$application->status === 'Pending' ? 'badge-danger' : 'badge-success'}}">{{$application->status ?? 'N/A'}}</span></td>
                       <td><span class="badge badge-success">{{$application->application_form_status ?? 'N/A'}}</span></td>
                       <td>{{$application->application_date ?? 'N/A'}}</td>
                       <td>
-                        @if($application->status == 'pending')
-                          <a href="{{route('portal.institution.accreditation.edit',$application->id)}}" class="btn btn-sm btn-danger">Edit</a>
+                        @if($application->status == 'Pending')
+                          <a href="{{route('portal.institution.accreditation.edit',$application->id)}}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-edit"></i>
+                          </a>
                         @endif
-                        <a href="{{route('portal.institution.accreditation.show',$application->id)}}" class="btn btn-sm btn-info">View</a>
+                        <a href="{{route('portal.institution.accreditation.show',$application->id)}}" class="btn btn-sm btn-info">
+                          <i class="fas fa-eye"></i>
+                        </a>
+                        @if($application->application_form_status === 'Saved')
+                        <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-primary">
+                          <i class="fas fa-coins"></i>
+                        </a>
+                        @endif
                       </td>
                     </tr>
                   @empty

@@ -165,7 +165,7 @@ class NewInterimAuthorisation extends Component
                             $path = $this->funding_evidence[$key]->store(auth()->user()->username);
                             array_push($funding_details, [
                                 'funding_name' => $this->funding_name[$key],
-                                'evidence' => $path,
+                                'evidence' => '/storage/' .$path,
                             ]);
                         } else {
                             array_push($funding_details, [
