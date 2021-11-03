@@ -2,7 +2,8 @@
     <ul class="c-sidebar-nav">
     @portal('institution')
     <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link" href="{{route('portal.institution.dashboard')}}">
+        <a href="{{route('portal.institution.dashboard')}}" class="c-sidebar-nav-link 
+        {{ request()->is('portal/dashboard') ? 'active' : '' }}">
             <svg class="c-sidebar-nav-icon">
             <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-speedometer"></use>
             </svg> Dashboard
@@ -10,7 +11,14 @@
     </li>
     <li class="c-sidebar-nav-title">Applications</li>
     <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+        <a class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle 
+        {{ request()->is('portal/institution/interim-authorisation') ||
+        request()->is('portal/institution/interim-authorisation/*') || 
+        request()->is('portal/institution/registration') || 
+        request()->is('portal/institution/registration/*') || 
+        request()->is('portal/institution/accreditation') || 
+        request()->is('portal/institution/accreditation/*') 
+         ? 'active' : '' }}" href="#">
             <svg class="c-sidebar-nav-icon">
             <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-envelope-closed"></use>
             </svg>
@@ -18,19 +26,28 @@
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="{{route('portal.institution.interim-authorisation')}}">
+                <a class="c-sidebar-nav-link 
+                {{ request()->is('portal/institution/interim-authorisation') ||
+                    request()->is('portal/institution/interim-authorisation/*') 
+                     ? 'active' : '' }}" href="{{route('portal.institution.interim-authorisation')}}">
                     <span class="c-sidebar-nav-icon"></span> 
                     Interim Authorisation
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="{{route('portal.institution.registration.index')}}">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/institution/registration') || 
+                    request()->is('portal/institution/registration/*')  
+                     ? 'active' : '' }}" href="{{route('portal.institution.registration.index')}}">
                     <span class="c-sidebar-nav-icon"></span> 
                     Registration
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="{{route('portal.institution.accreditation.index')}}">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/institution/accreditation') || 
+                    request()->is('portal/institution/accreditation/*') 
+                         ? 'active' : '' }}" href="{{route('portal.institution.accreditation.index')}}">
                     <span class="c-sidebar-nav-icon"></span> 
                     Programme accreditation
                 </a>

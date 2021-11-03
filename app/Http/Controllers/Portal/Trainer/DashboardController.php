@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Portal\Trainer;
 
 use App\Http\Controllers\Controller;
+use App\Models\RegistrationAccreditation\ApplicationDetail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -15,6 +17,13 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('portal.trainers.dashboard');
+        $applications = ApplicationDetail::whereHas('trainer', function (Builder $query) {
+            $query->where('login_id', auth()->user()->id);
+        })
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return view('portal.trainers.dashboard', compact('applications'));
     }
 }

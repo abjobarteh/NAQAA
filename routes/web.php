@@ -77,6 +77,8 @@ use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
+use App\Http\Livewire\Portal\Trainer\NewTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\Reports\LearningCentersReport;
@@ -417,6 +419,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::group(['prefix' => 'portal', 'as' => 'portal.'], function () {
 
+    // Institutions
     Route::group(['prefix' => 'institution', 'as' => 'institution.'], function () {
 
       Route::redirect('/', 'institution/dashboard');
@@ -438,6 +441,8 @@ Route::group(['middleware' => 'auth'], function () {
       });
       // Route::get('settings',)
     });
+
+    // Trainers
     Route::group(['prefix' => 'trainer', 'as' => 'trainer.'], function () {
 
       Route::redirect('/', 'trainer/dashboard');
@@ -446,6 +451,8 @@ Route::group(['middleware' => 'auth'], function () {
 
       // Trainer registratinons
       Route::resource('registrations', RegistrationsController::class);
+      Route::get('new-trainer-registration', NewTrainerRegistration::class)->name('new-trainer-registration');
+      Route::get('edit-trainer-registration', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
 
       // Trainer accreditations
       Route::resource('accreditations', AccreditationsController::class);

@@ -242,7 +242,7 @@
                                             @foreach ($application->trainingprovider->bankSignatories as $signatory)
                                                 <tr id="signatories{{$loop->index}}">
                                                     <td>
-                                                        <input type="text" name="signatories_names[]" class="form-control" value="{{$signatory->Fullname}}" required>
+                                                        <input type="text" name="signatories_names[]" class="form-control" value="{{$signatory->fullname}}" required>
                                                         @error('signatories_names')
                                                             <span class="text-danger mt-1">{{$message}}</span>
                                                         @enderror

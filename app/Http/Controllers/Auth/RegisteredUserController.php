@@ -104,7 +104,6 @@ class RegisteredUserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'user_type' => $request->user_type,
                 'user_category' => 'portal',
                 'user_status' => 1,
                 'default_password_status' => 0,
@@ -118,7 +117,6 @@ class RegisteredUserController extends Controller
                         ->orWhereNull('middlename');
                 })
                 ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
-                ->where('type', 'like', $request->trainer_type)
                 ->exists();
 
             if (!$trainer_exist) {
@@ -128,7 +126,6 @@ class RegisteredUserController extends Controller
                     'lastname' => $request->lastname,
                     'email' => $request->email,
                     'phone_mobile' => $request->trainer_phone_number,
-                    'type' => $request->trainer_type,
                     'login_id' => $user->id,
                 ]);
             } else {
@@ -138,7 +135,6 @@ class RegisteredUserController extends Controller
                             ->orWhereNull('middlename');
                     })
                     ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
-                    ->where('type', 'like', $request->trainer_type)
                     ->update([
                         'login_id' => $user->id
                     ]);

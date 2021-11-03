@@ -9,6 +9,7 @@ use App\Models\Country;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,15 +22,18 @@ class RegistrationsController extends Controller
      */
     public function index()
     {
-        $trainer_regitrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
+        $applications = ApplicationDetail::with([
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'registrationLicence'
-        ])->where('application_category', 'registration')
-            ->where('applicant_type', 'trainer')
+        ])
+            ->whereHas('trainer', function (Builder $query) {
+                $query->where('login_id', auth()->user()->id);
+            })
+            ->where('application_type', 'trainer_registration')
             ->latest()
             ->get();
 
-        return view('portal.trainers.registrations.index', compact('trainer_regitrations'));
+        return view('portal.trainers.registrations.index', compact('applications'));
     }
 
     /**

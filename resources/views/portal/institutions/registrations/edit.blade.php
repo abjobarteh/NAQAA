@@ -214,7 +214,12 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <label for="bank_names">Bank Name(s): <sup class="text-danger">*</sup></label>
-                            <input type="text" id="bank_names" name="bank_names" class="form-control" value="{{ $application->trainingprovider->bank_names }}" required>
+                            <select name="bank_names" id="bank_names" class="form-control select2" multiple="multiple" required>
+                                <option value="">--- Select bank(s) ---</option>
+                                @foreach ($banks as $bank)
+                                    <option value="{{$bank}}" {{$bank === old('bank_names') ? 'selected' : ''}}>{{$bank}}</option>
+                                @endforeach
+                            </select>
                             @error('bank_names')
                                 <span class="text-danger mt-1">{{$message}}</span>
                             @enderror
@@ -238,7 +243,7 @@
                                             @foreach ($application->trainingprovider->bankSignatories as $signatory)
                                                 <tr id="signatories{{$loop->index}}">
                                                     <td>
-                                                        <input type="text" name="signatories_names[]" class="form-control" value="{{$signatory->Fullname}}" required>
+                                                        <input type="text" name="signatories_names[]" class="form-control" value="{{$signatory->fullname}}" required>
                                                         @error('signatories_names')
                                                             <span class="text-danger mt-1">{{$message}}</span>
                                                         @enderror
@@ -346,7 +351,6 @@
                     @endforeach
                     <div class="form-group row">
                         <div class="col-sm-12 d-flex justify-content-center">
-                            <button type="button" id="save" class="btn btn-info btn-square btn-block mr-1">Save Applications</button>
                             <button type="submit" id="submit" class="btn btn-success btn-square btn-block">Update Applicaton</button>
                         </div>
                     </div>

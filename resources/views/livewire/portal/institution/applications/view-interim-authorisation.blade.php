@@ -92,7 +92,7 @@
                     </div>
                     <div class="form-group col-sm-4">
                         <label for="organogramme">Organogramme:</label>
-                        <input type="file" id="organogramme" wire:model="organogramme" class="form-control">
+                        <a href="{{$authorisation->interimAuthorisation->organogramme}}" target="_blank" class="btn btn-info">View</a>
                         @error('organogramme')
                             <span class="text-danger mt-1">{{$message}}</span>
                         @enderror
@@ -148,7 +148,7 @@
                                         <td>
                                             <input type="text" wire:model="promoter_address.{{$value}}" class="form-control">
                                         <td>
-                                            <a href="{{$value}}" target="_blank" class="btn btn-info">Download</a>
+                                            <a href="{{$promoter_passportcopy[$key]}}" target="_blank" class="btn btn-info">View</a>
                                         </td>
                                         </tr>
                                         @endforeach
@@ -179,7 +179,7 @@
                                             <input type="text" id="funding_name" wire:model="funding_name.{{$value}}" class="form-control" >
                                         </td>
                                         <td>
-                                            <a href="funding_evidence.{{$key}}" target="_blank" class="btn btn-info">Download</a>
+                                            <a href="{{$funding_evidence[$key]}}" target="_blank" class="btn btn-info">View</a>
                                         </td> 
                                         </tr>
                                         @endforeach
@@ -194,20 +194,14 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group row">
-                            <label for="physical_structure_plan" class="col-sm-6">Organogramme:</label>
-                            <a href="{{$authorisation->interimAuthorisation->organogramme}}" target="_blank" class="col-sm-6 btn btn-info">Download</a>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="form-group row">
                             <label for="physical_structure_plan" class="col-sm-6">Physical Structure Plan:</label>
-                            <a href="{{$authorisation->interimAuthorisation->physical_structure_plan}}" target="_blank" class="col-sm-6 btn btn-info">Download</a>
+                            <a href="{{$authorisation->interimAuthorisation->physical_structure_plan}}" target="_blank" class="col-sm-6 btn btn-info">View</a>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-group row">
                             <label for="physical_structure_plan" class="col-sm-6">Five Year Strategic Plan:</label>
-                            <a href="{{$authorisation->interimAuthorisation->five_year_strategic_plan}}" target="_blank" class="col-sm-6 btn btn-info">Download</a>
+                            <a href="{{$authorisation->interimAuthorisation->five_year_strategic_plan}}" target="_blank" class="col-sm-6 btn btn-info">View</a>
                         </div>
                     </div>
                 </div>

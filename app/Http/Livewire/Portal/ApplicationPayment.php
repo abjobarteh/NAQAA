@@ -56,6 +56,7 @@ class ApplicationPayment extends Component
             } else {
                 PaymentDetail::create([
                     'application_id' => $this->application->id,
+                    'amount' => $token->applicationType->fee,
                     'token_id' => $token->id,
                     'status' => 'Paid'
                 ]);
@@ -82,5 +83,6 @@ class ApplicationPayment extends Component
 
     public function cancelPayment()
     {
+        
     }
 }

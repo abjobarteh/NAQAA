@@ -95,6 +95,12 @@ class TrainingProviderProgramme extends Model
         return $this->hasMany(ProgrammeAccreditationDetails::class, 'programme_id');
     }
 
+    public function isAccredited()
+    {
+        return $this->hasOne(ProgrammeAccreditationDetails::class, 'programme_id')
+            ->where('accreditation_status', 'Approved');
+    }
+
     public function applications()
     {
         return $this->hasMany(ApplicationDetail::class, 'programme_id');

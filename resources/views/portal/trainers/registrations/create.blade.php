@@ -11,7 +11,7 @@
                             <h4 class="card-title">New Registration Application</h4>
                         </div>
                         <div class="col-sm-6 d-flex justify-content-end">
-                            <a href="{{route('portal.institution.registration.index')}}" class="btn btn-success btn-square mr-1"><i class="fas fa-list"></i> Applications</a>
+                            <a href="{{route('portal.trainer.registrations.index')}}" class="btn btn-success btn-square mr-1"><i class="fas fa-list"></i> Applications</a>
                         </div>
                     </div>
                 </div>

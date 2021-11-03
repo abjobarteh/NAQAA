@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="{{route('portal.institution.accreditation.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('portal.institution.accreditation.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="form-group col-sm-6">
@@ -82,7 +82,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <label for="physical_address">Proof of support of the programme: <sup class="text-danger">*</sup></label>
+                            <label for="programme_support_proof">Proof of support of the programme: <sup class="text-danger">*</sup></label>
                             <input type="file" id="programme_support_proof" name="programme_support_proof" class="form-control" value="{{old('programme_support_proof')}}">
                             @error('programme_support_proof')
                                 <span class="text-danger mt-1">{{$message}}</span>

@@ -29,7 +29,6 @@
                       <th>Gender</th>
                       <th>Nationality</th>
                       <th>Email</th>
-                      <th>Trainer type</th>
                       <th>status</th>
                       <th>Application date</th>
                       <th>Accreditation areas</th>
@@ -39,18 +38,17 @@
               <tbody>
                   @forelse ($accreditations as $accreditation)
                       <tr>
-                          <td>{{$accreditation->trainer->firstname}}. {{$accreditation->trainer->middlename ?? ''}} .{{$accreditation->trainer->lastname}}</td>
-                          <td>{{$accreditation->trainer->date_of_birth->toFormattedDateString()}}</td>
+                          <td>{{$accreditation->trainer->full_name}}</td>
+                          <td>{{$accreditation->trainer->date_of_birth}}</td>
                           <td>{{$accreditation->trainer->gender}}</td>
-                          <td>{{$accreditation->trainer->nationality}}</td>
+                          <td>{{$accreditation->trainer->country_of_citizenship}}</td>
                           <td>{{$accreditation->trainer->email}}</td>
-                          <td>{{$accreditation->trainer->type}}</td>
                           <td>
-                              <span class="badge {{$accreditation->status === 'accepted' ? 'badge-success' : 'badge-warning'}}">
+                              <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
                                   {{$accreditation->status}}
                               </span>
                           </td>
-                          <td>{{$accreditation->application_date->toFormattedDateString()}}</td>
+                          <td>{{$accreditation->application_date}}</td>
                           <td>
                               @foreach ($accreditation->trainerAccreditations as $area)
                                   <p class="text-muted">{{$area->area}} - {{$area->level}},</p>
@@ -59,13 +57,13 @@
                           <td>
                               <a href="{{route('portal.trainer.accreditations.edit',$accreditation->id)
                                   }}" class="btn btn-sm btn-danger"
-                                  title="edit trainer registration details"
+                                  title="edit trainer accreditaion details"
                                   >
                                   <i class="fas fa-edit"></i>    
                               </a>
                               <a href="{{route('portal.trainer.accreditations.show',$accreditation->id)
                                   }}" class="btn btn-sm btn-info"
-                                  title="view trainer registration details"
+                                  title="view trainer accreditaion details"
                                   >
                                   <i class="fas fa-eye"></i>    
                               </a>

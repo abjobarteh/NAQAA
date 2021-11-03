@@ -48,6 +48,7 @@ class ViewInterimAuthorisation extends Component
             $this->promoter_dob[$key] = $value->date_of_birth;
             $this->promoter_occupation[$key] = $value->occupation;
             $this->promoter_address[$key] = $value->address;
+            $this->promoter_passportcopy[$key] = $value->passport_copy;
             array_push($this->promoter_inputs, $key);
         }
     }

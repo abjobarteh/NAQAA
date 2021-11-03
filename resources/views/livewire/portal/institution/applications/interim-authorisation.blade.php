@@ -38,7 +38,11 @@
                           <td><span class="badge badge-success">{{$application->application_type ?? 'N/A'}}</span></td>
                           <td><span class="badge badge-success">{{$application->application_form_status ?? 'N/A'}}</span></td>
                           <td>{{$application->created_at ?? 'N/A'}}</td>
-                          <td><span class="badge badge-success">{{$application->status ?? 'N/A'}}</span></td>
+                          <td>
+                            <span class="badge {{$application->status == 'Pending' ? 'badge-danger' : 'badge-success'}}">
+                              {{$application->status ?? 'N/A'}}
+                            </span>
+                          </td>
                           <td>
                             @if($application->application_form_status == 'Saved')
                               <a href="{{route('portal.institution.edit-interim-authorisation',$application->id)}}" class="btn btn-sm btn-danger">

@@ -22,10 +22,13 @@ class AccreditationsController extends Controller
     public function index()
     {
         $accreditations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,nationality,email,type',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'trainerAccreditations'
-        ])->where('application_category', 'accreditation')
-            ->where('applicant_type', 'trainer')
+        ])
+            ->whereHas('trainer', function (Builder $query) {
+                $query->where('login_id', auth()->user()->id);
+            })
+            ->where('application_type', 'trainer_accreditation')
             ->latest()
             ->get();
 
