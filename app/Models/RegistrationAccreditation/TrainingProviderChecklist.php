@@ -10,8 +10,18 @@ class TrainingProviderChecklist extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'is_required'
+        'training_provider_id',
+        'checklist_id',
+        'path',
     ];
+
+    public function checklist()
+    {
+        return $this->belongsTo(Checklist::class, 'checklist_id');
+    }
+
+    public function trainingprovider()
+    {
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
+    }
 }

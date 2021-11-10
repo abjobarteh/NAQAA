@@ -201,4 +201,9 @@ class TrainingProvider extends Model
     {
         return $this->hasMany(InterimAuthorisationDetail::class, 'training_provider_id');
     }
+
+    public function trainingproviderchecklists()
+    {
+        return $this->hasMany(TrainingProviderChecklist::class, 'training_provider_id');
+    }
 }

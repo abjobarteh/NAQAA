@@ -373,6 +373,43 @@
 </li>
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
+  {{ request()->is('registration-accreditation/checklist-thematic-area') ||
+    request()->is('registration-accreditation/checklist-thematic-area/*') ||
+    request()->is('registration-accreditation/checklists') ||
+    request()->is('registration-accreditation/checklists/*')
+  ? 'active' : '' }}"
+    >
+    <i class="nav-icon fas fa-th-list"></i>
+    <p>
+       Checklists configuration
+      <i class="right fas fa-angle-left"></i>
+    </p>
+  </a>
+  <ul class="nav nav-treeview">
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.checklist-thematic-area.index')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/checklist-thematic-area') || 
+         request()->is('registration-accreditation/checklist-thematic-area/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-clipboard-list"></i>
+        <p>
+          Checklist Thematic Area
+        </p>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="{{route('registration-accreditation.checklists.index')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/checklists') || 
+         request()->is('registration-accreditation/checklists/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-list-ul"></i>
+        <p>
+          Checklist evidence
+        </p>
+      </a>
+    </li>
+  </ul>
+</li>
+<li class="nav-item menu-open">
+  <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/reports/*') || 
      request()->is('registration-accreditation/reports/*') ? 'active' : '' }}"
     >

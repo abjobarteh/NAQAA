@@ -20,7 +20,9 @@
                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter New Password" required> 
                           </div>
                           @error('password')
-                            <div class="invalid-feedback m-1">{{ $message }}</div>
+                            <div class="invalid-feedback m-1">
+                              <span class="text-danger">{{ $message }}</span>
+                            </div>
                           @enderror
                       </div>
                       <div class="formsix-e">
@@ -33,14 +35,6 @@
                         <button type="submit" class="btn btn-primary btn-block login_btn"> Confirm </button>
                       </div>
                   </form>
-                    {{-- <div class="login_message">
-                        <p>Don’t want to change password ?
-                           <a href="{{ route('skip-default-password') }}" onclick="event.preventDefault(); document.getElementById('skipDefaultpassworUpdate-form').submit();"> Proceed </a>
-                        </p>
-                        <form id="skipDefaultpassworUpdate-form" action="{{ route('skip-default-password') }}" method="POST" style="display: none;">
-                          {{ csrf_field() }}
-                        </form>
-                    </div> --}}
               </div> <!-- /.login_wrapper-->
           </div>
       </div>

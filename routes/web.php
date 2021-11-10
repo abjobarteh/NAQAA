@@ -21,6 +21,8 @@ use App\Http\Controllers\Portal\Trainer\AccreditationsController;
 use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
 use App\Http\Controllers\Portal\Trainer\RegistrationsController;
 use App\Http\Controllers\RegistrationAccreditation\ApplicationsController;
+use App\Http\Controllers\RegistrationAccreditation\ChecklistController;
+use App\Http\Controllers\RegistrationAccreditation\ChecklistThematicAreaController;
 use App\Http\Controllers\RegistrationAccreditation\DashboardController as RegistrationAccreditationDashboardController;
 use App\Http\Controllers\RegistrationAccreditation\LicencesManagementController;
 use App\Http\Controllers\RegistrationAccreditation\TrainersAccreditationController;
@@ -349,6 +351,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     // applications
     Route::resource('applications', ApplicationsController::class)->except('create');
+
+    // checklists thematic area
+    Route::resource('checklist-thematic-area', ChecklistThematicAreaController::class)
+      ->except('show', 'destroy');
+
+    // checklists
+    Route::resource('checklists', ChecklistController::class)
+      ->except('show', 'destroy');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
       Route::get('learning-centers', LearningCentersReport::class)->name('learning-centers');

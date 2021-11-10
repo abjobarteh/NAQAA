@@ -331,51 +331,51 @@ class TrainingProvidersRegistrationController extends Controller
         return back()->withSuccess('Training provider registration Successfully updated in the system');
     }
 
-    public function filterTrainingProviders(Request $request)
-    {
-        $trainingprovider = TrainingProvider::query();
+    // public function filterTrainingProviders(Request $request)
+    // {
+    //     $trainingprovider = TrainingProvider::query();
 
-        if ($request->filled('region')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('region_id', $request->input('region'));
-        } else if ($request->filled('district')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('ditrict_id', $request->input('district'));
-        } else if ($request->filled('town_village')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('town_village_id', $request->input('town_village'));
-        } else if ($request->filled('region') && $request->filled('district') && !$request->filled('town_village')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('region_id', $request->input('region'))
-                ->where('ditrict_id', $request->input('district'));
-        } else if ($request->filled('region') && !$request->filled('district') && $request->filled('town_village')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('region_id', $request->input('region'))
-                ->where('town_village_id', $request->input('town_village'));
-        } else if (!$request->filled('region') && $request->filled('district') && $request->filled('town_village')) {
-            $trainingprovider->whereHas('validLicence')
-                ->where('ditrict_id', $request->input('district'))
-                ->where('town_village_id', $request->input('town_village'));
-        } else {
-            $trainingprovider->whereHas('validLicence')
-                ->where('region_id', $request->input('region'))
-                ->where('ditrict_id', $request->input('district'))
-                ->where('town_village_id', $request->input('town_village'));
-        }
+    //     if ($request->filled('region')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('region_id', $request->input('region'));
+    //     } else if ($request->filled('district')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('ditrict_id', $request->input('district'));
+    //     } else if ($request->filled('town_village')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('town_village_id', $request->input('town_village'));
+    //     } else if ($request->filled('region') && $request->filled('district') && !$request->filled('town_village')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('region_id', $request->input('region'))
+    //             ->where('ditrict_id', $request->input('district'));
+    //     } else if ($request->filled('region') && !$request->filled('district') && $request->filled('town_village')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('region_id', $request->input('region'))
+    //             ->where('town_village_id', $request->input('town_village'));
+    //     } else if (!$request->filled('region') && $request->filled('district') && $request->filled('town_village')) {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('ditrict_id', $request->input('district'))
+    //             ->where('town_village_id', $request->input('town_village'));
+    //     } else {
+    //         $trainingprovider->whereHas('validLicence')
+    //             ->where('region_id', $request->input('region'))
+    //             ->where('ditrict_id', $request->input('district'))
+    //             ->where('town_village_id', $request->input('town_village'));
+    //     }
 
-        if ($trainingprovider->get()->isEmpty()) {
-            return json_encode(['status' => 404, 'message' => 'No Registered Training Providers exist under these parameters']);
-        }
+    //     if ($trainingprovider->get()->isEmpty()) {
+    //         return json_encode(['status' => 404, 'message' => 'No Registered Training Providers exist under these parameters']);
+    //     }
 
-        $trainingprovider->with([
-            'validLicence',
-            'category',
-            'classification',
-            'region',
-            'district',
-            'townVillage'
-        ]);
+    //     $trainingprovider->with([
+    //         'validLicence',
+    //         'category',
+    //         'classification',
+    //         'region',
+    //         'district',
+    //         'townVillage'
+    //     ]);
 
-        return json_encode(['status' => 200, 'data' => $trainingprovider->get()]);
-    }
+    //     return json_encode(['status' => 200, 'data' => $trainingprovider->get()]);
+    // }
 }
