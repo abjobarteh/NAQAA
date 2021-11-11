@@ -17,6 +17,7 @@ use App\Http\Controllers\Portal\Institution\ProgrammeDataCollectionController;
 use App\Http\Controllers\Portal\Institution\RegistrationController;
 use App\Http\Controllers\Portal\Institution\StudentsDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainerDataCollectionController;
+use App\Http\Controllers\Portal\Institution\TrainingProviderChecklistController;
 use App\Http\Controllers\Portal\Trainer\AccreditationsController;
 use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
 use App\Http\Controllers\Portal\Trainer\RegistrationsController;
@@ -449,6 +450,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('trainers', TrainerDataCollectionController::class);
         Route::resource('programmes', ProgrammeDataCollectionController::class);
       });
+
+      // training provider checklist
+      Route::resource('checklist-evidence', TrainingProviderChecklistController::class)
+        ->except('destroy');
       // Route::get('settings',)
     });
 
