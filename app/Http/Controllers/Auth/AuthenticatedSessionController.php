@@ -80,9 +80,10 @@ class AuthenticatedSessionController extends Controller
 
     public function updateDefaultPassword(Request $request)
     {
-        $request->validate([
-            'password' => 'required|confirmed'
-        ]);
+        if ($request->password != $request->password_confirmation) {
+            return redirect(route('change-default-password'))
+                ->withErrors(['password' => 'Passwords do not match. Please make sure the passwords match!']);
+        }
 
         $user = User::FindorFail(Auth::user()->id);
 

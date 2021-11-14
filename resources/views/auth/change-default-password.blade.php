@@ -19,11 +19,9 @@
                           <div class="form-group i-email">
                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter New Password" required> 
                           </div>
-                          @error('password')
-                            <div class="invalid-feedback m-1">
-                              <span class="text-danger">{{ $message }}</span>
-                            </div>
-                          @enderror
+                          @if($errors->has('password'))
+                          <span class="text-danger mt-1">{{ $errors->first('password') }}</span>
+                          @endif
                       </div>
                       <div class="formsix-e">
                           <div class="form-group i-password">

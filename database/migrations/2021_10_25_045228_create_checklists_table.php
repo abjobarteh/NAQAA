@@ -20,6 +20,7 @@ class CreateChecklistsTable extends Migration
             $table->string('description')->nullable();
             $table->string('is_required')->nullable();
             $table->string('is_renewal_required')->nullable();
+            $table->string('checklist_type')->nullable();
             $table->foreignId('thematic_area_id')->nullable()->constrained('checklist_thematic_areas');
             $table->timestamps();
         });
