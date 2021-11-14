@@ -217,7 +217,6 @@ class NewInterimAuthorisation extends Component
             'success'
         );
 
-
         return redirect(route('portal.application-payment', $this->application_id));
     }
 

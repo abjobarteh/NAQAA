@@ -46,7 +46,7 @@
                                         <button type="submit" id="submit" class="btn btn-success btn-square btn-block">Submit</button>
                                     </div>
                                     <div class="col-sm-6 d-flex justify-content-center">
-                                        <button type="submit" id="submit" class="btn btn-info btn-square btn-block" wire:click.prevent="cancePayment">Cancel</button>
+                                        <button type="submit" id="submit" class="btn btn-info btn-square btn-block" wire:click.prevent="redirectBack">Back</button>
                                     </div>
                                 </div>
                             </form>

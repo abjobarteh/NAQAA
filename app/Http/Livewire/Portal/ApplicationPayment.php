@@ -74,6 +74,8 @@ class ApplicationPayment extends Component
                 $role[0]->notify(new CertificateEndorsementRequestNotification(
                     $message
                 ));
+
+                $this->redirectBack();
             }
         } else {
             $this->is_error = true;
@@ -81,8 +83,15 @@ class ApplicationPayment extends Component
         }
     }
 
-    public function cancelPayment()
+    public function redirectBack()
     {
-        
+        switch ($this->application->application_type) {
+            case "institution_letter_of_interim_authorisation":
+                return redirect(route('portal.institution.interim-authorisation'));
+            case "institution_registration":
+                return redirect(route('portal.institution.registration.index'));
+            case "institution_accreditation":
+                return redirect(route('portal.trainer.accreditations.index'));
+        }
     }
 }

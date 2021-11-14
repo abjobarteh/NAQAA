@@ -131,6 +131,7 @@ class TrainingProvidersRegistrationController extends Controller
 
                     // check if there is any currently ongoing or pending registration applications
                     $application = ApplicationDetail::where('training_provider_id', $trainingprovider->id)
+                        ->where('application_type', 'institution_registration')
                         ->whereIn('status', ['Ongoing', 'Pending'])
                         ->exists();
 

@@ -52,8 +52,17 @@ class TrainingProviderChecklistController extends Controller
 
         foreach ($checklists as $checklist) {
             if ($checklist->is_required == 'yes') {
-                if (!$request->hasFile($checklist->slug)) {
-                    $errors["$checklist->slug"] = "The $checklist->name file is required. Please upload the file!";
+                if (
+                    !TrainingProviderChecklist::where(
+                        'training_provider_id',
+                        (TrainingProvider::where('login_id', auth()->user()->id)->first())->id
+                    )
+                        ->where('checklist_id', $checklist->id)
+                        ->exists()
+                ) {
+                    if (!$request->hasFile($checklist->slug)) {
+                        $errors["$checklist->slug"] = "The $checklist->name file is required. Please upload the file!";
+                    }
                 }
             }
         }
@@ -69,11 +78,25 @@ class TrainingProviderChecklistController extends Controller
                         $name = time() . '_' . $checklist->slug;
                         $path = $file->storeAs(auth()->user()->username, $name);
 
-                        TrainingProviderChecklist::create([
-                            'training_provider_id' => (TrainingProvider::where('login_id', auth()->user()->id)->first())->id,
-                            'checklist_id' => $checklist->id,
-                            'path' => '/storage/' . $path
-                        ]);
+                        if (
+                            !TrainingProviderChecklist::where(
+                                'training_provider_id',
+                                (TrainingProvider::where('login_id', auth()->user()->id)->first())->id
+                            )
+                                ->where('checklist_id', $checklist->id)
+                                ->exists()
+                        ) {
+                            TrainingProviderChecklist::create([
+                                'training_provider_id' => (TrainingProvider::where('login_id', auth()->user()->id)->first())->id,
+                                'checklist_id' => $checklist->id,
+                                'path' => '/storage/' . $path
+                            ]);
+                        } else {
+                            TrainingProviderChecklist::where('checklist_id', $checklist->id)
+                                ->update([
+                                    'path' => '/storage/' . $path
+                                ]);
+                        }
                     }
                 }
             });
