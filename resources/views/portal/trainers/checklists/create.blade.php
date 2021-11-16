@@ -14,12 +14,12 @@ Upload Checklist Evidence
                         <h4 class="card-title">Checklist Evidence</h4>
                     </div>
                     <div class="col-sm-6 d-flex justify-content-end">
-                        <a href="{{route('portal.institution.checklist-evidence.index')}}" class="btn btn-success btn-square mr-1"><i class="fas fa-list"></i> Applications</a>
+                        <a href="{{route('portal.trainer.checklist-evidence.index')}}" class="btn btn-success btn-square mr-1"><i class="fas fa-list"></i> Applications</a>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{route('portal.institution.checklist-evidence.store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{route('portal.trainer.checklist-evidence.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 @foreach ($checklists as $key =>  $checklist_evidences)
                 <h4 class="card-title mx-2">{{$key}}</h4>

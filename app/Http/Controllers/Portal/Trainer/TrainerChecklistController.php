@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Portal\Institution;
+namespace App\Http\Controllers\Portal\Trainer;
 
 use App\Http\Controllers\Controller;
 use App\Models\RegistrationAccreditation\Checklist;
-use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainingProviderChecklist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-class TrainingProviderChecklistController extends Controller
+class TrainerChecklistController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,12 +19,12 @@ class TrainingProviderChecklistController extends Controller
      */
     public function index()
     {
-        $trainingprovider_id = (TrainingProvider::where('login_id', auth()->user()->id)->first())->id;
+        $trainingprovider_id = (Trainer::where('login_id', auth()->user()->id)->first())->id;
         $checklist_evidences = TrainingProviderChecklist::with('checklist')
-            ->where('training_provider_id', $trainingprovider_id)
+            ->where('trainer_id', $trainingprovider_id)
             ->get();
 
-        return view('portal.institutions.checklists.index', compact('checklist_evidences'));
+        return view('portal.trainers.checklists.index', compact('checklist_evidences'));
     }
 
     /**
@@ -35,11 +35,11 @@ class TrainingProviderChecklistController extends Controller
     public function create()
     {
         $checklists = Checklist::with('thematicArea')
-            ->where('checklist_type', 'institution')
+            ->where('checklist_type', 'trainer')
             ->get()
             ->groupBy('thematicArea.name');
 
-        return view('portal.institutions.checklists.create', compact('checklists'));
+        return view('portal.trainers.checklists.create', compact('checklists'));
     }
 
     /**
@@ -50,15 +50,15 @@ class TrainingProviderChecklistController extends Controller
      */
     public function store(Request $request)
     {
-        $checklists = Checklist::where('checklist_type', 'institution')->get();
+        $checklists = Checklist::where('checklist_type', 'trainer')->get();
         $errors = [];
 
         foreach ($checklists as $checklist) {
             if ($checklist->is_required == 'yes') {
                 if (
                     !TrainingProviderChecklist::where(
-                        'training_provider_id',
-                        (TrainingProvider::where('login_id', auth()->user()->id)->first())->id
+                        'trainer_id',
+                        (Trainer::where('login_id', auth()->user()->id)->first())->id
                     )
                         ->where('checklist_id', $checklist->id)
                         ->exists()
@@ -83,14 +83,14 @@ class TrainingProviderChecklistController extends Controller
 
                         if (
                             !TrainingProviderChecklist::where(
-                                'training_provider_id',
-                                (TrainingProvider::where('login_id', auth()->user()->id)->first())->id
+                                'trainer_id',
+                                (Trainer::where('login_id', auth()->user()->id)->first())->id
                             )
                                 ->where('checklist_id', $checklist->id)
                                 ->exists()
                         ) {
                             TrainingProviderChecklist::create([
-                                'training_provider_id' => (TrainingProvider::where('login_id', auth()->user()->id)->first())->id,
+                                'trainer_id' => (Trainer::where('login_id', auth()->user()->id)->first())->id,
                                 'checklist_id' => $checklist->id,
                                 'path' => '/storage/' . $path
                             ]);
@@ -105,8 +105,8 @@ class TrainingProviderChecklistController extends Controller
             });
         }
 
-        return redirect(route('portal.institution.checklist-evidence.index'))
-            ->withSuccess('All Checklist evidence has successfully been uploaded');
+        return redirect(route('portal.trainer.checklist-evidence.index'))
+            ->withSuccess('Uploaded Checklist evidence has successfully been saved');
     }
 
     /**
@@ -120,7 +120,7 @@ class TrainingProviderChecklistController extends Controller
         $checklist_evidence = TrainingProviderChecklist::findOrFail($id)
             ->load('checklist', 'checklist.thematicArea');
 
-        return view('portal.institutions.checklists.edit', compact('checklist_evidence'));
+        return view('portal.trainers.checklists.edit', compact('checklist_evidence'));
     }
 
     /**
@@ -146,7 +146,7 @@ class TrainingProviderChecklistController extends Controller
                 'path' => '/storage/' . $path
             ]);
         }
-        return redirect(route('portal.institution.checklist-evidence.index'))
+        return redirect(route('portal.trainer.checklist-evidence.index'))
             ->withSuccess("{$checklist_evidence->checklist->name} Checklist evidence has successfully updated");
     }
 }

@@ -9,7 +9,7 @@ Checklist Thematic Area
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12 col-md-6">
-            <h1 class="m-0">Training provider Checklists</h1>
+            <h1 class="m-0">Checklists</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 d-flex justify-content-end">
                 <a href="{{route('registration-accreditation.checklists.create')}}" class="btn btn-primary btn-flat">
@@ -35,6 +35,7 @@ Checklist Thematic Area
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>slug</th>
+                                    <th>Checklist Type</th>
                                     <th>description</th>
                                     <th>Required</th>
                                     <th>Renewal required</th>
@@ -47,11 +48,13 @@ Checklist Thematic Area
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $checklist->name }}</td>
                                     <td>{{ $checklist->slug }}</td>
+                                    <td><span class="badge badge-primary">{{ $checklist->checklist_type ?? 'N/A' }}</span></td>
                                     <td>{{ $checklist->description ?? 'N/A' }}</td>
                                     <td><span class="badge badge-primary">{{ $checklist->is_required ?? 'N/A' }}</span></td>
                                     <td><span class="badge badge-info">{{ $checklist->is_renewal_required ?? 'N/A' }}</span></td>
                                     <td>
-                                        <a href="{{ route('registration-accreditation.checklists.edit',$checklist->id) }}" class="btn btn-danger btn-sm" title="Edit award body">
+                                        <a href="{{ route('registration-accreditation.checklists.edit',$checklist->id) }}" class="btn btn-danger btn-xs" 
+                                            title="Edit award body">
                                             <i class="fas fa-edit"></i>
                                         </a>
                                     </td>

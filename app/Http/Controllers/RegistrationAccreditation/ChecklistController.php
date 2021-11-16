@@ -45,6 +45,7 @@ class ChecklistController extends Controller
         $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',
+            'checklist_type' => 'required|in:institution,trainer',
             'thematic_area_id' => 'required|numeric',
             'is_required' => 'required|in:yes,no',
             'is_renewal_required' => 'required|in:yes,no',
@@ -59,6 +60,7 @@ class ChecklistController extends Controller
             Checklist::create([
                 'name' => $request->name,
                 'slug' => $request->slug,
+                'checklist_type' => $request->checklist_type,
                 'thematic_area_id' => $request->thematic_area_id,
                 'is_required' => $request->is_required,
                 'is_renewal_required' => $request->is_renewal_required,
@@ -96,6 +98,7 @@ class ChecklistController extends Controller
         $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',
+            'checklist_type' => 'required|in:institution,trainer',
             'thematic_area_id' => 'required|numeric',
             'is_required' => 'required|in:yes,no',
             'is_renewal_required' => 'required|in:yes,no',
@@ -105,6 +108,7 @@ class ChecklistController extends Controller
         Checklist::where('id', $id)->update([
             'name' => $request->name,
             'slug' => $request->slug,
+            'checklist_type' => $request->checklist_type,
             'thematic_area_id' => $request->thematic_area_id,
             'is_required' => $request->is_required,
             'is_renewal_required' => $request->is_renewal_required,

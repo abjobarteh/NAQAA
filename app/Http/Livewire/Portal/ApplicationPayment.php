@@ -91,6 +91,10 @@ class ApplicationPayment extends Component
             case "institution_registration":
                 return redirect(route('portal.institution.registration.index'));
             case "institution_accreditation":
+                return redirect(route('portal.institution.accreditations.index'));
+            case "trainer_registration":
+                return redirect(route('portal.trainer.registrations.index'));
+            case "trainer_accreditation":
                 return redirect(route('portal.trainer.accreditations.index'));
         }
     }

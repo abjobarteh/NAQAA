@@ -12,6 +12,7 @@ class Checklist extends Model
     protected $fillable = [
         'name',
         'slug',
+        'checklist_type',
         'description',
         'is_required',
         'is_renewal_required',

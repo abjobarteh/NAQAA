@@ -108,12 +108,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group" wire:ignore>
+                                        <div class="form-group">
                                             <label>Country of Origin/Citizenship:</label>
-                                            <select id="country" class="form-control select2" wire:model="country" required>
-                                                <option value="">Select country of origin/citizenship</option>
+                                            <select id="country" class="form-control custom-select" wire:model="country" required>
+                                                <option>Select country of origin/citizenship</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country}}" {{$country === 'Gambia' ? 'selected' : ''}}>{{$country}}</option>
+                                                    <option value="{{$country}}">{{$country}}</option>
                                                 @endforeach
                                             </select>
                                             @error('country')

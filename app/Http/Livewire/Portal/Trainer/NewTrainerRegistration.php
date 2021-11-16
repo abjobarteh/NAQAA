@@ -4,9 +4,11 @@ namespace App\Http\Livewire\Portal\Trainer;
 
 use App\Models\Country;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
+use App\Models\RegistrationAccreditation\Checklist;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainerType;
+use App\Models\RegistrationAccreditation\TrainingProviderChecklist;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -48,7 +50,7 @@ class NewTrainerRegistration extends Component
             'lastname' => $trainer->lastname,
             'dob' => $trainer->date_of_birth,
             'gender' => $trainer->gender,
-            'country' => $trainer->country_of_citizenship,
+            'country' => $trainer->country_of_citizenship ?? $this->country,
             'tin' => $trainer->TIN,
             'nin_passport' => $trainer->NIN,
             'ain' => $trainer->AIN,
@@ -57,7 +59,7 @@ class NewTrainerRegistration extends Component
             'postal_address' => $trainer->postal_address,
             'tel_home' => $trainer->phone_home,
             'mobile' => $trainer->phone_mobile,
-            'is_gambian' => $trainer->country_of_citizenship == 'Gambia' ? true : false
+            'is_gambian' => $trainer->country_of_citizenship ?? $this->country == 'Gambia' ? true : false
         ]);
     }
 
@@ -103,12 +105,12 @@ class NewTrainerRegistration extends Component
                     ->orWhereNull('middlename');
             })
             ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
-            ->whereDate('date_of_birth', $this->dob)
-            ->where('gender', $this->gender)
-            ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
-            ->where('TIN', $this->tin)
-            ->where('NIN', $this->nin_passport)
-            ->where('AIN', $this->ain)
+            // ->whereDate('date_of_birth', $this->dob)
+            // ->where('gender', $this->gender)
+            // ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
+            // ->where('TIN', $this->tin)
+            // ->where('NIN', $this->nin_passport)
+            // ->where('AIN', $this->ain)
             ->whereHas('validLicence')
             ->exists()
         ) {
@@ -120,58 +122,72 @@ class NewTrainerRegistration extends Component
 
             return redirect()->route('portal.trainer.registrations.index');
         } else {
-            DB::transaction(function () {
-                // get trainer details
-                $trainer = Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')
-                    ->where(function ($query) {
-                        $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($this->middlename) . '%')
-                            ->orWhereNull('middlename');
-                    })
-                    ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
-                    ->whereDate('date_of_birth', $this->dob)
-                    ->where('gender', $this->gender)
-                    ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
-                    ->where('TIN', $this->tin)
-                    ->where('NIN', $this->nin_passport)
-                    ->where('AIN', $this->ain)
-                    ->first();
+            // get trainer details
+            $trainer = Trainer::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')
+                ->where(function ($query) {
+                    $query->where(DB::raw('lower(middlename)'), 'like', '%' . strtolower($this->middlename) . '%')
+                        ->orWhereNull('middlename');
+                })
+                ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($this->lastname) . '%')
+                // ->whereDate('date_of_birth', $this->dob)
+                // ->where('gender', $this->gender)
+                // ->where('country_of_citizenship', 'like', '%' . $this->country . '%')
+                // ->where('TIN', $this->tin)
+                // ->where('NIN', $this->nin_passport)
+                // ->where('AIN', $this->ain)
+                ->first();
 
-                // check if trainer has any currently pending or ongoing registration applications
-                $application = ApplicationDetail::where('trainer_id', $trainer->id)
-                    ->where('application_type', 'trainer_registration')
-                    ->whereIn('status', ['Ongoing', 'Pending'])
-                    ->exists();
-                if ($application) {
-                    return back()
-                        ->withWarning(
-                            'Cannot Proceed with registration. You already have a Pending or
-                            Ongoing Application!.'
-                        );
+            // check if trainer has any currently pending or ongoing registration applications
+            if (
+                ApplicationDetail::where('trainer_id', $trainer->id)
+                ->where('application_type', 'trainer_registration')
+                ->whereIn('status', ['Ongoing', 'Pending'])
+                ->exists()
+            ) {
+                alert(
+                    'Ongoing/Pending Registration',
+                    'Cannot Proceed with registration. You already have a Pending or
+                    Ongoing Application!',
+                    'info'
+                );
+                return redirect(route('portal.trainer.registrations.index'));
+            } else {
+                if (!$this->isChecklistEvidenceUploaded()) {
+                    alert(
+                        'Incomplete Checklist Evidence',
+                        'Cannot Proceed with registration as you have not uploaded the require Checklist evidence.
+                        Please Click on the Checklist Evidence menu under Manage Application to upload all required evidences!',
+                        'info'
+                    );
+                    return redirect(route('portal.trainer.registrations.index'));
                 } else {
-                    // generate new application no
-                    $records = ApplicationDetail::all();
-                    if ($records->isEmpty()) {
-                        $new_serial_no = '000001';
-                        $application_no = 'APP-' . $new_serial_no;
-                    } else {
-                        $last_record = ApplicationDetail::latest()->limit(1)->first();
-                        $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
-                        $application_no = 'APP-' . $new_serial_no;
-                    }
+                    DB::transaction(function () use ($trainer) {
+                        // generate new application no
+                        $records = ApplicationDetail::all();
+                        if ($records->isEmpty()) {
+                            $new_serial_no = '000001';
+                            $application_no = 'APP-' . $new_serial_no;
+                        } else {
+                            $last_record = ApplicationDetail::latest()->limit(1)->first();
+                            $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+                            $application_no = 'APP-' . $new_serial_no;
+                        }
 
-                    // store training provider application details
-                    $application = ApplicationDetail::create([
-                        'trainer_id' => $trainer->id,
-                        'application_type' => 'trainer_registration',
-                        'application_no' => $application_no,
-                        'serial_no' => $new_serial_no,
-                        'status' => 'Pending',
-                        'application_form_status' => 'Saved',
-                        'submitted_through' => 'Portal',
-                    ]);
-                    $this->application_id = $application->id;
+                        // store training provider application details
+                        $application = ApplicationDetail::create([
+                            'trainer_id' => $trainer->id,
+                            'application_type' => 'trainer_registration',
+                            'application_no' => $application_no,
+                            'serial_no' => $new_serial_no,
+                            'status' => 'Pending',
+                            'application_form_status' => 'Saved',
+                            'submitted_from' => 'Portal',
+                            'trainer_type' => $this->trainer_type,
+                        ]);
+                        $this->application_id = $application->id;
+                    });
                 }
-            });
+            }
         }
 
         alert(
@@ -182,5 +198,23 @@ class NewTrainerRegistration extends Component
         );
 
         return redirect(route('portal.application-payment', $this->application_id));
+    }
+
+    public function isChecklistEvidenceUploaded()
+    {
+        $trainer_id = (Trainer::where('login_id', auth()->user()->id)->first())->id;
+        $checklists_required = Checklist::where('is_required', 'yes')
+            ->where('checklist_type', 'trainer')
+            ->pluck('slug', 'id');
+        $checklist_evidences = TrainingProviderChecklist::where('trainer_id', $trainer_id)
+            ->pluck('path', 'checklist_id');
+
+        $uploaded =  $checklists_required->intersectByKeys($checklist_evidences);
+
+        if ($uploaded->count() < $checklists_required->count()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

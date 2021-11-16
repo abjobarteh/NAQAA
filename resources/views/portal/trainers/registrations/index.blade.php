@@ -42,19 +42,13 @@
                             <td>{{$application->application_date ?? 'N/A'}}</td>
                             <td>
                                 @if($application->status == 'Pending' && $application->application_form_status == 'Saved')
-                                <a href="{{route('portal.trainer.registrations.edit',$application->id)
+                                <a href="{{route('portal.trainer.edit-trainer-registration',$application->id)
                                     }}" class="btn btn-sm btn-danger"
                                     title="edit trainer registration details"
                                     >
                                     <i class="fas fa-edit"></i>    
                                 </a>
                                 @endif
-                                <a href="{{route('portal.trainer.registrations.show',$application->id)
-                                    }}" class="btn btn-sm btn-info"
-                                    title="view trainer registration details"
-                                    >
-                                    <i class="fas fa-eye"></i>    
-                                </a>
                                 @if($application->application_form_status === 'Saved')
                                 <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-primary">
                                 <i class="fas fa-coins"></i>

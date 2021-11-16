@@ -50,7 +50,7 @@ class EditTrainerRegistration extends Component
             'lastname' => $registration->trainer->lastname,
             'dob' => $registration->trainer->date_of_birth,
             'gender' => $registration->trainer->gender,
-            'country' => $registration->trainer->country_of_citizenship,
+            'country' => $registration->trainer->country_of_citizenship ?? $this->country,
             'tin' => $registration->trainer->TIN,
             'nin_passport' => $registration->trainer->NIN,
             'ain' => $registration->trainer->AIN,
@@ -59,7 +59,7 @@ class EditTrainerRegistration extends Component
             'postal_address' => $registration->trainer->postal_address,
             'tel_home' => $registration->trainer->phone_home,
             'mobile' => $registration->trainer->phone_mobile,
-            'is_gambian' => $registration->trainer->country_of_citizenship == 'Gambia' ? true : false
+            'is_gambian' => $registration->trainer->country_of_citizenship ?? $this->country == 'Gambia' ? true : false
         ]);
     }
 
@@ -71,7 +71,8 @@ class EditTrainerRegistration extends Component
         return view(
             'livewire.portal.trainer.edit-trainer-registration',
             compact('countries', 'trainer_types')
-        );
+        )
+            ->extends('layouts.portal');
     }
 
     public function updatedTrainerType($value)
@@ -114,6 +115,10 @@ class EditTrainerRegistration extends Component
                 'postal_address' => $this->postal_address,
                 'phone_home' => $this->tel_home,
                 'phone_mobile' => $this->mobile,
+            ]);
+
+            $this->trainer_registration->update([
+                'trainer_type' => $this->trainer_type
             ]);
         });
 

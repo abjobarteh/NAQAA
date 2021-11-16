@@ -138,7 +138,7 @@ class RegistrationController extends Controller
                         return back()
                             ->withWarning(
                                 'Cannot Proceed with registration as you have not uploaded the require Checklist evidence.
-                            Please Click in the Checklist Evidence menu under Application to upload all required evidences!.'
+                            Please Click on the Checklist Evidence menu under Application to upload all required evidences!.'
                             );
                     } else {
                         DB::transaction(function () use ($request, $boardMembers, $bankSignatories, $trainingprovider) {
@@ -427,7 +427,9 @@ class RegistrationController extends Controller
     public function isChecklistEvidenceUploaded()
     {
         $trainingprovider_id = (TrainingProvider::where('login_id', auth()->user()->id)->first())->id;
-        $checklists_required = Checklist::where('is_required', 'yes')->pluck('slug', 'id');
+        $checklists_required = Checklist::where('is_required', 'yes')
+            ->where('checklist_type', 'institution')
+            ->pluck('slug', 'id');
         $checklist_evidences = TrainingProviderChecklist::where('training_provider_id', $trainingprovider_id)
             ->pluck('path', 'checklist_id');
 

@@ -21,6 +21,7 @@ use App\Http\Controllers\Portal\Institution\TrainingProviderChecklistController;
 use App\Http\Controllers\Portal\Trainer\AccreditationsController;
 use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
 use App\Http\Controllers\Portal\Trainer\RegistrationsController;
+use App\Http\Controllers\Portal\Trainer\TrainerChecklistController;
 use App\Http\Controllers\RegistrationAccreditation\ApplicationsController;
 use App\Http\Controllers\RegistrationAccreditation\ChecklistController;
 use App\Http\Controllers\RegistrationAccreditation\ChecklistThematicAreaController;
@@ -453,7 +454,7 @@ Route::group(['middleware' => 'auth'], function () {
 
       // training provider checklist
       Route::resource('checklist-evidence', TrainingProviderChecklistController::class)
-        ->except('destroy');
+        ->except(['destroy', 'show']);
       // Route::get('settings',)
     });
 
@@ -467,10 +468,14 @@ Route::group(['middleware' => 'auth'], function () {
       // Trainer registratinons
       Route::resource('registrations', RegistrationsController::class);
       Route::get('new-trainer-registration', NewTrainerRegistration::class)->name('new-trainer-registration');
-      Route::get('edit-trainer-registration', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
+      Route::get('edit-trainer-registration/{id}', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
 
       // Trainer accreditations
       Route::resource('accreditations', AccreditationsController::class);
+
+      // Trainer checklist
+      Route::resource('checklist-evidence', TrainerChecklistController::class)
+        ->except(['destroy', 'show']);
     });
 
     // payments page

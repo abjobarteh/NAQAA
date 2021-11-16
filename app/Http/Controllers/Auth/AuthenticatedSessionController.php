@@ -35,21 +35,22 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-        if ($request->user()->user_status == 0) {
-            Auth::guard('web')->logout();
 
-            $request->session()->invalidate();
+        if ($request->user()->user_category === 'system') {
+            if ($request->user()->user_status == 0) {
+                Auth::guard('web')->logout();
 
-            $request->session()->regenerateToken();
+                $request->session()->invalidate();
 
-            return back()->withWarning('Your Account is Deactivated. Please contact your administrator for further advice.');
+                $request->session()->regenerateToken();
+
+                return back()->withWarning('Your Account is Deactivated. Please contact your administrator for further advice.');
+            }
+
+            session(['active_role' => auth()->user()->roles[0]->slug]);
+
+            if ($request->user()->default_password_status == 1) return $this->changeDefaultPassword();
         }
-
-        session(['active_role' => auth()->user()->roles[0]->slug]);
-
-        if ($request->user()->default_password_status == 1) return $this->changeDefaultPassword();
-
-
 
         return $this->redirectToCorrectUserDashboard($request);
     }

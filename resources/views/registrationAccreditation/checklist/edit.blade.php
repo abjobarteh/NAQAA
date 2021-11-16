@@ -30,20 +30,33 @@ Edit Checklist
                             @csrf
                             @method('PUT')
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="name" class="col-form-label">Name: <span class="text-danger"><sup>*</sup></span></label>
-                                        <input type="text" class="form-control" id="name" name="name" value="{{ $checklist->name }}" placeholder="Enter thematic area name" required autofocus>
+                                        <input type="text" class="form-control" id="name" name="name" value="{{ $checklist->name }}" placeholder="Enter checklist name" required autofocus>
                                         @error('name')
                                             <span class="text-danger mt-1">{{$message}}</span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="slug" class="col-form-label">Slug: <span class="text-danger"><sup>*</sup></span></label>
                                         <input type="text" class="form-control" id="slug" name="slug" value="{{ $checklist->slug }}" placeholder="Enter slug" required>
                                         @error('slug')
+                                            <span class="text-danger mt-1">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="checklist_type" class="col-form-label">Checklist Type: <span class="text-danger"><sup>*</sup></span></label>
+                                        <select name="checklist_type" id="checklist_type" class="form-control custom-select">
+                                            <option>--- select checklist type ---</option>
+                                            <option value="institution" {{$checklist->checklist_type ==  'institution' ? 'selected' : ''}}>Institution</option>
+                                            <option value="trainer" {{$checklist->checklist_type ==  'trainer' ? 'selected' : ''}}>Trainer</option>
+                                        </select>
+                                        @error('checklist_type')
                                             <span class="text-danger mt-1">{{$message}}</span>
                                         @enderror
                                     </div>

@@ -11,6 +11,7 @@ class TrainingProviderChecklist extends Model
 
     protected $fillable = [
         'training_provider_id',
+        'trainer_id',
         'checklist_id',
         'path',
     ];
