@@ -81,7 +81,9 @@ use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\Portal\Trainer\EditTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
+use App\Http\Livewire\Portal\Trainer\NewTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\NewTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
@@ -471,7 +473,9 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('edit-trainer-registration/{id}', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
 
       // Trainer accreditations
-      Route::resource('accreditations', AccreditationsController::class);
+      Route::resource('accreditations', AccreditationsController::class)->except(['store', 'update', 'delete']);
+      Route::get('new-trainer-accreditation', NewTrainerAccreditation::class)->name('new-trainer-accreditation');
+      Route::get('edit-trainer-accreditation/{id}', EditTrainerAccreditation::class)->name('edit-trainer-accreditation');
 
       // Trainer checklist
       Route::resource('checklist-evidence', TrainerChecklistController::class)

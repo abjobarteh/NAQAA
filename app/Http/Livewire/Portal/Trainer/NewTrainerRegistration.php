@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Portal\Trainer;
 
 use App\Models\Country;
+use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\Checklist;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainerAccreditationDetail;
 use App\Models\RegistrationAccreditation\TrainerType;
 use App\Models\RegistrationAccreditation\TrainingProviderChecklist;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +21,9 @@ class NewTrainerRegistration extends Component
         $tin, $nin_passport, $ain, $email, $address, $postal_address, $tel_home, $mobile, $application_no,
         $application_date, $application_status, $license_start_date, $license_end_date, $license_no, $trainer_type,
         $practical_trainer;
+    public $accreditation_area, $accreditation_level;
+    public $accreditation_inputs = [];
+    public $accreditation_counter = 1;
 
     public $is_gambian = true, $is_approved = false, $is_practical_trainer = false;
     public $application_id;
@@ -38,6 +43,12 @@ class NewTrainerRegistration extends Component
         'postal_address' => 'nullable|string',
         'tel_home' => 'nullable|string',
         'mobile' => 'required|string',
+        'accreditation_area.0' => 'required|string',
+        'accreditation_level.0' => 'required|string',
+        'accreditation_area.*' => 'required|string',
+        'accreditation_level.*' => 'required|string',
+        'trainer_type' => 'required|string',
+        'practical_trainer' => 'required_if:trainer_type,Practical Trainer|nullable|string'
     ];
 
     public function mount()
@@ -63,14 +74,27 @@ class NewTrainerRegistration extends Component
         ]);
     }
 
+    public function addAccreditation($counter)
+    {
+        $counter = $counter + 1;
+        $this->accreditation_counter = $counter;
+        array_push($this->accreditation_inputs, $counter);
+    }
+
+    public function removeAccreditation($counter)
+    {
+        unset($this->accreditation_inputs[$counter]);
+    }
+
     public function render()
     {
         $countries = Country::all()->pluck('name');
         $trainer_types = TrainerType::all();
+        $levels = QualificationLevel::all()->pluck('name', 'id');
 
         return view(
             'livewire.portal.trainer.new-trainer-registration',
-            compact('countries', 'trainer_types')
+            compact('countries', 'trainer_types', 'levels')
         )
             ->extends('layouts.portal');
     }
@@ -147,7 +171,7 @@ class NewTrainerRegistration extends Component
                 alert(
                     'Ongoing/Pending Registration',
                     'Cannot Proceed with registration. You already have a Pending or
-                    Ongoing Application!',
+                     Ongoing Application!',
                     'info'
                 );
                 return redirect(route('portal.trainer.registrations.index'));
@@ -184,6 +208,17 @@ class NewTrainerRegistration extends Component
                             'submitted_from' => 'Portal',
                             'trainer_type' => $this->trainer_type,
                         ]);
+
+                        // Save accreditation details
+                        foreach ($this->accreditation_area as $key => $value) {
+                            TrainerAccreditationDetail::create([
+                                'trainer_id' => $trainer->id,
+                                'area' => $this->accreditation_area[$key],
+                                'level' => $this->accreditation_level[$key],
+                                'application_id' => $application->id,
+                                'status' => 'Pending',
+                            ]);
+                        }
                         $this->application_id = $application->id;
                     });
                 }

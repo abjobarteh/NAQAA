@@ -11,7 +11,7 @@
                         <h4 class="card-title mb-0">Trainer Accreditation Applications</h4>
                    </div>
                    <div class="col-sm-6 d-flex justify-content-end">
-                        <a href="{{route('portal.trainer.accreditations.create')}}" class="btn btn-success btn-square">
+                        <a href="{{route('portal.trainer.new-trainer-accreditation')}}" class="btn btn-success btn-square">
                             <svg class="c-icon mr-2">
                                 <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-plus"></use>
                             </svg>
@@ -42,7 +42,7 @@
                     <td>{{$accreditation->application_date ?? 'N/A'}}</td>
                     <td>
                         @if($accreditation->status == 'Pending' && $accreditation->application_form_status == 'Saved')
-                        <a href="{{route('portal.trainer.edit-trainer-registration',$accreditation->id)
+                        <a href="{{route('portal.trainer.edit-trainer-accreditation',$accreditation->id)
                             }}" class="btn btn-sm btn-danger"
                             title="edit trainer registration details"
                             >

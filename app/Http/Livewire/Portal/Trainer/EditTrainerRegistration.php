@@ -3,9 +3,9 @@
 namespace App\Http\Livewire\Portal\Trainer;
 
 use App\Models\Country;
+use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
-use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
-use App\Models\RegistrationAccreditation\Trainer;
+use App\Models\RegistrationAccreditation\TrainerAccreditationDetail;
 use App\Models\RegistrationAccreditation\TrainerType;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -17,6 +17,10 @@ class EditTrainerRegistration extends Component
         $tin, $nin_passport, $ain, $email, $address, $postal_address, $tel_home, $mobile, $application_no,
         $application_date, $application_status, $license_start_date, $license_end_date, $license_no, $trainer_type,
         $practical_trainer;
+
+    public $accreditation_area, $accreditation_level, $accreditation_id;
+    public $accreditation_inputs = [];
+    public $accreditation_counter = 1;
 
     public $is_gambian = true, $is_approved = false, $is_practical_trainer = false, $trainer_registration,
         $update_successfull = false;
@@ -37,11 +41,18 @@ class EditTrainerRegistration extends Component
         'postal_address' => 'nullable|string',
         'tel_home' => 'nullable|string',
         'mobile' => 'required|string',
+        'accreditation_area.0' => 'required|string',
+        'accreditation_level.0' => 'required|string',
+        'accreditation_area.*' => 'required|string',
+        'accreditation_level.*' => 'required|string',
+        'trainer_type' => 'required|string',
+        'practical_trainer' => 'required_if:trainer_type,Practical Trainer|nullable|string'
     ];
 
     public function mount($id)
     {
-        $registration = ApplicationDetail::findOrFail($id)->load('trainer', 'registrationLicence');
+        $registration = ApplicationDetail::findOrFail($id)
+            ->load('trainer', 'registrationLicence', 'trainerAccreditations');
         $this->trainer_registration = $registration;
 
         $this->fill([
@@ -59,18 +70,42 @@ class EditTrainerRegistration extends Component
             'postal_address' => $registration->trainer->postal_address,
             'tel_home' => $registration->trainer->phone_home,
             'mobile' => $registration->trainer->phone_mobile,
-            'is_gambian' => $registration->trainer->country_of_citizenship ?? $this->country == 'Gambia' ? true : false
+            'is_gambian' => $registration->trainer->country_of_citizenship ?? $this->country == 'Gambia' ? true : false,
+            'trainer_type' => $registration->trainer_type,
+            'is_practical_trainer' => $registration->trainer_type == 'Practical Trainer' ? true : false,
         ]);
+
+        foreach ($registration->trainerAccreditations as $key => $value) {
+            $this->accreditation_area[$key] = $value->area;
+            $this->accreditation_level[$key] = $value->level;
+            $this->accreditation_id[$key] = $value->id;
+            array_push($this->accreditation_inputs, $key);
+        }
+    }
+
+    public function addAccreditation($counter)
+    {
+        $counter = $counter + 1;
+        $this->accreditation_counter = $counter;
+        array_push($this->accreditation_inputs, $counter);
+    }
+
+    public function removeAccreditation($counter)
+    {
+        unset($this->accreditation_inputs[$counter]);
     }
 
     public function render()
     {
         $countries = Country::all()->pluck('name');
         $trainer_types = TrainerType::all();
+        $levels = QualificationLevel::all()->pluck('name', 'id');
+
+
 
         return view(
             'livewire.portal.trainer.edit-trainer-registration',
-            compact('countries', 'trainer_types')
+            compact('countries', 'trainer_types', 'levels')
         )
             ->extends('layouts.portal');
     }
@@ -95,31 +130,22 @@ class EditTrainerRegistration extends Component
 
     public function updateTrainer()
     {
-
-        $this->validate();
+        // $this->validate();
 
         DB::transaction(function () {
-
-            $this->trainer_registration->trainer->update([
-                'firstname' => $this->firstname,
-                'middlename' => $this->middlename,
-                'lastname' => $this->lastname,
-                'gender' => $this->gender,
-                'date_of_birth' => $this->dob,
-                'country_of_citizenship' => $this->country,
-                'TIN' => $this->tin,
-                'NIN' => $this->nin_passport && $this->country === 'Gambia' ? $this->nin_passport : null,
-                'AIN' => $this->ain && $this->country != 'Gambia' ? $this->ain : null,
-                'email' => $this->email,
-                'physical_address' => $this->address,
-                'postal_address' => $this->postal_address,
-                'phone_home' => $this->tel_home,
-                'phone_mobile' => $this->mobile,
-            ]);
 
             $this->trainer_registration->update([
                 'trainer_type' => $this->trainer_type
             ]);
+
+            // update accreditation details
+            foreach ($this->accreditation_area as $key => $value) {
+                TrainerAccreditationDetail::where('id', $this->accreditation_id[$key])
+                    ->update([
+                        'area' => $this->accreditation_area[$key],
+                        'level' => $this->accreditation_level[$key],
+                    ]);
+            }
         });
 
         $this->update_successfull = true;

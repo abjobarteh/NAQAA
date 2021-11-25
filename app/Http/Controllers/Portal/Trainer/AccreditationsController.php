@@ -9,6 +9,7 @@ use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainerAccreditationDetail;
+use App\Models\RegistrationAccreditation\TrainerType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,8 +41,9 @@ class AccreditationsController extends Controller
     public function create()
     {
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $trainer_types = TrainerType::all()->pluck('name', 'id');
 
-        return view('portal.trainers.accreditations.create', compact('levels'));
+        return view('portal.trainers.accreditations.create', compact('levels', 'trainer_types'));
     }
 
     /**
