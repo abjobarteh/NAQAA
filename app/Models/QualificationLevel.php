@@ -2,8 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\AssessmentCertification\RegisteredStudent;
-use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
+use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,5 +41,10 @@ class QualificationLevel extends Model
     public function studentEntryQualifications()
     {
         return $this->hasMany(TrainingProviderStudent::class, 'qualification_at_entry');
+    }
+
+    public function registeredStudents()
+    {
+        return $this->hasMany(StudentRegistrationDetail::class, 'programme_id');
     }
 }

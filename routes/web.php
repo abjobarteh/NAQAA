@@ -71,7 +71,9 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
+use App\Http\Livewire\AssessmentCertification\EditStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
+use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
 use App\Http\Livewire\Notifications;
@@ -384,6 +386,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // student registrations
     Route::resource('registrations', StudentRegistrationsController::class);
+    Route::get('new-student-registration', NewStudentRegistration::class)->name('new-student-registration');
+    Route::get('edit-student-registration/{id}', EditStudentRegistration::class)->name('edit-student-registration');
 
     // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {

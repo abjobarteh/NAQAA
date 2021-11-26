@@ -29,19 +29,15 @@ class TrainingProviderStudent extends Model
         'attendance_status',
         'admission_date',
         'completion_date',
-        'candidate_type',
         'region_id',
         'district_id',
         'town_village_id',
         'programme_name',
         'qualification_at_entry',
-        'programme_id',
-        'programme_level_id',
         'award',
         'field_of_education',
         'training_provider_id',
         'academic_year',
-        'candidate_id',
         'picture',
     ];
 
@@ -89,20 +85,16 @@ class TrainingProviderStudent extends Model
         return $this->belongsTo(QualificationLevel::class, 'qualification_at_entry');
     }
 
-    public function programme()
+    public function studentRegistrations()
     {
-        return $this->belongsTo(Qualification::class, 'programme_id');
-    }
-
-    public function level()
-    {
-        return $this->belongsTo(QualificationLevel::class, 'programme_level_id');
+        return $this->hasMany(StudentRegistrationDetail::class, 'student_id');
     }
 
     public function registration()
     {
         return $this->hasOne(StudentRegistrationDetail::class, 'student_id')->latest();
     }
+
 
     public function getTableColumns()
     {

@@ -9,7 +9,7 @@
             <h1 class="m-0">Registered Students</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                <a href="{{route('assessment-certification.registrations.create')}}" 
+                <a href="{{route('assessment-certification.new-student-registration')}}" 
                     class="btn btn-primary btn-flat float-right">
                     <i class="fas fa-plus"></i> 
                     New Student Registration
@@ -58,16 +58,16 @@
                                         <td>{{$student->gender}}</td>
                                         <td>{{$student->phone}}</td>
                                         <td>{{$student->address}}</td>
-                                        <td>{{$student->candidate_type}}</td>
-                                        <td>{{$student->candidate_id ?? 'N/A'}}</td>
-                                        <td>{{$student->programme->name ?? 'N/A'}}</td>
-                                        <td>{{$student->level->name ?? 'N/A'}}</td>
-                                        <td>{{$student->trainingprovider->name ?? 'N/A'}}</td>
+                                        <td>{{$student->registration->candidate_type}}</td>
+                                        <td>{{$student->registration->candidate_id ?? 'N/A'}}</td>
+                                        <td>{{$student->registration->programme->name ?? 'N/A'}}</td>
+                                        <td>{{$student->registration->level->name ?? 'N/A'}}</td>
+                                        <td>{{$student->registration->trainingprovider->name ?? 'N/A'}}</td>
                                         <td>{{$student->registration->registration_no ?? 'N/A'}}</td>
                                         <td>{{$student->registration->registration_date ?? 'N/A'}}</td>
-                                        <td>{{$student->academic_year}}</td>
+                                        <td>{{$student->registration->academic_year}}</td>
                                         <td>
-                                            <a href="{{route('assessment-certification.registrations.edit',$student->id)
+                                            <a href="{{route('assessment-certification.edit-student-registration',$student->registration->id)
                                                 }}" class="btn btn-sm btn-danger"
                                                 title="edit student registration details"
                                                 >

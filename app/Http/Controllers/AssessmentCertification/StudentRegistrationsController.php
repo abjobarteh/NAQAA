@@ -28,45 +28,12 @@ class StudentRegistrationsController extends Controller
     public function index()
     {
         $registeredstudents = TrainingProviderStudent::with([
-            'programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'
+            'registration.programme', 'registration.level', 'registration.trainingprovider', 'registration'
         ])
             ->whereHas('registration')
             ->latest()->get();
 
         return view('assessmentcertification.registration.index', compact('registeredstudents'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
-            $query->where('license_status', 'Approved');
-        })->pluck('name', 'id');
-        $programmes = Qualification::all()->pluck('name', 'id');
-        $levels = QualificationLevel::all()->pluck('name', 'id');
-        $regions = Region::all()->pluck('name', 'id');
-        $districts = District::all()->pluck('name', 'id');
-        $townvillages = TownVillage::all()->pluck('name', 'id');
-        $nationalities = Country::all()->pluck('name', 'id');
-        $local_languages = LocalLanguage::all()->pluck('name', 'id');
-
-        return view(
-            'assessmentcertification.registration.create',
-            compact(
-                'institutions',
-                'programmes',
-                'levels',
-                'regions',
-                'districts',
-                'townvillages',
-                'nationalities',
-                'local_languages'
-            )
-        );
     }
 
     /**
