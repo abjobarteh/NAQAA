@@ -330,18 +330,6 @@
                         </div>
                     </div>
                     <hr>
-                    <h4 class="card-title mx-2">Training Provider Checklists</h4>
-                    @foreach ($checklists as $id =>  $checklist)
-                    <div class="form-group row">
-                        <label class="col-md-3 col-form-label" for="registration_license">{{$checklist}}</label>
-                        <div class="col-md-9">
-                          <input id="{{$checklist}}" type="file" name="{{$checklist}}">
-                          @error('{{$checklist}}')
-                            <span class="text-danger mt-1">{{$message}}</span>
-                          @enderror
-                        </div>
-                    </div>
-                    @endforeach
                     <div class="form-group row">
                         <div class="col-sm-6 d-flex justify-content-center">
                             <button type="submit" id="submit" class="btn btn-success btn-square btn-block">Submit</button>

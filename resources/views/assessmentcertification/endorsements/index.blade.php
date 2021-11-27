@@ -9,7 +9,7 @@
             <h1 class="m-0">Certificate Endorsements</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                <a href="{{route('assessment-certification.certificate-endorsements.create')}}" 
+                <a href="{{route('assessment-certification.new-certificate-endorsement')}}" 
                     class="btn btn-primary btn-flat float-right">
                     <i class="fas fa-plus"></i> 
                     New Certificate Endorsements
@@ -56,14 +56,14 @@
                                         <td>{{$endorsement->endorsed_certificates ?? '0'}}</td>
                                         <td>{{$endorsement->non_endorsed_certificates ?? '0'}}</td>
                                         <td>
-                                            @if($endorsement->request_status == 'processed')
+                                            @if($endorsement->request_status == 'Processed')
                                                 <span class="badge badge-success">{{$endorsement->request_status ?? '0'}}</span>
                                             @else
                                                 <span class="badge badge-danger">{{$endorsement->request_status ?? '0'}}</span>
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{route('assessment-certification.certificate-endorsements.edit',$endorsement->id)
+                                            <a href="{{route('assessment-certification.edit-certificate-endorsement',$endorsement->id)
                                                 }}" class="btn btn-xs btn-danger"
                                                 title="edit certificate endorsement details"
                                                 >

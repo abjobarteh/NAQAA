@@ -8,10 +8,10 @@
            <div class="card-header">
                <div class="row">
                    <div class="col-sm-6">
-                        <h4 class="card-title mb-0">Trainer Accreditation Applicatons</h4>
+                        <h4 class="card-title mb-0">Trainer Accreditation Applications</h4>
                    </div>
                    <div class="col-sm-6 d-flex justify-content-end">
-                        <a href="{{route('portal.trainer.accreditations.create')}}" class="btn btn-success btn-square">
+                        <a href="{{route('portal.trainer.new-trainer-accreditation')}}" class="btn btn-success btn-square">
                             <svg class="c-icon mr-2">
                                 <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-plus"></use>
                             </svg>
@@ -24,54 +24,43 @@
             <table id="example2" class="table datatable table-bordered table-hover">
               <thead>
                   <tr>
-                      <th>Trainer Name</th>
-                      <th>Birth Date</th>
-                      <th>Gender</th>
-                      <th>Nationality</th>
-                      <th>Email</th>
-                      <th>status</th>
-                      <th>Application date</th>
-                      <th>Accreditation areas</th>
-                      <th>Actions</th>
+                    <th>Application No.</th>
+                    <th>Application type</th>
+                    <th>Application status</th>
+                    <th>Application Form status</th>
+                    <th>Application Date</th>
+                    <th>Actions</th>
                   </tr>
               </thead>
               <tbody>
-                  @forelse ($accreditations as $accreditation)
-                      <tr>
-                          <td>{{$accreditation->trainer->full_name}}</td>
-                          <td>{{$accreditation->trainer->date_of_birth}}</td>
-                          <td>{{$accreditation->trainer->gender}}</td>
-                          <td>{{$accreditation->trainer->country_of_citizenship}}</td>
-                          <td>{{$accreditation->trainer->email}}</td>
-                          <td>
-                              <span class="badge {{$accreditation->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">
-                                  {{$accreditation->status}}
-                              </span>
-                          </td>
-                          <td>{{$accreditation->application_date}}</td>
-                          <td>
-                              @foreach ($accreditation->trainerAccreditations as $area)
-                                  <p class="text-muted">{{$area->area}} - {{$area->level}},</p>
-                              @endforeach
-                          </td>
-                          <td>
-                              <a href="{{route('portal.trainer.accreditations.edit',$accreditation->id)
-                                  }}" class="btn btn-sm btn-danger"
-                                  title="edit trainer accreditaion details"
-                                  >
-                                  <i class="fas fa-edit"></i>    
-                              </a>
-                              <a href="{{route('portal.trainer.accreditations.show',$accreditation->id)
-                                  }}" class="btn btn-sm btn-info"
-                                  title="view trainer accreditaion details"
-                                  >
-                                  <i class="fas fa-eye"></i>    
-                              </a>
-                          </td>
-                      </tr>
-                  @empty
-                      
-                  @endforelse
+                @forelse ($accreditations as $accreditation)
+                <tr>
+                    <td>{{$accreditation->application_no ?? 'N/A'}}</td>
+                    <td><span class="badge badge-primary">{{$accreditation->application_type ?? 'N/A'}}</span></td>
+                    <td><span class="badge {{$accreditation->status == 'Pending' ? 'badge-danger' :  'badge-success'}}">{{$application->status ?? 'N/A'}}</span></td>
+                    <td><span class="badge badge-info">{{$accreditation->application_form_status ?? 'N/A'}}</span></td>
+                    <td>{{$accreditation->application_date ?? 'N/A'}}</td>
+                    <td>
+                        @if($accreditation->status == 'Pending' && $accreditation->application_form_status == 'Saved')
+                        <a href="{{route('portal.trainer.edit-trainer-accreditation',$accreditation->id)
+                            }}" class="btn btn-sm btn-danger"
+                            title="edit trainer registration details"
+                            >
+                            <i class="fas fa-edit"></i>    
+                        </a>
+                        @endif
+                        @if($accreditation->application_form_status === 'Saved')
+                        <a href="{{route('portal.application-payment',$accreditation->id)}}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-coins"></i>
+                        </a>
+                        @endif
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="10" class="text-center"><b>No Accreditation applications</b></td>
+                </tr>
+            @endforelse
               </tbody>
             </table>
            </div>

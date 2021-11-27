@@ -72,7 +72,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Tuition Fee:</label>
-                                            <input type="text" class="form-control" name="tuition_fee" value="{{ $qualification->tuition_fee }}">
+                                            <input type="number" class="form-control" name="tuition_fee" value="{{ $qualification->tuition_fee }}" min="0" step="1">
                                             @error('tuition_fee')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -89,8 +89,8 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Mode of delivery: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="mode_of_delivery" value="{{ $qualification->mode_of_delivery }}" required>
+                                            <label>Mode of delivery:</label>
+                                            <input type="text" class="form-control" name="mode_of_delivery" value="{{ $qualification->mode_of_delivery }}">
                                             @error('mode_of_delivery')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

@@ -33,7 +33,7 @@ class StoreQualificationsRequest extends FormRequest
             'tuition_fee' => ['bail', 'nullable', 'numeric'],
             'entry_requirements' => ['required', 'array'],
             'entry_requirements.*' => ['string'],
-            'mode_of_delivery' => ['required', 'string'],
+            'mode_of_delivery' => ['nullable', 'string'],
             'minimum_duration' => ['required', 'numeric'],
             'qualification_level_id' => ['required', 'numeric', 'integer'],
             'education_field_id' => ['required', 'numeric', 'integer'],

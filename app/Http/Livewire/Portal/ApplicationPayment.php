@@ -14,21 +14,42 @@ use Livewire\Component;
 class ApplicationPayment extends Component
 {
     public $serial_code, $application, $application_type, $is_error = false, $message;
+    public $has_accreditation = false, $programme_fee, $no_of_programmes, $application_fee;
 
     public function mount($id)
     {
         $this->application = ApplicationDetail::findOrFail($id)->load(
             'trainingprovider',
             'trainer',
-            'trainingproviderprogramme'
+            'trainingproviderprogramme',
+            'trainerAccreditations',
+            'programmeAccreditations'
         );
         $this->application_type = ApplicationType::where(DB::raw('lower(name)'), 'like', '%' . strtolower($this->application->application_type) . '')
             ->first();
+        $this->application_fee = $this->application_type->fee;
+
+        if (
+            $this->application->application_type == 'trainer_registration' ||
+            $this->application->application_type == 'trainer_accreditation' ||
+            $this->application->application_type == 'institution_accreditation'
+        ) {
+            $this->has_accreditation = true;
+            $this->programme_fee = $this->application->application_type == 'trainer_registration' ||
+                $this->application->application_type == 'trainer_accreditation' ?
+                (int)(ApplicationType::where('name', 'trainer_programme_accreditation')->first())->fee
+                : (int)(ApplicationType::where('name', 'institution_programme_accreditation')->first())->fee;
+
+            $this->no_of_programmes = $this->application->application_type == 'trainer_registration' ||
+                $this->application->application_type == 'trainer_accreditation' ?
+                (int)$this->application->trainerAccreditations->count()
+                : (int)$this->application->programmeAccreditations->count();
+        }
     }
 
     public function render()
     {
-        $fee = $this->application_type->fee;
+        $fee = $this->getTotalFeeCharge();
 
         return view('livewire.portal.application-payment', compact('fee'))
             ->extends('layouts.portal');
@@ -74,6 +95,8 @@ class ApplicationPayment extends Component
                 $role[0]->notify(new CertificateEndorsementRequestNotification(
                     $message
                 ));
+
+                $this->redirectBack();
             }
         } else {
             $this->is_error = true;
@@ -81,8 +104,46 @@ class ApplicationPayment extends Component
         }
     }
 
-    public function cancelPayment()
+    public function redirectBack()
     {
-        
+        switch ($this->application->application_type) {
+            case "institution_letter_of_interim_authorisation":
+                return redirect(route('portal.institution.interim-authorisation'));
+            case "institution_registration":
+                return redirect(route('portal.institution.registration.index'));
+            case "institution_accreditation":
+                return redirect(route('portal.institution.accreditations.index'));
+            case "trainer_registration":
+                return redirect(route('portal.trainer.registrations.index'));
+            case "trainer_accreditation":
+                return redirect(route('portal.trainer.accreditations.index'));
+        }
+    }
+
+    public function getTotalFeeCharge()
+    {
+        if (
+            ($this->application->application_type == 'trainer_registration' ||
+                $this->application->application_type == 'trainer_accreditation' ||
+                $this->application->application_type == 'institution_accreditation') &&
+            $this->application->application_form_status == 'Saved' &&
+            $this->application->submitted_from == 'Portal'
+
+        ) {
+            if (
+                $this->application->application_type == 'trainer_registration' ||
+                $this->application->application_type == 'trainer_accreditation'
+            ) {
+                $total = ($this->no_of_programmes * $this->programme_fee) + (int)$this->application_type->fee;
+
+                return $total;
+            } else {
+                $total = ($this->no_of_programmes * $this->programme_fee) + (int)$this->application_type->fee;
+
+                return $total;
+            }
+        } else {
+            return $this->application_fee;
+        }
     }
 }

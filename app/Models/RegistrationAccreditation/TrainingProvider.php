@@ -3,6 +3,7 @@
 namespace App\Models\RegistrationAccreditation;
 
 use App\Models\AssessmentCertification\EndorsedCertificateDetail;
+use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\District;
 use App\Models\LocalGovermentAreas;
 use App\Models\Region;
@@ -179,7 +180,7 @@ class TrainingProvider extends Model
 
     public function registeredStudents()
     {
-        return $this->hasMany(TrainingProviderStudent::class, 'training_provider_id');
+        return $this->hasMany(StudentRegistrationDetail::class, 'training_provider_id');
     }
 
     public function certificateEndorsements()
@@ -197,8 +198,13 @@ class TrainingProvider extends Model
         return $this->hasMany(InstitutionDetailsDataCollection::class, 'institution_id');
     }
 
-    public function interimAuthorisations()
+    public function interimAuthorisation()
     {
-        return $this->hasMany(InterimAuthorisationDetail::class, 'training_provider_id');
+        return $this->hasOne(InterimAuthorisationDetail::class, 'training_provider_id');
+    }
+
+    public function trainingproviderchecklists()
+    {
+        return $this->hasMany(TrainingProviderChecklist::class, 'training_provider_id');
     }
 }

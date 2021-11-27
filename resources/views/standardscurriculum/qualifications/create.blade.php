@@ -88,8 +88,8 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>Mode of delivery: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="mode_of_delivery" value="{{ old('mode_of_delivery') }}" required>
+                                            <label>Mode of delivery:</label>
+                                            <input type="text" class="form-control" name="mode_of_delivery" value="{{ old('mode_of_delivery') }}">
                                             @error('mode_of_delivery')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror

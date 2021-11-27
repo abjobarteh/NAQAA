@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
             Auth::login($user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->password),
                 'user_category' => 'portal',
                 'user_status' => 1,
                 'default_password_status' => 0,
@@ -97,13 +97,12 @@ class RegisteredUserController extends Controller
                 'middlename' => ['nullable', 'string'],
                 'lastname' => ['required', 'string'],
                 'trainer_phone_number' => ['required', 'string'],
-                'trainer_type' => ['required', 'string'],
             ]);
 
             Auth::login($user = User::create([
                 'username' => $request->username,
                 'email' => $request->email,
-                'password' => Hash::make($request->password),
+                'password' => bcrypt($request->trainerpassword),
                 'user_category' => 'portal',
                 'user_status' => 1,
                 'default_password_status' => 0,

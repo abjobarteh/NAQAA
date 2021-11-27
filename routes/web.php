@@ -17,10 +17,14 @@ use App\Http\Controllers\Portal\Institution\ProgrammeDataCollectionController;
 use App\Http\Controllers\Portal\Institution\RegistrationController;
 use App\Http\Controllers\Portal\Institution\StudentsDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainerDataCollectionController;
+use App\Http\Controllers\Portal\Institution\TrainingProviderChecklistController;
 use App\Http\Controllers\Portal\Trainer\AccreditationsController;
 use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
 use App\Http\Controllers\Portal\Trainer\RegistrationsController;
+use App\Http\Controllers\Portal\Trainer\TrainerChecklistController;
 use App\Http\Controllers\RegistrationAccreditation\ApplicationsController;
+use App\Http\Controllers\RegistrationAccreditation\ChecklistController;
+use App\Http\Controllers\RegistrationAccreditation\ChecklistThematicAreaController;
 use App\Http\Controllers\RegistrationAccreditation\DashboardController as RegistrationAccreditationDashboardController;
 use App\Http\Controllers\RegistrationAccreditation\LicencesManagementController;
 use App\Http\Controllers\RegistrationAccreditation\TrainersAccreditationController;
@@ -67,9 +71,14 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
+use App\Http\Livewire\AssessmentCertification\EditCertificateEndorsement;
+use App\Http\Livewire\AssessmentCertification\EditStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
+use App\Http\Livewire\AssessmentCertification\NewCertificateEndorsement;
+use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
+use App\Http\Livewire\AssessmentCertification\ViewStudentRegistration;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Portal\ApplicationPayment;
 use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
@@ -77,7 +86,9 @@ use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\Portal\Trainer\EditTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
+use App\Http\Livewire\Portal\Trainer\NewTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\NewTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
@@ -350,6 +361,14 @@ Route::group(['middleware' => 'auth'], function () {
     // applications
     Route::resource('applications', ApplicationsController::class)->except('create');
 
+    // checklists thematic area
+    Route::resource('checklist-thematic-area', ChecklistThematicAreaController::class)
+      ->except('show', 'destroy');
+
+    // checklists
+    Route::resource('checklists', ChecklistController::class)
+      ->except('show', 'destroy');
+
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
       Route::get('learning-centers', LearningCentersReport::class)->name('learning-centers');
       Route::get('trainers', TrainersReport::class)->name('trainers');
@@ -370,6 +389,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // student registrations
     Route::resource('registrations', StudentRegistrationsController::class);
+    Route::get('new-student-registration', NewStudentRegistration::class)->name('new-student-registration');
+    Route::get('edit-student-registration/{id}', EditStudentRegistration::class)->name('edit-student-registration');
+    Route::get('view-student-registration/{id}', ViewStudentRegistration::class)->name('view-student-registration');
 
     // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
@@ -379,6 +401,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);
+    Route::get('new-certificate-endorsement', NewCertificateEndorsement::class)->name('new-certificate-endorsement');
+    Route::get('edit-certificate-endorsement/{id}', EditCertificateEndorsement::class)->name('edit-certificate-endorsement');
 
     // Assessor/Verifiers
     Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
@@ -439,6 +463,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('trainers', TrainerDataCollectionController::class);
         Route::resource('programmes', ProgrammeDataCollectionController::class);
       });
+
+      // training provider checklist
+      Route::resource('checklist-evidence', TrainingProviderChecklistController::class)
+        ->except(['destroy', 'show']);
       // Route::get('settings',)
     });
 
@@ -452,10 +480,16 @@ Route::group(['middleware' => 'auth'], function () {
       // Trainer registratinons
       Route::resource('registrations', RegistrationsController::class);
       Route::get('new-trainer-registration', NewTrainerRegistration::class)->name('new-trainer-registration');
-      Route::get('edit-trainer-registration', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
+      Route::get('edit-trainer-registration/{id}', TrainerEditTrainerRegistration::class)->name('edit-trainer-registration');
 
       // Trainer accreditations
-      Route::resource('accreditations', AccreditationsController::class);
+      Route::resource('accreditations', AccreditationsController::class)->except(['store', 'update', 'delete']);
+      Route::get('new-trainer-accreditation', NewTrainerAccreditation::class)->name('new-trainer-accreditation');
+      Route::get('edit-trainer-accreditation/{id}', EditTrainerAccreditation::class)->name('edit-trainer-accreditation');
+
+      // Trainer checklist
+      Route::resource('checklist-evidence', TrainerChecklistController::class)
+        ->except(['destroy', 'show']);
     });
 
     // payments page

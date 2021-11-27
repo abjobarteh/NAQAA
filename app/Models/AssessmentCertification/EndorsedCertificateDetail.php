@@ -28,26 +28,6 @@ class EndorsedCertificateDetail extends Model
         'request_status'
     ];
 
-    public function setProgrammeStartDateAttribute($value)
-    {
-        $this->attributes['programme_start_date'] = new Carbon($value);
-    }
-
-    public function getProgrammeStartDateAttribute($value)
-    {
-        return new Carbon($value);
-    }
-
-    public function setProgrammeEndDateAttribute($value)
-    {
-        $this->attributes['programme_end_date'] = new Carbon($value);
-    }
-
-    public function getProgrammeEndDateAttribute($value)
-    {
-        return new Carbon($value);
-    }
-
     public function getTrainerDetailsAttribute($value)
     {
         return json_decode($value);

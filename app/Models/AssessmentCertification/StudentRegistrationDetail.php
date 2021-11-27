@@ -2,6 +2,9 @@
 
 namespace App\Models\AssessmentCertification;
 
+use App\Models\Qualification;
+use App\Models\QualificationLevel;
+use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,9 +18,17 @@ class StudentRegistrationDetail extends Model
 
     protected $fillable = [
         'student_id',
+        'training_provider_id',
+        'programme_id',
+        'programme_level_id',
+        'academic_year',
+        'candidate_type',
+        'unit_standards',
+        'registration_status',
+        'registration_date',
         'registration_no',
         'serial_no',
-        'registration_date',
+        'candidate_id',
     ];
 
     public function registeredStudent()
@@ -28,6 +39,21 @@ class StudentRegistrationDetail extends Model
     public function studentAssessments()
     {
         return $this->hasMany(StudentAssessmentDetail::class, 'application_id');
+    }
+
+    public function programme()
+    {
+        return $this->belongsTo(Qualification::class, 'programme_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(QualificationLevel::class, 'programme_level_id');
+    }
+
+    public function trainingprovider()
+    {
+        return $this->belongsTo(TrainingProvider::class, 'training_provider_id');
     }
 
     public function setRegistrationDateAttribute($value)

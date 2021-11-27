@@ -97,48 +97,45 @@ class NewInterimAuthorisation extends Component
             'five_year_strategic_plan' => 'required|file|mimes:jpg,png,jpeg,pdf',
         ]);
 
-        $application = null;
+        $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
 
+        // check if there is already an interim authorisation application approved for this institution
 
-        DB::transaction(function () use ($application) {
-            Storage::makeDirectory(auth()->user()->username);
-            $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
-            $funding_details = [];
-            $application_no = null;
+        if (
+            ApplicationDetail::where('training_provider_id', $trainingprovider->id)
+            ->where('application_type', 'institution_letter_of_interim_authorisation')
+            ->where('status', 'Approved')
+            ->exists()
+        ) {
+            alert(
+                'Duplicate Application',
+                'Your Application for Letter of Interim Authorisation cannot proceed
+                 as you already have an Approved Application for Letter of Interim Authorisation.',
+                'warning'
+            );
 
-            // check if there is already an interim authorisation application approved for this institution
-
+            return redirect(route('portal.institution.interim-authorisation'));
+        } else {
+            // check if institution has a Pending or Ongoing Application
             if (
                 ApplicationDetail::where('training_provider_id', $trainingprovider->id)
                 ->where('application_type', 'institution_letter_of_interim_authorisation')
-                ->where('status', 'Approved')
+                ->whereIn('status', ['Pending', 'Ongoing'])
                 ->exists()
             ) {
                 alert(
-                    'Duplicate Application',
+                    'Pending Or Ongoing Application',
                     'Your Application for Letter of Interim Authorisation cannot proceed
-                     as you already have an Approved Application for Letter of Interim Authorisation.',
+                     as you already have a Pending or Ongoing Application for Letter of Interim Authorisation.',
                     'warning'
                 );
 
-                return redirect(route('portal.institution.interim-authorisation'));
+                return redirect()->route('portal.institution.interim-authorisation');
             } else {
-                // check if institution has a Pending or Ongoing Application
-                if (
-                    ApplicationDetail::where('training_provider_id', $trainingprovider->id)
-                    ->where('application_type', 'institution_letter_of_interim_authorisation')
-                    ->whereIn('status', ['Pending', 'Ongoing'])
-                    ->exists()
-                ) {
-                    alert(
-                        'Pending Or Ongoing Application',
-                        'Your Application for Letter of Interim Authorisation cannot proceed
-                         as you already have a Pending ot Ongoing Application for Letter of Interim Authorisation.',
-                        'warning'
-                    );
-
-                    return redirect(route('portal.institution.interim-authorisation'));
-                } else {
+                DB::transaction(function () use ($trainingprovider) {
+                    Storage::makeDirectory(auth()->user()->username);
+                    $funding_details = [];
+                    $application_no = null;
                     // generate new serial no
                     $records = ApplicationDetail::all();
                     if ($records->isEmpty()) {
@@ -165,7 +162,7 @@ class NewInterimAuthorisation extends Component
                             $path = $this->funding_evidence[$key]->store(auth()->user()->username);
                             array_push($funding_details, [
                                 'funding_name' => $this->funding_name[$key],
-                                'evidence' => '/storage/' .$path,
+                                'evidence' => '/storage/' . $path,
                             ]);
                         } else {
                             array_push($funding_details, [
@@ -209,9 +206,9 @@ class NewInterimAuthorisation extends Component
                     }
 
                     $this->application_id = $application->id;
-                }
+                });
             }
-        });
+        }
 
         alert(
             'Success',
@@ -219,7 +216,6 @@ class NewInterimAuthorisation extends Component
              You will now be redirected to the payments page to complete the payment and submit your Application',
             'success'
         );
-
 
         return redirect(route('portal.application-payment', $this->application_id));
     }

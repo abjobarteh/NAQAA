@@ -22,12 +22,27 @@
                     <div class="row">
                         {{-- left side --}}
                         <div class="col-sm-12 col-md-6">
+                            @if ($has_accreditation)
+                            <div class="row">
+                                <p class="col-md-12">
+                                    <strong>Application Fee: GMD</strong>{{$application_fee}}
+                                </p>
+                                <p class="col-md-12">
+                                    <strong>No of Programmes: </strong>{{$no_of_programmes}}
+                                </p>
+                                <p class="col-md-12">
+                                    <strong>Programme Application Fee: GMD</strong>{{$programme_fee}}
+                                </p>
+                            </div>
+                            <hr> 
+                            @endif
                             <div class="row">
                                 <div class="form-group col-sm-12">
-                                    <label for="name">Total Amount:</label>
-                                    <p><strong>GMD</strong>{{$fee}}</p>
+                                    <label for="name"><b>Total Amount:</b></label>
+                                    <p><strong>GMD</strong> {{$fee}}</p>
                                 </div>
-                            </div> 
+                            </div>
+                            <hr>
                         </div>
                         {{-- right side --}}
                         <div class="col-sm-12 col-md-6">
@@ -46,7 +61,7 @@
                                         <button type="submit" id="submit" class="btn btn-success btn-square btn-block">Submit</button>
                                     </div>
                                     <div class="col-sm-6 d-flex justify-content-center">
-                                        <button type="submit" id="submit" class="btn btn-info btn-square btn-block" wire:click.prevent="cancePayment">Cancel</button>
+                                        <button type="submit" id="submit" class="btn btn-info btn-square btn-block" wire:click.prevent="redirectBack">Back</button>
                                     </div>
                                 </div>
                             </form>

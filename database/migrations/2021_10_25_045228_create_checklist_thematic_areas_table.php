@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddChecklistsToApplicationDetailsTable extends Migration
+class CreateChecklistThematicAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddChecklistsToApplicationDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::table('application_details', function (Blueprint $table) {
-            $table->longText('checklists')->nullable();
+        Schema::create('checklist_thematic_areas', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->longText('description')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddChecklistsToApplicationDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::table('application_details', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('checklist_thematic_areas');
     }
 }

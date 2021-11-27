@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\StandardsCurriculum\UnitStandard;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -84,6 +85,6 @@ class Qualification extends Model
 
     public function registeredStudents()
     {
-        return $this->hasMany(TrainingProviderStudent::class, 'programme_id');
+        return $this->hasMany(StudentRegistrationDetail::class, 'programme_id');
     }
 }

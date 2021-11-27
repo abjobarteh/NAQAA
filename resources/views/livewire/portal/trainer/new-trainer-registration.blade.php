@@ -42,7 +42,7 @@
                                         <div class="form-group">
                                             <label>Practical Trainer Type: <sup class="text-danger">*</sup></label>
                                             <select id="practical_trainer" class="form-control custom-select" wire:model="practical_trainer">
-                                                <option value="">Select practical trainer type</option>
+                                                <option value="">--- select practical trainer type ---</option>
                                                 <option value="CraftPerson">Craft Person</option>
                                                 <option value="MasterCraftPerson">Master Craft Person</option>
                                             </select>
@@ -57,7 +57,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>First Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="firstname" wire:model="firstname" required autofocus>
+                                            <input type="text" class="form-control" name="firstname" wire:model="firstname" required autofocus readonly>
                                             @error('firstname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -66,7 +66,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Middle Name:</label>
-                                            <input type="text" class="form-control" name="middlename" wire:model="middlename">
+                                            <input type="text" class="form-control" name="middlename" wire:model="middlename" readonly>
                                             @error('middlename')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -75,7 +75,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Last Name: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="lastname" wire:model="lastname" required>
+                                            <input type="text" class="form-control" name="lastname" wire:model="lastname" required readonly>
                                             @error('lastname')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -84,9 +84,9 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group" wire:ignore>
+                                        <div class="form-group">
                                             <label>Gender: <sup class="text-danger">*</sup></label>
-                                            <select name="gender" id="gender" class="form-control select2" wire:model="gender">
+                                            <select name="gender" id="gender" class="form-control custom-select" wire:model="gender" readonly>
                                                 <option value="">Select gender</option>
                                                 <option value="M" {{ old('gender') == 'M' ? 'selected': '' }}>Male</option>
                                                 <option value="F" {{ old('gender') == 'F' ? 'selected': '' }}>Female</option>
@@ -99,7 +99,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Date of Birth:</label>
-                                            <input type="date" class="form-control" wire:model="dob"/>
+                                            <input type="date" class="form-control" wire:model="dob" readonly/>
                                             @error('dob')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -108,12 +108,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <div class="form-group" wire:ignore>
+                                        <div class="form-group">
                                             <label>Country of Origin/Citizenship:</label>
-                                            <select id="country" class="form-control select2" wire:model="country" required>
-                                                <option value="">Select country of origin/citizenship</option>
+                                            <select id="country" class="form-control custom-select" wire:model="country" required readonly>
+                                                <option>Select country of origin/citizenship</option>
                                                 @foreach ($countries as $country)
-                                                    <option value="{{$country}}" {{$country === 'Gambia' ? 'selected' : ''}}>{{$country}}</option>
+                                                    <option value="{{$country}}">{{$country}}</option>
                                                 @endforeach
                                             </select>
                                             @error('country')
@@ -126,7 +126,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Tax Identification Number (TIN): <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="TIN" wire:model="tin" required>
+                                            <input type="text" class="form-control" name="TIN" wire:model="tin" required readonly>
                                             @error('tin')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -136,7 +136,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>National Identification Number (NIN)/Passport: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="NIN" wire:model="nin_passport" required>
+                                            <input type="text" class="form-control" name="NIN" wire:model="nin_passport" required readonly>
                                             @error('nin_passport')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -146,7 +146,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Alien Identification Number (AIN): <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="ain" wire:model="ain" required>
+                                            <input type="text" class="form-control" name="ain" wire:model="ain" required readonly>
                                             @error('ain')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -158,7 +158,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Email: <sup class="text-danger">*</sup></label>
-                                            <input type="email" class="form-control" name="email" wire:model="email" required>
+                                            <input type="email" class="form-control" name="email" wire:model="email" required readonly>
                                             @error('email')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -167,7 +167,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Address: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="address" wire:model="address" required>
+                                            <input type="text" class="form-control" name="address" wire:model="address" required readonly>
                                             @error('address')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -176,7 +176,7 @@
                                     <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Postal Address:</label>
-                                            <input type="text" class="form-control" name="postal_address" wire:model="postal_address">
+                                            <input type="text" class="form-control" name="postal_address" wire:model="postal_address" readonly>
                                             @error('postal_address')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -187,7 +187,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Telephone (Home):</label>
-                                            <input type="text" class="form-control" name="tel_home" wire:model="tel_home">
+                                            <input type="text" class="form-control" name="tel_home" wire:model="tel_home" readonly>
                                             @error('tel_home')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
@@ -196,11 +196,78 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Mobile Phone: <sup class="text-danger">*</sup></label>
-                                            <input type="text" class="form-control" name="mobile" wire:model="mobile" required>
+                                            <input type="text" class="form-control" name="mobile" wire:model="mobile" required readonly>
                                             @error('mobile')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4 class="card-title mx-2">Accreditation Details</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table table-responsive-sm" id="board_of_directors_table">
+                                            <thead>
+                                              <tr>
+                                                <th>Accreditation area</th>
+                                                <th>Accreditation level</th>
+                                                <th></th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>
+                                                    <input type="text" id="accreditation_area.0" wire:model="accreditation_area.0" class="form-control">
+                                                    @error('accreditation_area.0')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </td>
+                                                <td>
+                                                    <select class="form-control custom-select" wire:model="accreditation_level.0">
+                                                        <option>--- select level ---</option>
+                                                        @foreach ($levels as $id => $value)
+                                                            <option value="{{$value}}">{{$value}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('accreditation_level.0')
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn text-white btn-info btn-sm" wire:click.prevent="addAccreditation({{$accreditation_counter}})">Add</button>
+                                                </td>
+                                              </tr>
+                                              @foreach ($accreditation_inputs as $key => $value)
+                                              <tr>
+                                                <td>
+                                                    <input type="text" id="accreditation_area.{{$value}}" wire:model="accreditation_area.{{$value}}" class="form-control">
+                                                    @error('accreditation_area.'.$value)
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </td>
+                                                <td>
+                                                    <select class="form-control custom-select" wire:model="accreditation_level.{{$value}}">
+                                                        <option>--- select level ---</option>
+                                                        @foreach ($levels as $id => $value)
+                                                            <option value="{{$value}}">{{$value}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('accreditation_level.'.$value)
+                                                        <span class="text-danger mt-1">{{$message}}</span>
+                                                    @enderror
+                                                </td>
+                                                <td>
+                                                    <button class="btn text-white btn-danger btn-sm" wire:click.prevent="removeAccreditation({{$key}})">Remove</button>
+                                                </td>
+                                              </tr>
+                                              @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

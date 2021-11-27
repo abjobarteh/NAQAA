@@ -52,6 +52,15 @@
                     Programme accreditation
                 </a>
             </li>
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/institution/checklist-evidence') || 
+                    request()->is('portal/institution/checklist-evidence/*') 
+                         ? 'active' : '' }}" href="{{route('portal.institution.checklist-evidence.index')}}">
+                    <span class="c-sidebar-nav-icon"></span> 
+                    Checklist Evidence
+                </a>
+            </li>
         </ul>
     </li>
     <li class="c-sidebar-nav-title">Data Collections</li>
@@ -83,6 +92,7 @@
             </li>
         </ul>
     </li>
+    <li class="c-sidebar-nav-title">Endorsement</li>
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{route('portal.institution.certificate-endorsements.index')}}">
             <svg class="c-sidebar-nav-icon">
@@ -121,6 +131,15 @@
                     Programme accreditation
                 </a>
             </li>
+            <li class="c-sidebar-nav-item">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/trainer/checklist-evidence') || 
+                    request()->is('portal/trainer/checklist-evidence/*') 
+                         ? 'active' : '' }}" href="{{route('portal.trainer.checklist-evidence.index')}}">
+                    <span class="c-sidebar-nav-icon"></span> 
+                    Checklist Evidence
+                </a>
+            </li>
         </ul>
     </li>
     <li class="c-sidebar-nav-title">Assessments</li>
@@ -147,6 +166,7 @@
         </ul>
     </li>
     @endportal
+    <li class="c-sidebar-nav-title">General</li>
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="index.html">
             <svg class="c-sidebar-nav-icon">
@@ -161,7 +181,7 @@
             <svg class="c-sidebar-nav-icon">
             <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
             </svg> 
-            Settings 
+            Profile 
         </a>
     </li>
     <li class="c-sidebar-nav-divider"></li>

@@ -13,6 +13,7 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\BankSignatory;
 use App\Models\RegistrationAccreditation\BoardOfDirector;
 use App\Models\RegistrationAccreditation\CenterManager;
+use App\Models\RegistrationAccreditation\Checklist;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\RegistrationAccreditation\TrainingProviderChecklist;
 use App\Models\Role;
@@ -51,6 +52,18 @@ class RegistrationController extends Controller
      */
     public function create()
     {
+        // check if institution has an approved interim authorisation letter
+        if (
+            !TrainingProvider::where('login_id', auth()->user()->id)
+                ->whereHas('applications', function (Builder $query) {
+                    $query->where('application_type', 'institution_letter_of_interim_authorisation')
+                        ->where('status', 'Approved');
+                })
+                ->exists()
+        ) {
+            return back()
+                ->withInfo('You must apply for Interim Auhthorisation before you can apply for registration!');
+        }
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
@@ -58,7 +71,6 @@ class RegistrationController extends Controller
         $countries = Country::all()->pluck('name');
         $qualification_levels = QualificationLevel::all()->pluck('name', 'id');
         $banks = Bank::all()->pluck('name', 'id');
-        $checklists = TrainingProviderChecklist::all()->pluck('name', 'id');
 
         return view(
             'portal.institutions.registrations.create',
@@ -70,7 +82,6 @@ class RegistrationController extends Controller
                 'countries',
                 'qualification_levels',
                 'banks',
-                'checklists'
             )
         );
     }
@@ -83,111 +94,140 @@ class RegistrationController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        $boardMembers = $request->filled('boardmember_names') ?  $request->input('boardmember_names', []) : [];
-        $bankSignatories = $request->filled('signatories_names') ?  $request->input('signatories_names', []) : [];
-
+        // check if institution has an approved interim authorisation letter
         if (
-            TrainingProvider::where('login_id', auth()->user()->id)
-            ->whereHas('validLicence')
-            ->exists()
+            !TrainingProvider::where('login_id', auth()->user()->id)
+                ->whereHas('applications', function (Builder $query) {
+                    $query->where('application_type', 'institution_letter_of_interim_authorisation')
+                        ->where('status', 'Approved');
+                })
+                ->exists()
         ) {
             return back()
-                ->withInfo('Registration not possible as you already have an Active Registration Licence');
+                ->withInfo('You must apply for Interim Auhthorisation before you can apply for registration!');
         } else {
-            dd('no valid licence');
+            $boardMembers = $request->filled('boardmember_names') ?  $request->input('boardmember_names', []) : [];
+            $bankSignatories = $request->filled('signatories_names') ?  $request->input('signatories_names', []) : [];
+            $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
 
-            DB::transaction(function () use ($request, $boardMembers, $bankSignatories) {
-                Storage::makeDirectory(auth()->user()->username);
-                $trainingprovider = TrainingProvider::where('login_id', auth()->user()->id)->first();
-                // update training provider details
-                $trainingprovider
-                    ->update([
-                        'address' => $request->address,
-                        'po_box' => $request->po_box,
-                        'region_id' => $request->region_id,
-                        'district_id' => $request->district_id,
-                        'town_village_id' => $request->town_village_id,
-                        'telephone_work' => $request->telephone_work,
-                        'mobile_phone' => $request->mobile_phone,
-                        'fax' => $request->fax,
-                        'website' => $request->website,
-                        'email' => $request->email,
-                        'classification_id' => $request->classification_id,
-                        'login_id' => auth()->user()->id,
-                        // 'bank_names' => $request->bank_names,
-                        'storage_path' => '/storage/' . auth()->user()->username
-                    ]);
-                CenterManager::create([
-                    'firstname' => $request->firstname,
-                    'middlename' => $request->middlename,
-                    'lastname' => $request->lastname,
-                    'date_of_birth' => $request->date_of_birth,
-                    'gender' => $request->gender,
-                    'nationality' => $request->nationality,
-                    'relevant_experience' => $request->relevant_experience,
-                    'qualifications' => $request->qualifications,
-                    'training_provider_id' => $trainingprovider->id,
-                ]);
-
-                for ($signatory = 0; $signatory < count($bankSignatories); $signatory++) {
-                    if ($bankSignatories[$signatory] != '') {
-
-                        BankSignatory::create([
-                            'training_provider_id' => $trainingprovider->id,
-                            'Fullname' => $bankSignatories[$signatory],
-                            'position' => $request->signatories_postitions[$signatory],
-                            'signature' => $request->signatories_signature[$signatory],
-                        ]);
-                    }
-                }
-
-                for ($boardmemeber = 0; $boardmemeber < count($boardMembers); $boardmemeber++) {
-                    if ($boardMembers[$boardmemeber] != '') {
-
-                        BoardOfDirector::create([
-                            'training_provider_id' => $trainingprovider->id,
-                            'fullname' => $boardMembers[$boardmemeber],
-                            'nationality' => $request->boardmember_nationalities[$boardmemeber],
-                            'work_experience' => $request->boardmember_experience[$boardmemeber],
-                            'position' => $request->boardmember_positions[$boardmemeber],
-                        ]);
-                    }
-                }
-
-                $uploadedFiles = $this->storeTrainingProviderFiles(collect($request->file()));
-
-                // store training provider application details
-                $application_no = null;
-
-                $records = ApplicationDetail::all();
-                if ($records->isEmpty()) {
-                    $new_serial_no = '000001';
-                    $application_no = 'APP-' . $new_serial_no;
+            // check if institution has a valid licence
+            if (
+                TrainingProvider::where('login_id', auth()->user()->id)
+                ->whereHas('validLicence')
+                ->exists()
+            ) {
+                return back()
+                    ->withInfo('Registration not possible as you already have an Active Registration Licence');
+            } else {
+                // check if institution has a pending or ongoing application
+                if (
+                    ApplicationDetail::where('training_provider_id', $trainingprovider->id)
+                    ->where('application_type', 'institution_registration')
+                    ->whereIn('status', ['Ongoing', 'Pending'])
+                    ->exists()
+                ) {
+                    return back()
+                        ->withWarning(
+                            'Cannot Proceed with registration as you already have a Registration application that
+                         is Pending or Ongoing!.'
+                        );
                 } else {
-                    $last_record = ApplicationDetail::latest()->limit(1)->first();
-                    $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
-                    $application_no = 'APP-' . $new_serial_no;
+
+                    // check if all required checklist evidence is uploaded
+                    if (!$this->isChecklistEvidenceUploaded()) {
+                        return back()
+                            ->withWarning(
+                                'Cannot Proceed with registration as you have not uploaded the require Checklist evidence.
+                            Please Click on the Checklist Evidence menu under Application to upload all required evidences!.'
+                            );
+                    } else {
+                        DB::transaction(function () use ($request, $boardMembers, $bankSignatories, $trainingprovider) {
+                            Storage::makeDirectory(auth()->user()->username);
+                            // update training provider details
+                            $trainingprovider
+                                ->update([
+                                    'address' => $request->address,
+                                    'po_box' => $request->po_box,
+                                    'region_id' => $request->region_id,
+                                    'district_id' => $request->district_id,
+                                    'town_village_id' => $request->town_village_id,
+                                    'telephone_work' => $request->telephone_work,
+                                    'mobile_phone' => $request->mobile_phone,
+                                    'fax' => $request->fax,
+                                    'website' => $request->website,
+                                    'email' => $request->email,
+                                    'classification_id' => $request->classification_id,
+                                    'login_id' => auth()->user()->id,
+                                    // 'bank_names' => $request->bank_names,
+                                    'storage_path' => '/storage/' . auth()->user()->username
+                                ]);
+                            CenterManager::create([
+                                'firstname' => $request->firstname,
+                                'middlename' => $request->middlename,
+                                'lastname' => $request->lastname,
+                                'date_of_birth' => $request->date_of_birth,
+                                'gender' => $request->gender,
+                                'nationality' => $request->nationality,
+                                'relevant_experience' => $request->relevant_experience,
+                                'qualifications' => $request->qualifications,
+                                'training_provider_id' => $trainingprovider->id,
+                            ]);
+
+                            for ($signatory = 0; $signatory < count($bankSignatories); $signatory++) {
+                                if ($bankSignatories[$signatory] != '') {
+
+                                    BankSignatory::create([
+                                        'training_provider_id' => $trainingprovider->id,
+                                        'Fullname' => $bankSignatories[$signatory],
+                                        'position' => $request->signatories_postitions[$signatory],
+                                        'signature' => $request->signatories_signature[$signatory],
+                                    ]);
+                                }
+                            }
+
+                            for ($boardmemeber = 0; $boardmemeber < count($boardMembers); $boardmemeber++) {
+                                if ($boardMembers[$boardmemeber] != '') {
+
+                                    BoardOfDirector::create([
+                                        'training_provider_id' => $trainingprovider->id,
+                                        'fullname' => $boardMembers[$boardmemeber],
+                                        'nationality' => $request->boardmember_nationalities[$boardmemeber],
+                                        'work_experience' => $request->boardmember_experience[$boardmemeber],
+                                        'position' => $request->boardmember_positions[$boardmemeber],
+                                    ]);
+                                }
+                            }
+
+                            // store training provider application details
+                            $application_no = null;
+
+                            $records = ApplicationDetail::all();
+                            if ($records->isEmpty()) {
+                                $new_serial_no = '000001';
+                                $application_no = 'APP-' . $new_serial_no;
+                            } else {
+                                $last_record = ApplicationDetail::latest()->limit(1)->first();
+                                $new_serial_no = str_pad((int)$last_record->serial_no + 1, 6, '0', STR_PAD_LEFT);
+                                $application_no = 'APP-' . $new_serial_no;
+                            }
+                            $serial_no = explode('-', $application_no);
+                            $application = ApplicationDetail::create([
+                                'training_provider_id' => $trainingprovider->id,
+                                'application_no' => $application_no,
+                                'serial_no' => $serial_no[1],
+                                'application_type' => 'institution_registration',
+                                'status' => 'Pending',
+                                'application_form_status' => 'Saved',
+                                'application_date' => now(),
+                                'submitted_from' => 'Portal',
+                            ]);
+
+                            $this->application_id = $application->id;
+                        });
+                    }
                 }
-                $serial_no = explode('-', $application_no);
-                $application = ApplicationDetail::create([
-                    'training_provider_id' => $trainingprovider->id,
-                    'application_no' => $application_no,
-                    'serial_no' => $serial_no[1],
-                    'application_type' => 'institution_registration',
-                    'status' => 'Pending',
-                    'application_form_status' => 'Saved',
-                    'application_date' => now(),
-                    'submitted_from' => 'Portal',
-                    'checklists' => json_encode($uploadedFiles),
-                ]);
-
-                $this->application_id = $application->id;
-            });
+            }
         }
-
-
 
         // $role = Role::where('slug', 'registration_and_accreditation_module')->get();
         // $message = "New Insttution registration application from " . auth()->user()->username;
@@ -249,9 +289,6 @@ class RegistrationController extends Controller
         $countries = Country::all()->pluck('name');
         $banks = Bank::all()->pluck('name', 'id');
         $qualification_levels = QualificationLevel::all()->pluck('name', 'id');
-        $checklists = TrainingProviderChecklist::all()->pluck('name', 'id');
-
-        // dd($application);
 
         return view(
             'portal.institutions.registrations.edit',
@@ -263,7 +300,6 @@ class RegistrationController extends Controller
                 'classifications',
                 'countries',
                 'qualification_levels',
-                'checklists',
                 'banks'
             )
         );
@@ -388,17 +424,21 @@ class RegistrationController extends Controller
         return back()->withSuccess('Your Application for registration is successfully updated');
     }
 
-
-    protected function storeTrainingProviderFiles($files)
+    public function isChecklistEvidenceUploaded()
     {
-        $checklists = [];
+        $trainingprovider_id = (TrainingProvider::where('login_id', auth()->user()->id)->first())->id;
+        $checklists_required = Checklist::where('is_required', 'yes')
+            ->where('checklist_type', 'institution')
+            ->pluck('slug', 'id');
+        $checklist_evidences = TrainingProviderChecklist::where('training_provider_id', $trainingprovider_id)
+            ->pluck('path', 'checklist_id');
 
-        foreach ($files as $key => $file) {
-            $name = time() . '_' . $key;
-            $path = $file->storeAs(auth()->user()->username, $name);
-            $checklists[$key] = '/storage/' . $path;
+        $uploaded =  $checklists_required->intersectByKeys($checklist_evidences);
+
+        if ($uploaded->count() < $checklists_required->count()) {
+            return false;
+        } else {
+            return true;
         }
-
-        return $checklists;
     }
 }

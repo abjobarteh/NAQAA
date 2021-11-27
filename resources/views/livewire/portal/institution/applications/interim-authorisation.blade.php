@@ -45,19 +45,19 @@
                           </td>
                           <td>
                             @if($application->application_form_status == 'Saved')
-                              <a href="{{route('portal.institution.edit-interim-authorisation',$application->id)}}" class="btn btn-sm btn-danger">
+                              <a href="{{route('portal.institution.edit-interim-authorisation',$application->id)}}" class="btn btn-sm btn-danger"
+                                title="Edit Interim Auhtorisatio application">
                                 <i class="fas fa-edit"></i>
-                                Edit
                               </a>
                             @endif
-                            <a href="{{route('portal.institution.view-interim-authorisation',$application->id)}}" class="btn btn-sm btn-warning">
+                            <a href="{{route('portal.institution.view-interim-authorisation',$application->id)}}" class="btn btn-sm btn-warning"
+                              title="View Interim Auhtorisatio application">
                               <i class="fas fa-eye"></i>
-                              View
                             </a>
                             @if($application->application_form_status == 'Saved')
-                              <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-info">
+                              <a href="{{route('portal.application-payment',$application->id)}}" class="btn btn-sm btn-info"
+                                title="Pay Interim Auhtorisatio application">
                                 <i class="fas fa-coins"></i>
-                                Pay
                               </a>
                             @endif
                           </td>

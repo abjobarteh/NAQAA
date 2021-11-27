@@ -179,6 +179,7 @@ class CreateTrainerRegistration extends Component
                             'application_type' => 'trainer_registration',
                             'status' => $this->application_status,
                             'application_date' => $this->application_date,
+                            'trainer_type' => $this->trainer_type,
                         ]);
 
                         // If application is accepted, create a license record
