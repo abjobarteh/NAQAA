@@ -71,8 +71,10 @@ use App\Http\Controllers\systemadmin\TrainingProviderStaffsRankController;
 use App\Http\Controllers\systemadmin\TrainingProviderStaffsRoleController;
 use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
+use App\Http\Livewire\AssessmentCertification\EditCertificateEndorsement;
 use App\Http\Livewire\AssessmentCertification\EditStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
+use App\Http\Livewire\AssessmentCertification\NewCertificateEndorsement;
 use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
@@ -399,6 +401,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);
+    Route::get('new-certificate-endorsement', NewCertificateEndorsement::class)->name('new-certificate-endorsement');
+    Route::get('edit-certificate-endorsement/{id}', EditCertificateEndorsement::class)->name('edit-certificate-endorsement');
 
     // Assessor/Verifiers
     Route::get('assessor-verifiers', AssessorVerifiersController::class)->name('assessor-verifiers');
