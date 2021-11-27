@@ -68,21 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group" wire:ignore>
-                                            <label>Jobvacancy category:</label>
-                                            <select name="jobvacancy_category_id" id="jobvacancy_category_id" class="form-control select2" wire:model="jobvacancy_category_id" required>
-                                                <option>--- select jobvacancy category ---</option>
-                                                @foreach ($job_categories as $id => $job_category)
-                                                    <option value="{{$id}}">{{$job_category}}</option>
-                                                @endforeach
-                                            </select>
-                                            @error('jobvacancy_category_id')
-                                                <span class="text-danger mt-1">{{$message}}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Occupational group:</label>
                                             <input type="text" class="form-control" wire:model="occupational_group">
@@ -91,7 +77,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Minimum Required Relevant Job Experience (Years):</label>
                                             <input type="number" class="form-control" name="minimum_required_job_experience" wire:model="minimum_required_job_experience" value="{{ old('minimum_required_job_experience') }}" min="0" step="1">
@@ -132,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group" wire:ignore>
                                             <label>Job Status: <sup class="text-danger">*</sup></label>
                                             <select id="job_status" class="form-control select2" wire:model="job_status" required>
@@ -146,11 +132,25 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Institution: <sup class="text-danger">*</sup></label>
                                             <input type="text" class="form-control" name="institution" wire:model="institution" value="{{ old('institution') }}">
                                             @error('institution')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group" wire:ignore>
+                                            <label>Jobvacancy category:</label>
+                                            <select name="jobvacancy_category_id" id="jobvacancy_category_id" class="form-control select2" wire:model="jobvacancy_category_id" required>
+                                                <option>--- select jobvacancy category ---</option>
+                                                @foreach ($job_categories as $id => $job_category)
+                                                    <option value="{{$id}}">{{$job_category}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('jobvacancy_category_id')
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
