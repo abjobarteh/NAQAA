@@ -50,30 +50,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($registeredstudents as $student)
+                                @forelse ($registeredstudents as $registration)
                                     <tr>
-                                        <td><img src="{{$student->picture ?? '/storage/uploads/no-image.png'}}" class="rounded-circle" alt="Student Profile Image" width="60"></td>
-                                        <td>{{$student->full_name}}</td>
-                                        <td>{{$student->date_of_birth}}</td>
-                                        <td>{{$student->gender}}</td>
-                                        <td>{{$student->phone}}</td>
-                                        <td>{{$student->address}}</td>
-                                        <td>{{$student->registration->candidate_type}}</td>
-                                        <td>{{$student->registration->candidate_id ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->programme->name ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->level->name ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->trainingprovider->name ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->registration_no ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->registration_date ?? 'N/A'}}</td>
-                                        <td>{{$student->registration->academic_year}}</td>
+                                        <td><img src="{{$registration->registeredStudent->picture ?? '/storage/uploads/no-image.png'}}" class="rounded-circle" alt="Student Profile Image" width="60"></td>
+                                        <td>{{$registration->registeredStudent->full_name}}</td>
+                                        <td>{{$registration->registeredStudent->date_of_birth}}</td>
+                                        <td>{{$registration->registeredStudent->gender}}</td>
+                                        <td>{{$registration->registeredStudent->phone}}</td>
+                                        <td>{{$registration->registeredStudent->address}}</td>
+                                        <td>{{$registration->candidate_type}}</td>
+                                        <td>{{$registration->candidate_id ?? 'N/A'}}</td>
+                                        <td>{{$registration->programme->name ?? 'N/A'}}</td>
+                                        <td>{{$registration->level->name ?? 'N/A'}}</td>
+                                        <td>{{$registration->trainingprovider->name ?? 'N/A'}}</td>
+                                        <td>{{$registration->registration_no ?? 'N/A'}}</td>
+                                        <td>{{$registration->registration_date ?? 'N/A'}}</td>
+                                        <td>{{$registration->academic_year}}</td>
                                         <td>
-                                            <a href="{{route('assessment-certification.edit-student-registration',$student->registration->id)
+                                            <a href="{{route('assessment-certification.edit-student-registration',$registration->id)
                                                 }}" class="btn btn-sm btn-danger"
                                                 title="edit student registration details"
                                                 >
                                                 <i class="fas fa-edit"></i>    
                                             </a>
-                                            <a href="{{route('assessment-certification.registrations.show',$student->id)
+                                            <a href="{{route('assessment-certification.view-student-registration',$registration->id)
                                                 }}" class="btn btn-sm btn-info"
                                                 title="view student registration details"
                                                 >

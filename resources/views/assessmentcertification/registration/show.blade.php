@@ -26,7 +26,7 @@
                                 </div>
                                 <div class="col-md-6 d-flex flex-direction-row justify-content-end">
                                     <a href="{{route('assessment-certification.registrations.index')}}" class="btn btn-success mr-1 btn-flat"><i class="fas fa-list"></i> Registered Students</a>
-                                    <a href="{{route('assessment-certification.registrations.edit',$registeredstudent->id)}}" class="btn btn-danger btn-flat"><i class="fas fa-edit"></i> Edit Student Registration</a>
+                                    <a href="{{route('assessment-certification.registrations.edit',$student_registration->id)}}" class="btn btn-danger btn-flat"><i class="fas fa-edit"></i> Edit Student Registration</a>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +38,7 @@
                                         <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                             <option value="">---select institution---</option>
                                             @foreach ($institutions as $id => $institution)
-                                                <option value="{{$id}}" {{ $registeredstudent->training_provider_id === $id ? 'selected' : ''}}>{{$institution}}</option>
+                                                <option value="{{$id}}" {{ $student_registration->training_provider_id === $id ? 'selected' : ''}}>{{$institution}}</option>
                                             @endforeach
                                         </select>
                                         @error('training_provider_id')

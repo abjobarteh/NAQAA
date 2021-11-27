@@ -76,6 +76,7 @@ use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
+use App\Http\Livewire\AssessmentCertification\ViewStudentRegistration;
 use App\Http\Livewire\Notifications;
 use App\Http\Livewire\Portal\ApplicationPayment;
 use App\Http\Livewire\Portal\Institution\Applications\EditInterimAuthorisation;
@@ -388,6 +389,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('registrations', StudentRegistrationsController::class);
     Route::get('new-student-registration', NewStudentRegistration::class)->name('new-student-registration');
     Route::get('edit-student-registration/{id}', EditStudentRegistration::class)->name('edit-student-registration');
+    Route::get('view-student-registration/{id}', ViewStudentRegistration::class)->name('view-student-registration');
 
     // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {

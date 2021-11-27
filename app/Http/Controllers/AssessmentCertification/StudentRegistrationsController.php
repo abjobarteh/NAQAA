@@ -27,83 +27,12 @@ class StudentRegistrationsController extends Controller
      */
     public function index()
     {
-        $registeredstudents = TrainingProviderStudent::with([
-            'registration.programme', 'registration.level', 'registration.trainingprovider', 'registration'
+        $registeredstudents = StudentRegistrationDetail::with([
+            'programme', 'level', 'trainingprovider', 'registeredStudent'
         ])
-            ->whereHas('registration')
             ->latest()->get();
 
         return view('assessmentcertification.registration.index', compact('registeredstudents'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * TODO: Refactor this function
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreStudentRegistrationRequest $request)
-    {
-        $data = $request->validated();
-
-        DB::transaction(function () use ($data, $request) {
-            if ($request->hasFile('picture')) {
-                $name = time() . '_' . $request->picture->getClientOriginalName();
-                $filePath = $request->file('picture')->storeAs('uploads', $name, 'public');
-
-                $newstudent = TrainingProviderStudent::create([
-                    'training_provider_id' => $data['training_provider_id'],
-                    'candidate_type' => $data['candidate_type'],
-                    'academic_year' => $data['academic_year'],
-                    'firstname' => $data['firstname'],
-                    'middlename' => $data['middlename'],
-                    'lastname' => $data['lastname'],
-                    'gender' => $data['gender'],
-                    'date_of_birth' => $data['date_of_birth'],
-                    'nationality' => $data['nationality'],
-                    'local_language' => $data['local_language'],
-                    'address' => $data['address'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'],
-                    'programme_id' => $data['programme_id'],
-                    'programme_level_id' => $data['programme_level_id'],
-                    'region_id' => $data['region_id'],
-                    'district_id' => $data['district_id'],
-                    'town_village_id' => $data['town_village_id'],
-                    'picture' => '/storage/' . $filePath,
-                ]);
-            } else {
-                $newstudent = TrainingProviderStudent::create([
-                    'training_provider_id' => $data['training_provider_id'],
-                    'candidate_type' => $data['candidate_type'],
-                    'academic_year' => $data['academic_year'],
-                    'firstname' => $data['firstname'],
-                    'middlename' => $data['middlename'],
-                    'lastname' => $data['lastname'],
-                    'gender' => $data['gender'],
-                    'date_of_birth' => $data['date_of_birth'],
-                    'nationality' => $data['nationality'],
-                    'local_language' => $data['local_language'],
-                    'address' => $data['address'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'],
-                    'programme_id' => $data['programme_id'],
-                    'programme_level_id' => $data['programme_level_id'],
-                    'region_id' => $data['region_id'],
-                    'district_id' => $data['district_id'],
-                    'town_village_id' => $data['town_village_id'],
-                ]);
-            }
-
-
-            StudentRegistrationDetail::create([
-                'student_id' => $newstudent->id,
-                'registration_date' => now(),
-            ]);
-        });
-
-        return redirect()->route('assessment-certification.registrations.index')
-            ->withSuccess('Student successfully registered');
     }
 
     /**
@@ -114,8 +43,8 @@ class StudentRegistrationsController extends Controller
      */
     public function show($id)
     {
-        $registeredstudent = TrainingProviderStudent::find($id)
-            ->load(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration']);
+        $student_registration = StudentRegistrationDetail::find($id)
+            ->load(['programme', 'level', 'trainingprovider', 'registeredStudent']);
         $institutions = TrainingProvider::whereHas('licences', function (Builder $query) {
             $query->where('license_status', 'valid');
         })->pluck('name', 'id');
@@ -136,7 +65,7 @@ class StudentRegistrationsController extends Controller
                 'regions',
                 'districts',
                 'townvillages',
-                'registeredstudent',
+                'student_registration',
                 'nationalities',
                 'local_languages'
             )
