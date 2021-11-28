@@ -102,6 +102,10 @@ class Trainer extends Model
     {
         return $this->hasMany(StudentAssessmentDetail::class, 'assessor_id');
     }
+    public function verifierAssessments()
+    {
+        return $this->hasMany(StudentAssessmentDetail::class, 'verifier_id');
+    }
 
     public function logindetail()
     {

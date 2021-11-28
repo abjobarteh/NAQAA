@@ -152,13 +152,19 @@
         </a>
         <ul class="c-sidebar-nav-dropdown-items">
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/trainer/assigned-candidates') || 
+                    request()->is('portal/trainer/assigned-candidates/*') 
+                         ? 'active' : '' }}"  href="{{route('portal.trainer.assigned-candidates')}}">
                     <span class="c-sidebar-nav-icon"></span> 
                     Assigned candidates
                 </a>
             </li>
             <li class="c-sidebar-nav-item">
-                <a class="c-sidebar-nav-link" href="base/breadcrumb.html">
+                <a class="c-sidebar-nav-link {{
+                    request()->is('portal/trainer/assigned-candidates') || 
+                    request()->is('portal/trainer/assigned-candidates/*') 
+                         ? 'active' : '' }}" href="{{route('portal.trainer.assessment-results')}}">
                     <span class="c-sidebar-nav-icon"></span> 
                     Assessment results 
                 </a>

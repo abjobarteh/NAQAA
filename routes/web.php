@@ -19,6 +19,7 @@ use App\Http\Controllers\Portal\Institution\StudentsDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainerDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainingProviderChecklistController;
 use App\Http\Controllers\Portal\Trainer\AccreditationsController;
+use App\Http\Controllers\Portal\Trainer\AssessmentsController;
 use App\Http\Controllers\Portal\Trainer\DashboardController as TrainerDashboardController;
 use App\Http\Controllers\Portal\Trainer\RegistrationsController;
 use App\Http\Controllers\Portal\Trainer\TrainerChecklistController;
@@ -86,6 +87,7 @@ use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\Portal\Trainer\AssessmentResult;
 use App\Http\Livewire\Portal\Trainer\EditTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
 use App\Http\Livewire\Portal\Trainer\NewTrainerAccreditation;
@@ -492,6 +494,10 @@ Route::group(['middleware' => 'auth'], function () {
       // Trainer checklist
       Route::resource('checklist-evidence', TrainerChecklistController::class)
         ->except(['destroy', 'show']);
+
+      // Assessment
+      Route::get('assigned-candidates', [AssessmentsController::class, 'index'])->name('assigned-candidates');
+      Route::get('assessment-results', AssessmentResult::class)->name('assessment-results');
     });
 
     // payments page
