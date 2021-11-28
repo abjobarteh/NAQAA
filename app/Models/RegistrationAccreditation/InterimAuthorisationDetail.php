@@ -2,6 +2,9 @@
 
 namespace App\Models\RegistrationAccreditation;
 
+use App\Models\District;
+use App\Models\Region;
+use App\Models\TownVillage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -36,6 +39,21 @@ class InterimAuthorisationDetail extends Model
     public function getSourcesOfFundingDetailsAttribute($value)
     {
         return json_decode($value);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function townVillage()
+    {
+        return $this->belongsTo(TownVillage::class, 'town_village_id');
     }
 
     public function promoters()

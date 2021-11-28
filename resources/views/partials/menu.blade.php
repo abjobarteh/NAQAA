@@ -356,15 +356,12 @@
      >
     <i class="nav-icon fas fa-envelope"></i>
     <p>
-      Applications
+      Portal Applications
       <span class="badge badge-info right">@php
           echo \App\Models\RegistrationAccreditation\ApplicationDetail::where('submitted_from', 'Portal')
-          ->where('submitted_from', 'Portal')
-            ->where(function ($query) {
-                $query->where('application_form_status', 'submitted')
-                    ->orWhere('application_form_status', 'Saved');
-            })
-            ->where('status', 'Pending')
+            ->where('submitted_from', 'Portal')
+            ->where('application_form_status', 'submitted')
+            ->whereIn('status', ['Pending','Ongoing'])
             ->latest()
             ->count();
       @endphp</span>

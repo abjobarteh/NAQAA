@@ -21,11 +21,8 @@ class ApplicationsController extends Controller
     {
         $applications = ApplicationDetail::with(['trainingprovider', 'trainer'])
             ->where('submitted_from', 'Portal')
-            ->where(function ($query) {
-                $query->where('application_form_status', 'Submitted')
-                    ->orWhere('application_form_status', 'Saved');
-            })
-            ->where('status', 'Pending')
+            ->where('application_form_status', 'Submitted')
+            ->whereIn('status', ['Pending', 'Ongoing'])
             ->latest()
             ->get();
 
@@ -40,8 +37,7 @@ class ApplicationsController extends Controller
      */
     public function show($id)
     {
-        $application = ApplicationDetail::findOrFail($id)
-            ->load('trainingprovider', 'trainer', 'programmeDetail');
+        $application = ApplicationDetail::findOrFail($id);
 
         return view('registrationaccreditation.applications.show', compact('application'));
     }
@@ -54,18 +50,11 @@ class ApplicationsController extends Controller
      */
     public function edit($id)
     {
-        // $application = ApplicationDetail::findOrFail($id)
-        //     ->load('trainingprovider', 'trainer', 'programmeDetail');
-        $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'trainer', 'registrationLicence');
-
-        $regions = Region::all()->pluck('name', 'id');
-        $districts = District::all()->pluck('name', 'id');
-        $townvillages = TownVillage::all()->pluck('name', 'id');
-        $categories = TrainingProviderClassification::all()->pluck('name', 'id');
+        $application = ApplicationDetail::findOrFail($id);
 
         return view(
             'registrationaccreditation.applications.edit',
-            compact('registration', 'regions', 'districts', 'townvillages', 'categories')
+            compact('application')
         );
     }
 

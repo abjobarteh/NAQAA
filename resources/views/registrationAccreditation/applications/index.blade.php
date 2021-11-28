@@ -46,35 +46,24 @@
                                             <td>{{$application->application_no ?? 'N/A'}}</td>
                                             <td>{{$application->application_date->toFormattedDateString() ?? 'N/A'}}</td>
                                             <td><span class="badge badge-info badge-rounded">{{$application->application_type ?? 'N/A'}}</span></td>
-                                            <td><span class="badge badge-danger badge-rounded">{{$application->status ?? 'N/A'}}</span></td>
                                             <td>
-                                                @if ($application->application_type === 'institution_accreditation')
-                                                    <a href="{{route('registration-accreditation.applications.edit',$application->id)
-                                                    }}" class="btn btn-xs btn-danger"
-                                                    title="edit application details"
-                                                    >
-                                                    <i class="fas fa-edit"></i>    
-                                                    </a>
-                                                    <a href="{{route('registration-accreditation.applications.show',$application->id)
-                                                    }}" class="btn btn-xs btn-info"
-                                                    title="view application details"
-                                                    >
-                                                    <i class="fas fa-eye"></i>    
-                                                    </a>
-                                                @else     
-                                                    <a href="{{route('registration-accreditation.applications.edit',$application->id)
-                                                    }}" class="btn btn-xs btn-danger"
-                                                    title="edit application details"
-                                                    >
-                                                    <i class="fas fa-edit"></i>    
-                                                    </a>
-                                                    <a href="{{route('registration-accreditation.applications.show',$application->id)
-                                                    }}" class="btn btn-xs btn-info"
-                                                    title="view application details"
-                                                    >
-                                                    <i class="fas fa-eye"></i>    
-                                                    </a>
-                                                @endif
+                                                <span class="badge {{$application->status == "Pending" ? 'badge-danger' : 'badge-warning' }}  badge-rounded">
+                                                    {{$application->status ?? 'N/A'}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a href="{{route('registration-accreditation.edit-application-detail',$application->id)
+                                                }}" class="btn btn-xs btn-danger"
+                                                title="edit application details"
+                                                >
+                                                <i class="fas fa-edit"></i>    
+                                                </a>
+                                                <a href="{{route('registration-accreditation.applications.show',$application->id)
+                                                }}" class="btn btn-xs btn-info"
+                                                title="view application details"
+                                                >
+                                                <i class="fas fa-eye"></i>    
+                                                </a>
                                             </td>
                                         </tr>
                                     @empty

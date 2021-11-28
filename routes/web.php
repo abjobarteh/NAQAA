@@ -91,6 +91,7 @@ use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrain
 use App\Http\Livewire\Portal\Trainer\NewTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\NewTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
+use App\Http\Livewire\RegistrationAccreditation\EditApplicationDetail;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\Reports\LearningCentersReport;
 use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
@@ -364,6 +365,7 @@ Route::group(['middleware' => 'auth'], function () {
     // checklists thematic area
     Route::resource('checklist-thematic-area', ChecklistThematicAreaController::class)
       ->except('show', 'destroy');
+    Route::get('edit-application-detail/{id}', EditApplicationDetail::class)->name('edit-application-detail');
 
     // checklists
     Route::resource('checklists', ChecklistController::class)
