@@ -25,6 +25,9 @@ class EditApplicationDetail extends Component
     public function mount($id)
     {
         $this->application = ApplicationDetail::findOrFail($id);
+        $this->fill([
+            'application_status' => $this->application->status
+        ]);
     }
     public function render()
     {
