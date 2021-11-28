@@ -188,14 +188,14 @@
                                                         <td>
                                                             <input type="checkbox" wire:model="selectedCandidates" {{ in_array($candidate->id,$selectedCandidates) ? 'checked' : ''}} value="{{$candidate->id}}"/>
                                                         </td>
-                                                        <td>{{$candidate->firstname}}</td>
-                                                        <td>{{$candidate->middlename ?? 'N/A'}}</td>
-                                                        <td>{{$candidate->lastname}}</td>
-                                                        <td>{{$candidate->date_of_birth}}</td>
-                                                        <td>{{$candidate->gender}}</td>
-                                                        <td>{{$candidate->email}}</td>
-                                                        <td>{{$candidate->phone}}</td>
-                                                        <td>{{$candidate->address}}</td>
+                                                        <td>{{$candidate->registeredStudent->firstname}}</td>
+                                                        <td>{{$candidate->registeredStudent->middlename ?? 'N/A'}}</td>
+                                                        <td>{{$candidate->registeredStudent->lastname}}</td>
+                                                        <td>{{$candidate->registeredStudent->date_of_birth}}</td>
+                                                        <td>{{$candidate->registeredStudent->gender}}</td>
+                                                        <td>{{$candidate->registeredStudent->email}}</td>
+                                                        <td>{{$candidate->registeredStudent->phone}}</td>
+                                                        <td>{{$candidate->registeredStudent->address}}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>

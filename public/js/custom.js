@@ -13,14 +13,17 @@ $(document).ready(function(){
     window.addEventListener('openAssessmentFormModal', event => {
         $('#assessment-modal').modal('show')
     })
+    window.addEventListener('openTrainerAssessmentFormModal', event => {
+        $('#trainer-assessment-modal').modal('show')
+    })
 
     window.addEventListener('openFilterlogsModal', event => {
         $('#filter-logs-modal').modal('show')
     })
 
-    window.addEventListener('closeAssessmentFormModal', event => {
+    window.addEventListener('closeTrainerAssessmentFormModal', event => {
       console.log('something is working here')
-      $('#assessment-modal').modal('hide')
+      $('#trainer-assessment-modal').modal('hide')
     })
 
     window.addEventListener('closeFilterlogsModal', event => {

@@ -244,7 +244,7 @@
                                                     <select id="trainer_type" class="form-control custom-select" wire:model="trainer_type">
                                                         <option value="">Select type of trainer</option>
                                                         @foreach ($trainer_types as $trainer)
-                                                        <option value="{{$trainer->name}}">{{$trainer->name}}</option>
+                                                        <option value="{{$trainer->slug}}">{{$trainer->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('type')

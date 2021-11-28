@@ -11,6 +11,7 @@ use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class GenerateCandidates extends Component
@@ -68,20 +69,20 @@ class GenerateCandidates extends Component
         // $this->validate();
 
         if ($this->candidate_type === 'regular') {
-            $this->candidates = TrainingProviderStudent::where('training_provider_id', $this->training_provider_id)
+            $this->candidates = StudentRegistrationDetail::where('training_provider_id', $this->training_provider_id)
                 ->where('programme_id', $this->programme_id)
                 ->where('programme_level_id', $this->programme_level_id)
                 ->where('academic_year', $this->academic_year)
-                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
                 ->latest()
                 ->get();
         } else {
-            $this->candidates = TrainingProviderStudent::whereHas('registration', function (Builder $query) {
-                $query->where('registration_no', $this->registration_no);
-            })
-                ->where('date_of_birth', $this->date_of_birth)
+            $this->candidates = StudentRegistrationDetail::where('registration_no', $this->registration_no)
+                ->whereHas('registeredStudent', function (Builder $query) {
+                    $query->where('date_of_birth', $this->date_of_birth);
+                })
                 ->where('academic_year', $this->academic_year)
-                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registration'])
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
                 ->latest()
                 ->get();
         }
@@ -94,12 +95,24 @@ class GenerateCandidates extends Component
             ]);
         } else {
             $this->candidatesExist = true;
+            $program = Qualification::findOrFail($this->programme_id);
+            $level = QualificationLevel::findOrFail($this->programme_level_id);
             $this->assessors = Trainer::whereHas('validLicence', function (Builder $query) {
-                $query->where('trainer_type', 'Assessor');
-            })->get();
+                $query->where('trainer_type', 'assessor');
+            })
+                // ->whereHas('accreditations', function (Builder $query) use ($program, $level) {
+                //     $query->where(DB::raw('lower(area)'), 'like', '%' . strtolower($program) . '%')
+                //         ->where(DB::raw('lower(level)'), 'like', '%' . strtolower($level) . '%');
+                // })
+                ->get();
             $this->verifiers = Trainer::whereHas('validLicence', function (Builder $query) {
-                $query->where('trainer_type', 'Verifier');
-            })->get();
+                $query->where('trainer_type', 'verifier');
+            })
+                // ->whereHas('accreditations', function (Builder $query) use ($program, $level) {
+                //     $query->where(DB::raw('lower(area)'), 'like', '%' . strtolower($program) . '%')
+                //         ->where(DB::raw('lower(level)'), 'like', '%' . strtolower($level) . '%');
+                // })
+                ->get();
         }
     }
 

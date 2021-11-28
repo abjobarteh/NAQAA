@@ -44,6 +44,10 @@ class StudentAssessmentDetail extends Model
     {
         return $this->belongsTo(Trainer::class, 'assessor_id');
     }
+    public function verifier()
+    {
+        return $this->belongsTo(Trainer::class, 'verifier_id');
+    }
 
     public function registration()
     {
