@@ -17,8 +17,8 @@ class AssessmentsController extends Controller
             'student',
             'registration',
             'registration.programme',
-            'regitsration.level',
-            'regitsration.trainingprovider',
+            'registration.level',
+            'registration.trainingprovider',
         )
             ->where(function ($query) use ($trainer_id) {
                 $query->where('assessor_id', $trainer_id)

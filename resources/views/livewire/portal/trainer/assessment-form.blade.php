@@ -9,7 +9,7 @@
               </button>
             </div>
             <div class="modal-body">
-                @if ()
+                @if (!$is_verifier)
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group">

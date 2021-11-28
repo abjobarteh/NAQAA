@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\AssessmentCertification;
 
 use App\Jobs\GenerateCandidateID;
+use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\Qualification;
 use App\Models\QualificationLevel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
@@ -84,32 +85,20 @@ class StudentAssessment extends Component
         // $this->validate();
 
         if ($this->assessment_type === 'new' && $this->candidate_type === 'regular') {
-            $this->candidates = TrainingProviderStudent::where('training_provider_id', $this->training_provider_id)
+            $this->candidates = StudentRegistrationDetail::where('training_provider_id', $this->training_provider_id)
                 ->where('programme_id', $this->programme_id)
                 ->where('programme_level_id', $this->programme_level_id)
                 ->where('academic_year', $this->academic_year)
-                ->with([
-                    'programme:id,name',
-                    'level:id,name',
-                    'trainingprovider:id,name',
-                    'registration',
-                    'currentAssessment'
-                ])
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
                 ->latest()
                 ->get();
         } else {
-            $this->candidates = TrainingProviderStudent::whereHas('registration', function (Builder $query) {
-                $query->where('registration_no', $this->registration_no);
-            })
-                ->where('date_of_birth', $this->date_of_birth)
+            $this->candidates = StudentRegistrationDetail::where('registration_no', $this->registration_no)
+                ->whereHas('registeredStudent', function (Builder $query) {
+                    $query->where('date_of_birth', $this->date_of_birth);
+                })
                 ->where('academic_year', $this->academic_year)
-                ->with([
-                    'programme:id,name',
-                    'level:id,name',
-                    'trainingprovider:id,name',
-                    'registration',
-                    'currentAssessment'
-                ])
+                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
                 ->latest()
                 ->get();
         }
@@ -127,7 +116,7 @@ class StudentAssessment extends Component
 
     public function generateCandidateIDs()
     {
-        $competent_candidates = TrainingProviderStudent::whereHas('currentAssessment', function (Builder $query) {
+        $competent_candidates = StudentRegistrationDetail::whereHas('studentAssessments', function (Builder $query) {
             $query->where('assessment_status', 'competent');
         })
             ->where('training_provider_id', $this->training_provider_id)

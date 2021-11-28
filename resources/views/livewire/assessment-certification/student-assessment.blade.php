@@ -169,13 +169,13 @@
                                                 <tbody>
                                                     @foreach ($candidates as $candidate)
                                                         <tr>
-                                                            <td>{{$candidate->full_name}}</td>
-                                                            <td>{{$candidate->date_of_birth}}</td>
-                                                            <td>{{$candidate->gender}}</td>
-                                                            <td>{{$candidate->email}}</td>
-                                                            <td>{{$candidate->phone}}</td>
-                                                            <td>{{$candidate->address}}</td>
-                                                            <td>{{$candidate->currentAssessment->assessment_status ?? 'N/A'}}</td>
+                                                            <td>{{$candidate->registeredStudent->full_name}}</td>
+                                                            <td>{{$candidate->registeredStudent->date_of_birth}}</td>
+                                                            <td>{{$candidate->registeredStudent->gender}}</td>
+                                                            <td>{{$candidate->registeredStudent->email}}</td>
+                                                            <td>{{$candidate->registeredStudent->phone}}</td>
+                                                            <td>{{$candidate->registeredStudent->address}}</td>
+                                                            <td>{{$candidate->assessment_status ?? 'N/A'}}</td>
                                                             <td>{{$candidate->candidate_id?? 'N/A'}}</td>
                                                             <td>
                                                                 <button type="button" class="btn btn-sm btn-flat btn-primary" wire:click="$emit('openAssessmentForm',{{$candidate->id}})" 

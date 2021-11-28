@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -24,7 +25,7 @@ class GenerateCandidateID implements ShouldQueue
      */
     public function __construct($candidate_id)
     {
-        $this->candidate = TrainingProviderStudent::findOrFail($candidate_id)->load('programme');
+        $this->candidate = StudentRegistrationDetail::findOrFail($candidate_id)->load('programme', 'registeredStudent');
     }
 
     /**
@@ -34,11 +35,11 @@ class GenerateCandidateID implements ShouldQueue
      */
     public function handle()
     {
-        $reg_no = $this->candidate->registration->registration_no;
-        $gender = $this->candidate->gender === 'male' ? 1 : 0;
-        $date_of_birth = str_replace('-', '', (string)$this->candidate->date_of_birth);
+        $reg_no = $this->candidate->registration_no;
+        $gender = $this->candidate->registeredStudent->gender === 'male' ? 1 : 0;
+        $date_of_birth = str_replace('-', '', (string)$this->candidate->registeredStudent->date_of_birth);
         $program_code = $this->candidate->programme->qualification_code;
-        $candidate_type = $this->candidate->candidate_type === 'regular' ? 'R' : 'P';
+        $candidate_type = $this->candidate_type === 'regular' ? 'R' : 'P';
 
         if ($this->candidate->candidate_id === null) {
             $this->candidate->update([

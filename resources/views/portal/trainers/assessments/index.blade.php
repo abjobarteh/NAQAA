@@ -44,7 +44,7 @@
                             <td>{{$candidate->student->nationality ?? 'N/A'}}</td>
                             <td>{{$candidate->registration->programme->name ?? 'N/A'}}</td>
                             <td>{{$candidate->registration->level->name ?? 'N/A'}}</td>
-                            <td>{{$candidate->registration->trainigprovider->name ?? 'N/A'}}</td>
+                            <td>{{$candidate->registration->trainingprovider->name ?? 'N/A'}}</td>
                             <td>{{$candidate->registration->academic_year ?? 'N/A'}}</td>
                         </tr>
                     @empty
