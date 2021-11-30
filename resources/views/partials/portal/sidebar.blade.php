@@ -101,6 +101,15 @@
             Certificate Endorsements
         </a>
     </li>
+    <li class="c-sidebar-nav-title">Profile</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link {{ request()->is('portal/institution/settings') ? 'active' : '' }}" href="{{route('portal.institution.settings')}}">
+            <svg class="c-sidebar-nav-icon">
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
+            </svg> 
+            Profile 
+        </a>
+    </li>
     @endportal
     @portal('trainer')
     <li class="c-sidebar-nav-item">
@@ -171,6 +180,15 @@
             </li>
         </ul>
     </li>
+    <li class="c-sidebar-nav-title">Profile</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link {{ request()->is('portal/trainer/settings') ? 'active' : '' }}" href="{{route('portal.trainer.settings')}}">
+            <svg class="c-sidebar-nav-icon">
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
+            </svg> 
+            Profile 
+        </a>
+    </li>
     @endportal
     <li class="c-sidebar-nav-title">General</li>
     <li class="c-sidebar-nav-item">
@@ -180,14 +198,6 @@
             </svg> 
                 Notifications
             <span class="badge badge-info">{{auth()->user()->roles[0]->notifications->count()}}</span>
-        </a>
-    </li>
-    <li class="c-sidebar-nav-item">
-        <a class="c-sidebar-nav-link {{ request()->is('settings') ? 'active' : '' }}" href="{{route('portal.settings')}}">
-            <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
-            </svg> 
-            Profile 
         </a>
     </li>
     <li class="c-sidebar-nav-divider"></li>
