@@ -21,7 +21,7 @@ class TrainersRegistrationController extends Controller
             ->latest()
             ->get();
 
-        return view('registrationaccreditation.registration.trainers.index', compact('trainer_registrations'));
+        return view('registrationAccreditation.registration.trainers.index', compact('trainer_registrations'));
     }
 
 
@@ -35,6 +35,6 @@ class TrainersRegistrationController extends Controller
     {
         $registration = ApplicationDetail::findOrFail($id)->load('trainer', 'registrationLicence');
 
-        return view('registrationaccreditation.registration.trainers.show', compact('registration'));
+        return view('registrationAccreditation.registration.trainers.show', compact('registration'));
     }
 }

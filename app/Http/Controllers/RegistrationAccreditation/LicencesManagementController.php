@@ -35,7 +35,7 @@ class LicencesManagementController extends Controller
         $revoked_licences = RegistrationLicenceDetail::with(['trainer', 'trainingprovider', 'application'])
             ->where('license_status', 'Revoked')->latest()->get();
 
-        return view('registrationaccreditation.licences.registration', compact('all_licences', 'valid_licences', 'expired_licences', 'revoked_licences'));
+        return view('registrationAccreditation.licences.registration', compact('all_licences', 'valid_licences', 'expired_licences', 'revoked_licences'));
     }
 
     // get accreditation licences
@@ -51,7 +51,7 @@ class LicencesManagementController extends Controller
         // $traineraccreditations->map(function ($item, $key) {
         //     dump($key . ': ' . $item[0]->area . '=>' . $item[0]->level);
         // });
-        return view('registrationaccreditation.licences.accreditation', compact('traineraccreditations', 'programaccreditations'));
+        return view('registrationAccreditation.licences.accreditation', compact('traineraccreditations', 'programaccreditations'));
     }
 
     // revoked or continue licence of trainingprovider/trainer
