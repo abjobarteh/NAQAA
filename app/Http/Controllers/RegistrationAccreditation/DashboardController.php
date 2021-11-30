@@ -59,6 +59,6 @@ class DashboardController extends Controller
             ],
         ];
 
-        return view('registrationaccreditation.dashboard', compact('tiles'));
+        return view('registrationAccreditation.dashboard', compact('tiles'));
     }
 }

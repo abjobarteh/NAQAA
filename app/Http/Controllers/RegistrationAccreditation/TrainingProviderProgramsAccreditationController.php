@@ -32,7 +32,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
             ->latest()
             ->get();
 
-        return view('registrationaccreditation.accreditation.programmes.index', compact('accreditations'));
+        return view('registrationAccreditation.accreditation.programmes.index', compact('accreditations'));
     }
 
     /**
@@ -59,7 +59,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
         }
 
         return view(
-            'registrationaccreditation.accreditation.programmes.create',
+            'registrationAccreditation.accreditation.programmes.create',
             compact('trainingproviders', 'levels', 'application_statuses', 'application_no')
         );
     }
@@ -195,7 +195,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
         $application_statuses = ApplicationStatus::all()->pluck('name');
 
         return view(
-            'registrationaccreditation.accreditation.programmes.show',
+            'registrationAccreditation.accreditation.programmes.show',
             compact('accreditation', 'trainingproviders', 'levels', 'application_statuses')
         );
     }
@@ -217,7 +217,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
         $application_statuses = ApplicationStatus::all()->pluck('name');
 
         return view(
-            'registrationaccreditation.accreditation.programmes.edit',
+            'registrationAccreditation.accreditation.programmes.edit',
             compact('accreditation', 'trainingproviders', 'levels', 'application_statuses')
         );
     }

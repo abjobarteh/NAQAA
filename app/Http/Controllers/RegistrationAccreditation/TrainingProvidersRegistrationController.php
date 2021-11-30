@@ -41,7 +41,7 @@ class TrainingProvidersRegistrationController extends Controller
         $townvillages = TownVillage::all()->pluck('name', 'id');
 
         return view(
-            'registrationaccreditation.registration.trainingproviders.index',
+            'registrationAccreditation.registration.trainingproviders.index',
             compact('registrations', 'regions', 'districts', 'townvillages')
         );
     }
@@ -73,7 +73,7 @@ class TrainingProvidersRegistrationController extends Controller
         }
 
         return view(
-            'registrationaccreditation.registration.trainingproviders.create',
+            'registrationAccreditation.registration.trainingproviders.create',
             compact(
                 'regions',
                 'districts',
@@ -230,7 +230,7 @@ class TrainingProvidersRegistrationController extends Controller
     {
         $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
-        return view('registrationaccreditation.registration.trainingproviders.show', compact('registration'));
+        return view('registrationAccreditation.registration.trainingproviders.show', compact('registration'));
     }
 
     /**
@@ -252,7 +252,7 @@ class TrainingProvidersRegistrationController extends Controller
         $application_statuses = ApplicationStatus::all()->pluck('name');
 
         return view(
-            'registrationaccreditation.registration.trainingproviders.edit',
+            'registrationAccreditation.registration.trainingproviders.edit',
             compact(
                 'registration',
                 'regions',

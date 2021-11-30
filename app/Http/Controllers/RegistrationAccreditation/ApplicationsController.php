@@ -26,7 +26,7 @@ class ApplicationsController extends Controller
             ->latest()
             ->get();
 
-        return view('registrationaccreditation.applications.index', compact('applications'));
+        return view('registrationAccreditation.applications.index', compact('applications'));
     }
 
     /**
@@ -39,7 +39,7 @@ class ApplicationsController extends Controller
     {
         $application = ApplicationDetail::findOrFail($id);
 
-        return view('registrationaccreditation.applications.show', compact('application'));
+        return view('registrationAccreditation.applications.show', compact('application'));
     }
 
     /**
@@ -53,7 +53,7 @@ class ApplicationsController extends Controller
         $application = ApplicationDetail::findOrFail($id);
 
         return view(
-            'registrationaccreditation.applications.edit',
+            'registrationAccreditation.applications.edit',
             compact('application')
         );
     }
