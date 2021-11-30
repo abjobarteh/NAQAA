@@ -87,11 +87,13 @@ use App\Http\Livewire\Portal\Institution\Applications\InterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
+use App\Http\Livewire\Portal\Institution\ProfileSetting;
 use App\Http\Livewire\Portal\Trainer\AssessmentResult;
 use App\Http\Livewire\Portal\Trainer\EditTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
 use App\Http\Livewire\Portal\Trainer\NewTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\NewTrainerRegistration;
+use App\Http\Livewire\Portal\Trainer\TrainerProfileSetting;
 use App\Http\Livewire\RegistrationAccreditation\CreateTrainerRegistration;
 use App\Http\Livewire\RegistrationAccreditation\EditApplicationDetail;
 use App\Http\Livewire\RegistrationAccreditation\EditTrainerRegistration;
@@ -471,7 +473,9 @@ Route::group(['middleware' => 'auth'], function () {
       // training provider checklist
       Route::resource('checklist-evidence', TrainingProviderChecklistController::class)
         ->except(['destroy', 'show']);
-      // Route::get('settings',)
+
+      // Trainer Profiles Settings
+      Route::get('settings', ProfileSetting::class)->name('settings');
     });
 
     // Trainers
@@ -498,6 +502,9 @@ Route::group(['middleware' => 'auth'], function () {
       // Assessment
       Route::get('assigned-candidates', [AssessmentsController::class, 'index'])->name('assigned-candidates');
       Route::get('assessment-results', AssessmentResult::class)->name('assessment-results');
+
+      // Trainer Profiles Settings
+      Route::get('settings', TrainerProfileSetting::class)->name('settings');
     });
 
     // payments page
