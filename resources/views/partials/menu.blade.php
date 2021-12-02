@@ -221,15 +221,15 @@
           </p>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a href="{{route('standardscurriculum.reports.graduates')}}" class="nav-link 
-        {{ request()->is('standardscurriculum/reports/graduates') ? 'active' : '' }}">
+      <li class="nav-item">
+        <a href="{{route('standardscurriculum.reports.qualification')}}" class="nav-link 
+        {{ request()->is('standardscurriculum/reports/qualification') ? 'active' : '' }}">
           <i class="nav-icon fas fa-user-graduate"></i>
           <p>
             Qualifications
           </p>
         </a>
-      </li> --}}
+      </li>
     </ul>
   </li>
   @endcan

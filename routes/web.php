@@ -108,6 +108,7 @@ use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\GraduatesReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\LabourMarketReports;
 use App\Http\Livewire\ResearchDevelopment\Reports\ResearchSurveyReports;
+use App\Http\Livewire\StandardsCurriculum\Reports\QualificationReports;
 use App\Http\Livewire\StandardsCurriculum\Reports\UnitStandardReports;
 use Illuminate\Support\Facades\Route;
 
@@ -307,8 +308,15 @@ Route::group(['middleware' => 'auth'], function () {
         return view('standardscurriculum.reports.unitstandards');
       })->name('unit-standards');
 
+      // Qalification reports view page
+      Route::get('qualification', function () {
+        return view('standardscurriculum.reports.qualifications');
+      })->name('qualification');
+
       // Unit standards reports livewire component
       Route::get('unit-standard-reports/{report_type}', UnitStandardReports::class)->name('unit-standard-reports');
+      // Qualification reports livewire componet
+      Route::get('qualification-reports/{report_type}', QualificationReports::class)->name('qualification-reports');
     });
   });
 
