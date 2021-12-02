@@ -38,7 +38,7 @@ use App\Http\Controllers\researchdevelopment\DataCollections\DataCollectionsImpo
 use App\Http\Controllers\researchdevelopment\DataCollections\InstitutionDetailsController;
 use App\Http\Controllers\researchdevelopment\DataCollections\ProgramOfferedController;
 use App\Http\Controllers\researchdevelopment\DataCollections\StudentDetailsController;
-use App\Http\Controllers\ResearchDevelopment\JobVacanciesDataController;
+use App\Http\Controllers\researchdevelopment\JobVacanciesDataController;
 use App\Http\Controllers\researchdevelopment\ReportsController;
 use App\Http\Controllers\researchdevelopment\ResearchSurveyDocumentationController;
 use App\Http\Controllers\StandardsCurriculum\DashboardController as StandardsCurriculumDashboardController;
