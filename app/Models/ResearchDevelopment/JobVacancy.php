@@ -3,6 +3,7 @@
 namespace App\Models\ResearchDevelopment;
 
 use App\Models\District;
+use App\Models\JobVacancyCategory;
 use App\Models\LocalGovermentAreas;
 use App\Models\PositionAdvertised;
 use App\Models\Region;
@@ -82,5 +83,10 @@ class JobVacancy extends Model
     public function position()
     {
         return $this->belongsTo(PositionAdvertised::class, 'position_advertised_id');
+    }
+
+    public function vacancyCategory()
+    {
+        return $this->belongsTo(JobVacancyCategory::class, 'jobvacancy_category_id');
     }
 }

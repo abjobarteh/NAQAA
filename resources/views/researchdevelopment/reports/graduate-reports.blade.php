@@ -12,6 +12,7 @@
             <th>Attendance Status</th>
             <th>Admission Date</th>
             <th>Completion Date</th>
+            <th>Graduation Date</th>
             <th>Programme Name</th>
             <th>Field of Education</th>
             <th>Qualification at Entry</th>
@@ -34,6 +35,7 @@
                 <td>{{$result->attendance_status}}</td>
                 <td>{{$result->admission_date}}</td>
                 <td>{{$result->completion_date}}</td>
+                <td>{{$result->graduation_date}}</td>
                 <td>{{$result->programme_name}}</td>
                 <td>{{$result->field_of_education}}</td>
                 <td>{{$result->entryQualification->name}}</td>

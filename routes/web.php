@@ -275,9 +275,13 @@ Route::group(['middleware' => 'auth'], function () {
       })->name('graduates');
       Route::get('graduate-reports/{report_type}', GraduatesReports::class)->name('graduate-reports');
 
-      Route::get('labour-market', LabourMarketReports::class)->name('labour-market');
+      // Labour Market reports
+      Route::get('labour-market', function () {
+        return view('researchdevelopment.reports.labourmarket');
+      })->name('labour-market');
+      Route::get('labour-market-reports/{report_type}', LabourMarketReports::class)->name('labour-market-reports');
 
-      // Labour market reports
+      // Research Documentation reports
       Route::get('research-survey', function () {
         return view('researchdevelopment.reports.researchsurvey');
       })->name('research-survey');

@@ -22,6 +22,12 @@
                 <div class="card-body">
                     <form wire:submit.prevent="getReport">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="research_topic">Enrollment Year:</label>
+                                <input type="text" id="enrollment_year" class="form-control" wire:model="enrollment_year" placeholder="Enter Enrollment Year">
+                            </div>
+                        </div>
                         @if($is_classification)
                         <div class="col-md-12">
                             <div class="form-group">

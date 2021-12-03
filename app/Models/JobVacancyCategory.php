@@ -16,13 +16,8 @@ class JobVacancyCategory extends Model
         'description'
     ];
 
-    public function vancancyCategory()
+    public function jobVacancies()
     {
         return $this->belongsTo(JobVacancy::class, 'jobvacancy_category_id');
-    }
-
-    public function position()
-    {
-        return $this->belongsTo(PositionAdvertised::class, 'position_advertised_id');
     }
 }

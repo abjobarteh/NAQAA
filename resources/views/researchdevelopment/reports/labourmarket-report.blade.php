@@ -5,6 +5,8 @@
             <th>Min. required Job experience</th>
             <th>Min. required qaulification</th>
             <th>Fields of Study</th>
+            <th>Occupational group</th>
+            <th>Job Vacancy category</th>
             <th>Job status</th>
             <th>Institution</th>
             <th>Date Advertised</th>
@@ -27,6 +29,8 @@
                     </li>
                     @endforeach
                 </td>
+                <td>{{$result->occupational_group}}</td>
+                <td>{{$result->vacancyCategory->name ?? 'N/A'}}</td>
                 <td>{{$result->job_status}}</td>
                 <td>{{$result->institution}}</td>
                 <td>{{$result->date_advertised}}</td>
