@@ -70,25 +70,37 @@
                                     </select>
                                 </div>
                             </div>
-                            @elseif($is_validated)
+                            @elseif($is_qualification_type)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="main_findings">Validated:</label>
-                                    <select class="form-control custom-select" wire:model="validated">
-                                        <option>--- select validation status ---</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
+                                    <label for="main_findings">Qualification Type:</label>
+                                    <select class="form-control custom-select" wire:model="qua;ification_type">
+                                        <option>--- select qualification type ---</option>
+                                        <option value="full">Full</option>
+                                        <option value="partial">Partial</option>
                                     </select>
                                 </div>
                             </div>
-                            @elseif($is_entry_requirements)
+                            @elseif($is_certification_status)
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="authors">Entry Requirements:</label>
-                                    <select class="form-control custom-select" wire:model="entry_requirements">
-                                        <option>--- select entry requirements ---</option>
-                                        @foreach ($levels as $id => $name)
-                                            <option value="{{$id}}">{{$name}}</option>
+                                    <label for="authors">Certification Status:</label>
+                                    <select class="form-control custom-select" wire:model="certification_status">
+                                        <option>--- select certification status ---</option>
+                                        <option value="competent">Competent</option>
+                                        <option value="notcompetent">Not Competent</option>
+                                        <option value="incomplete">Incomplete</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @elseif($is_region)
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="region">Region:</label>
+                                    <select class="form-control custom-select" wire:model="region">
+                                        <option>--- select region ---</option>
+                                        @foreach ($regions as $id => $region)
+                                            <option value="{{$id}}">{{$region}}</option>
                                         @endforeach
                                     </select>
                                 </div>

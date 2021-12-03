@@ -23,18 +23,18 @@
         @foreach ($results as $result)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$result->firstname}}</td>
-                <td>{{$result->middlename ?? 'N/A'}}</td>
-                <td>{{$result->lastname}}</td>
-                <td>{{$result->gender == 'male' ? 'M' : 'F'}}</td>
-                <td>{{$result->date_of_birth}}</td>
-                <td>{{$result->email}}</td>
-                <td>{{$result->phone}}</td>
-                <td>{{$result->nationality}}</td>
-                <td>{{$result->local_language}}</td>
-                <td>{{$result->address}}</td>
+                <td>{{$result->registeredStudent->firstname}}</td>
+                <td>{{$result->registeredStudent->middlename ?? 'N/A'}}</td>
+                <td>{{$result->registeredStudent->lastname}}</td>
+                <td>{{$result->registeredStudent->gender}}</td>
+                <td>{{$result->registeredStudent->date_of_birth}}</td>
+                <td>{{$result->registeredStudent->email}}</td>
+                <td>{{$result->registeredStudent->phone}}</td>
+                <td>{{$result->registeredStudent->nationality}}</td>
+                <td>{{$result->registeredStudent->local_language}}</td>
+                <td>{{$result->registeredStudent->address}}</td>
                 <td>{{$result->candidate_type}}</td>
-                <td>{{$result->proramme->name ?? 'N/A'}}</td>
+                <td>{{$result->programme->name ?? 'N/A'}}</td>
                 <td>{{$result->level->name ?? 'N/A'}}</td>
                 <td>{{$result->trainingprovider->name ?? 'N/A'}}</td>
                 <td>{{$result->academic_year}}</td>

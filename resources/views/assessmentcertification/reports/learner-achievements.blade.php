@@ -93,17 +93,6 @@
                         <div class="card p-3">
                             <div class="d-flex flex-column align-items-center mb-3">
                                 <i class="fas fa-project-diagram fa-3x text-info mb-1"></i>
-                                <h6>Local Goverment Area</h6>
-                            </div>
-                            <a class="btn btn-primary btn-flat btn-block" href="{{route('assessment-certification.learner-achievement-reports','lga')}}">
-                                View
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="card p-3">
-                            <div class="d-flex flex-column align-items-center mb-3">
-                                <i class="fas fa-project-diagram fa-3x text-info mb-1"></i>
                                 <h6>Region</h6>
                             </div>
                             <a class="btn btn-primary btn-flat btn-block" href="{{route('assessment-certification.learner-achievement-reports','region')}}">
