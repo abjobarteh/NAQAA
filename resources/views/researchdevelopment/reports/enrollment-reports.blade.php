@@ -36,9 +36,9 @@
                 <td>{{$result->completion_date}}</td>
                 <td>{{$result->programme_name}}</td>
                 <td>{{$result->field_of_education}}</td>
-                <td>{{$result->entryQualification->name}}</td>
-                <td>{{$result->region->name ?? ''}}</td>
-                <td>{{$result->trainingprovider->name ?? ''}}</td>
+                <td>{{$result->entryQualification->name ?? 'N/A'}}</td>
+                <td>{{$result->region->name ?? 'N/A'}}</td>
+                <td>{{$result->trainingprovider->name ?? 'N/A'}}</td>
                 <td>{{$result->academic_year}}</td>
             </tr>
         @empty

@@ -22,10 +22,16 @@
                 <div class="card-body">
                     <form wire:submit.prevent="getReport">
                     <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="graduation_year">Graduation Year:</label>
+                                <input type="text" id="graduation_year" class="form-control" wire:model="graduation_year" placeholder="Enter Graduation Year">
+                            </div>
+                        </div>
                         @if($is_classification)
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="research_topic">Classification:</label>
+                                <label for="classification">Classification:</label>
                                 <select id="classification" class="form-control custom-select" wire:model="classification">
                                     <option value="">--- select classification ---</option>
                                     @foreach ($classifications as $id => $name)
@@ -44,7 +50,7 @@
                         @elseif($is_education_field)
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="research_topic">Field of Education:</label>
+                                <label for="education_field">Field of Education:</label>
                                 <select id="education_field" class="form-control custom-select" wire:model="education_field">
                                     <option value="">--- select field of education ---</option>
                                     @foreach ($fields_of_education as $id => $name)
@@ -56,7 +62,7 @@
                         @elseif($is_level)
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="research_topic">Education Level:</label>
+                                <label for="education_level">Education Level:</label>
                                 <select id="level" class="form-control custom-select" wire:model="level">
                                     <option value="">--- select education level ---</option>
                                     @foreach ($levels as $id => $name)
@@ -68,7 +74,7 @@
                         @elseif($is_lga_region)
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="research_topic">Region:</label>
+                                <label for="region">Region:</label>
                                 <select id="region" class="form-control custom-select" wire:model="lga_region">
                                     <option value="">--- select region ---</option>
                                     @foreach ($regions as $id => $name)

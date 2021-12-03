@@ -76,17 +76,6 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card p-3">
-                                <div class="d-flex flex-column align-items-center mb-3">
-                                    <i class="fas fa-chart-pie fa-3x text-info mb-1"></i>
-                                    <h6>Sponsors Report</h6>
-                                </div>
-                                <a class="btn btn-primary btn-flat btn-block" href="{{route('researchdevelopment.reports.enrollment-reports','sponsors')}}">
-                                    View
-                                </a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

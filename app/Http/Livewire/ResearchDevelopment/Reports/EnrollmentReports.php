@@ -14,9 +14,9 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EnrollmentReports extends Component
 {
-    public $classification, $programme, $education_field, $level, $lga_region, $sponsor;
+    public $classification, $programme, $education_field, $level, $lga_region, $enrollment_year;
     public $is_classification = false, $is_programme = false, $is_education_field = false, $is_level = false,
-        $is_lga_region = false, $is_sponsor = false;
+        $is_lga_region = false;
     public $report_type;
 
     public function mount($report_type)
@@ -34,8 +34,6 @@ class EnrollmentReports extends Component
                 $this->is_level = true;
             case "lga_region":
                 $this->is_lga_region = true;
-            case "sponsor":
-                $this->is_sponsor = true;
             case "default":
                 return back();
         }
@@ -57,14 +55,15 @@ class EnrollmentReports extends Component
 
     public function getReport()
     {
-        // dd('Report generation has started. Please wait');
         $enrollments = TrainingProviderStudent::query();
+        $year = $this->enrollment_year ==  null ? date('Y') : $this->enrollment_year;
 
         if ($this->is_classification) {
             $enrollments->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->whereHas('trainingprovider', function (Builder $query) {
                     $query->where('classification_id', $this->classification);
-                });
+                })
+                ->where('admission_date', $year);
 
             return Excel::download(
                 new EnrollmentReportsExport($enrollments->get()),
@@ -72,28 +71,36 @@ class EnrollmentReports extends Component
             );
         } else if ($this->is_programme) {
             $enrollments->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
-                ->where('programme_name', 'like', '%' . $this->programme . '%');
+                ->where('programme_name', 'like', '%' . $this->programme . '%')
+                ->where('admission_date', $year);
+
             return Excel::download(
                 new EnrollmentReportsExport($enrollments->get()),
                 'enrollments_by_programme.xlsx'
             );
         } else if ($this->is_education_field) {
             $enrollments->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
-                ->where('field_of_education', 'like', '%' . $this->education_field . '%');
+                ->where('field_of_education', 'like', '%' . $this->education_field . '%')
+                ->where('admission_date', $year);
+
             return Excel::download(
                 new EnrollmentReportsExport($enrollments->get()),
                 'enrollments_by_field_of_education.xlsx'
             );
         } else if ($this->is_level) {
             $enrollments->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
-                ->where('qualification_at_entry', $this->level);
+                ->where('qualification_at_entry', $this->level)
+                ->where('admission_date', $year);
+
             return Excel::download(
                 new EnrollmentReportsExport($enrollments->get()),
                 'enrollments_by_qualification_level.xlsx'
             );
         } else if ($this->is_lga_region) {
             $enrollments->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
-                ->where('region_id', $this->lga_region);
+                ->where('region_id', $this->lga_region)
+                ->where('admission_date', $year);
+
             return Excel::download(
                 new EnrollmentReportsExport($enrollments->get()),
                 'enrollments_by_regions.xlsx'

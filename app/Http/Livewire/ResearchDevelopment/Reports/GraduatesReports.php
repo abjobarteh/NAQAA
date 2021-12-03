@@ -14,7 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class GraduatesReports extends Component
 {
-    public $classification, $programme, $education_field, $level, $lga_region, $sponsor;
+    public $classification, $programme, $education_field, $level, $lga_region, $graduation_year;
     public $is_classification = false, $is_programme = false, $is_education_field = false, $is_level = false,
         $is_lga_region = false, $is_sponsor = false;
     public $report_type;
@@ -34,8 +34,6 @@ class GraduatesReports extends Component
                 $this->is_level = true;
             case "lga_region":
                 $this->is_lga_region = true;
-            case "sponsor":
-                $this->is_sponsor = true;
             case "default":
                 return back();
         }
@@ -57,15 +55,15 @@ class GraduatesReports extends Component
 
     public function getReport()
     {
-        // dd('Report generation has started. Please wait');
         $graduates = TrainingProviderStudent::query();
+        $year = $this->graduation_year ==  null ? date('Y') : $this->graduation_year;
 
         if ($this->is_classification) {
             $graduates->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->whereHas('trainingprovider', function (Builder $query) {
                     $query->where('classification_id', $this->classification);
                 })
-                ->whereNotNull('graduation_date');
+                ->where('graduation_date', $year);
 
             return Excel::download(
                 new GraduatesReportExport($graduates->get()),
@@ -74,7 +72,8 @@ class GraduatesReports extends Component
         } else if ($this->is_programme) {
             $graduates->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->where('programme_name', 'like', '%' . $this->programme . '%')
-                ->whereNotNull('graduation_date');
+                ->where('graduation_date', $year);
+
 
             return Excel::download(
                 new GraduatesReportExport($graduates->get()),
@@ -83,7 +82,7 @@ class GraduatesReports extends Component
         } else if ($this->is_education_field) {
             $graduates->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->where('field_of_education', 'like', '%' . $this->education_field . '%')
-                ->whereNotNull('graduation_date');
+                ->where('graduation_date', $year);
 
             return Excel::download(
                 new GraduatesReportExport($graduates->get()),
@@ -92,7 +91,8 @@ class GraduatesReports extends Component
         } else if ($this->is_level) {
             $graduates->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->where('qualification_at_entry', $this->level)
-                ->whereNotNull('graduation_date');
+                ->where('graduation_date', $year);
+
 
             return Excel::download(
                 new GraduatesReportExport($graduates->get()),
@@ -101,7 +101,8 @@ class GraduatesReports extends Component
         } else if ($this->is_lga_region) {
             $graduates->with('trainingprovider', 'region', 'district', 'awardName', 'entryQualification')
                 ->where('region_id', $this->lga_region)
-                ->whereNotNull('graduation_date');
+                ->where('graduation_date', $year);
+
 
             return Excel::download(
                 new GraduatesReportExport($graduates->get()),
