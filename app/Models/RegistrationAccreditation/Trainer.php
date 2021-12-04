@@ -95,7 +95,8 @@ class Trainer extends Model
 
     public function validLicence()
     {
-        return $this->hasOne(RegistrationLicenceDetail::class, 'trainer_id')->where('license_status', 'Approved');
+        return $this->hasOne(RegistrationLicenceDetail::class, 'trainer_id')
+            ->where('license_status', 'Approved');
     }
 
     public function assessments()
