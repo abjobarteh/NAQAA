@@ -24,7 +24,7 @@ class AssessmentForm extends Component
 
     public function showTrainerAssessmentFormModal($id)
     {
-        $this->student_detail = StudentAssessmentDetail::findOrFail($id)->load('student');
+        $this->student_detail = StudentAssessmentDetail::findOrFail($id)->load('student', 'registration');
 
         if (!is_null($this->student_detail)) {
             $this->fill([
@@ -66,7 +66,7 @@ class AssessmentForm extends Component
     {
         if ($type == 'partial') {
             $this->is_partial = true;
-            $this->unit_standards = UnitStandard::where('qualification_id', $this->student_detail->programme_id)->get();
+            $this->unit_standards = UnitStandard::where('qualification_id', $this->student_detail->registration->programme_id)->get();
         } else {
             $this->is_partial = false;
         }
@@ -96,5 +96,13 @@ class AssessmentForm extends Component
                 'comments' => $this->verifier_comments,
             ]);
         }
+
+        $this->closeAssessmentForm();
+
+        return $this->dispatchBrowserEvent('alert', [
+            'type' => 'success',
+            'title' => 'Candidate Assessment Details Saved',
+            'message' => 'Candidates assessment details has successfully been saved!'
+        ]);
     }
 }

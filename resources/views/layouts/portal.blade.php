@@ -19,6 +19,8 @@
 <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" href="/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
  @yield('styles')
  @livewireStyles
  
@@ -35,10 +37,12 @@
     </div>
 
  <!-- Optional JavaScript -->
- <!-- Popper.js first, then CoreUI JS -->
- <script src="/js/coreui/coreui.bundle.min.js"></script>
  <!-- jQuery -->
 <script src="/plugins/jquery/jquery.min.js"></script>
+
+ <!-- Popper.js first, then CoreUI JS -->
+ <script src="/js/coreui/coreui.bundle.min.js"></script>
+ 
 <!-- Select2 -->
 <script src="/plugins/select2/js/select2.full.min.js"></script>
 <!-- DataTables  & Plugins -->
@@ -54,10 +58,12 @@
 <script src="/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="/plugins/sweetalert2/sweetalert2.min.js"></script>
+@include('sweetalert::alert')
+@yield('scripts')
+@livewireScripts
 <!-- custom js -->
 <script src="/js/custom.js"></script>
- @include('sweetalert::alert')
- @yield('scripts')
- @livewireScripts
  </body>
 </html>
