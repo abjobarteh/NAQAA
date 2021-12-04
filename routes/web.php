@@ -388,8 +388,17 @@ Route::group(['middleware' => 'auth'], function () {
       ->except('show', 'destroy');
 
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
-      Route::get('learning-centers', LearningCentersReport::class)->name('learning-centers');
-      Route::get('trainers', TrainersReport::class)->name('trainers');
+      // Learning Center reports
+      Route::view('learning-centers', 'registrationAccreditation.reports.learning-centers')
+        ->name('learning-centers');
+      Route::get('learning-center-reports/{report_type}', LearningCentersReport::class)
+        ->name('learning-center-reports');
+
+      // Trainer reports
+      Route::view('registered-trainers', 'registrationAccreditation.reports.trainers')
+        ->name('registered-trainers');
+      Route::get('registered-trainer-reports/{report_type}', TrainersReport::class)
+        ->name('registered-trainer-reports');
     });
   });
 

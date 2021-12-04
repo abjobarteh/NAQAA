@@ -427,8 +427,10 @@
       </a>
     </li>
     <li class="nav-item">
-      <a href="{{route('registration-accreditation.reports.trainers')}}" class="nav-link 
-      {{ request()->is('registration-accreditation/reports/trainers') ? 'active' : '' }}">
+      <a href="{{route('registration-accreditation.reports.registered-trainers')}}" class="nav-link 
+      {{ request()->is('registration-accreditation/reports/registered-trainers') ||
+      request()->is('registration-accreditation/reports/registered-trainer-reports')
+        ? 'active' : '' }}">
         <i class="nav-icon fas fa-id-card"></i>
         <p>
           Trainers
