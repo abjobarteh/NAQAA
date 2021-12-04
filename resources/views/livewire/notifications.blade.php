@@ -17,6 +17,13 @@
                     <div class="card research-card">
                         <div class="card-header">
                             <h3 class="card-title">Notifications Lists</h3>
+                            <a href="#" class="btn btn-sm btn-primary float-right"
+                                title="Mark all as read"
+                                wire:click="markAllRead"
+                                >
+                                <i class="fas fa-check-double"></i>    
+                                Mark All as Read
+                            </a>
                         </div>
                         <div class="card-body">
                             <table id="example2" class="table datatable table-bordered table-hover">
@@ -32,14 +39,6 @@
                                         <tr>
                                             <td>{{$notification->data['message']}}</td>
                                             <td>{{$notification->created_at->diffForHumans()}}</td>
-                                            <td>
-                                                <a href="#" class="btn btn-sm btn-primary"
-                                                    title="Mark as read"
-                                                    >
-                                                    <i class="fas fa-check-double"></i>    
-                                                    Mark as Read
-                                                </a>
-                                            </td>
                                         </tr>
                                     @empty
                                         

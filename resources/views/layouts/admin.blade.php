@@ -56,7 +56,7 @@
       <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="far fa-bell"></i>
-          <span class="badge badge-info navbar-badge">{{auth()->user()->roles[0]->notifications->count()}}</span>
+          <span class="badge badge-info navbar-badge">{{auth()->user()->roles[0]->unreadNotifications->count()}}</span>
         </a>
       </li>
         @if(auth()->user()->roles->count() > 1)
