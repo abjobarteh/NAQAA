@@ -15,8 +15,10 @@ use App\Models\TownVillage;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Symfony\Component\HttpFoundation\Response;
 
 class NewStudentRegistration extends Component
 {
@@ -50,6 +52,11 @@ class NewStudentRegistration extends Component
         'academic_year' => 'required|string',
         'picture' => 'nullable|file|mimes:jpg,png|max:2048',
     ];
+
+    public function mount()
+    {
+        abort_if(Gate::denies('access_student_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
 
     public function render()
     {

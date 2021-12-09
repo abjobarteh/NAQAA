@@ -453,6 +453,7 @@
     </p>
   </a>
 </li>
+@can('access_student_registration')
 <li class="nav-item">
   <a href="{{route('assessment-certification.registrations.index')}}" class="nav-link {{
      request()->is('assessment-certification/registrations') || 
@@ -464,6 +465,8 @@
     </p>
   </a>
 </li>
+@endcan
+@can('access_student_assessment')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('assessment-certification/assessment/*') ? 'active' : '' }}"
@@ -497,6 +500,8 @@
     </li>
   </ul>
 </li>
+@endcan
+@can('access_endorsement')
 <li class="nav-item">
   <a href="{{route('assessment-certification.certificate-endorsements.index')}}" class="nav-link {{
      request()->is('assessment-certification/certificate-endorsements') ||
@@ -511,6 +516,7 @@
     </p>
   </a>
 </li>
+@endcan
 <li class="nav-item">
   <a href="{{route('assessment-certification.assessor-verifiers')}}" class="nav-link {{
      request()->is('assessment-certification/assessor-verifiers') ||
@@ -522,6 +528,7 @@
     </p>
   </a>
 </li>
+@can('access_assessment_certification_reports')
 <li class="nav-item">
   <a href="{{route('assessment-certification.learner-achievements')}}" class="nav-link {{
     request()->is('assessment-certification/learner-achievements') ||
@@ -534,4 +541,5 @@
     </p>
   </a>
 </li>
+@endcan
 @endrole

@@ -8,7 +8,9 @@ use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderProgramme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class EditCertificateEndorsement extends Component
 {
@@ -47,6 +49,8 @@ class EditCertificateEndorsement extends Component
 
     public function mount($id)
     {
+        abort_if(Gate::denies('edit_endorsement'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->endorsement = EndorsedCertificateDetail::findOrFail($id);
 
         $this->fill([

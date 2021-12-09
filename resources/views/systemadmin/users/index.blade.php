@@ -45,10 +45,10 @@
                                 @forelse ($users as $user)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->firstname.' '.$user->middlename.' '.$user->lastname ?? $user->firstname.' '.$user->lastname }}</td>
+                                    <td>{{ $user->full_name ?? 'N/A' }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phonenumber }}</td>
-                                    <td>{{ $user->address }}</td>
+                                    <td>{{ $user->phonenumber ?? 'N/A' }}</td>
+                                    <td>{{ $user->address ?? 'N/A' }}</td>
                                     <td>{{ $user->designation->name ?? 'N/A'}}</td>
                                     <td>
                                         @if ($user->user_status == 1)
@@ -64,9 +64,11 @@
                                     </td>
                                     <td>{{ \Carbon\Carbon::parse($user->created_at)->diffForHumans() }}</td>
                                     <td>
+                                        @if ($user->user_category != "portal")
                                         @can('edit_user')
                                         <a href="{{ route('admin.users.edit',$user->id) }}" class="btn btn-primary btn-sm" title="Edit user details"><i class="fas fa-user-edit"></i></a>
-                                        @endcan
+                                        @endcan 
+                                        @endif
                                         @can('show_user')
                                         <a href="{{ route('admin.users.show',$user->id) }}" class="btn btn-info btn-sm" title="view user"><i class="fas fa-eye"></i></a>
                                         @endcan

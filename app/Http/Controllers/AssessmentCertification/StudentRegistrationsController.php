@@ -17,6 +17,8 @@ use App\Models\TownVillage;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class StudentRegistrationsController extends Controller
 {
@@ -27,6 +29,8 @@ class StudentRegistrationsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_student_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $registeredstudents = StudentRegistrationDetail::with([
             'programme', 'level', 'trainingprovider', 'registeredStudent'
         ])
