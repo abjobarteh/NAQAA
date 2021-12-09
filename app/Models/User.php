@@ -79,6 +79,15 @@ class User extends Authenticatable
     //     };
     // }
 
+    public function getFullNameAttribute()
+    {
+        if ($this->middlename != null) {
+
+            return "{$this->firstname} .{$this->middlename}. {$this->lastname}";
+        }
+        return "{$this->firstname} {$this->lastname}";
+    }
+
     public function directorate()
     {
         return $this->belongsTo(Directorate::class);
