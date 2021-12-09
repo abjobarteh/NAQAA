@@ -510,6 +510,66 @@ class PermissionsTableSeeder extends Seeder
                 'slug' => 'access_assessment_certification_reports',
                 'permission_type' => 'assessment_and_certification_module'
             ],
+            [
+                'name' => 'Access Registration',
+                'slug' => 'access_registration',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Create Registration',
+                'slug' => 'create_registration',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Edit Registration',
+                'slug' => 'edit_registration',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Show Registration',
+                'slug' => 'show_registration',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Access Accreditation',
+                'slug' => 'access_accreditation',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Create Accreditation',
+                'slug' => 'create_accreditation',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Edit Accreditation',
+                'slug' => 'edit_accreditation',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Show Accreditation',
+                'slug' => 'show_accreditation',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Access Licence',
+                'slug' => 'access_licence',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Access Portal Appliations',
+                'slug' => 'access_portal_applications',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Access Checklist Configuration',
+                'slug' => 'access_checklist_configuration',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
+            [
+                'name' => 'Access Registration Accreditation Reports',
+                'slug' => 'access_registration_accreditation_reports',
+                'permission_type' => 'registration_and_accreditation_module'
+            ],
         ];
 
         Permission::insert($permissions);

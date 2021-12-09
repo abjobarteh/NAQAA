@@ -3,6 +3,8 @@
 namespace App\Http\Requests\RegistrationAccreditation;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class StoreTrainerAccreditationRequest extends FormRequest
 {
@@ -13,6 +15,8 @@ class StoreTrainerAccreditationRequest extends FormRequest
      */
     public function authorize()
     {
+        abort_if(Gate::denies('create_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return true;
     }
 

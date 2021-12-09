@@ -247,6 +247,7 @@
     </p>
   </a>
 </li>
+@can('access_registration')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/registration/*') ? 'active' : '' }}"
@@ -283,6 +284,8 @@
     </li>
   </ul>
 </li>
+@endcan
+@can('access_accreditation')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/accreditation/*') ? 'active' : '' }}"
@@ -316,6 +319,8 @@
     </li>
   </ul>
 </li>
+@endcan
+@can('access_licence')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/licences/*') ? 'active' : '' }}"
@@ -349,6 +354,8 @@
     </li>
   </ul>
 </li>
+@endcan
+@can('access_portal_applications')
 <li class="nav-item">
   <a href="{{route('registration-accreditation.applications.index')}}" class="nav-link 
   {{ request()->is('registration-accreditation/applications') || 
@@ -368,6 +375,8 @@
     </p>
   </a>
 </li>
+@endcan
+@can('access_checklist_configuration')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/checklist-thematic-area') ||
@@ -404,7 +413,9 @@
       </a>
     </li>
   </ul>
-</li>
+</li> 
+@endcan
+@can('access_registration_accreditation_reports')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 
   {{ request()->is('registration-accreditation/reports/*') || 
@@ -439,6 +450,7 @@
     </li>
   </ul>
 </li>
+@endcan
 @endrole
 
 {{-- Assessment & Certification --}}

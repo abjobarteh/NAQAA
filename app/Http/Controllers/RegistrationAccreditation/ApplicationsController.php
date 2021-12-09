@@ -9,6 +9,8 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\TownVillage;
 use App\Models\TrainingProviderClassification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ApplicationsController extends Controller
 {
@@ -19,6 +21,8 @@ class ApplicationsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_portal_applications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $applications = ApplicationDetail::with(['trainingprovider', 'trainer'])
             ->where('submitted_from', 'Portal')
             ->where('application_form_status', 'Submitted')

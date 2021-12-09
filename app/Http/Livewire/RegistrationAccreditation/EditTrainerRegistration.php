@@ -8,7 +8,9 @@ use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
 use App\Models\RegistrationAccreditation\TrainerType;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class EditTrainerRegistration extends Component
 {
@@ -45,6 +47,8 @@ class EditTrainerRegistration extends Component
 
     public function mount($id)
     {
+        abort_if(Gate::denies('edit_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $registration = ApplicationDetail::findOrFail($id)->load('trainer', 'registrationLicence');
         $this->trainer_registration = $registration;
 

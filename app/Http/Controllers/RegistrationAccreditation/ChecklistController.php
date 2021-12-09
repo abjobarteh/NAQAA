@@ -7,6 +7,8 @@ use App\Models\RegistrationAccreditation\Checklist;
 use App\Models\RegistrationAccreditation\ChecklistThematicArea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChecklistController extends Controller
 {
@@ -17,6 +19,8 @@ class ChecklistController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $checklists = Checklist::latest()->get();
 
         return view('registrationAccreditation.checklist.index', compact('checklists'));
@@ -29,6 +33,8 @@ class ChecklistController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $thematicareas = ChecklistThematicArea::all()->pluck('name', 'id');
 
         return view('registrationAccreditation.checklist.create', compact('thematicareas'));
@@ -42,6 +48,8 @@ class ChecklistController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',
@@ -80,6 +88,8 @@ class ChecklistController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $checklist = Checklist::findOrFail($id);
         $thematicareas = ChecklistThematicArea::all()->pluck('name', 'id');
 
@@ -95,6 +105,8 @@ class ChecklistController extends Controller
      */
     public function update(Request $request, $id)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $request->validate([
             'name' => 'required|string',
             'slug' => 'required|string',

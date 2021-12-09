@@ -13,6 +13,8 @@ use App\Models\RegistrationAccreditation\TrainerAccreditationDetail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class TrainersAccreditationController extends Controller
 {
@@ -23,6 +25,8 @@ class TrainersAccreditationController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditations = ApplicationDetail::with([
             'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
             'trainerAccreditations',
@@ -40,6 +44,7 @@ class TrainersAccreditationController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $trainers = Trainer::whereHas('licences', function (Builder $query) {
             $query->where('license_status', 'Approved');
         })->get();
@@ -116,6 +121,8 @@ class TrainersAccreditationController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditation = ApplicationDetail::findOrFail($id);
 
         $accreditation->load(['trainerAccreditations', 'trainer']);
@@ -135,6 +142,8 @@ class TrainersAccreditationController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditation = ApplicationDetail::findOrFail($id);
         $trainers = Trainer::whereHas('licences', function (Builder $query) {
             $query->where('license_status', 'Approved');
@@ -200,16 +209,5 @@ class TrainersAccreditationController extends Controller
         });
 
         return back()->withSuccess('Trainer accreditation details Successfully updated in the system');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
