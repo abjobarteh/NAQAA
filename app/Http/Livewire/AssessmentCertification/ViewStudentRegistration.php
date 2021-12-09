@@ -13,7 +13,9 @@ use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\StandardsCurriculum\UnitStandard;
 use App\Models\TownVillage;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class ViewStudentRegistration extends Component
 {
@@ -25,6 +27,8 @@ class ViewStudentRegistration extends Component
 
     public function mount($id)
     {
+        abort_if(Gate::denies('show_student_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->student_registration = StudentRegistrationDetail::findOrFail($id)
             ->load('registeredStudent', 'programme', 'level', 'trainingprovider');
 

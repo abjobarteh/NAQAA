@@ -12,7 +12,9 @@ use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class GenerateCandidates extends Component
 {
@@ -32,6 +34,8 @@ class GenerateCandidates extends Component
 
     public function mount()
     {
+        abort_if(Gate::denies('access_student_assessment'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->candidate_type = 'regular';
     }
     public function render()

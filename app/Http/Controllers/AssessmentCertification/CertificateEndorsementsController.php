@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Notifications\AssessmentCertification\CertificateEndorsementRequestNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class CertificateEndorsementsController extends Controller
 {
@@ -23,6 +25,8 @@ class CertificateEndorsementsController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_endorsement'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $endorsements = EndorsedCertificateDetail::with('trainingprovider:id,name')->whereYear('created_at', date('Y'))->get();
 
         return view('assessmentcertification.endorsements.index', compact('endorsements'));

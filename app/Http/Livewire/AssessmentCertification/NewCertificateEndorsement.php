@@ -8,7 +8,9 @@ use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\TrainingProviderProgramme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class NewCertificateEndorsement extends Component
 {
@@ -43,6 +45,11 @@ class NewCertificateEndorsement extends Component
         'programme_start_date' => 'required|date',
         'programme_end_date' => 'required|date',
     ];
+
+    public function mount()
+    {
+        abort_if(Gate::denies('create_endorsement'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
 
     public function addTrainer($counter)
     {

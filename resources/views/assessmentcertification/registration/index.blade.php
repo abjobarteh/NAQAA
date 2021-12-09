@@ -9,11 +9,13 @@
             <h1 class="m-0">Registered Students</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
+                @can('create_student_registration')
                 <a href="{{route('assessment-certification.new-student-registration')}}" 
                     class="btn btn-primary btn-flat float-right">
                     <i class="fas fa-plus"></i> 
                     New Student Registration
                 </a>
+                @endcan
                 
                 @livewire('assessment-certification.export-competent-students')
             </div><!-- /.col -->
@@ -67,18 +69,22 @@
                                         <td>{{$registration->registration_date ?? 'N/A'}}</td>
                                         <td>{{$registration->academic_year}}</td>
                                         <td>
+                                            @can('edit_student_registration')
                                             <a href="{{route('assessment-certification.edit-student-registration',$registration->id)
                                                 }}" class="btn btn-sm btn-danger"
                                                 title="edit student registration details"
                                                 >
                                                 <i class="fas fa-edit"></i>    
                                             </a>
+                                            @endcan
+                                            @can('show_student_registration')
                                             <a href="{{route('assessment-certification.view-student-registration',$registration->id)
                                                 }}" class="btn btn-sm btn-info"
                                                 title="view student registration details"
                                                 >
                                                 <i class="fas fa-eye"></i>    
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @empty

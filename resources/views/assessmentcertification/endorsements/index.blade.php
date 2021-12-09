@@ -9,11 +9,13 @@
             <h1 class="m-0">Certificate Endorsements</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
+                @can('create_endorsement')
                 <a href="{{route('assessment-certification.new-certificate-endorsement')}}" 
                     class="btn btn-primary btn-flat float-right">
                     <i class="fas fa-plus"></i> 
                     New Certificate Endorsements
                 </a>
+                @endcan
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div>
@@ -63,18 +65,22 @@
                                             @endif
                                         </td>
                                         <td>
+                                            @can('edit_endorsement')
                                             <a href="{{route('assessment-certification.edit-certificate-endorsement',$endorsement->id)
                                                 }}" class="btn btn-xs btn-danger"
                                                 title="edit certificate endorsement details"
                                                 >
                                                 <i class="fas fa-edit"></i>    
                                             </a>
+                                            @endcan
+                                            @can('show_endorsement')
                                             <a href="{{route('assessment-certification.certificate-endorsements.show',$endorsement->id)
                                                 }}" class="btn btn-xs btn-info"
                                                 title="view certificate endorsement registration details"
                                                 >
                                                 <i class="fas fa-eye"></i>    
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @empty

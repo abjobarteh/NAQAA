@@ -460,6 +460,56 @@ class PermissionsTableSeeder extends Seeder
                 'slug' => 'show_qualifications',
                 'permission_type' => 'standardscurriculum'
             ],
+            [
+                'name' => 'Access Student Registration',
+                'slug' => 'access_student_registration',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Create Student Registration',
+                'slug' => 'create_student_registration',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Edit Student Registration',
+                'slug' => 'edit_student_registration',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Show Student Registration',
+                'slug' => 'show_student_registration',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Access Student Assessment',
+                'slug' => 'access_student_assessment',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Access Endorsement',
+                'slug' => 'access_endorsement',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Create Endorsement',
+                'slug' => 'create_endorsement',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Edit Endorsement',
+                'slug' => 'edit_endorsement',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Show Endorsement',
+                'slug' => 'show_endorsement',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
+                'name' => 'Access Assessment Certification Reports',
+                'slug' => 'access_assessment_certification_reports',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
         ];
 
         Permission::insert($permissions);

@@ -12,7 +12,9 @@ use Carbon\Carbon;
 use Illuminate\Bus\Batch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Bus;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 class StudentAssessment extends Component
@@ -36,6 +38,8 @@ class StudentAssessment extends Component
 
     public function mount()
     {
+        abort_if(Gate::denies('access_student_assessment'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->assessment_type = 'new';
         $this->candidate_type = 'regular';
     }

@@ -415,7 +415,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', AssessmentCertificationDashboardController::class)->name('dashboard');
 
     // student registrations
-    Route::resource('registrations', StudentRegistrationsController::class);
+    Route::resource('registrations', StudentRegistrationsController::class)
+      ->except('create', 'store', 'show', 'edit', 'update', 'destroy');
     Route::get('new-student-registration', NewStudentRegistration::class)->name('new-student-registration');
     Route::get('edit-student-registration/{id}', EditStudentRegistration::class)->name('edit-student-registration');
     Route::get('view-student-registration/{id}', ViewStudentRegistration::class)->name('view-student-registration');
