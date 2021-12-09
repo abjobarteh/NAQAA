@@ -11,11 +11,13 @@
                 <h1 class="m-0">Programme Accreditations</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
+                    @can('create_accreditation')
                     <a href="{{route('registration-accreditation.accreditation.programmes.create')}}" 
                         class="btn btn-primary btn-flat float-right">
                         <i class="fas fa-plus"></i>
                         New Programme Accreditation
                     </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -63,18 +65,22 @@
                                                 </span>
                                             </td>
                                             <td>
+                                                @can('edit_accreditation')
                                                 <a href="{{route('registration-accreditation.accreditation.programmes.edit',$accreditation->id)
                                                     }}" class="btn btn-xs btn-danger"
                                                     title="edit trainer registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
+                                                @endcan
+                                                @can('edit_accreditation')
                                                 <a href="{{route('registration-accreditation.accreditation.programmes.show',$accreditation->id)
                                                     }}" class="btn btn-xs btn-info"
                                                     title="view trainer registration details"
                                                     >
                                                     <i class="fas fa-eye"></i>    
                                                 </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

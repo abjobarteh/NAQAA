@@ -10,7 +10,9 @@ use App\Models\RegistrationAccreditation\Trainer;
 use App\Models\RegistrationAccreditation\TrainerType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class CreateTrainerRegistration extends Component
 {
@@ -43,6 +45,11 @@ class CreateTrainerRegistration extends Component
         'license_end_date' => 'required_if:application_status,Approved|nullable|date',
         'license_no' => 'required_if:application_status,Approved|nullable|string',
     ];
+
+    public function mount()
+    {
+        abort_if(Gate::denies('create_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    }
 
     public function render()
     {

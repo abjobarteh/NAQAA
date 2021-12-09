@@ -18,6 +18,8 @@ use App\Models\TrainingProviderOwnership;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class TrainingProvidersRegistrationController extends Controller
 {
@@ -28,6 +30,8 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $registrations = ApplicationDetail::with([
             'trainingprovider.district',
             'trainingprovider.classification',
@@ -53,6 +57,8 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $regions = Region::all()->pluck('name', 'id');
         $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
@@ -228,6 +234,8 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
         return view('registrationAccreditation.registration.trainingproviders.show', compact('registration'));
@@ -241,6 +249,8 @@ class TrainingProvidersRegistrationController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
         $regions = Region::all()->pluck('name', 'id');

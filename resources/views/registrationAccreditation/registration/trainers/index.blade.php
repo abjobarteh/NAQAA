@@ -11,11 +11,13 @@
                 <h1 class="m-0">Trainers</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
+                    @can('create_registration')
                     <a href="{{route('registration-accreditation.registration.create-trainer-registration')}}" 
                         class="btn btn-primary btn-flat float-right">
                         <i class="fas fa-plus"></i>
                         New Trainer Registration
                     </a>
+                    @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
         </div>
@@ -65,18 +67,22 @@
                                             <td>{{$registration->registrationLicence->licence_start_date ?? 'N/A'}}</td>
                                             <td>{{$registration->registrationLicence->licence_end_date ?? 'N/A'}}</td>
                                             <td>
+                                                @can('edit_registration')
                                                 <a href="{{route('registration-accreditation.registration.edit-trainer-registration',$registration->id)
                                                     }}" class="btn btn-xs btn-danger"
                                                     title="edit trainer registration details"
                                                     >
                                                     <i class="fas fa-edit"></i>    
                                                 </a>
+                                                @endcan
+                                                @can('show_registration')
                                                 <a href="{{route('registration-accreditation.registration.trainers.show',$registration->id)
                                                     }}" class="btn btn-xs btn-info"
                                                     title="view trainer registration details"
                                                     >
                                                     <i class="fas fa-eye"></i>    
                                                 </a>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @empty

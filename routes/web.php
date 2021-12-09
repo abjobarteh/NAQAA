@@ -345,7 +345,6 @@ Route::group(['middleware' => 'auth'], function () {
       Route::resource('trainingproviders', TrainingProvidersRegistrationController::class);
 
       // Trainers
-      // remove this route
       Route::resource('trainers', TrainersRegistrationController::class);
       // new routes using livewire component
       Route::get('create-trainer-registration', CreateTrainerRegistration::class)->name('create-trainer-registration');

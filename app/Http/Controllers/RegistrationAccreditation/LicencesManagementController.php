@@ -16,12 +16,16 @@ use App\Models\TownVillage;
 use App\Models\TrainingProviderClassification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class LicencesManagementController extends Controller
 {
     // get registration licences
     public function registration()
     {
+        abort_if(Gate::denies('access_licence'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         // get all licences
         $all_licences = RegistrationLicenceDetail::with(['trainer', 'trainingprovider', 'application'])
             ->latest()->get();
@@ -41,22 +45,22 @@ class LicencesManagementController extends Controller
     // get accreditation licences
     public function accreditation()
     {
+        abort_if(Gate::denies('access_licence'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $traineraccreditations = TrainerAccreditationDetail::with('application.trainer')
             ->get()->groupBy('application_id');
 
         $programaccreditations = ProgrammeAccreditationDetails::with('application.trainingprovider')
             ->get()->groupBy('application_id');
-        // dd($traineraccreditations);
 
-        // $traineraccreditations->map(function ($item, $key) {
-        //     dump($key . ': ' . $item[0]->area . '=>' . $item[0]->level);
-        // });
         return view('registrationAccreditation.licences.accreditation', compact('traineraccreditations', 'programaccreditations'));
     }
 
     // revoked or continue licence of trainingprovider/trainer
     public function updateLicenceStatus(Request $request)
     {
+        abort_if(Gate::denies('access_licence'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $licence = RegistrationLicenceDetail::findOrFail($request->id);
 
         if ($request->status === 'revoke') {
@@ -74,6 +78,8 @@ class LicencesManagementController extends Controller
 
     public function licenceRenewal($id)
     {
+        abort_if(Gate::denies('access_licence'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $licence = RegistrationLicenceDetail::findOrFail($id)->load('trainingprovider', 'trainer');
         $trainingprovider = null;
         $trainer = null;
@@ -97,6 +103,8 @@ class LicencesManagementController extends Controller
 
     public function renewLicence(Request $request)
     {
+        abort_if(Gate::denies('access_licence'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $data = null;
 
         if ($request->filled('training_provider_id')) {

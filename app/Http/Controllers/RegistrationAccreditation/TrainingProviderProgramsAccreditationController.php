@@ -16,6 +16,8 @@ use App\Models\TrainingProviderProgramme;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class TrainingProviderProgramsAccreditationController extends Controller
 {
@@ -26,6 +28,8 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditations = ApplicationDetail::with([
             'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',
         ])->where('application_type', 'institution_accreditation')
@@ -42,6 +46,8 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('create_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $trainingproviders = TrainingProvider::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
         $application_statuses = ApplicationStatus::all()->pluck('name');
@@ -186,6 +192,8 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function show($id)
     {
+        abort_if(Gate::denies('show_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
                 'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',
@@ -208,6 +216,8 @@ class TrainingProviderProgramsAccreditationController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('edit_accreditation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $accreditation = ApplicationDetail::findOrFail($id)
             ->load([
                 'trainingproviderprogramme', 'trainingprovider', 'trainingproviderprogramme.programme',

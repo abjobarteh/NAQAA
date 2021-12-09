@@ -5,7 +5,9 @@ namespace App\Http\Livewire\RegistrationAccreditation;
 use App\Models\ApplicationStatus;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
+use Symfony\Component\HttpFoundation\Response;
 
 class EditApplicationDetail extends Component
 {
@@ -24,6 +26,8 @@ class EditApplicationDetail extends Component
 
     public function mount($id)
     {
+        abort_if(Gate::denies('access_portal_applications'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $this->application = ApplicationDetail::findOrFail($id);
         $this->fill([
             'application_status' => $this->application->status
@@ -42,7 +46,6 @@ class EditApplicationDetail extends Component
 
     public function updatedApplicationStatus($value)
     {
-        // dd($value);
         if ($value == 'Approved') {
             if (
                 $this->application->application_type === "institution_registration" ||

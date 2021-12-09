@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\RegistrationAccreditation\ChecklistThematicArea;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Symfony\Component\HttpFoundation\Response;
 
 class ChecklistThematicAreaController extends Controller
 {
@@ -16,6 +18,8 @@ class ChecklistThematicAreaController extends Controller
      */
     public function index()
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $thematicareas = ChecklistThematicArea::all()->pluck('name', 'id');
 
         return view('registrationAccreditation.checklistarea.index', compact('thematicareas'));
@@ -28,6 +32,8 @@ class ChecklistThematicAreaController extends Controller
      */
     public function create()
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         return view('registrationAccreditation.checklistarea.create');
     }
 
@@ -39,6 +45,8 @@ class ChecklistThematicAreaController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
@@ -69,6 +77,8 @@ class ChecklistThematicAreaController extends Controller
      */
     public function edit($id)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $thematicarea = ChecklistThematicArea::findOrFail($id);
 
         return view('registrationAccreditation.checklistarea.edit', compact('thematicarea'));
@@ -83,6 +93,8 @@ class ChecklistThematicAreaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        abort_if(Gate::denies('access_checklist_configuration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
         $request->validate([
             'name' => 'required|string',
             'description' => 'nullable|string',
