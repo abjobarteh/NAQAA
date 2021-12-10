@@ -20,6 +20,24 @@ class InstitutionPromoter extends Model
         'passport_copy',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Institution promoter details';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Institution promoter details created by " . auth()->user()->username;
+            case 'updated':
+                return "Institution promoter details updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Institution promoter details deleted by " . auth()->user()->username;
+        };
+    }
+
     public function interimAuthorisation()
     {
         return $this->belongsTo(InterimAuthorisationDetail::class, 'interim_authorisation_id');

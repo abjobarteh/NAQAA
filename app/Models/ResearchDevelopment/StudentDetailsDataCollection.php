@@ -34,7 +34,7 @@ class StudentDetailsDataCollection extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Student Detail';
+    protected static $logName = 'Student Detail Data collection';
 
     protected static $logOnlyDirty = true;
 

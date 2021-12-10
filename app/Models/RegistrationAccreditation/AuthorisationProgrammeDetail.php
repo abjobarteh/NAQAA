@@ -22,6 +22,24 @@ class AuthorisationProgrammeDetail extends Model
         'entry_requirements',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Programme Authorisation Detail';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Programme Authorisation Detail created by " . auth()->user()->username;
+            case 'updated':
+                return "Programme Authorisation Detail updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Programme Authorisation Detail deleted by " . auth()->user()->username;
+        };
+    }
+
     public function interimAuthorisation()
     {
         return $this->belongsTo(InterimAuthorisationDetail::class, 'interim_authorisation_id');

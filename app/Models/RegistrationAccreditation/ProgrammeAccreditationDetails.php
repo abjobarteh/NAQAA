@@ -22,7 +22,7 @@ class ProgrammeAccreditationDetails extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Programme accreditation';
+    protected static $logName = 'Programme accreditation details';
 
     protected static $logOnlyDirty = true;
 
@@ -30,11 +30,11 @@ class ProgrammeAccreditationDetails extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Programme accreditation added by " . auth()->user()->username;
+                return "New Programme accreditation details added by " . auth()->user()->username;
             case 'updated':
-                return "Programme accreditation updated by " . auth()->user()->username;
+                return "Programme accreditation details updated by " . auth()->user()->username;
             case 'deleted':
-                return "Programme accreditation deleted by " . auth()->user()->username;
+                return "Programme accreditation details deleted by " . auth()->user()->username;
         };
     }
 

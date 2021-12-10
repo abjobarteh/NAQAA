@@ -25,6 +25,24 @@ class StudentAssessmentDetail extends Model
         'last_assessment_date',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Student Assessment Detail';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Student Assessment Detail for {$this->student->full_name} created by " . auth()->user()->username;
+            case 'updated':
+                return "Student Assessment Detail for {$this->student->full_name} updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Student Assessment Detail for {$this->student->full_name} deleted by " . auth()->user()->username;
+        };
+    }
+
     public function setLastAssessmentDateAttribute($value)
     {
         $this->attributes['last_assessment_date'] = new Carbon($value);

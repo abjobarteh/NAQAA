@@ -28,7 +28,7 @@ class TrainerAccreditationDetail extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Trainer accreditation';
+    protected static $logName = 'Trainer accreditation details';
 
     protected static $logOnlyDirty = true;
 
@@ -36,11 +36,11 @@ class TrainerAccreditationDetail extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Trainer accreditation added by " . auth()->user()->username;
+                return "New Trainer accreditation details added by " . auth()->user()->username;
             case 'updated':
-                return "Trainer accreditation updated by " . auth()->user()->username;
+                return "Trainer accreditation details updated by " . auth()->user()->username;
             case 'deleted':
-                return "Trainer accreditation deleted by " . auth()->user()->username;
+                return "Trainer accreditation details deleted by " . auth()->user()->username;
         };
     }
 

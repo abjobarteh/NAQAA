@@ -67,17 +67,17 @@ class User extends Authenticatable
 
     protected static $logOnlyDirty = true;
 
-    // public function getDescriptionForEvent(string $eventName): string
-    // {
-    //     switch ($eventName) {
-    //         case 'created':
-    //             return "New User created by " . auth()->user()->username;
-    //         case 'updated':
-    //             return "User updated by " . auth()->user()->username;
-    //         case 'deleted':
-    //             return "User deleted by " . auth()->user()->username;
-    //     };
-    // }
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New User record created by " . auth()->user()->username;
+            case 'updated':
+                return "User record updated by " . auth()->user()->username;
+            case 'deleted':
+                return "User record deleted by " . auth()->user()->username;
+        };
+    }
 
     public function getFullNameAttribute()
     {

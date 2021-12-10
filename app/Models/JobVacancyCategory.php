@@ -16,6 +16,24 @@ class JobVacancyCategory extends Model
         'description'
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Job vacancy category';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Job vacancy category added by " . auth()->user()->username;
+            case 'updated':
+                return "Job vacancy category updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Job vacancy category deleted by " . auth()->user()->username;
+        };
+    }
+
     public function jobVacancies()
     {
         return $this->belongsTo(JobVacancy::class, 'jobvacancy_category_id');

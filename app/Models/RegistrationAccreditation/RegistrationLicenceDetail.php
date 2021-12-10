@@ -25,7 +25,7 @@ class RegistrationLicenceDetail extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Registration Licence';
+    protected static $logName = 'Registration Licence details';
 
     protected static $logOnlyDirty = true;
 
@@ -33,11 +33,11 @@ class RegistrationLicenceDetail extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Registration Licence added by " . auth()->user()->username;
+                return "New Registration Licence details added by " . auth()->user()->username;
             case 'updated':
-                return "Registration Licence updated by " . auth()->user()->username;
+                return "Registration Licence details updated by " . auth()->user()->username;
             case 'deleted':
-                return "Registration Licence deleted by " . auth()->user()->username;
+                return "Registration Licence details deleted by " . auth()->user()->username;
         };
     }
 

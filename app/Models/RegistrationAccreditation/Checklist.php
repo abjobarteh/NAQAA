@@ -19,6 +19,24 @@ class Checklist extends Model
         'thematic_area_id',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Checklist evidence';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Checklist evidence for thematic area {$this->thematicArea->name} created by " . auth()->user()->username;
+            case 'updated':
+                return "Checklist evidence for thematic area {$this->thematicArea->name} updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Checklist evidence for thematic area {$this->thematicArea->name} deleted by " . auth()->user()->username;
+        };
+    }
+
     public function thematicArea()
     {
         return $this->belongsTo(ChecklistThematicArea::class, 'thematic_area_id');
