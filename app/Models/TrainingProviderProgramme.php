@@ -54,6 +54,24 @@ class TrainingProviderProgramme extends Model
         'is_accredited'
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Training Provider Programme';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider Programme added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider Programme updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider Programme deleted by " . auth()->user()->username;
+        };
+    }
+
     public function setAdmissionRequirementsAttribute($requirements)
     {
         $this->attributes['admission_requirements'] = json_encode($requirements);

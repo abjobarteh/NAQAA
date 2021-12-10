@@ -41,6 +41,24 @@ class TrainingProviderStudent extends Model
         'picture',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Training Provider Student Record';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Training Provider Student Record added by " . auth()->user()->username;
+            case 'updated':
+                return "Training Provider Student Record updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Training Provider Student Record deleted by " . auth()->user()->username;
+        };
+    }
+
     public function setDateOfBirthAttribute($value)
     {
         $this->attributes['date_of_birth'] = new Carbon($value);

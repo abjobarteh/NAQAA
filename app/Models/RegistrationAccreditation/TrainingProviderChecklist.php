@@ -16,6 +16,24 @@ class TrainingProviderChecklist extends Model
         'path',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Checklist evidence details';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Checklist evidence details uploaded by " . auth()->user()->username;
+            case 'updated':
+                return "Checklist evidence details updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Checklist evidence details deleted by " . auth()->user()->username;
+        };
+    }
+
     public function checklist()
     {
         return $this->belongsTo(Checklist::class, 'checklist_id');

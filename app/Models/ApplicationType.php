@@ -18,7 +18,7 @@ class ApplicationType extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Application Fee';
+    protected static $logName = 'Application Type';
 
     protected static $logOnlyDirty = true;
 
@@ -26,11 +26,11 @@ class ApplicationType extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Application Fee created by " . auth()->user()->username;
+                return "New Application Type created by " . auth()->user()->username;
             case 'updated':
                 return "Application Type Fee {$this->attributes['name']} updated by " . auth()->user()->username . " with new amount of D{$this->attributes['fee']}";
             case 'deleted':
-                return "Application Fee deleted by " . auth()->user()->username;
+                return "Application Type deleted by " . auth()->user()->username;
         };
     }
 

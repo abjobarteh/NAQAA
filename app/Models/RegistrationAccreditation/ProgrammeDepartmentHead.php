@@ -20,6 +20,24 @@ class ProgrammeDepartmentHead extends Model
         'programme_id',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Programme Deapartment Head details';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Programme Deapartment Head details created by " . auth()->user()->username;
+            case 'updated':
+                return "Programme Deapartment Head details updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Programme Deapartment Head details deleted by " . auth()->user()->username;
+        };
+    }
+
     public function programme()
     {
         return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');

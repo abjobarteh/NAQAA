@@ -38,6 +38,24 @@ class RegisteredStudent extends Model
         'picture',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Student Registration';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Certificate Endorsement created by " . auth()->user()->username;
+            case 'updated':
+                return "Certificate Endorsement updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Certificate Endorsement deleted by " . auth()->user()->username;
+        };
+    }
+
     public function setDateOfBirthAttribute($value)
     {
         $this->attributes['date_of_birth'] = new Carbon($value);

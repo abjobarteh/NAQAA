@@ -17,7 +17,7 @@ class LocalGovermentAreas extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Localgoverment Area';
+    protected static $logName = 'Local goverment Area';
 
     protected static $logOnlyDirty = true;
 
@@ -25,11 +25,11 @@ class LocalGovermentAreas extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Localgoverment Area added by " . auth()->user()->username;
+                return "New Local goverment Area added by " . auth()->user()->username;
             case 'updated':
-                return "Localgoverment Area updated by " . auth()->user()->username;
+                return "Local goverment Area updated by " . auth()->user()->username;
             case 'deleted':
-                return "Localgoverment Area deleted by " . auth()->user()->username;
+                return "Local goverment Area deleted by " . auth()->user()->username;
         };
     }
 

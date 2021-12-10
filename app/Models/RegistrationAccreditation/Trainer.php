@@ -38,7 +38,7 @@ class Trainer extends Model
 
     protected static $logFillable = true;
 
-    protected static $logName = 'Trainer';
+    protected static $logName = 'Trainer details';
 
     protected static $logOnlyDirty = true;
 
@@ -46,11 +46,11 @@ class Trainer extends Model
     {
         switch ($eventName) {
             case 'created':
-                return "New Trainer added by " . auth()->user()->username;
+                return "New Trainer details added by " . auth()->user()->username;
             case 'updated':
-                return "Trainer updated by " . auth()->user()->username;
+                return "Trainer details updated by " . auth()->user()->username;
             case 'deleted':
-                return "Trainer deleted by " . auth()->user()->username;
+                return "Trainer details deleted by " . auth()->user()->username;
         };
     }
 

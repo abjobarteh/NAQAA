@@ -31,6 +31,24 @@ class StudentRegistrationDetail extends Model
         'candidate_id',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Student Registration Detail';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Student Registration Detail for {$this->registeredStudent->full_name} created by " . auth()->user()->username;
+            case 'updated':
+                return "Student Registration Detail for {$this->registeredStudent->full_name} updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Student Registration Detail for {$this->registeredStudent->full_name} deleted by " . auth()->user()->username;
+        };
+    }
+
     public function registeredStudent()
     {
         return $this->belongsTo(TrainingProviderStudent::class, 'student_id');

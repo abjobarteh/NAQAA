@@ -30,6 +30,24 @@ class InterimAuthorisationDetail extends Model
         'five_year_strategic_plan',
     ];
 
+    protected static $logFillable = true;
+
+    protected static $logName = 'Interim Authorisation details';
+
+    protected static $logOnlyDirty = true;
+
+    public function getDescriptionForEvent(string $eventName): string
+    {
+        switch ($eventName) {
+            case 'created':
+                return "New Interim Authorisation details created by " . auth()->user()->username;
+            case 'updated':
+                return "Interim Authorisation details updated by " . auth()->user()->username;
+            case 'deleted':
+                return "Interim Authorisation details deleted by " . auth()->user()->username;
+        };
+    }
+
 
     public function setSourcesOfFundingDetailsAttribute($value)
     {
