@@ -15,6 +15,7 @@ use App\Http\Controllers\Portal\Institution\LearningCenterDataCollectionControll
 use App\Http\Controllers\Portal\Institution\ProfilesController as InstitutionProfilesController;
 use App\Http\Controllers\Portal\Institution\ProgrammeDataCollectionController;
 use App\Http\Controllers\Portal\Institution\RegistrationController;
+use App\Http\Controllers\Portal\Institution\StudentRegistrationController;
 use App\Http\Controllers\Portal\Institution\StudentsDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainerDataCollectionController;
 use App\Http\Controllers\Portal\Institution\TrainingProviderChecklistController;
@@ -77,6 +78,7 @@ use App\Http\Livewire\AssessmentCertification\EditStudentRegistration;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\NewCertificateEndorsement;
 use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
+use App\Http\Livewire\AssessmentCertification\PortalRegistration;
 use App\Http\Livewire\AssessmentCertification\Reports\LearnerAchievementReports;
 use App\Http\Livewire\AssessmentCertification\StudentAssessment;
 use App\Http\Livewire\AssessmentCertification\ViewStudentRegistration;
@@ -88,6 +90,9 @@ use App\Http\Livewire\Portal\Institution\Applications\NewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Applications\ViewInterimAuthorisation;
 use App\Http\Livewire\Portal\Institution\Datacollection\StudentDatacollection;
 use App\Http\Livewire\Portal\Institution\ProfileSetting;
+use App\Http\Livewire\Portal\Institution\StudentRegistration\EditStudentRegistration as StudentRegistrationEditStudentRegistration;
+use App\Http\Livewire\Portal\Institution\StudentRegistration\NewStudentRegistration as StudentRegistrationNewStudentRegistration;
+use App\Http\Livewire\Portal\Institution\StudentRegistration\ViewStudentRegistration as StudentRegistrationViewStudentRegistration;
 use App\Http\Livewire\Portal\Trainer\AssessmentResult;
 use App\Http\Livewire\Portal\Trainer\EditTrainerAccreditation;
 use App\Http\Livewire\Portal\Trainer\EditTrainerRegistration as TrainerEditTrainerRegistration;
@@ -420,6 +425,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('edit-student-registration/{id}', EditStudentRegistration::class)->name('edit-student-registration');
     Route::get('view-student-registration/{id}', ViewStudentRegistration::class)->name('view-student-registration');
 
+    // Portal registrations
+    Route::get('portal-registrations', PortalRegistration::class)->name('portal-registrations');
     // student assessments
     Route::group(['prefix' => 'assessment', 'as' => 'assessment.'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
@@ -490,6 +497,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('trainers', TrainerDataCollectionController::class);
         Route::resource('programmes', ProgrammeDataCollectionController::class);
       });
+
+      // GSQ candidate registration
+      Route::get('student-registrations', StudentRegistrationController::class)
+        ->name('student-registrations');
+      Route::get('new-student-registration', StudentRegistrationNewStudentRegistration::class)
+        ->name('new-student-registration');
+      Route::get('edit-student-registration/{id}', StudentRegistrationEditStudentRegistration::class)
+        ->name('edit-student-registration');
+      Route::get('view-student-registration/{id}', StudentRegistrationViewStudentRegistration::class)
+        ->name('view-student-registration');
 
       // training provider checklist
       Route::resource('checklist-evidence', TrainingProviderChecklistController::class)

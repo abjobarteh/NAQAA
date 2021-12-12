@@ -478,6 +478,19 @@
   </a>
 </li>
 @endcan
+@can('access_student_registration')
+<li class="nav-item">
+  <a href="{{route('assessment-certification.portal-registrations')}}" class="nav-link {{
+     request()->is('assessment-certification/portal-registrations') || 
+     request()->is('assessment-certification/portal-registrations/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-envelope-open-text"></i>
+    <p>
+      Portal Registrations
+    </p>
+  </a>
+</li>
+@endcan
 @can('access_student_assessment')
 <li class="nav-item menu-open">
   <a href="#" class="nav-link 

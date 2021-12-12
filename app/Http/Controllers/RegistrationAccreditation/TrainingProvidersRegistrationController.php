@@ -319,7 +319,7 @@ class TrainingProvidersRegistrationController extends Controller
                     $registration->registrationLicence->update([
                         'licence_start_date' => $data['license_start_date'],
                         'licence_end_date' => $data['license_end_date'],
-                        'license_status' => 'valid',
+                        'license_status' => 'Approved',
                     ]);
                 } else {
                     RegistrationLicenceDetail::create([
@@ -328,7 +328,7 @@ class TrainingProvidersRegistrationController extends Controller
                         'license_no' => $data['license_no'],
                         'licence_start_date' => $data['license_start_date'],
                         'licence_end_date' => $data['license_end_date'],
-                        'license_status' => 'valid',
+                        'license_status' => 'Approved',
                     ]);
                 }
             } else {

@@ -506,6 +506,11 @@ class PermissionsTableSeeder extends Seeder
                 'permission_type' => 'assessment_and_certification_module'
             ],
             [
+                'name' => 'Access Portal Registration',
+                'slug' => 'access_portal_registration',
+                'permission_type' => 'assessment_and_certification_module'
+            ],
+            [
                 'name' => 'Access Assessment Certification Reports',
                 'slug' => 'access_assessment_certification_reports',
                 'permission_type' => 'assessment_and_certification_module'

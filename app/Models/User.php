@@ -71,11 +71,11 @@ class User extends Authenticatable
     {
         switch ($eventName) {
             case 'created':
-                return "New User record created by " . auth()->user()->username;
+                return "New User record created by " . (auth()->user()->username ??  $this->attributes['username']);
             case 'updated':
-                return "User record updated by " . auth()->user()->username;
+                return "User record updated by " . (auth()->user()->username ?? $this->attributes['username']);
             case 'deleted':
-                return "User record deleted by " . auth()->user()->username;
+                return "User record deleted by " . (auth()->user()->username ?? $this->attributes['username']);
         };
     }
 

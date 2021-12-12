@@ -46,10 +46,7 @@ Training Provider Categories
                                         <td>{{ $category->name }}</td>
                                         <td>
                                             @can('edit_general_configurations')
-                                            <a href="{{ route('admin.training-provider-categories.edit',$category->id) }}" class="btn btn-primary btn-sm" title="Edit training provider categories"><i class="fas fa-edit"></i></a>
-                                            @endcan
-                                            @can('delete_general_configurations')
-                                            <a href="{{ route('admin.training-provider-categories.destroy',$category->id) }}" class="btn btn-danger btn-sm" title="delete training provider categories"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('admin.training-provider-categories.edit',$category->id) }}" class="btn btn-danger btn-sm" title="Edit training provider categories"><i class="fas fa-edit"></i></a>
                                             @endcan
                                         </td>
                                     </tr>

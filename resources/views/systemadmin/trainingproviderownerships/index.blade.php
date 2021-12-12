@@ -13,7 +13,7 @@ Training Provider Ownerships
                 <div class="col-sm-6 d-flex justify-content-end">
                     <a href="{{route('admin.configurations')}}" class="btn btn-success btn-flat mr-1"><i class="fas fa-list"></i> Configurations</a>
                     @can('create_general_configurations')
-                    <a href="{{route('admin.training-provider-ownerships.create')}}" class="btn btn-primary float-right">Add Ownership</a>
+                    <a href="{{route('admin.training-provider-ownerships.create')}}" class="btn btn-primary btn-flat float-right">Add Ownership</a>
                     @endcan
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -45,10 +45,7 @@ Training Provider Ownerships
                                         <td>{{ $ownership->description ?? 'N/A'}}</td>
                                         <td>
                                             @can('edit_general_configurations')
-                                            <a href="{{ route('admin.training-provider-ownerships.edit',$ownership->id) }}" class="btn btn-primary btn-sm" title="Edit training provider ownerships"><i class="fas fa-user-edit"></i></a>
-                                            @endcan
-                                            @can('delete_general_configurations')
-                                            <a href="{{ route('admin.training-provider-ownerships.destroy',$ownership->id) }}" class="btn btn-danger btn-sm" title="delete training provider ownerships"><i class="fas fa-trash"></i></a>
+                                            <a href="{{ route('admin.training-provider-ownerships.edit',$ownership->id) }}" class="btn btn-danger btn-sm" title="Edit training provider ownerships"><i class="fas fa-edit"></i></a>
                                             @endcan
                                         </td>
                                     </tr>

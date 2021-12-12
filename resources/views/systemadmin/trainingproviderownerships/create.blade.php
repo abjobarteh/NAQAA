@@ -7,7 +7,7 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-md-6 col-sm-12 text-right">
+                <div class="col-md-12 col-sm-12 text-right">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
                         <li class="breadcrumb-item"><a href="{{route('admin.training-provider-ownerships.index')}}">Training provider ownerships</a></li>

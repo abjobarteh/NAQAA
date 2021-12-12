@@ -7,10 +7,10 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-md-6 col-sm-12 text-right">
+                <div class="col-md-12 col-sm-12">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{route('admin.configurations')}}">Configurations</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.training-provider-categories.index')}}">Training provider ownerships</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.training-provider-categories.index')}}">Training provider categpries</a></li>
                         <li class="breadcrumb-item active">Create training provider category</li>
                     </ol>
                 </div>
