@@ -92,6 +92,16 @@
             </li>
         </ul>
     </li>
+    <li class="c-sidebar-nav-title">GSQ Registrations</li>
+    <li class="c-sidebar-nav-item">
+        <a class="c-sidebar-nav-link" href="{{route('portal.institution.student-registrations')}}">
+            <svg class="c-sidebar-nav-icon">
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-people"></use>
+            </svg> 
+            Student Registration
+        </a>
+    </li>
+
     <li class="c-sidebar-nav-title">Endorsement</li>
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link" href="{{route('portal.institution.certificate-endorsements.index')}}">
@@ -105,7 +115,7 @@
     <li class="c-sidebar-nav-item">
         <a class="c-sidebar-nav-link {{ request()->is('portal/institution/settings') ? 'active' : '' }}" href="{{route('portal.institution.settings')}}">
             <svg class="c-sidebar-nav-icon">
-            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-apps-settings"></use>
+            <use xlink:href="/vendor/@coreui/icons/svg/free.svg#cil-cog"></use>
             </svg> 
             Profile 
         </a>

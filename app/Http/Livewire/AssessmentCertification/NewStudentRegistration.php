@@ -191,7 +191,7 @@ class NewStudentRegistration extends Component
                     'region_id' => $this->region_id,
                     'district_id' => $this->district_id,
                     'town_village_id' => $this->town_village_id,
-                    'picture' => '/storage/' . $picture
+                    'picture' => $this->is_picture_uploaded ? '/storage/' . $picture : null
                 ]);
 
                 StudentRegistrationDetail::create([

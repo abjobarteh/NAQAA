@@ -288,7 +288,7 @@ class TrainingProviderProgramsAccreditationController extends Controller
                         'application_id' => $accreditation->id,
                         'accreditation_start_date' => $data['accreditation_start_date'],
                         'accreditation_end_date' => $data['accreditation_end_date'],
-                        'accreditation_status' => 'valid',
+                        'accreditation_status' => 'Approved',
                     ]);
                 }
             }

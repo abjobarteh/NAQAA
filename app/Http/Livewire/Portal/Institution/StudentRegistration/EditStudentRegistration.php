@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\AssessmentCertification;
+namespace App\Http\Livewire\Portal\Institution\StudentRegistration;
 
 use App\Models\AssessmentCertification\StudentRegistrationDetail;
 use App\Models\Country;
@@ -15,10 +15,8 @@ use App\Models\TownVillage;
 use App\Models\TrainingProviderStudent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Symfony\Component\HttpFoundation\Response;
 
 class EditStudentRegistration extends Component
 {
@@ -39,7 +37,6 @@ class EditStudentRegistration extends Component
         'gender' => 'required|in:male,female',
         'email' => 'required|email',
         'phone' => 'required|string',
-        'candidate_type' => 'required|in:private,regular',
         'address' => 'required|string',
         'local_language' => 'required|string',
         'nationality' => 'required|string',
@@ -48,7 +45,6 @@ class EditStudentRegistration extends Component
         'town_village_id' => 'nullable|numeric',
         'programme_id' => 'required|numeric',
         'programme_level_id' => 'required|numeric',
-        'training_provider_id' => 'required|numeric',
         'student_unit_standards' => 'required_with:programme_id,programme_level_id|array',
         'academic_year' => 'required|string',
         'picture' => 'nullable|file|mimes:jpg,png|max:2048',
@@ -56,8 +52,6 @@ class EditStudentRegistration extends Component
 
     public function mount($id)
     {
-        abort_if(Gate::denies('edit_student_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
         $this->student_registration = StudentRegistrationDetail::findOrFail($id)
             ->load('registeredStudent', 'programme', 'level', 'trainingprovider');
 
@@ -105,7 +99,7 @@ class EditStudentRegistration extends Component
         $local_languages = LocalLanguage::all()->pluck('name', 'id');
 
         return view(
-            'livewire.assessment-certification.edit-student-registration',
+            'livewire.portal.institution.student-registration.edit-student-registration',
             compact(
                 'institutions',
                 'programmes',
@@ -117,7 +111,7 @@ class EditStudentRegistration extends Component
                 'local_languages'
             )
         )
-            ->extends('layouts.admin');
+            ->extends('layouts.portal');
     }
 
     public function updatedProgrammeLevelId($value)
@@ -178,8 +172,8 @@ class EditStudentRegistration extends Component
                     'programme_id' => $this->programme_id,
                     'programme_level_id' => $this->programme_level_id,
                     'academic_year' => $this->academic_year,
-                    'candidate_type' => $this->candidate_type,
-                    'registration_status' => 'Approved',
+                    'candidate_type' => 'regular',
+                    'registration_status' => 'Pending',
                     'unit_standards' => json_encode($this->student_unit_standards),
                 ]);
                 $this->is_success = true;
@@ -203,8 +197,8 @@ class EditStudentRegistration extends Component
                     'programme_id' => $this->programme_id,
                     'programme_level_id' => $this->programme_level_id,
                     'academic_year' => $this->academic_year,
-                    'candidate_type' => $this->candidate_type,
-                    'registration_status' => 'Approved',
+                    'candidate_type' => 'regular',
+                    'registration_status' => 'Pending',
                     'unit_standards' => json_encode($this->student_unit_standards),
                 ]);
             }
@@ -242,7 +236,7 @@ class EditStudentRegistration extends Component
                     'programme_level_id' => $this->programme_level_id,
                     'academic_year' => $this->academic_year,
                     'candidate_type' => $this->candidate_type,
-                    'registration_status' => 'Approved',
+                    'registration_status' => 'regular',
                     'unit_standards' => json_encode($this->student_unit_standards),
                     'registration_date' => now(),
                 ]);
