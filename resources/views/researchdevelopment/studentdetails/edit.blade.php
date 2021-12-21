@@ -106,8 +106,8 @@
                                             <label>Gender: <sup class="text-danger">*</sup></label>
                                             <select name="gender" id="gender" class="form-control select2" required>
                                                 <option>Select Gender</option>
-                                                <option value="M" {{$student->gender == 'M' ? 'selected ' : ''}}>Male</option>
-                                                <option value="F" {{$student->gender == 'F' ? 'selected ' : ''}}>Female</option>
+                                                <option value="male" {{$student->gender == 'male' ? 'selected ' : ''}}>Male</option>
+                                                <option value="female" {{$student->gender == 'female' ? 'selected ' : ''}}>Female</option>
                                             </select>
                                             @error('gender')
                                                 <span class="text-danger mt-1">{{$message}}</span>

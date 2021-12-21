@@ -32,7 +32,7 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
             'firstname' => 'required|string',
             'middlename' => 'nullable|string',
             'lastname' => 'required|string',
-            'gender' => 'required|string|in:M,F',
+            'gender' => 'required|string|in:male,female',
             'phone' => 'required|string',
             'nationality' => 'required|string',
             'date_of_birth' => 'required|date',

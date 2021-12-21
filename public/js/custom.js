@@ -17,6 +17,10 @@ $(document).ready(function(){
         $('#trainer-assessment-modal').modal('show')
     })
 
+    window.addEventListener('openGraduationDateModal', event => {
+      $('#graduation-date-modal').modal('show')
+    })
+
     window.addEventListener('openFilterlogsModal', event => {
         $('#filter-logs-modal').modal('show')
     })
@@ -24,6 +28,10 @@ $(document).ready(function(){
     window.addEventListener('closeTrainerAssessmentFormModal', event => {
       console.log('something is working here')
       $('#trainer-assessment-modal').modal('hide')
+    })
+
+    window.addEventListener('closeGraduationDateModal', event => {
+      $('#graduation-date-modal').modal('hide')
     })
 
     window.addEventListener('closeFilterlogsModal', event => {

@@ -13,6 +13,7 @@ use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
 use App\Models\TrainingProviderStudent;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,7 +28,9 @@ class StudentDetailsController extends Controller
     {
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])->get();
+        $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])
+            ->whereNotNull('programme_name')
+            ->get();
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
     }
@@ -64,17 +67,17 @@ class StudentDetailsController extends Controller
     public function store(StoreStudentDetailsDataCollectionRequest $request)
     {
         $student_exist = TrainingProviderStudent::where('training_provider_id', $request->training_provider_id)
-            ->where('firstname', 'like', '%' . $request->firstname . '%')
+            ->where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($request->firstname) . '%')
             ->where(function ($query) use ($request) {
                 $query->whereNull('middlename')
-                    ->orWhere('middlename', 'like', '%' . $request->middlename ?? '' . '%');
+                    ->orWhere(DB::raw('lower(middlename)'), 'like', '%' . strtolower($request->middlename) . '%');
             })
-            ->where('lastname', 'like', '%' . $request->lastname . '%')
+            ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
             ->where('gender', $request->gender)
             ->whereDate('date_of_birth', $request->date_of_birth)
             ->where('nationality',  $request->nationality)
             ->whereDate('admission_date', $request->admission_date)
-            ->where('programme_name', 'like', '%' . $request->programme_name . '%')
+            ->where(DB::raw('lower(programme_name)'), 'like', '%' . strtolower($request->programme_name) . '%')
             ->exists();
 
         if ($student_exist) {

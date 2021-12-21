@@ -29,6 +29,7 @@ class TrainingProviderStudent extends Model
         'attendance_status',
         'admission_date',
         'completion_date',
+        'graduation_date',
         'region_id',
         'district_id',
         'town_village_id',

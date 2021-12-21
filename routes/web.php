@@ -107,6 +107,7 @@ use App\Http\Livewire\RegistrationAccreditation\Reports\TrainersReport;
 use App\Http\Livewire\ResearchDevelopment\CreateJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\AddProgrammesOffered;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\EditProgrammesOffered;
+use App\Http\Livewire\ResearchDevelopment\Datacollection\GraduateStudent;
 use App\Http\Livewire\ResearchDevelopment\Datacollection\StudentDetailsImport;
 use App\Http\Livewire\ResearchDevelopment\EditJobvacancy;
 use App\Http\Livewire\ResearchDevelopment\Reports\EnrollmentReports;
@@ -251,6 +252,7 @@ Route::group(['middleware' => 'auth'], function () {
 
       // Student details
       Route::resource('student-details', StudentDetailsController::class)->except('destroy');
+      Route::get('graduate-students', GraduateStudent::class)->name('graduate-students');
     });
 
     // Research survey documentation
