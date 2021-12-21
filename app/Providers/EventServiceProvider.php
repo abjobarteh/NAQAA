@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\SystemUserAccountCreatedEvent;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
@@ -12,6 +13,7 @@ use App\Listeners\UserActivityListener;
 use App\Listeners\LoginActivityListener;
 use App\Listeners\LogoutActivityListener;
 use App\Listeners\RegistrationActivityListener;
+use App\Listeners\SendSystemUserAccountCreationEmail;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserActivity::class => [
             UserActivityListener::class,
+        ],
+        SystemUserAccountCreatedEvent::class => [
+            SendSystemUserAccountCreationEmail::class
         ]
     ];
 
