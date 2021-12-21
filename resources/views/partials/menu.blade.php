@@ -65,6 +65,16 @@
         </p>
       </a>
     </li>
+    <li class="nav-item">
+      <a href="{{route('researchdevelopment.datacollection.graduate-students')}}" class="nav-link 
+      {{ request()->is('researchdevelopment/datacollection/graduate-students') || 
+         request()->is('researchdevelopment/datacollection/graduate-students/*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-user-graduate"></i>
+        <p>
+           Graduate Students
+        </p>
+      </a>
+    </li>
   </ul>
 </li>
 @endcan
