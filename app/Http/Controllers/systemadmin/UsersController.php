@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\systemadmin;
 
+use App\Events\SystemUserAccountCreatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\systemadmin\StoreUserRequest;
 use App\Http\Requests\systemadmin\UpdateUserRequest;
@@ -82,6 +83,8 @@ class UsersController extends Controller
         $user->roles()->sync($request->input('roles', []));
 
         $user->permissions()->sync($request->input('permissions', []));
+
+        SystemUserAccountCreatedEvent::dispatch($user);
 
         return redirect(route('admin.users.index'))->with('success', 'User Successfully created');
     }
