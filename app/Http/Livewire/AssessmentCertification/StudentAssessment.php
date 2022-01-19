@@ -93,7 +93,13 @@ class StudentAssessment extends Component
                 ->where('programme_id', $this->programme_id)
                 ->where('programme_level_id', $this->programme_level_id)
                 ->where('academic_year', $this->academic_year)
-                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
+                ->with([
+                    'programme:id,name',
+                    'level:id,name',
+                    'trainingprovider:id,name',
+                    'registeredStudent',
+                    'latestAssessment'
+                ])
                 ->latest()
                 ->get();
         } else {
@@ -102,7 +108,13 @@ class StudentAssessment extends Component
                     $query->where('date_of_birth', $this->date_of_birth);
                 })
                 ->where('academic_year', $this->academic_year)
-                ->with(['programme:id,name', 'level:id,name', 'trainingprovider:id,name', 'registeredStudent'])
+                ->with([
+                    'programme:id,name',
+                    'level:id,name',
+                    'trainingprovider:id,name',
+                    'registeredStudent',
+                    'latestAssessment'
+                ])
                 ->latest()
                 ->get();
         }
