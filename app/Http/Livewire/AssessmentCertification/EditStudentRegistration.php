@@ -236,7 +236,7 @@ class EditStudentRegistration extends Component
                     ]);
 
                 StudentRegistrationDetail::where('id', $this->student_registration->id)->update([
-                    'student_id' => $newstudent->id,
+                    'student_id' => $newstudent,
                     'training_provider_id' => $this->training_provider_id,
                     'programme_id' => $this->programme_id,
                     'programme_level_id' => $this->programme_level_id,
