@@ -59,6 +59,11 @@ class StudentRegistrationDetail extends Model
         return $this->hasMany(StudentAssessmentDetail::class, 'application_id');
     }
 
+    public function latestAssessment()
+    {
+        return $this->hasOne(StudentAssessmentDetail::class, 'application_id')->latest();
+    }
+
     public function programme()
     {
         return $this->belongsTo(Qualification::class, 'programme_id');

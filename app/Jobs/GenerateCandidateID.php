@@ -39,7 +39,7 @@ class GenerateCandidateID implements ShouldQueue
         $gender = $this->candidate->registeredStudent->gender === 'male' ? 1 : 0;
         $date_of_birth = str_replace('-', '', (string)$this->candidate->registeredStudent->date_of_birth);
         $program_code = $this->candidate->programme->qualification_code;
-        $candidate_type = $this->candidate_type === 'regular' ? 'R' : 'P';
+        $candidate_type = $this->candidate->candidate_type === 'regular' ? 'R' : 'P';
 
         if ($this->candidate->candidate_id === null) {
             $this->candidate->update([

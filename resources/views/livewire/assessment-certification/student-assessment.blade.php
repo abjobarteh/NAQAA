@@ -175,7 +175,7 @@
                                                             <td>{{$candidate->registeredStudent->email}}</td>
                                                             <td>{{$candidate->registeredStudent->phone}}</td>
                                                             <td>{{$candidate->registeredStudent->address}}</td>
-                                                            <td>{{$candidate->assessment_status ?? 'N/A'}}</td>
+                                                            <td>{{$candidate->latestAssessment->assessment_status ?? 'N/A'}}</td>
                                                             <td>{{$candidate->candidate_id?? 'N/A'}}</td>
                                                             <td>
                                                                 <button type="button" class="btn btn-sm btn-flat btn-primary" wire:click="$emit('openAssessmentForm',{{$candidate->id}})" 
