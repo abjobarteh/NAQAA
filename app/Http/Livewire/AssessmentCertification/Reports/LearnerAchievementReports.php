@@ -104,7 +104,7 @@ class LearnerAchievementReports extends Component
         } else if ($this->is_certification_status) {
             $students->with('trainingprovider', 'programme', 'level', 'registeredStudent')
                 ->whereHas('studentAssessments', function (Builder $query) {
-                    $query->where('assessment_satus', $this->certification_status);
+                    $query->where('assessment_status', $this->certification_status);
                 });
 
             return Excel::download(new LearnerAchievementReportsExport($students->get()), 'students_by_certification_status.xlsx');
