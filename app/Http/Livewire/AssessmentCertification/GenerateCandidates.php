@@ -23,13 +23,13 @@ class GenerateCandidates extends Component
         $assessor_id, $verifier_id, $candidates, $selectAll = false, $selectedCandidates = [];
 
     protected $rules = [
-        'candidate_type' => ['required', 'in:regular,private'],
-        'training_provider_id' => ['required_if:candidate_type,regular', 'numeric'],
-        'programme_id' => ['required_if:candidate_type,regular', 'numeric'],
-        'programme_level_id' => ['required_if:candidate_type,regular', 'numeric'],
-        'registration_no' => ['required_if:candidate_type,regular', 'string'],
-        'date_of_birth' => ['required_if:candidate_type,regular', 'date'],
-        'academic_year' => ['required_if:candidate_type,regular', 'numeric'],
+        'candidate_type' => 'required|in:regular,private',
+        'training_provider_id' => 'required_if:candidate_type,regular|numeric',
+        'programme_id' => 'required_if:candidate_type,regular|numeric',
+        'programme_level_id' => 'required_if:candidate_type,regular|numeric',
+        'registration_no' => 'required_if:candidate_type,private|string',
+        'date_of_birth' => 'required_if:candidate_type,private|date',
+        'academic_year' => 'required_if:candidate_type,regular|nullable|numeric',
     ];
 
     public function mount()

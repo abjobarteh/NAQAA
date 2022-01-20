@@ -14,20 +14,20 @@ use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
 class CompetentStudentsExport implements WithMultipleSheets
 {
+    public $competent_candidates;
+    public function __construct($data)
+    {
+        $this->competent_candidates = $data;
+    }
     /**
      * @return \Illuminate\Support\Collection
      */
     public function sheets(): array
     {
         $sheets = [];
-        $competent_candidates = TrainingProviderStudent::with(['trainingprovider', 'programme', 'level'])->whereHas('currentAssessment', function (Builder $query) {
-            $query->where('assessment_status', 'competent');
-        })
-            ->where('academic_year', (Carbon::now())->format('Y'))
-            ->get();
 
-        $sheets[] = new CandidateExportSheet($competent_candidates);
-        $sheets[] = new CandidatesImageSheet($competent_candidates);
+        $sheets[] = new CandidateExportSheet($this->competent_candidates);
+        $sheets[] = new CandidatesImageSheet($this->competent_candidates);
 
         return $sheets;
     }

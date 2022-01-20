@@ -536,6 +536,17 @@
   </ul>
 </li>
 @endcan
+<li class="nav-item">
+  <a href="{{route('assessment-certification.competent-students-export')}}" class="nav-link {{
+     request()->is('assessment-certification/competent-students-export') || 
+     request()->is('assessment-certification/competent-students-export/*') ? 'active' : '' }}"
+     >
+    <i class="nav-icon fas fa-file-export"></i>
+    <p>
+      Competent Students Export
+    </p>
+  </a>
+</li>
 @can('access_endorsement')
 <li class="nav-item">
   <a href="{{route('assessment-certification.certificate-endorsements.index')}}" class="nav-link {{

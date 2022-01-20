@@ -75,6 +75,7 @@ use App\Http\Controllers\systemadmin\UnitsController;
 use App\Http\Controllers\systemadmin\UsersController;
 use App\Http\Livewire\AssessmentCertification\EditCertificateEndorsement;
 use App\Http\Livewire\AssessmentCertification\EditStudentRegistration;
+use App\Http\Livewire\AssessmentCertification\ExportCompetentStudents;
 use App\Http\Livewire\AssessmentCertification\GenerateCandidates;
 use App\Http\Livewire\AssessmentCertification\NewCertificateEndorsement;
 use App\Http\Livewire\AssessmentCertification\NewStudentRegistration;
@@ -434,6 +435,10 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('candidates', GenerateCandidates::class)->name('candidates');
       Route::get('student-assessment', StudentAssessment::class)->name('student-assessment');
     });
+
+    // Competent Students Export
+    Route::get('competent-students-export', ExportCompetentStudents::class)
+      ->name('competent-students-export');
 
     // endorsement of certificates
     Route::resource('certificate-endorsements', CertificateEndorsementsController::class);
