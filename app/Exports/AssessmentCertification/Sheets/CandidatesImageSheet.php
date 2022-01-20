@@ -22,14 +22,17 @@ class CandidatesImageSheet implements WithDrawings, WithTitle, ShouldAutoSize
         $drawings = [];
         $loop = 1;
         foreach ($this->competent_candidates as $candidate) {
-            $drawing = new Drawing();
-            $drawing->setName($candidate->full_name);
-            $drawing->setDescription('This is the profile image of ' . $candidate->full_name);
-            $drawing->setPath(public_path($candidate->picture));
-            $drawing->setCoordinates('B' . $loop);
-            $drawing->setHeight(100);
+            if (!is_null($candidate->registeredStudent->picture)) {
+                $drawing = new Drawing();
+                $drawing->setName($candidate->registeredStudent->full_name);
+                $drawing->setDescription("This is the profile image of student with candiateID of $candidate->candidate_id");
+                $drawing->setPath(public_path($candidate->registeredStudent->picture));
+                $drawing->setCoordinates('B' . $loop);
+                $drawing->setHeight(100);
 
-            $drawings[] = $drawing;
+                $drawings[] = $drawing;
+            }
+
             $loop++;
         }
 

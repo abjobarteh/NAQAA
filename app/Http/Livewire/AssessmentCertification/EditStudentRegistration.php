@@ -156,6 +156,14 @@ class EditStudentRegistration extends Component
             ->where('date_of_birth', $this->date_of_birth)
             ->exists()
         ) {
+            if ($this->picture) {
+                $picture = $this->picture->store('uploads');
+                TrainingProviderStudent::where('id', $this->student_registration->student_id)
+                    ->update([
+                        'picture' => '/storage/' . $picture
+                    ]);
+            }
+
             // check if student already applied for this programme under this level from this institution
             if (
                 TrainingProviderStudent::where(DB::raw('lower(firstname)'), 'like', '%' . strtolower($this->firstname) . '%')

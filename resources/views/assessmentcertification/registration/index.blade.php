@@ -16,8 +16,6 @@
                     New Student Registration
                 </a>
                 @endcan
-                
-                @livewire('assessment-certification.export-competent-students')
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div>
