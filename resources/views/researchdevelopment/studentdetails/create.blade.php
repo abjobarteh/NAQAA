@@ -132,6 +132,54 @@ New Student Details Data collection
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Region: </label>
+                                        <select name="region_id" id="region_id" class="form-control select2">
+                                            <option>Select Rigion</option>
+                                            @foreach ($regions as $id => $region)
+                                            <option value="{{$region}}">{{$region}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('region_id'))
+                                        <span class="text-danger mt-1">{{ $errors->first('region_id') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Town/Village: </label>
+                                        <select name="town_village_id" id="town_village_id" class="form-control select2">
+                                            <option>Select Town / Village</option>
+                                            @foreach ($towns as $id => $town)
+                                            <option value="{{$town}}">{{$town}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('town_village_id'))
+                                        <span class="text-danger mt-1">{{ $errors->first('town_village_id') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>District: </label>
+                                        <select name="district_id" id="district_id" class="form-control select2">
+                                            <option>Select District</option>
+                                            @foreach ($districts as $id => $district)
+                                            <option value="{{$district}}">{{$district}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('district_id'))
+                                        <span class="text-danger mt-1">{{ $errors->first('district_id') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="row show-admission">
                                 <div class="col-sm-12">
                                     <div class="form-group">
