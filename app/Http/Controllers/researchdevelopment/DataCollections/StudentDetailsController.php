@@ -8,6 +8,9 @@ use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequ
 use App\Models\Country;
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
+use App\Models\Region;
+use App\Models\TownVillage;
+use App\Models\District;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
 use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
@@ -50,11 +53,17 @@ class StudentDetailsController extends Controller
 
         $fields = EducationField::all()->pluck('name', 'id');
 
+        $regions = Region::all()->pluck('name', 'id');
+
+        $districts = District::all()->pluck('name', 'id');
+
+        $towns = TownVillage::all()->pluck('name', 'id');
+
         $countries = Country::all('name');
 
         return view(
             'researchdevelopment.studentdetails.create',
-            compact('levels', 'learningcenters', 'fields', 'countries')
+            compact('levels', 'learningcenters', 'fields', 'countries', 'regions', 'districts', 'towns')
         );
     }
 
@@ -74,6 +83,9 @@ class StudentDetailsController extends Controller
             })
             ->where(DB::raw('lower(lastname)'), 'like', '%' . strtolower($request->lastname) . '%')
             ->where('gender', $request->gender)
+            ->where('region_id', $request->region_id)
+            ->where('district_id', $request->district_id)
+            ->where('town_village_id', $request->town_village_id)
             ->whereDate('date_of_birth', $request->date_of_birth)
             ->where('nationality',  $request->nationality)
             ->whereDate('admission_date', $request->admission_date)

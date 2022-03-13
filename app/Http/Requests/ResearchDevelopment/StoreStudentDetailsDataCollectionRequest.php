@@ -45,6 +45,9 @@ class StoreStudentDetailsDataCollectionRequest extends FormRequest
             'field_of_education' => 'required|string',
             'training_provider_id' => 'required|numeric|integer',
             'academic_year' => 'required|string',
+            'region_id' => 'numeric|integer',
+            'district-id' => 'numeric|integer',
+            'town_village_id' => 'numeric|integer',
         ];
     }
 
