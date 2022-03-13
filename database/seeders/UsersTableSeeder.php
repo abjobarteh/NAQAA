@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         $systemadmin = [
             'username' => 'sysadmin',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('Allah123'),
+            'password' => bcrypt('password'),
             'firstname' => 'John',
             'lastname' => 'Doe',
             'phonenumber' => '7777777',

@@ -29,6 +29,7 @@ class InstitutionDetailsController extends Controller
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $institutionsdata = InstitutionDetailsDataCollection::with('trainingprovider:id,name')->latest()->get();
+          // dd($institutionsdata);
 
         return view('researchdevelopment.institutiondetails.index', compact('institutionsdata'));
     }

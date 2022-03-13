@@ -41,6 +41,11 @@
                                         <th>Job Status</th>
                                         <th>Region</th>
                                         <th>Institution</th>
+                                        <th>Date Advertised</th>
+                                        <th>Occupational Group</th>
+                                        <th>Job Vacancy Category</th>
+                                        <th>District</th>
+                                        <th>Local Goverment</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -58,6 +63,11 @@
                                             <td>{{$vacancy->job_status}}</td>
                                             <td>{{$vacancy->region->name}}</td>
                                             <td>{{$vacancy->institution}}</td>
+                                            <td>{{$vacancy->occupational_group}}</td>
+                                            <td>{{$vacancy->vacancyCategory->name}}</td>
+                                            <td>{{$vacancy->district->name}}</td>
+                                            <td>{{$vacancy->localgovermentarea->name}}</td>
+                                            <td>{{$vacancy->date_advertised}}</td>
                                             <td>
                                                 @can('edit_job_vacancy')
                                                     <a href="{{route('researchdevelopment.edit-jobvacancy',$vacancy->id)

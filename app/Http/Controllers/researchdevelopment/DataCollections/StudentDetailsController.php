@@ -34,6 +34,7 @@ class StudentDetailsController extends Controller
         $students = TrainingProviderStudent::with(['trainingprovider', 'awardName'])
             ->whereNotNull('programme_name')
             ->get();
+            // dd($students);
 
         return view('researchdevelopment.studentdetails.index', compact('students'));
     }

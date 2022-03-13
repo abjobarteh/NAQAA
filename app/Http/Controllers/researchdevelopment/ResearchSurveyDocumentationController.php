@@ -22,6 +22,7 @@ class ResearchSurveyDocumentationController extends Controller
         abort_if(Gate::denies('access_research_survey_documentation'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $surveys = ResearchSurvey::all();
+        // dd($surveys);
 
         return view('researchdevelopment.researchsurveydocumentation.index', compact('surveys'));
     }

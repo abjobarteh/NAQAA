@@ -40,6 +40,7 @@
                                         <th>No. of lecture rooms</th>
                                         <th>No. of computer labs</th>
                                         <th>Total No. of computers in labs</th>
+                                        <th>Financial Source</th>
                                         <th>Academic year</th>
                                         <th>Actions</th>
                                     </tr>
@@ -53,6 +54,7 @@
                                             <td>{{$data->no_of_lecture_rooms}}</td>
                                             <td>{{$data->no_of_computer_labs}}</td>
                                             <td>{{$data->total_no_of_computers_in_labs}}</td>
+                                            <td>{{$data->financial_source}}</td>
                                             <td>{{$data->academic_year}}</td>
                                             <td>
                                                 @can('edit_data_collection')

@@ -28,9 +28,11 @@ class JobVacanciesDataController extends Controller
     {
         abort_if(Gate::denies('access_job_vacancy'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $jobvacancies = JobVacancy::with('region', 'position')->latest()->get();
+        $jobvacancies = JobVacancy::with('region', 'position', 'vacancyCategory', 'district', 'localgovermentarea')->latest()->get();
         $qualifications = QualificationLevel::all()->pluck('name', 'id');
         $fields = EducationField::all()->pluck('name', 'id');
+
+        // dd($jobvacancies);
 
         return view(
             'researchdevelopment.jobvacancies.index',

@@ -32,14 +32,20 @@
                             <h3 class="card-title">Research Surveys List</h3>
                         </div>
                         <div class="card-body">
+                          <div class="table-responsive">
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>Research Topic</th>
                                         <th>Publisher</th>
+                                        <th>Purpose</th>
+                                        <th>Key Findings</th>
+                                        <th>Recommendations</th>
                                         <th>Publication Date</th>
+                                        <th>Name of authors</th>
                                         <th>Funded by</th>
                                         <th>Cost (GMD)</th>
+                                        <th>Remarks</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -48,9 +54,16 @@
                                         <tr>
                                             <td>{{$survey->research_topic}}</td>
                                             <td>{{$survey->publisher}}</td>
+                                            <td>{{$survey->purpose}}</td>
+                                            <td>{{$survey->key_findings}}</td>
+                                            <td>{{$survey->recommendation}}</td>
                                             <td>{{$survey->publication_date}}</td>
+                                            <td>{{$survey->name_of_authors[0]}}
+                                              
+                                            </td>
                                             <td>{{$survey->funded_by}}</td>
                                             <td>{{$survey->cost}}</td>
+                                            <td>{{$survey->remarks}}</td>
                                             <td>
                                                 @can('edit_research_survey_documentation')
                                                     <a href="{{route('researchdevelopment.research-survey-documentation.edit',$survey->id)
@@ -75,6 +88,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>

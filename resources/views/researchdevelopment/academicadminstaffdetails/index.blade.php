@@ -30,6 +30,7 @@
                             <h3 class="card-title">Academic&Admin Staff Details Data collection lists</h3>
                         </div>
                         <div class="card-body">
+                          <div class="table-responsive">
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -40,6 +41,17 @@
                                         <th>Role</th>
                                         <th>Main Teaching Field of Study</th>
                                         <th>Learning Center</th>
+                                        <th>Gender</th>
+                                        <th>Nationality</th>
+                                        <th>Date of Birth</th>
+                                        <th>Telephone</th>
+                                        <th>Email</th>
+                                        <th>Job Title</th>
+                                        <th>Salary (P/M)</th>
+                                        <th>Employment Date</th>
+                                        <th>Employement Type</th>
+                                        <th>Other Qualification</th>
+                                        <th>Secondary Teaching</th>
                                         <th>Date Collected</th>
                                         <th>Actions</th>
                                     </tr>
@@ -54,6 +66,17 @@
                                             <td>{{$staff->role ?? 'N/A'}}</td>
                                             <td>{{$staff->main_teaching_programme}}</td>
                                             <td>{{$staff->learningcenter->name ?? 'N/A'}}</td>
+                                            <td>{{$staff->gender}}</td>
+                                            <td>{{$staff->nationality}}</td>
+                                            <td>{{$staff->date_of_birth}}</td>
+                                            <td>{{$staff->phone}}</td>
+                                            <td>{{$staff->email}}</td>
+                                            <td>{{$staff->job_title}}</td>
+                                            <td>{{$staff->salary_per_month}}</td>
+                                            <td>{{$staff->employment_date}}</td>
+                                            <td>{{$staff->employment_type}}</td>
+                                            <td>{{$staff->other_qualifications ?? 'N/A'}}</td>
+                                            <td>{{$staff->secondary_teaching_programmes ?? 'N/A'}}</td>
                                             <td>{{$staff->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')
@@ -79,6 +102,7 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -34,6 +34,7 @@
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th>Student ID</th>
                                         <th>Fullname</th>
                                         <th>Gender</th>
                                         <th>Phone</th>
@@ -42,7 +43,12 @@
                                         <th>Programme</th>
                                         <th>Award</th>
                                         <th>Learning Center</th>
+                                        <th>Qualifiction of Entry</th>
+                                        <th>Field of Education</th>
+                                        <th>Attendance Status</th>
+                                        <th>Date of Birth</th>
                                         <th>Academic Year</th>
+                                        <th>Nationality</th>
                                         <th>Date Collected</th>
                                         <th>Actions</th>
                                     </tr>
@@ -50,6 +56,7 @@
                                 <tbody>
                                     @forelse ($students as $student)
                                         <tr>
+                                            <td>{{$student->student_id}}</td>
                                             <td>{{$student->full_name}}</td>
                                             <td>{{$student->gender}}</td>
                                             <td>{{$student->phone ?? 'N/A'}}</td>
@@ -58,7 +65,12 @@
                                             <td>{{$student->programme_name}}</td>
                                             <td>{{$student->awardName->name ?? 'N/A'}}</td>
                                             <td>{{$student->trainingprovider->name ?? 'N/A'}}</td>
+                                            <td>{{$student->awardName->name}}</td>
+                                            <td>{{$student->field_of_education}}</td>
+                                            <td>{{$student->attendance_status}}</td>
+                                            <td>{{$student->date_of_birth}}</td>
                                             <td>{{$student->academic_year ?? 'N/A'}}</td>
+                                            <td>{{$student->nationality ?? 'N/A'}}</td>
                                             <td>{{$student->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')
@@ -91,3 +103,10 @@
         </div>
     </section>
 @endsection
+<script>
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        "scrollX": true
+    });
+  });
+</script>
