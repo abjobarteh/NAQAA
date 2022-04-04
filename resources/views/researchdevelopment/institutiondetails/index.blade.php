@@ -31,6 +31,7 @@
                             <h3 class="card-title">Institution Details Data collection lists</h3>
                         </div>
                         <div class="card-body">
+                        </button>
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -80,6 +81,15 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="col-sm-2 col-lg-2 mt-3" >
+                            <form action="{{ route('researchdevelopment.datacollection.institution-details-imports') }}" method="POST" enctype="multipart/form-data">
+                              @csrf
+                              <input type="file" name="file" id="file" class="form-control" required>
+                              <button type="submit" class="btn btn-primary mt-1 col-sm-12 col-lg-12 ">
+                                Bulk Upload
+                              </button>
+                            </form>
+                          </div>
                         </div>
                     </div>
                 </div>

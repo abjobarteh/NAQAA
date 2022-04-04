@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\researchdevelopment\DataCollections;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ResearchDevelopment\StoreInstitutionDetailsDataCollectionRequest;
-use App\Http\Requests\ResearchDevelopment\UpdateInstitutionDetailsDataCollectionRequest;
-use App\Models\District;
-use App\Models\LocalGovermentAreas;
 use App\Models\Region;
-use App\Models\RegistrationAccreditation\TrainingProvider;
-use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
-use App\Models\TrainingProviderClassification;
-use App\Models\TrainingProviderOwnership;
+use App\Models\District;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\LocalGovermentAreas;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\TrainingProviderOwnership;
+use App\Models\TrainingProviderClassification;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
+use App\Imports\ResearchDevelopment\Sheets\InstitutiondetailsSheetImport;
+use App\Http\Requests\ResearchDevelopment\StoreInstitutionDetailsDataCollectionRequest;
+use App\Http\Requests\ResearchDevelopment\UpdateInstitutionDetailsDataCollectionRequest;
+
 
 class InstitutionDetailsController extends Controller
 {
@@ -242,5 +245,17 @@ class InstitutionDetailsController extends Controller
         });
 
         return back()->withSuccess('Institution details data collection record successfully updated');
+    }
+
+    // importing data from excell
+    public function uploadInstitutionDetails(Request $request)
+    {
+      // $path = $request->file('file');
+      // dd($path);
+      Excel::import(new InstitutiondetailsSheetImport,request()->file('file'));
+
+      alert('Import Successfully', 'Institution details successfully imported', 'success');
+      
+      return back();
     }
 }
