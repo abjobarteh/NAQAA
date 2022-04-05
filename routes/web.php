@@ -243,6 +243,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'datacollection', 'as' => 'datacollection.'], function () {
       Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
       Route::post('institution-details-imports', [InstitutionDetailsController::class, 'uploadInstitutionDetails'])->name('institution-details-imports');
+      Route::post('programme-offered-imports', [ProgramOfferedController::class, 'uploadProgrammeoffered'])->name('programme-offered-imports');
 
       Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
       // route rendering a livewire component
@@ -270,7 +271,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Imports
     Route::get('datacollection-imports', StudentDetailsImport::class)->name('datacollection-imports');
     Route::post('store-datacollection-import', [DataCollectionsImportsController::class, 'store'])->name('datacollection-imports.store');
-    
+
     Route::group(['prefix' => 'reports', 'as' => 'reports.'], function () {
       // Enrollment reports
       Route::get('enrollments', function () {

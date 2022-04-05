@@ -8,8 +8,10 @@ use App\Http\Requests\ResearchDevelopment\UpdateProgramDetailsDataCollectionRequ
 use App\Models\AwardBody;
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
+use App\Imports\ResearchDevelopment\Sheets\ProgramsOfferedSheetImport;
 use App\Models\ResearchDevelopment\ProgramDetailsDataCollection;
 use App\Models\TrainingProviderProgramme;
 use Illuminate\Support\Facades\DB;
@@ -47,5 +49,17 @@ class ProgramOfferedController extends Controller
         $programdetail = ProgramDetailsDataCollection::findOrFail($id)->load('programmeDetails', 'programmeDetails.programme');
 
         return view('researchdevelopment.programdetails.show', compact('programdetail'));
+    }
+
+    // importing data from excell
+    public function uploadProgrammeoffered(Request $request)
+    {
+        // $path = $request->file('file');
+        // dd($path);
+        Excel::import(new ProgramsOfferedSheetImport, request()->file('file'));
+
+        alert('Import Successfully', 'Institution details successfully imported', 'success');
+
+        return back();
     }
 }
