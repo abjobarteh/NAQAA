@@ -56,7 +56,7 @@ class ProgramOfferedController extends Controller
     {
         // $path = $request->file('file');
         // dd($path);
-        Excel::import(new ProgramsOfferedSheetImport, request()->file('file'));
+        (Excel::import(new ProgramsOfferedSheetImport, request()->file('file')));
 
         alert('Import Successfully', 'Institution details successfully imported', 'success');
 

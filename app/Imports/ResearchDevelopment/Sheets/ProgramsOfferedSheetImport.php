@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 
-class ProgramsOfferedSheetImport implements ToModel
+class ProgramsOfferedSheetImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -27,7 +27,7 @@ class ProgramsOfferedSheetImport implements ToModel
             'programme_id' => $row['programme_id'],
             'duration' => $row['duration'],
             'tutition_fee_per_year' => $row['tuition_fee_per_year'],
-            'entry_requirements' => explode($row['entry_requirements'], ','),
+            'entry_requirements' => $row['entry_requirements'],
             'awarding_body' => $row['awarding_body'],
             'academic_year' => $row['academic_year'],
         ]);
