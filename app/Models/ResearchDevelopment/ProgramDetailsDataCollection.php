@@ -53,4 +53,8 @@ class ProgramDetailsDataCollection extends Model
     {
         return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }
+
+  //   protected $casts = [
+  //     'entry_requirements' => 'array',
+  // ];
 }
