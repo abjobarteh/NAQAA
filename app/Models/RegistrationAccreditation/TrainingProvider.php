@@ -46,6 +46,7 @@ class TrainingProvider extends Model
         'is_registered',
         'manager',
         'storage_path',
+        'import_id',
     ];
 
     // protected $with = [

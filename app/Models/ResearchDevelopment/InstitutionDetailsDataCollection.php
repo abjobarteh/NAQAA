@@ -19,7 +19,8 @@ class InstitutionDetailsDataCollection extends Model
         'no_of_lecture_rooms',
         'no_of_computer_labs',
         'total_no_of_computers_in_labs',
-        'academic_year'
+        'academic_year',
+        'import_id'
     ];
 
     protected static $logFillable = true;

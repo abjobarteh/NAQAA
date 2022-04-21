@@ -45,17 +45,18 @@ class InstitutiondetailsSheetImport implements ToModel, WithHeadingRow
           //     'lga_id' => 3,
           // ]);
           
-          $row['institution_id'] = TrainingProvider::where('name', 'like', '%'.$row['institution_id'].'%')->first()->id;
-          
+          $row['learning_center_name'] = TrainingProvider::where('name', 'like', '%'.$row['learning_center_name'].'%')->first()->id;
+
           return new InstitutionDetailsDataCollection([
-            'institution_id' => $row['institution_id'],
+            'institution_id' => $row['learning_center_name'],
             'financial_source' => $row['financial_source'],
-            'yearly_turnover' => $row['yearly_turnover'],
-            'enrollment_capacity' => $row['enrollment_capacity'],
+            'yearly_turnover' => $row['estimated_yearly_turnover'],
+            'enrollment_capacity' => $row['enrolment_capacity'],
             'no_of_lecture_rooms' => $row['no_of_lecture_rooms'],
-            'no_of_computer_labs' => $row['no_of_computer_labs'],
-            'total_no_of_computers_in_labs' => $row['total_no_of_computers_in_labs'],
+            'no_of_computer_labs' => $row['number_of_computer_labs'],
+            'total_no_of_computers_in_labs' => $row['total_number_of_computers_in_computer_labs'],
             'academic_year' => $row['academic_year'],
+            'import_id' => $row['import_id']
           ]);
         }
 }
