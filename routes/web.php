@@ -244,6 +244,8 @@ Route::group(['middleware' => 'auth'], function () {
       Route::resource('institution-details', InstitutionDetailsController::class)->except('destroy');
       Route::post('institution-details-imports', [InstitutionDetailsController::class, 'uploadInstitutionDetails'])->name('institution-details-imports');
       Route::post('programme-offered-imports', [ProgramOfferedController::class, 'uploadProgrammeoffered'])->name('programme-offered-imports');
+      Route::post('student-data-imports', [StudentDetailsController::class, 'uploadStudentsData'])->name('student-data-imports');
+      Route::post('academic-data-imports', [AcademicAdminStaffDetailsController::class, 'import'])->name('academic-data-imports');
 
       Route::resource('program-details', ProgramOfferedController::class)->except('destroy');
       // route rendering a livewire component

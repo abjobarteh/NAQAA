@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\systemadmin;
 
-use App\Events\SystemUserAccountCreatedEvent;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\systemadmin\StoreUserRequest;
-use App\Http\Requests\systemadmin\UpdateUserRequest;
-use App\Models\Designation;
-use App\Models\Directorate;
-use App\Models\Permission;
 use App\Models\Role;
 use App\Models\Unit;
 use App\Models\User;
+use App\Models\Permission;
+use App\Models\Designation;
+use App\Models\Directorate;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use App\Events\SystemUserAccountCreatedEvent;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\systemadmin\StoreUserRequest;
+use App\Http\Requests\systemadmin\UpdateUserRequest;
+use PhpParser\Node\Stmt\TryCatch;
 
 class UsersController extends Controller
 {
@@ -62,31 +64,32 @@ class UsersController extends Controller
     public function store(StoreUserRequest $request)
     {
 
-        $user =  User::create([
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'firstname' => $request->firstname,
-            'middlename' => $request->middlename ?? null,
-            'lastname' => $request->lastname,
-            'phonenumber' => $request->phonenumber,
-            'address' => $request->address,
-            'role_id' => $request->role,
-            'directorate_id' => $request->directorate,
-            'unit_id' => $request->unit,
-            'designation_id' => $request->designation,
-            'user_status' => $request->user_status == 'on' ? 1 : 0,
-            'user_category' => 'system',
-            'default_password_status' => 1,
-        ]);
+      $user =  User::create([
+          'username' => $request->username,
+          'email' => $request->email,
+          'password' => bcrypt($request->password),
+          'firstname' => $request->firstname,
+          'middlename' => $request->middlename ?? null,
+          'lastname' => $request->lastname,
+          'phonenumber' => $request->phonenumber,
+          'address' => $request->address,
+          'role_id' => $request->role,
+          'directorate_id' => $request->directorate,
+          'unit_id' => $request->unit,
+          'designation_id' => $request->designation,
+          'user_status' => $request->user_status == 'on' ? 1 : 0,
+          'user_category' => 'system',
+          'default_password_status' => 1,
+      ]);
+      // dd($user);
+      $user->roles()->sync($request->input('roles', []));
 
-        $user->roles()->sync($request->input('roles', []));
+      $user->permissions()->sync($request->input('permissions', []));
+      
+      
 
-        $user->permissions()->sync($request->input('permissions', []));
+      return redirect(route('admin.users.index'))->with('success', 'User Successfully created');
 
-        SystemUserAccountCreatedEvent::dispatch($user);
-
-        return redirect(route('admin.users.index'))->with('success', 'User Successfully created');
     }
 
     /**

@@ -16,7 +16,7 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
 
     public function __construct($learning_center_id)
     {
-        $this->learning_center_id = $learning_center_id;
+       $this->learning_center_id = $learning_center_id;
     }
 
     /**
@@ -55,7 +55,7 @@ class StudentDetailSheetImport implements ToModel, WithHeadingRow
                 'nationality' => $row['nationality'],
                 // 'date_of_birth' => str_replace('/', '-', $row['dob']),
                 'phone' => $row['phone'],
-                'programme_name' => $row['programme_name'],
+                'programme_name' => $row['programme'],
                 'attendance_status' => $row['attendance_status'],
                 // 'admission_date' => $row['admission_date'],
                 // 'completion_date' => $row['completion_date'],

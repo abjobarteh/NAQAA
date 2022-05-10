@@ -21,6 +21,7 @@ class CreateProgramDetailsDataCollectionsTable extends Migration
             $table->longText('entry_requirements');
             $table->string('awarding_body')->nullable();
             $table->string('academic_year')->nullable();
+            $table->integer('import_id')->unique()->nullable();
             $table->timestamps();
         });
     }

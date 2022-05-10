@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\researchdevelopment\DataCollections;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ResearchDevelopment\StoreAcademicAdminStaffDetailsDataCollectionRequest;
-use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCollectionRequest;
 use App\Models\Country;
 use App\Models\QualificationLevel;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\TrainingProviderStaffsRank;
+use App\Models\TrainingProviderStaffsRole;
+use Symfony\Component\HttpFoundation\Response;
 use App\Models\RegistrationAccreditation\TrainingProvider;
 use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
-use App\Models\TrainingProviderStaffsRank;
-use App\Models\TrainingProviderStaffsRole;
-use Illuminate\Support\Facades\Gate;
-use Symfony\Component\HttpFoundation\Response;
+use App\Imports\ResearchDevelopment\Sheets\AcademicAdminStaffSheetImport;
+use App\Http\Requests\ResearchDevelopment\StoreAcademicAdminStaffDetailsDataCollectionRequest;
+use App\Http\Requests\ResearchDevelopment\UpdateAcademicAdminStaffDetailsDataCollectionRequest;
 
 class AcademicAdminStaffDetailsController extends Controller
 {
@@ -128,5 +130,13 @@ class AcademicAdminStaffDetailsController extends Controller
         $academicadminstaff_detail->update($request->validated());
 
         return back()->withSuccess('Training provider staff details data collection record successfully updated');
+    }
+
+    public function import(){
+      Excel::import(new AcademicAdminStaffSheetImport,request()->file('file'));
+
+      alert('Import Successfully', 'Institution details successfully imported', 'success');
+      
+      return back();
     }
 }

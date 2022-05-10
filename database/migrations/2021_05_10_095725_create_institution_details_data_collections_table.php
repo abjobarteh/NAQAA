@@ -23,6 +23,7 @@ class CreateInstitutionDetailsDataCollectionsTable extends Migration
             $table->integer('no_of_computer_labs')->nullable();
             $table->integer('total_no_of_computers_in_labs')->nullable();
             $table->string('academic_year')->nullable();
+            $table->integer('import_id')->unique()->nullable();
             $table->timestamps();
         });
     }

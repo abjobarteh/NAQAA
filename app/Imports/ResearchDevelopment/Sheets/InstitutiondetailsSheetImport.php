@@ -56,7 +56,7 @@ class InstitutiondetailsSheetImport implements ToModel, WithHeadingRow
             'no_of_computer_labs' => $row['number_of_computer_labs'],
             'total_no_of_computers_in_labs' => $row['total_number_of_computers_in_computer_labs'],
             'academic_year' => $row['academic_year'],
-            'import_id' => $row['import_id']
+            // 'import_id' => $row['import_id']
           ]);
         }
 }

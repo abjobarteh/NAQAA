@@ -2,10 +2,11 @@
 
 namespace App\Imports\ResearchDevelopment\Sheets;
 
-use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use App\Models\ResearchDevelopment\AcademicAdminStaffDataCollection;
 
-class AcademicAdminStaffSheetImport implements ToModel
+class AcademicAdminStaffSheetImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -18,10 +19,13 @@ class AcademicAdminStaffSheetImport implements ToModel
             'firstname' => $row['firstname'],
             'middlename' => $row['middlename'],
             'lastname' => $row['firstname'],
-            'qaulifications' => explode($row['qualifications'],','),
+            'gender' => $row['gender'],
+            // 'qaulifications' => explode($row['highestqualification'],','),
+            'highest_qualification' => $row['highestqualification'],
             'specialisation' => $row['specialisation'],
             'main_teaching_field_of_study' => $row['main_teaching_field_of_study'],
-            'secondary_teaching_fields_of_study' => explode($row['secondary_teaching_fields_of_study'],','),
+            // 'secondary_teaching_fields_of_study' => explode($row['secondary_teaching_fields_of_study'],','),
+            'secondary_teaching_fields_of_study' => $row['secondary_teaching_fields_of_study'],
             'rank_id' => 8,
             'role_id' => 2,
             'institution_id' => 2,

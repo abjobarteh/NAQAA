@@ -38,23 +38,14 @@ class ProgramDetailsDataCollection extends Model
         };
     }
 
-    public function setEntryRequirementsAttribute($requirements)
-    {
-        $this->attributes['entry_requirements'] = json_encode($requirements);
-    }
-
-
-    public function getEntryRequirementsAttribute($requirements)
-    {
-        return json_decode($requirements);
-    }
+  
 
     public function programmeDetails()
     {
         return $this->belongsTo(TrainingProviderProgramme::class, 'programme_id');
     }
 
-  //   protected $casts = [
-  //     'entry_requirements' => 'array',
-  // ];
+    protected $casts = [
+      'entry_requirements' => 'array',
+  ];
 }

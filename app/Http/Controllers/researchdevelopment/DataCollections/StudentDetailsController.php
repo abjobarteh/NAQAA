@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\researchdevelopment\DataCollections;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ResearchDevelopment\StoreStudentDetailsDataCollectionRequest;
-use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequest;
+use App\Models\Region;
 use App\Models\Country;
+use App\Models\District;
+use App\Models\TownVillage;
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
-use App\Models\Region;
-use App\Models\TownVillage;
-use App\Models\District;
-use App\Models\RegistrationAccreditation\TrainingProvider;
-use App\Models\ResearchDevelopment\InstitutionDetailsDataCollection;
-use App\Models\ResearchDevelopment\StudentDetailsDataCollection;
-use App\Models\TrainingProviderStudent;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Models\TrainingProviderStudent;
+use Illuminate\Support\Facades\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\RegistrationAccreditation\TrainingProvider;
+use App\Imports\ResearchDevelopment\Sheets\StudentDataImport;
+use App\Http\Requests\ResearchDevelopment\StoreStudentDetailsDataCollectionRequest;
+use App\Http\Requests\ResearchDevelopment\UpdateStudentDetailsDataCollectionRequest;
 
 class StudentDetailsController extends Controller
 {
@@ -158,5 +158,16 @@ class StudentDetailsController extends Controller
         $student_detail->update($request->validated());
 
         return back()->withSuccess('Student details data collection record successfully updated');
+    }
+
+    // importing data from excell
+    public function uploadStudentsData(Request $request)
+    {
+      
+      Excel::import(new StudentDataImport,request()->file('file'));
+
+      alert('Import Successfully', 'Institution details successfully imported', 'success');
+      
+      return back();
     }
 }
