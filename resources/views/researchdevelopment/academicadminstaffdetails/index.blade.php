@@ -75,8 +75,27 @@
                                             <td>{{$staff->salary_per_month}}</td>
                                             <td>{{$staff->employment_date}}</td>
                                             <td>{{$staff->employment_type}}</td>
-                                            <td>{{$staff->other_qualifications ?? 'N/A'}}</td>
-                                            <td>{{$staff->secondary_teaching_programmes ?? 'N/A'}}</td>
+                                            <td>
+                                                @if($staff->other_qualifications)
+                                                    @foreach($staff->other_qualifications as $item)
+                                                        <span class="badge badge-primary">{{ $item }}</span><span>{{'|'}}</span>
+                                                    @endforeach
+
+                                                @else
+                                                    {{"N/A"}}
+                                                @endif
+                                            </td>
+                                            <!-- <td>{{$staff->secondary_teaching_programmes[0] ?? 'N/A'}}</td> -->
+                                            <td>
+                                                @if($staff->secondary_teaching_programmes)
+                                                    @foreach($staff->secondary_teaching_programmes as $item)
+                                                        <span class="badge badge-primary">{{ $item }}</span><span>{{'|'}}</span>
+                                                    @endforeach
+
+                                                @else
+                                                    {{"N/A"}}
+                                                @endif
+                                            </td>
                                             <td>{{$staff->created_at}}</td>
                                             <td>
                                                 @can('edit_data_collection')

@@ -99,4 +99,6 @@ class AcademicAdminStaffDataCollection extends Model
     {
         return $this->belongsTo(TrainingProvider::class, 'institution_id');
     }
+
+    
 }

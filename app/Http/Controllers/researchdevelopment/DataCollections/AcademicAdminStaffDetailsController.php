@@ -29,7 +29,7 @@ class AcademicAdminStaffDetailsController extends Controller
         abort_if(Gate::denies('access_data_collection'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $staffs = AcademicAdminStaffDataCollection::with('learningcenter')->get();
-        // dd($staffs);
+        // dd($staffs['id']);
         return view('researchdevelopment.academicadminstaffdetails.index', compact('staffs'));
     }
 
