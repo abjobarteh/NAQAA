@@ -124,6 +124,16 @@
                         <a href="{{route('admin.local-languages.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
                     </div>
                 </div>
+                <!-- // New configuration for Mode of delivery-->
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <div class="d-flex flex-row mb-3"><i class="fas fa-language fa-3x text-primary"></i>
+                            <div class="d-flex flex-column ml-2"><span class="text-black-50">Mode of Delivery</span></div>
+                        </div>
+                        <h6>Manage or add new Mode of Delivery.</h6>
+                        <a href="{{route('admin.local-languages.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
