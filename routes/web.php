@@ -60,6 +60,8 @@ use App\Http\Controllers\systemadmin\EducationSubFieldsController;
 use App\Http\Controllers\systemadmin\JobVacanciesCategoryController;
 use App\Http\Controllers\systemadmin\LocalGovermentAreasController;
 use App\Http\Controllers\systemadmin\LocalLanguageController;
+
+use App\Http\Controllers\systemadmin\ModeOfDeliveryController;
 use App\Http\Controllers\systemadmin\PermissionsController;
 use App\Http\Controllers\systemadmin\PredefinedSettingsController;
 use App\Http\Controllers\systemadmin\QualificationLevelsController;
@@ -209,6 +211,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Local languages
     Route::resource('local-languages', LocalLanguageController::class);
+
+    // Mode Of Delivery
+    Route::resource('mode-of-delivery', ModeOfDeliveryController::class);
 
     // Application Fees Tariffs
     Route::resource('application-fees-tariffs', ApplicationFeeTarrifsController::class)->except('show');

@@ -131,7 +131,7 @@
                             <div class="d-flex flex-column ml-2"><span class="text-black-50">Mode of Delivery</span></div>
                         </div>
                         <h6>Manage or add new Mode of Delivery.</h6>
-                        <a href="{{route('admin.local-languages.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
+                        <a href="{{route('admin.mode-of-delivery.index')}}"><div class="d-flex justify-content-between install mt-3"><span class="text-primary">View&nbsp;<i class="fa fa-angle-right"></i></span></div></a>
                     </div>
                 </div>
             </div>
