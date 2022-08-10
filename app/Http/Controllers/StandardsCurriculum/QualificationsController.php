@@ -10,6 +10,7 @@ use App\Models\EducationSubField;
 use App\Models\Qualification;
 use App\Models\QualificationLevel;
 use App\Models\QualificationReview;
+use App\Models\ModeOfDelivery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\HttpFoundation\Response;
@@ -42,8 +43,9 @@ class QualificationsController extends Controller
         $fields = EducationField::all()->pluck('name', 'id');
         $subfields = EducationSubField::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $deliveries = ModeOfDelivery::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.qualifications.create', compact('fields', 'subfields', 'levels'));
+        return view('standardscurriculum.qualifications.create', compact('fields', 'subfields', 'levels', 'deliveries'));
     }
 
     /**
@@ -87,8 +89,9 @@ class QualificationsController extends Controller
         $fields = EducationField::all()->pluck('name', 'id');
         $subfields = EducationSubField::all()->pluck('name', 'id');
         $levels = QualificationLevel::all()->pluck('name', 'id');
+        $deliveries = ModeOfDelivery::all()->pluck('name', 'id');
 
-        return view('standardscurriculum.qualifications.edit', compact('qualification', 'fields', 'subfields', 'levels'));
+        return view('standardscurriculum.qualifications.edit', compact('qualification', 'fields', 'subfields', 'levels', 'deliveries'));
     }
 
     /**

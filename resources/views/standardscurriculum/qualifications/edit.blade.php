@@ -87,7 +87,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+                                    <!-- <div class="col-sm-4">
                                         <div class="form-group">
                                             <label>Mode of delivery:</label>
                                             <input type="text" class="form-control" name="mode_of_delivery" value="{{ $qualification->mode_of_delivery }}">
@@ -95,7 +95,22 @@
                                                 <span class="text-danger mt-1">{{$message}}</span>
                                             @enderror
                                         </div>
+                                    </div> -->
+                                        <!-- //New Mode -->
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>New Mode of delivery:<sup class="text-danger">*</sup></label>
+                                            <select name="mode_of_delivery" id="mode_of_delivery" class="form-control select2" multiple="multiple" data-placeholder="Select mode of delivery" required>
+                                                @foreach ($deliveries as $id => $delivery)
+                                                    <option value="{{$delivery}}">{{$delivery}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('mode_of_deliveries')
+                                                <span class="text-danger mt-1">{{$message}}</span>
+                                            @enderror
+                                        </div>
                                     </div>
+                                    <!-- // End New mode -->
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
