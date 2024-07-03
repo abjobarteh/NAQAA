@@ -39,7 +39,7 @@ New Student Details Data collection
                                     <div class="form-group">
                                         <label>Training Provider: <sup class="text-danger">*</sup></label>
                                         <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
-                                            <option>--- select traininig provider ---</option>
+                                            <option>--- select training provider ---</option>
                                             @foreach ($learningcenters as $id => $center)
                                             <option value="{{$id}}">{{$center}}</option>
                                             @endforeach
@@ -62,7 +62,7 @@ New Student Details Data collection
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <label>Aacademic Year: <sup class="text-danger">*</sup></label>
+                                        <label>Academic Year: <sup class="text-danger">*</sup></label>
                                         <input type="text" class="form-control" name="academic_year" value="{{ old('academic_year') }}">
                                         @error('academic_year')
                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -132,16 +132,14 @@ New Student Details Data collection
                                     </div>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>Region: </label>
                                         <select name="region_id" id="region_id" class="form-control select2">
-                                            <option>Select Rigion</option>
+                                            <option>Select Region</option>
                                             @foreach ($regions as $id => $region)
-                                            <option value="{{$region}}">{{$region}}</option>
+                                            <option value="{{$id}}">{{$region}}</option>
                                             @endforeach
                                         </select>
                                         @if($errors->has('region_id'))
@@ -155,7 +153,7 @@ New Student Details Data collection
                                         <select name="town_village_id" id="town_village_id" class="form-control select2">
                                             <option>Select Town / Village</option>
                                             @foreach ($towns as $id => $town)
-                                            <option value="{{$town}}">{{$town}}</option>
+                                            <option value="{{$id}}">{{$town}}</option>
                                             @endforeach
                                         </select>
                                         @if($errors->has('town_village_id'))
@@ -176,6 +174,20 @@ New Student Details Data collection
                                         <span class="text-danger mt-1">{{ $errors->first('district_id') }}</span>
                                         @endif
                                     </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Local Government Area: </label>
+                                        <select name="local_government_area" id="local_government_area" class="form-control select2">
+                                            <option>Select Local Government Area</option>
+                                            @foreach ($localgovernmentareas as $id => $localgovernmentarea)
+                                            <option value="{{$localgovernmentarea}}">{{$localgovernmentarea}}</option>
+                                            @endforeach
+                                        </select>
+                                        @if($errors->has('local_government_area'))
+                                        <span class="text-danger mt-1">{{ $errors->first('local_government_area') }}</span>
+                                        @endif
+                                    </div>
+                                    
                                 </div>
                             </div>
 

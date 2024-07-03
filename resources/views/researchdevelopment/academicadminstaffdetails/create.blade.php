@@ -8,7 +8,7 @@ New Academic&Admin Staff Details Data collection
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Record New Academic&Admin Staff Details</h1>
+                <h1 class="m-0">Record New Academic & Admin Staff Details</h1>
             </div><!-- /.col -->
             <div class="col-sm-6 col-md-6">
                 <ol class="breadcrumb float-right">
@@ -17,7 +17,7 @@ New Academic&Admin Staff Details Data collection
                             Program details data collection
                         </a>
                     </li>
-                    <li class="breadcrumb-item active">New Academic&Admin staff details collection</li>
+                    <li class="breadcrumb-item active">New Academic & Admin staff details collection</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +29,7 @@ New Academic&Admin Staff Details Data collection
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">New Academic&Admin staff Details Collection</h3>
+                        <h3 class="card-title">New Academic & Admin staff Details Collection</h3>
                     </div>
                     <div class="card-body">
                         <form action="{{route('researchdevelopment.datacollection.academicadminstaff-details.store')}}" method="post" autocomplete="off">

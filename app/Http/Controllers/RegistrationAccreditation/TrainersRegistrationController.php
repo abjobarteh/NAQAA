@@ -19,7 +19,7 @@ class TrainersRegistrationController extends Controller
         abort_if(Gate::denies('access_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $trainer_registrations = ApplicationDetail::with([
-            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email',
+            'trainer:id,firstname,middlename,lastname,date_of_birth,gender,country_of_citizenship,email,phone_home,phone_home',
             'registrationLicence'
         ])->where('application_type', 'trainer_registration')
             ->latest()

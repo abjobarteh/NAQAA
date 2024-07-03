@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Field of Education: </b>
-                                        <p class="col-sm-7 text-muted">{{$programdetailprogrammeDetails->programme->fieldOfEducation->name ?? 'N/A'}}</p>
+                                        <p class="col-sm-7 text-muted">{{$programdetail->programmeDetails->fieldOfEducation->name ?? 'N/A'}}</p>
                                     </div>
                                     <div class="form-group row">
                                         <b class="col-sm-5 text-primary">Duration (in Months): </b>

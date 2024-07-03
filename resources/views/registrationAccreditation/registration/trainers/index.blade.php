@@ -34,18 +34,19 @@
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Trainer Name</th>
-                                        <th>Birth Date</th>
-                                        <th>Gender</th>
-                                        <th>Country of Citizenship</th>
-                                        <th>Email</th>
-                                        <th>Application No</th>
-                                        <th>status</th>
-                                        <th>Application date</th>
-                                        <th>Trainer Type</th>
-                                        <th>Licence start data</th>
-                                        <th>Licence end data</th>
-                                        <th>Actions</th>
+                                        <th class = "all">Trainer Name</th>
+                                        <th class = "all">Birth Date</th>
+                                        <th class = "all">Gender</th>
+                                        <th class = "all">Country of Citizenship</th>
+                                        <th class = "all">Email</th>
+                                        <th class = "all">Contact Numbers</th>
+                                        <th class = "all">Application No</th>
+                                        <th class = "all">status</th>
+                                        <th class = "all">Application date</th>
+                                        <th class = "all">Trainer Type</th>
+                                        <th class = "all">Licence start data</th>
+                                        <th class = "all">Licence end data</th>
+                                        <th class = "all">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,6 +57,7 @@
                                             <td>{{$registration->trainer->gender}}</td>
                                             <td>{{$registration->trainer->country_of_citizenship}}</td>
                                             <td>{{$registration->trainer->email}}</td>
+                                            <td>{{$registration->trainer->phone_home ?? $registration->trainer->phone_mobile}} , <br> {{$registration->trainer->phone_mobile}}</td>
                                             <td>{{$registration->application_no}}</td>
                                             <td>
                                                 <span class="badge {{$registration->status === 'Approved' ? 'badge-success' : 'badge-danger'}}">

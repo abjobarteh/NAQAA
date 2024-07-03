@@ -443,7 +443,7 @@
       {{ request()->is('registration-accreditation/reports/learning-centers') ? 'active' : '' }}">
         <i class="nav-icon fas fa-university"></i>
         <p>
-          Learning Centers
+          Training Centers
         </p>
       </a>
     </li>

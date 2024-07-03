@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12 col-md-6">
-                <h1 class="m-0">Academic&Admin Staff Data Collection</h1>
+                <h1 class="m-0">Academic & Admin Staff Data Collection</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     @can('create_data_collection')
@@ -27,7 +27,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Academic&Admin Staff Details Data collection lists</h3>
+                            <h3 class="card-title">Academic & Admin Staff Details Data collection lists</h3>
                         </div>
                         <div class="card-body">
                           <div class="table-responsive">
@@ -49,7 +49,7 @@
                                         <th>Job Title</th>
                                         <th>Salary (P/M)</th>
                                         <th>Employment Date</th>
-                                        <th>Employement Type</th>
+                                        <th>Employment Type</th>
                                         <th>Other Qualification</th>
                                         <th>Secondary Teaching</th>
                                         <th>Date Collected</th>
@@ -114,6 +114,8 @@
                                                     <i class="fas fa-eye"></i>    
                                                 </a>
                                                 @endcan
+<!-- 
+                                                
                                             </td>
                                         </tr>
                                     @empty

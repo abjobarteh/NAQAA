@@ -54,8 +54,8 @@
       <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="far fa-bell"></i>
+        <a class="nav-link" href="/notifications">
+          <i class="far fa-bell" title="{{ __('Notifications') }}"></i>
           <span class="badge badge-info navbar-badge">{{auth()->user()->roles[0]->unreadNotifications->count()}}</span>
         </a>
       </li>
@@ -77,7 +77,7 @@
         @endif
         <li class="nav-item">
           <a href="{{ route('logout') }}" class="nav-link text-danger" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-            <i class="nav-icon fas fa-power-off"></i>
+            <i class="nav-icon fas fa-power-off" title="{{ __('Logout') }}"></i>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               {{ csrf_field() }}
           </form>
@@ -85,7 +85,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-            <i class="fas fa-expand-arrows-alt"></i>
+            <i class="fas fa-expand-arrows-alt" title="{{ __('Expand to full screen') }}"></i>
           </a>
         </li>
       </ul>

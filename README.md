@@ -5,7 +5,7 @@ It consists of digitalizing the workflow of the Authority to facilitate the mana
 
 ## Application Modules
 
-The Application is divied into **5** modules:
+The Application is divided into **5** modules:
 
 1. Sysadmin
 2. Standards and Curriculum
@@ -64,7 +64,7 @@ or you can set up localhost to serve your application from your folder without t
 ## Project Structure
 
 The structure of the folder is important to understand. All the files are structured based on modules in folders.  
-You can reference files about a specific module by accecssing the respective folder of that module named according to the module.
+You can reference files about a specific module by accessing the respective folder of that module named according to the module.
 
 ## Routes files
 

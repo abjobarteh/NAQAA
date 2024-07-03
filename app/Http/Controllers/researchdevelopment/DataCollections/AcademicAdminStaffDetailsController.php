@@ -132,6 +132,18 @@ class AcademicAdminStaffDetailsController extends Controller
         return back()->withSuccess('Training provider staff details data collection record successfully updated');
     }
 
+    // public function delete($id)
+    // {
+    //     // Find the program details data collection record by ID
+    //     $program = AcademicAdminStaffDataCollection::findOrFail($id);
+
+    //     // Delete the program
+    //     $program->delete();
+
+    //     // Redirect back with a success message
+    //     return redirect()->back()->with('success', 'Staff details deleted successfully');
+    // }
+
     public function import(){
       Excel::import(new AcademicAdminStaffSheetImport,request()->file('file'));
 

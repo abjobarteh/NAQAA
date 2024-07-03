@@ -14,7 +14,7 @@ Program Details
                 @can('create_data_collection')
                 <a href="{{route('researchdevelopment.datacollection.add-programme-details')}}" class="btn btn-primary btn-flat float-right">
                     <i class="fas fa-plus"></i> &nbsp;
-                    New Programme Data collection
+                    Add New Program
                 </a>
                 @endcan
             </div><!-- /.col -->
@@ -50,6 +50,9 @@ Program Details
                                     <td>{{$program->programmeDetails->trainingprovider->name ?? 'N/A'}}</td>
                                     <td>{{$program->programmeDetails->programme->name ?? 'N/A'}}</td>
                                     <td>{{$program->programmeDetails->fieldOfEducation->name ?? 'N/A'}}</td>
+                                    <!-- <td>{{$program->training_provider ?? 'N/A'}}</td>
+                                    <td>{{$program->program_name ?? 'N/A'}}</td>
+                                    <td>{{$program->field_of_education ?? 'N/A'}}</td> -->
                                     <td>{{$program->duration}}</td>
                                     <td>{{$program->tuition_fee_per_year}}</td>
                                     <td>
@@ -72,6 +75,8 @@ Program Details
                                             <i class="fas fa-eye"></i>
                                         </a>
                                         @endcan
+                                       
+    
                                     </td>
                                 </tr>
                                 @empty

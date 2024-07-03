@@ -51,6 +51,19 @@ class ProgramOfferedController extends Controller
         return view('researchdevelopment.programdetails.show', compact('programdetail'));
     }
 
+    // public function delete($id)
+    // {
+    //     // Find the program details data collection record by ID
+    //     $program = ProgramDetailsDataCollection::findOrFail($id);
+
+    //     // Delete the program
+    //     $program->delete();
+
+    //     // Redirect back with a success message
+    //     return redirect()->back()->with('success', 'Program deleted successfully');
+    // }
+
+
     // importing data from excell
     public function uploadProgrammeoffered(Request $request)
     {

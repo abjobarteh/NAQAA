@@ -35,17 +35,6 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="form-group">
-                                            <label>District: <sup class="text-danger">*</sup></label>
-                                            <select name="district_id" id="district_id" class="form-control select2" required>
-                                                <option value="">Select district</option>
-                                                @foreach ($districts as $id => $district)
-                                                    <option value="{{$id}}">{{$district}}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
                                             <label>Town/Village: <sup class="text-danger">*</sup></label>
                                             <select name="town_village_id" id="town_village_id" class="form-control select2">
                                                 <option value="">Select Town/village</option>
@@ -99,11 +88,15 @@
                                         <th>Email</th>
                                         <th>Location</th>
                                         <th>Contact Numbers</th>
+                                        <!-- <th>Contact Person</th> -->
                                         <th>Classification</th>
                                         <th>Application No.</th>
                                         <th>Application type</th>
                                         <th>Application status</th>
                                         <th>Application Date</th>
+                                        <!-- <th>Date of Registration</th>
+                                        <th>Accreditation Date</th>
+                                        <th>Expiry Date</th> -->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

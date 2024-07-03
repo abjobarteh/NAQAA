@@ -143,6 +143,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   // sysadmin Routes
   Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'role:sysadmin'], function () {
+    Route::redirect('/home', '/admin/dashboard');
     Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -257,8 +258,13 @@ Route::group(['middleware' => 'auth'], function () {
       Route::get('add-programme-details', AddProgrammesOffered::class)->name('add-programme-details');
       Route::get('edit-programme-details/{id}', EditProgrammesOffered::class)->name('edit-programme-details');
 
+      //Route::delete('{id}', 'ProgramOfferedController@delete')->name('delete');
+
+
       // Academic & Admin Staff
       Route::resource('academicadminstaff-details', AcademicAdminStaffDetailsController::class)->except('destroy');
+
+      //Route::delete('{id}', 'AcademicAdminStaffDetailsController@delete')->name('delete');
 
       // Student details
       Route::resource('student-details', StudentDetailsController::class)->except('destroy');

@@ -31,6 +31,10 @@ class TrainerTypesSeeder extends Seeder
                 'name' => 'Practical Trainer',
                 'slug' => 'practical_trainer',
             ],
+            [
+                'name' => 'Craft Person',
+                'slug' => 'craft_person',
+            ],
         ];
 
         TrainerType::insert($trainer_types);

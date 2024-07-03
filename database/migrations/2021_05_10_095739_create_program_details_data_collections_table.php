@@ -16,6 +16,9 @@ class CreateProgramDetailsDataCollectionsTable extends Migration
         Schema::create('program_details_data_collections', function (Blueprint $table) {
             $table->id();
             $table->foreignId('programme_id')->nullable()->constrained('training_provider_programmes');
+            $table->string('training_provider')->nullable();
+            $table->string('program_name')->nullable();
+            $table->string('field_of_education')->nullable();
             $table->integer('duration');
             $table->double('tuition_fee_per_year');
             $table->longText('entry_requirements');
@@ -26,6 +29,15 @@ class CreateProgramDetailsDataCollectionsTable extends Migration
         });
     }
 
+    // public function up()
+    // {
+    //     Schema::table('program_details_data_collections', function (Blueprint $table) {
+    //         $table->string('training_provider');
+    //         $table->string('program_name');
+    //         $table->string('field_of_education');
+    //     });
+    // }
+
     /**
      * Reverse the migrations.
      *
@@ -35,4 +47,13 @@ class CreateProgramDetailsDataCollectionsTable extends Migration
     {
         Schema::dropIfExists('program_details_data_collections');
     }
+
+    // public function down()
+    // {
+    //     Schema::table('program_details_data_collections', function (Blueprint $table) {
+    //         $table->dropColumn('training_provider');
+    //         $table->dropColumn('program_name');
+    //         $table->dropColumn('field_of_education');
+    //     });
+    // }
 }

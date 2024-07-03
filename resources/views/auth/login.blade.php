@@ -26,7 +26,7 @@
                     </div>
                     <div class="row px-3"> <label class="mb-1">
                           <h6 class="mb-0 text-sm">Password</h6>
-                        </label> <input type="password" name="password" placeholder="Enter password" required  autocomplete="current-password"> 
+                        </label> <input type="password" name="password" placeholder="Enter password" required  autocomplete="current-password> 
                     </div>
                     <div class="row px-3 mb-4">
                         <div class="custom-control custom-checkbox custom-control-inline"> 
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="bg-blue py-4">
-            <div class="row px-3"> <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; 2021. All rights reserved.</small>
+            <div class="row px-3"> <small class="ml-4 ml-sm-5 mb-2">Copyright &copy; {{date("Y")}}. All rights reserved.</small>
                 <div class="social-contact ml-4 ml-sm-auto"> <span class="fas fa-facebook mr-4 text-sm"></span> <span class="fas fa-google-plus mr-4 text-sm"></span> <span class="fas fa-linkedin mr-4 text-sm"></span> <span class="fas fa-twitter mr-4 mr-sm-5 text-sm"></span> </div>
             </div>
         </div>

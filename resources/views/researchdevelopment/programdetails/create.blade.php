@@ -41,7 +41,7 @@
                                             <select name="training_provider_id" id="training_provider_id" class="form-control select2" required>
                                                 <option>Select learning center</option>
                                                 @foreach ($learningcenters as $id => $center)
-                                                    <option value="{{$id}}">{{$center}}</option>
+                                                    <option value="{{$center}}">{{$center}}</option>
                                                 @endforeach
                                             </select>
                                             @error('training_provider_id')
@@ -102,7 +102,7 @@
                                             <select name="field_of_education" id="field_of_education" class="form-control select2" required>
                                                 <option>Select field of education</option>
                                                 @foreach ($educationfields as $id => $field)
-                                                    <option value="{{$id}}">{{$field}}</option>
+                                                    <option value="{{$field}}">{{$field}}</option>
                                                 @endforeach
                                             </select>
                                             @error('field_of_education')

@@ -33,6 +33,7 @@ class CreateTrainingProviderStudentsTable extends Migration
             $table->string('programme_name')->nullable();
             $table->foreignId('qualification_at_entry')->nullable()->constrained('qualification_levels');
             $table->foreignId('region_id')->nullable()->constrained();
+            $table->string('local_government_area')->nullable()->constrained('local_goverment_areas');
             $table->foreignId('district_id')->nullable()->constrained();
             $table->foreignId('town_village_id')->nullable()->constrained('towns_villages');
             $table->foreignId('award')->nullable()->constrained('qualification_levels');

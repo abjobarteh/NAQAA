@@ -8,6 +8,7 @@ use App\Models\District;
 use App\Models\TownVillage;
 use App\Models\EducationField;
 use App\Models\QualificationLevel;
+use App\Models\LocalGovermentAreas;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
@@ -62,9 +63,11 @@ class StudentDetailsController extends Controller
 
         $countries = Country::all('name');
 
+        $localgovernmentareas = LocalGovermentAreas::all()->pluck('name', 'id');
+
         return view(
             'researchdevelopment.studentdetails.create',
-            compact('levels', 'learningcenters', 'fields', 'countries', 'regions', 'districts', 'towns')
+            compact('levels', 'learningcenters', 'fields', 'countries', 'regions', 'districts', 'towns', 'localgovernmentareas')
         );
     }
 
@@ -89,6 +92,7 @@ class StudentDetailsController extends Controller
             ->where('town_village_id', $request->town_village_id)
             ->whereDate('date_of_birth', $request->date_of_birth)
             ->where('nationality',  $request->nationality)
+            ->where('local_government_area', $request->local_government_area)
             ->whereDate('admission_date', $request->admission_date)
             ->where(DB::raw('lower(programme_name)'), 'like', '%' . strtolower($request->programme_name) . '%')
             ->exists();

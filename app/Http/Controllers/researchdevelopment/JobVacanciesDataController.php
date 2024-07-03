@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\ResearchDevelopment;
+namespace App\Http\Controllers\researchdevelopment;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResearchDevelopment\StoreJobVacancyDataCollectionRequest;

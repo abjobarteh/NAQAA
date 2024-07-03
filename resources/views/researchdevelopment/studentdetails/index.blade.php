@@ -34,16 +34,16 @@
                             <table id="example2" class="table datatable table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Student ID</th>
                                         <th>Fullname</th>
+                                        <th>Student ID</th>
                                         <th>Gender</th>
                                         <th>Phone</th>
                                         <th>Admission Date</th>
-                                        <th>Completion Date</th>
+                                        <th>Expected Completion Date</th>
                                         <th>Programme</th>
                                         <th>Award</th>
                                         <th>Learning Center</th>
-                                        <th>Qualifiction of Entry</th>
+                                        <th>Qualification of Entry</th>
                                         <th>Field of Education</th>
                                         <th>Attendance Status</th>
                                         <th>Date of Birth</th>

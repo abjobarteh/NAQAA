@@ -153,7 +153,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Webiste:</label>
+                                                    <label>Website:</label>
                                                     <input type="text" class="form-control" name="website" value="{{ old('website') }}" required>
                                                     @error('website')
                                                         <span class="text-danger mt-1">{{$message}}</span>
@@ -186,18 +186,6 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>District: <sup class="text-danger">*</sup></label>
-                                                    <select name="district_id" id="district_id" class="form-control select2" required>
-                                                        <option value="">Select district</option>
-                                                        @foreach ($districts as $id => $district)
-                                                            <option value="{{$id}}">{{$district}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @error('district_id')
-                                                        <span class="text-danger mt-1">{{$message}}</span>
-                                                    @enderror
-                                                </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
@@ -325,6 +313,19 @@
             $('#application_date').datetimepicker({
                 format: 'YYYY-MM-DD'
             });
+
+            $('#registration_date').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+
+            $('#accreditation_date').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+
+            $('#expiry_date').datetimepicker({
+                format: 'YYYY-MM-DD'
+            });
+
             $('#license_start_date').datetimepicker({
                 format: 'YYYY-MM-DD'
             });

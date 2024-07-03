@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "haruncpi/laravel-id-generator": "^1.0",
         "jimmyjs/laravel-report-generator": "^2.0",
@@ -21,7 +21,9 @@
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^4.0",
         "spatie/laravel-activitylog": "^3.16",
-        "spatie/laravel-backup": "^6.15"
+        "spatie/laravel-backup": "^6.15",
+        "swiftmailer/swiftmailer": "^6.3",
+        "symfony/mailer": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",

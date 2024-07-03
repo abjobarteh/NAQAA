@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RegistrationAccreditation\StoreTrainingProviderRequest;
 use App\Http\Requests\RegistrationAccreditation\UpdateTrainingProviderRequest;
 use App\Models\ApplicationStatus;
-use App\Models\District;
 use App\Models\Region;
 use App\Models\RegistrationAccreditation\ApplicationDetail;
 use App\Models\RegistrationAccreditation\RegistrationLicenceDetail;
@@ -33,7 +32,6 @@ class TrainingProvidersRegistrationController extends Controller
         abort_if(Gate::denies('access_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $registrations = ApplicationDetail::with([
-            'trainingprovider.district',
             'trainingprovider.classification',
             'registrationLicence'
         ])->where('application_type', 'institution_registration')
@@ -41,12 +39,11 @@ class TrainingProvidersRegistrationController extends Controller
             ->get();
 
         $regions = Region::all()->pluck('name', 'id');
-        $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
 
         return view(
             'registrationAccreditation.registration.trainingproviders.index',
-            compact('registrations', 'regions', 'districts', 'townvillages')
+            compact('registrations', 'regions', 'townvillages')
         );
     }
 
@@ -60,11 +57,10 @@ class TrainingProvidersRegistrationController extends Controller
         abort_if(Gate::denies('create_registration'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $regions = Region::all()->pluck('name', 'id');
-        $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
-        $categories = TrainingProviderCategory::all()->pluck('name', 'id');
         $ownerships = TrainingProviderOwnership::all()->pluck('name', 'id');
+        $categories = TrainingProviderCategory::all()->pluck('name', 'id');
         $application_statuses = ApplicationStatus::all()->pluck('name');
         $application_no = null;
 
@@ -82,11 +78,10 @@ class TrainingProvidersRegistrationController extends Controller
             'registrationAccreditation.registration.trainingproviders.create',
             compact(
                 'regions',
-                'districts',
                 'townvillages',
                 'classifications',
-                'categories',
                 'ownerships',
+                'categories',
                 'application_statuses',
                 'application_no'
             )
@@ -121,7 +116,7 @@ class TrainingProvidersRegistrationController extends Controller
                 )
                 ->whereHas('validLicence')
                 ->exists()
-            ) {
+            ) { 
                 return back()
                     ->withInfo('Registration not possible as Training Provider already has an Active Licence');
             } else {
@@ -181,7 +176,6 @@ class TrainingProvidersRegistrationController extends Controller
                     'address' => $data['address'],
                     'po_box' => $data['po_box'],
                     'region_id' => $data['region_id'],
-                    'district_id' => $data['district_id'],
                     'town_village_id' => $data['town_village_id'],
                     'telephone_work' => $data['telephone_work'] ?? $data['mobile_phone'],
                     'mobile_phone' => $data['mobile_phone'],
@@ -193,6 +187,7 @@ class TrainingProvidersRegistrationController extends Controller
                     'ownership_id' => $data['ownership_id'],
                     'is_registered' => $data['status'] === 'Approved' ? 1 : 0,
                     'manager' => $data['manager'],
+                    
                 ]);
 
                 // store training provider application details
@@ -254,7 +249,6 @@ class TrainingProvidersRegistrationController extends Controller
         $registration = ApplicationDetail::findOrFail($id)->load('trainingprovider', 'registrationLicence');
 
         $regions = Region::all()->pluck('name', 'id');
-        $districts = District::all()->pluck('name', 'id');
         $townvillages = TownVillage::all()->pluck('name', 'id');
         $classifications = TrainingProviderClassification::all()->pluck('name', 'id');
         $categories = TrainingProviderCategory::all()->pluck('name', 'id');
@@ -266,7 +260,6 @@ class TrainingProvidersRegistrationController extends Controller
             compact(
                 'registration',
                 'regions',
-                'districts',
                 'townvillages',
                 'categories',
                 'classifications',
@@ -295,7 +288,7 @@ class TrainingProvidersRegistrationController extends Controller
                 'address' => $data['address'],
                 'po_box' => $data['po_box'],
                 'region_id' => $data['region_id'],
-                'district_id' => $data['district_id'],
+                //'district_id' => $data['district_id'],
                 'town_village_id' => $data['town_village_id'],
                 'telephone_work' => $data['telephone_work'],
                 'mobile_phone' => $data['mobile_phone'],
